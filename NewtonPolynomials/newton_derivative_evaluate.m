@@ -1,21 +1,28 @@
-% MATLAB File : newton_derivative_evaluate.m
-% [f] = newton_derivative_evaluate(x,c)
+function[f] = newton_derivative_evaluate(x,c,varargin)
+% [F] = NEWTON_DERIVATIVE_EVALUATE(X,C)
+% [F] = NEWTON_DERIVATIVE_EVALUATE(X,C,Z)
 %
-% * Creation Date : 2009-06-03
+%     If Z is not given:
+%     For nodal locations X and modal coefficients c, calculates the
+%     value of the derivative of the Newton interpolant at X(1). The Horner
+%     decomposition of the interpolant makes this task very easy. 
+%     If C has multiple columns (say NC of them), we assume that there are multiple
+%     interpolants whose derivatives must be evaluated simultaneously.
 %
-% * Last Modified : Fri 12 Jun 2009 03:20:39 PM EDT
+%     For vectors:
+%     length(C) = n
+%     length(X) = n-1  (any additional nodal locations are ignored)
 %
-% * Created By : Akil Narayan
-%
-% * Purpose : For nodal locations x and modal coefficients c, calculates the
-%   value of the derivative of the Newton interpolant at x(1). The Horner
-%   decomposition of the interpolant makes this task very easy. 
-%   If c has multiple columns (say C of them), we assume that there are multiple
-%   interpolants whose derivatives must be evaluated simultaneously.
-%   length(c) = n
-%   length(x) = n-1  (any additional nodal locations are ignored)
+%     If Z is given:
+%     Computes the derivatives of the functions. 
+%     [Z,C] = size(z);
+%     Z is just the number of evaluations per cell. Unless this is going to be
+%     constant across cells, you might be better off feeding one cell at a time
+%     to the this function and using a parfor to parallelize the outer loop. 
 
-function[f] = newton_derivative_evaluate(x,c)
+global handles;
+newton = handles.bases.NewtonPolynomials;
+mono = handles.bases.monomials;
 
 [n,C] = size(c);
 if and(n==1,C>1)  % I don't think you're calling this for derivatives of
@@ -25,8 +32,31 @@ if and(n==1,C>1)  % I don't think you're calling this for derivatives of
   y = y';
 end
 
-f = c(n,:);
-z = x(1,:);
-for q = (n-1):(-1):2
-  f = f.*(z-x(q,:)) + c(q,:);
+if length(varargin)<1
+
+  f = c(n,:);
+  z = x(1,:);
+  for q = (n-1):(-1):2
+    f = f.*(z-x(q,:)) + c(q,:);
+  end
+
+  return
+
+% Need to evaluate at points inside the cells ... gets more complicated
+else
+  z = varargin{1};
+
+  [Z,C] = size(z);
+
+  % We're going to cheat and translate to monomials. In the long run, this could
+  % be problematic for both speed and numerical stability. But for now I'm lazy.
+  monomial_coefficients = newton.newton_to_monomial(c,x);
+  
+  % Find the derivative
+  monomial_coefficients = mono.monomial_derivative(monomial_coefficients);
+
+  % Evaluate at desired points
+  f = mono.evaluate(monomial_coefficients,z);
+
+  return
 end

@@ -1,17 +1,9 @@
-% MATLAB File : monomial_integrate.m
-% [ints] = monomial_integrate(mc,interval)
-%
-% * Creation Date : 2009-06-05
-%
-% * Last Modified : Fri 12 Jun 2009 03:52:30 PM EDT
-%
-% * Created By : Akil Narayan
-%
-% * Purpose : Given modal coefficients (mc) for a monomial expansion, integrates this
-%   expansion over the specified interval (interval). Is vectorized in the
-%   columns of mc and interval.
-
 function[ints] = monomial_integrate(mc,interval)
+% [INTS] = MONOMIAL_INTEGRATE(MC,INTERVAL)
+%
+%     Given modal coefficients (MC) for a monomial expansion, integrates this
+%     expansion over the specified interval (INTERVAL). Is vectorized in the
+%     columns of mc and interval.
 
 n = size(mc,1);
 C = size(mc,2);
