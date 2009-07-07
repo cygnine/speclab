@@ -8,7 +8,7 @@ function[modes] = nonuniform_nodes_to_modes(theta,f);
 %     output KS are the integer indices corresponding to the basis functions. 
 
 global handles;
-fourier = handles.bases.fourier;
+fourier = handles.speclab.fourier;
 
 % Force column vector
 theta = theta(:);

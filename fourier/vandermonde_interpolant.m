@@ -5,7 +5,7 @@ function[fz] = vandermonde_interpolant(theta,f,z);
 %     to be on the interval [0,2*pi]. 
 
 global handles;
-fourier = handles.bases.fourier;
+fourier = handles.speclab.fourier;
 
 % Force column vector
 theta = theta(:);

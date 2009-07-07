@@ -11,7 +11,7 @@ function[modes] = piecewise_poly_modes(monomial_coefficients,mesh,N);
 %     scheme. See integer_range.
 
 global handles;
-fourier = handles.bases.fourier;
+fourier = handles.speclab.fourier;
 
 ks = fourier.integer_range(N);
 [N,k] = size(monomial_coefficients);

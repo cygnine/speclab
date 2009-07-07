@@ -21,8 +21,8 @@ function[f] = newton_derivative_evaluate(x,c,varargin)
 %     to the this function and using a parfor to parallelize the outer loop. 
 
 global handles;
-newton = handles.bases.NewtonPolynomials;
-mono = handles.bases.monomials;
+newton = handles.speclab.NewtonPolynomials;
+mono = handles.speclab.monomials;
 
 [n,C] = size(c);
 if and(n==1,C>1)  % I don't think you're calling this for derivatives of
