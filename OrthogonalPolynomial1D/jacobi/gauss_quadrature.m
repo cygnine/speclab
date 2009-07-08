@@ -9,7 +9,7 @@ opoly = handles.speclab.OrthogonalPolynomial1D;
 jac = opoly.jacobi;
 pss = handles.speclab.common.physical_scaleshift_1d;
 
-jac.defaults;
+opt = jac.defaults(varargin{:});
 [alpha,beta,scale,shift] = deal(opt.alpha,opt.beta,opt.scale,opt.shift);
 
 tol = 1e-8;

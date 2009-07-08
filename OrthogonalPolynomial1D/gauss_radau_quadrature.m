@@ -6,12 +6,13 @@ function[x,w] = gauss_radau_quadrature(a,b,N,r);
 %     The fixed Radau point is at the location r.
 
 global handles;
+opoly = handles.speclab.OrthogonalPolynomial1D;
 gq = handles.speclab.OrthogonalPolynomial1D.gauss_quadrature;
 
 a = a(1:N);
 b = b(1:N);
 
-temp = eval_opoly(r,a,b,[N-2,N-1]);
+temp = opoly.eval_polynomial(r,a,b,[N-2,N-1],'normalization','monic');
 a(N) = r - b(N)*temp(1)/temp(2);
 
 a = a(:);

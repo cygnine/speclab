@@ -1,15 +1,27 @@
 function[p] = eval_opoly(x,alpha,beta,n);
-
-% function[p] = eval_opoly(x,alpha,beta,n);
-% Evaluates the monic orthogonal polynomials defined by the recurrence
-% coefficients alpha and beta. Assumes alpha and beta are long enough as
-% necessary to evaluate the max(n)'th polynomial. 
-% 
-% Supports vectorization in n and x.
-
-% 20080522: acn
-
-% p_{n+1} = (x-a_{n})*p_n - b_{n}*p_{n-1}
+% [P] = EVAL_NORMALIZED_ORTHOGONAL_POLY(X,ALPHA,BETA,N,{D:0,NORMALIZATION='NORMAL'});
+%
+%     Evaluates the monic orthogonal polynomials defined by the recurrence
+%     coefficients ALPHA and BETA. Assumes ALPHA and BETA are long enough as
+%     necessary to evaluate the first max(N)'th polynomials. 
+%
+%     The output P is of size [length(X), length(N)].
+%
+%     The optional input D is a vector of whole numbers designating which
+%     derivatives are to be evaluated. The default 0 indicates just to evaluate
+%     the polynomials. Vectorization in D is realized via the third dimension in
+%     the output P.
+%
+%     The second optional input NORMALIZATION determines which normalization to
+%     use. The possible values are:
+%
+%       'normal':  L^2(w) normalized polynomials, where w is the orthogonal
+%         weight function
+%     
+%     Monic:
+%     p_{n+1} = (x-a_{n})*p_n - b_{n}*p_{n-1}
+%     Normalized:
+%     sqrt(b_{n+1}) p_{n+1} = (x-a_n) p_n - sqrt(b_n) p_{n-1}
 
 % Pre-processing:
 x = x(:);

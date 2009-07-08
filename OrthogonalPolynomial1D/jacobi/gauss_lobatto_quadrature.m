@@ -15,7 +15,7 @@ jac = opoly.jacobi;
 pss = handles.speclab.common.physical_scaleshift_1d;
 sss = handles.speclab.common.standard_scaleshift_1d;
 
-jac.defaults;
+opt = jac.defaults(varargin{:});
 [alpha,beta,scale,shift,r1,r2] = ...
   deal(opt.alpha,opt.beta,opt.scale,opt.shift,opt.r1,opt.r2);
 
@@ -24,7 +24,7 @@ r1 = sss(r1,scale,shift);
 r2 = sss(r2,scale,shift);
 
 % Compute recurrence constants
-[a,b] = jac.recurrence(N,alpha,beta,shift,scale);
+[a,b] = jac.recurrence(N,opt);
 
 % Solve eigenvalue problem
 [x,w] = opoly.gauss_lobatto_quadrature(a,b,N,r1,r2);

@@ -6,7 +6,7 @@ function[a,b] = jacobi_recurrence(N,varargin)
 
 % Sets default values for alpha, beta
 global handles;
-handles.speclab.OrthogonalPolynomial1D.jacobi.defaults;
+opt = handles.speclab.OrthogonalPolynomial1D.jacobi.defaults(varargin{:});
 [alpha,beta] = deal(opt.alpha,opt.beta);
 
 a = (beta^2-alpha^2)*ones([N 1]);

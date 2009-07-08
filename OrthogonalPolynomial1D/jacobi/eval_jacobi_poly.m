@@ -8,17 +8,16 @@ function[p] = eval_jacobi_poly(x,n,varargin)
 % 20080524: acn
 
 global handles;
-jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+opoly = handles.speclab.OrthogonalPolynomial1D;
+jac = opoly.jacobi;
 sss = handles.speclab.common.standard_scaleshift_1d;
-jac.defaults;
+opt = jac.defaults(varargin{:});
 
 N = max(n)+2;
 
-[a,b] = jacobi_recurrence(N+1,opt);
-x = sss(x,opt.scale,opt,shift);
+[a,b] = jac.recurrence(N+1,opt);
 
 switch opt.normalization
 case 'normal'
-  p = eval_normalized_orthogonal_poly(x,a,b,n,opt);
-  p = p/sqrt(opt.scale);
+  p = opoly.eval_polynomial(x,a,b,n,opt);
 end

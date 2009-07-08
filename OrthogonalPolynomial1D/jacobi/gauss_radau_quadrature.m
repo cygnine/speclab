@@ -12,7 +12,7 @@ jac = opoly.jacobi;
 pss = handles.speclab.common.physical_scaleshift_1d;
 sss = handles.speclab.common.standard_scaleshift_1d;
 
-jac.defaults;
+opt = jac.defaults(varargin{:});
 [alpha,beta,scale,shift,r] = ...
   deal(opt.alpha,opt.beta,opt.scale,opt.shift,opt.r);
 r = sss(r,scale,shift);
@@ -29,7 +29,7 @@ if (abs(alpha+1/2)<tol)&&(abs(beta+1/2)<tol)&&(abs(abs(r)-1)<tol);
     w = flipud(w);
   end
 else
-  [a,b] = jac.recurrence(N,alpha,beta,shift,scale);
+  [a,b] = jac.recurrence(N,opt);
 
   [x,w] = opoly.gauss_radau_quadrature(a,b,N,r);
 end
