@@ -1,22 +1,14 @@
-% MATLAB File : divided_difference.m
-% [dd] = divided_difference(x,y)
-%
-% * Creation Date : 2009-06-03
-%
-% * Last Modified : Fri 12 Jun 2009 03:20:02 PM EDT
-%
-% * Created By : Akil Narayan
-%
-% * Purpose : Calculates modal coefficients for interpolation by using the
-%   divded difference formulation. The modal coefficients are computed assuming
-%   that the basis set is constructed using products of (x-x(k)) for k =
-%   1,2,...,n-1 with n being the size of the input. Of course, the basis
-%   products are ordered by the input ordering.
-%   The indexing assumed here is along rows. If x and y have multiple columns
-%   (say C of them), this produces an n x C matrix with divided difference
-%   coefficients.
-
 function [dd] = divided_difference(x,y)
+% [DD] = DIVIDED_DIFFERENCE(X,Y)
+%
+%     Calculates modal coefficients for interpolation by using the divded
+%     difference formulation. The modal coefficients are computed assuming that
+%     the basis set is constructed using products of (x-X(k)) for k =
+%     1,2,...,n-1 with n being the size of the input. Of course, the basis
+%     products are ordered by the input ordering.  The indexing assumed here is
+%     along rows. If X and Y have multiple columns (say C of them), this
+%     produces a length(X) x C matrix with divided difference coefficients.
+
 
 [n,C] = size(x);
 if and(n==1,C>1)  % I don't think you're calling this for constant interpolants;

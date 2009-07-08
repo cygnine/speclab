@@ -3,7 +3,7 @@ function[f] = newton_derivative_evaluate(x,c,varargin)
 % [F] = NEWTON_DERIVATIVE_EVALUATE(X,C,Z)
 %
 %     If Z is not given:
-%     For nodal locations X and modal coefficients c, calculates the
+%     For nodal locations X and modal coefficients C, calculates the
 %     value of the derivative of the Newton interpolant at X(1). The Horner
 %     decomposition of the interpolant makes this task very easy. 
 %     If C has multiple columns (say NC of them), we assume that there are multiple
@@ -14,7 +14,7 @@ function[f] = newton_derivative_evaluate(x,c,varargin)
 %     length(X) = n-1  (any additional nodal locations are ignored)
 %
 %     If Z is given:
-%     Computes the derivatives of the functions. 
+%     Computes the derivatives of the functions at the locations Z. 
 %     [Z,C] = size(z);
 %     Z is just the number of evaluations per cell. Unless this is going to be
 %     constant across cells, you might be better off feeding one cell at a time

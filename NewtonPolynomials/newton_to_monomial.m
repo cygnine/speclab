@@ -1,15 +1,15 @@
 function[mc] = newton_to_monomial(nc,x)
 % [MC] = NEWTON_TO_MONOMIAL(NC,X)
 %
-%     Rewrites the Newton polynomial modal coefficients (nc) as monomial
-%     coefficients (mc). Thus, it requires the nodal locations (x) specifying
+%     Rewrites the Newton polynomial modal coefficients (NC) as monomial
+%     coefficients (MC). Thus, it requires the nodal locations (X) specifying
 %     the Newton basis.  Unfortunately, the standardization I chose regarding
 %     order of the monomial coefficients is opposite to that of Matlab's
 %     POLYVAL, so you'll have to flipud things if you want to use that function
 %     to transform polynomials. 
 %
-%     Is vectorized for multiple columns of nc/x. Assumes size(x) == size(nc),
-%     although technically the last row of x is not used. 
+%     Is vectorized for multiple columns of NC/X. Assumes size(X) == size(NC),
+%     although technically the last row of X is not used. 
 
 n = size(x,1);
 C = size(x,2);
