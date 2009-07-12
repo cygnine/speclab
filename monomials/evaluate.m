@@ -11,6 +11,10 @@ function[fz] = evaluate(mc,z);
 %     Why does this even exist given Matlab's POLYVAL? Because POLYVAL isn't
 %     vectorized. NB the ordering of the coefficients is reversed from POLYVAL. 
 
+if length(z)==0
+  fz = [];
+  return
+end
 assert(size(mc,2)==size(z,2), ...
     'Error: you must give me inputs with the same number of columns');
 

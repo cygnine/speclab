@@ -45,6 +45,10 @@ if length(varargin)<1
 % Need to evaluate at points inside the cells ... gets more complicated
 else
   z = varargin{1};
+  if length(z)==0
+    f = [];
+    return
+  end
 
   [Z,C] = size(z);
 

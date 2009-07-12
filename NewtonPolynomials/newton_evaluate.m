@@ -1,5 +1,5 @@
-function[y] = newton_evaluate(z,c,x)
-% [Y] = NEWTON_EVALUATE(Z,C,X)
+function[y] = newton_evaluate(x,c,z)
+% [Y] = NEWTON_EVALUATE(X,C,Z)
 %
 %     Uses Horner's method of evaluation to compute the interpolant at
 %     the points Z given the modal coefficients C corresponding to a Newton
