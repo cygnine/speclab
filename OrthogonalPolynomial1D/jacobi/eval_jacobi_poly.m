@@ -4,8 +4,6 @@ function[p] = eval_jacobi_poly(x,n,varargin)
 %     Evaluates the nth generalized Jacobi polynomials at the locations x. 
 %     The weight function is (1-1/scale*(x-shift))^alpha*(1+1/scale*(x-shift))^beta
 %     Is vectorized in x and n.
-%
-% 20080524: acn
 
 global handles;
 opoly = handles.speclab.OrthogonalPolynomial1D;
