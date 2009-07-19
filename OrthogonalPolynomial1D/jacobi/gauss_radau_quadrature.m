@@ -15,7 +15,7 @@ sss = handles.speclab.common.standard_scaleshift_1d;
 opt = jac.defaults(varargin{:});
 [alpha,beta,scale,shift,r] = ...
   deal(opt.alpha,opt.beta,opt.scale,opt.shift,opt.r);
-r = sss(r,scale,shift);
+r = sss(r,opt);
 
 tol = 1e-8;
 if (abs(alpha+1/2)<tol)&&(abs(beta+1/2)<tol)&&(abs(abs(r)-1)<tol);
@@ -34,5 +34,5 @@ else
   [x,w] = opoly.gauss_radau_quadrature(a,b,N,r);
 end
 
-x = pss(x,scale,shift);
+x = pss(x,opt);
 w = w*scale;

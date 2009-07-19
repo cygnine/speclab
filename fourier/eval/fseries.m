@@ -26,6 +26,8 @@ N_k = length(k);
 k_not_0 = (k~=0);
 k_is_0 = ~(k_not_0);
 
+N_k_not_0 = N_k - sum(k_is_0);
+
 alpha = opt.delta - 1/2;
 beta = opt.gamma - 1/2;
 
@@ -40,10 +42,10 @@ p1 = jac.eval_jacobi_poly(r,abs(k),'alpha', alpha, ...
 Psi(:,k_is_0) = 1/sqrt(2)*p1(:,k_is_0);
 
 if any(k_not_0)
-  p2 = jac.eval_jacobi_poly(r,abs(k(k_not_0)), 'alpha', alpha+1, ...
-                                               'beta',  beta+1);
+  p2 = jac.eval_jacobi_poly(r,abs(k(k_not_0))-1, 'alpha', alpha+1, ...
+                                                 'beta',  beta+1);
   p2 = i*spdiags(rc,0,N_theta,N_theta)*p2...
-       *spdiags(sign(k(k_not_0)), 0,N_k, N_k);
+       *spdiags(sign(k(k_not_0)), 0,N_k_not_0, N_k_not_0);
   
   Psi(:,k_not_0) = 1/2*(p1(:,k_not_0) + p2);
 end

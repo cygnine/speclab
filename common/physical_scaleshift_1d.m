@@ -1,8 +1,11 @@
-function[x] = physical_scaleshift1d(x,scale,shift);
-% [X] = PHYSICAL_SCALESHIFT1D(X,SCALE,SHIFT);
+function[x] = physical_scaleshift1d(x,varargin)
+% [X] = PHYSICAL_SCALESHIFT1D(X,{SCALE=1,SHIFT=0});
 %  
 %     Implements the affine shifting+scaling necessary to take things from the
 %     one-dimensional standard domain [-1,1] to the physical domain specified by
 %     [shift-scale,shift+scale].
 
-x = x*scale+shift;
+global handles;
+opt = handles.common.InputSchema({'scale','shift'}, {1,0}, [],varargin{:});
+
+x = x*opt.scale+opt.shift;

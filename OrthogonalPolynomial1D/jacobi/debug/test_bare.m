@@ -5,7 +5,7 @@ global handles;
 pss = handles.speclab.common.physical_scaleshift_1d;
 jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
 
-N = ceil(200*rand(1));
+N = ceil(100*rand(1));
 alpha = -1/2 + 10*rand(1);
 beta = -1/2 + 10*rand(1);
 scale = 3*rand(1);
@@ -19,16 +19,18 @@ tempf_shift = randn(1);
 f = @(x) exp(-(x-tempf_shift).^2);
 df = @(x) -2*(x-tempf_shift).*exp(-(x-tempf_shift).^2);
 
+options = struct;
 options.alpha = alpha;
 options.beta = beta;
 options.scale = scale;
 options.shift = shift;
-options.r = pss(r,options.scale,options.shift);
-options.r1 = pss(r1,options.scale,options.shift);
-options.r2 = pss(r2,options.scale,options.shift);
+options.r = pss(r,options);
+options.r1 = pss(r1,options);
+options.r2 = pss(r2,options);
 %options.normalization = 'normal';
 options = jac.defaults(options);
 
+chebcase = struct;
 chebcase.scale = scale;
 chebcase.shift = shift;
 

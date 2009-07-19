@@ -15,18 +15,18 @@ pss = handles.speclab.common.physical_scaleshift_1d;
 
 if mod(N,2)==0
 
-  [r,wr] = jacobi.gauss_quadrature(N/2, 'alpha', opt.delta-1/2,...
+  [r,wr] = jac.gauss_quadrature(N/2, 'alpha', opt.delta-1/2,...
                                         'beta',  opt.gamma-1/2);
   r = flipud(r); wr = flipud(wr);
 
   r = acos(r);
   theta = [-flipud(r); r];
   w = [flipud(wr); wr];
-  r = pss(r,opt);
+  theta = pss(theta,opt);
 
 else
   
-  [r,wr] = jacobi.gauss_radau_quadrature((N+1)/2, 'alpha', opt.delta-1/2, ...
+  [r,wr] = jac.gauss_radau_quadrature((N+1)/2, 'alpha', opt.delta-1/2, ...
                                                   'beta',  opt.gamma-1/2, ...
                                                   'r', 1);
 
@@ -34,7 +34,7 @@ else
   wr(1) = wr(1)*2;
 
   r = acos(r);
-  theta = [-flipud(r); r(1:end)];
+  theta = [-flipud(r); r(2:end)];
   w = [flipud(wr); wr(2:end)];
-  r = pss(r,opt);
+  theta = pss(theta,opt);
 end

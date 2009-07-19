@@ -36,7 +36,7 @@ scale = opt.scale;
 D = max(d);
 N = max(n);
 
-x = sss(x,scale,shift);
+x = sss(x,opt);
 
 p = zeros([length(x) length(n) length(d)]);
 p0 = zeros([length(x) N+1]);

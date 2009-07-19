@@ -9,6 +9,7 @@ global handles;
 opt = handles.speclab.OrthogonalPolynomial1D.jacobi.defaults(varargin{:});
 [alpha,beta] = deal(opt.alpha,opt.beta);
 
+N = double(N);
 a = (beta^2-alpha^2)*ones([N 1]);
 b = ones([N 1]);
 

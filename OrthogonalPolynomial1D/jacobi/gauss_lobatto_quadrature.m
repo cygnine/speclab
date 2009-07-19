@@ -20,8 +20,8 @@ opt = jac.defaults(varargin{:});
   deal(opt.alpha,opt.beta,opt.scale,opt.shift,opt.r1,opt.r2);
 
 % Move all inputs to the standard interval [-1,1]
-r1 = sss(r1,scale,shift);
-r2 = sss(r2,scale,shift);
+r1 = sss(r1,opt);
+r2 = sss(r2,opt);
 
 % Compute recurrence constants
 [a,b] = jac.recurrence(N,opt);
@@ -30,5 +30,5 @@ r2 = sss(r2,scale,shift);
 [x,w] = opoly.gauss_lobatto_quadrature(a,b,N,r1,r2);
 
 % Convert back to physical inteval
-x = pss(x,scale,shift);
+x = pss(x,opt);
 w = w*scale;

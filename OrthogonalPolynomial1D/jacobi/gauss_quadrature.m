@@ -23,5 +23,5 @@ else
   [x,w] = opoly.gauss_quadrature(a,b,N);
 end
 
-x = pss(x,scale,shift);
+x = pss(x,opt);
 w = w*scale;

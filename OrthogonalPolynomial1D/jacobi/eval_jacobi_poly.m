@@ -8,7 +8,6 @@ function[p] = eval_jacobi_poly(x,n,varargin)
 global handles;
 opoly = handles.speclab.OrthogonalPolynomial1D;
 jac = opoly.jacobi;
-sss = handles.speclab.common.standard_scaleshift_1d;
 opt = jac.defaults(varargin{:});
 
 N = max(n)+2;
