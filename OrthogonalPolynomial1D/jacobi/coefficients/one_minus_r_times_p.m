@@ -21,8 +21,18 @@ mu = zeros([N,2]);
 
 switch opt.normalization
 case 'normal'
-  mu(:,1) = sqrt(2*(n+alpha).*(n+alpha+beta)./...
+  tol = 1e-12;
+  if abs(alpha+beta)<tol
+    n_is_0 = n==0;
+    n_not_0 = ~(n==0);
+    mu(n_is_0,1) = sqrt(2*alpha/(alpha+beta+1));
+    ns = n(n_not_0);
+    mu(n_not_0,1) = sqrt(2*(ns + alpha).*(ns+alpha+beta)./...
+                         ((2*ns+alpha+beta).*(2*ns+alpha+beta+1)));
+  else
+    mu(:,1) = sqrt(2*(n+alpha).*(n+alpha+beta)./...
             ((2*n+alpha+beta).*(2*n+alpha+beta+1)));
+  end
 
   mu(:,2) = -sqrt(2*(n+1).*(n+beta+1)./...
             ((2*n+alpha+beta+1).*(2*n+alpha+beta+2)));

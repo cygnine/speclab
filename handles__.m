@@ -12,6 +12,7 @@ hs.fourier.base = fullfile(hs.base,'fourier');
   hs.fourier.quad.base = fullfile(hs.fourier.base, 'quad');
   hs.fourier.weights.base = fullfile(hs.fourier.base, 'weights');
   hs.fourier.maps.base = fullfile(hs.fourier.base, 'maps');
+  hs.fourier.connection.base = fullfile(hs.fourier.base, 'connection');
 hs.monomials.base = fullfile(hs.base,'monomials');
 hs.NewtonPolynomials.base = fullfile(hs.base,'NewtonPolynomials');
 

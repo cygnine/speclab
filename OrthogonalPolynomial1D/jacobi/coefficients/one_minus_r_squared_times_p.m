@@ -24,12 +24,14 @@ mu = zeros([N,3]);
 switch opt.normalization
 case 'normal'
   n_is_0 = (n==0);
-  n_not_0 = ~(n_is_0);
-  temp = 2*n(n_not_0)+alpha+beta;
-  mu(n_not_0,1) = sqrt(4*(n(n_not_0)+alpha).*(n(n_not_0)+beta).*(n(n_not_0)+alpha+beta-1).*(n(n_not_0)+alpha+beta)./...
+  n_is_1 = (n==1);
+  n_large = ~(n_is_0 & n_is_1);
+  temp = 2*n(n_large)+alpha+beta;
+  mu(n_large,1) = sqrt(4*(n(n_large)+alpha).*(n(n_large)+beta).*(n(n_large)+alpha+beta-1).*(n(n_large)+alpha+beta)./...
                  ((temp-1).*(temp.^2).*(temp+1)));
   mu(n_is_0,1) = sqrt(4*alpha*beta./...
                       ((alpha+beta)*(alpha+beta+1)));
+  mu(n_is_1,1) = 2/(alpha+beta+2)*sqrt((alpha+1)*(beta+1)*(alpha+beta)/(alpha+beta+3));
 %    epsn[:,0] = sqrt(4*(n+a)*(n+b)*(n+a+b-1)*(n+a+b)/ \
 %                        ((2*n+a+b-1)*(2*n+a+b)**2*(2*n+a+b+1)))
 
