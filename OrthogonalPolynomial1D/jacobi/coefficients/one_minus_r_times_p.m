@@ -1,5 +1,5 @@
 function[mu] = one_minus_r_times_p(n,alpha,beta,varargin)
-% [MU] = ONE_MINUS_R_TIMES_P(N,ALPHA,BETA,{NORMALIZATION='monic'})
+% [MU] = ONE_MINUS_R_TIMES_P(N,ALPHA,BETA,{NORMALIZATION='normal'})
 %
 %     Computes the connection coefficients between (1-r) x P and P. I.e., given
 %     the vector N of whole-number indices, and valid Jacobi class parameters
