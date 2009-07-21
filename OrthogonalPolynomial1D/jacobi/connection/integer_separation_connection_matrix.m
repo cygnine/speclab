@@ -1,9 +1,10 @@
-function[C] = modal_coefficient_connection_matrix(N,alpha,beta,A,B,varargin)
-% [C] = MODAL_COEFFICIENT_CONNECTION_MATRIX(N,ALPHA,BETA,A,B,{NORMALIZATION='normal'})
+function[C] = integer_separation_connection_matrix(N,alpha,beta,A,B,varargin)
+% [C] = INTEGER_SEPARATION_CONNECTION_MATRIX(N,ALPHA,BETA,A,B,{NORMALIZATION='normal'})
 %
 %     Returns the sparse N x N connection matrix C that connects modal
 %     coefficients from Jacobi polynomials of class (ALPHA,BETA) to Jacobi
-%     polynomials of class (ALPHA+A, BETA+B). 
+%     polynomials of class (ALPHA+A, BETA+B) when A and B are integers. This
+%     connection is sparse. Therefore, the matrix C is a sparse-matrix datatype. 
 %
 %     The optional input NORMALIZATION defines the normalization of the
 %     polynomials P, which affects the matrix C.
