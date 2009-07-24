@@ -16,4 +16,4 @@ theta = sss(theta,opt);
 wfourier = handles.speclab.fourier.weights.weight(theta,opt);
 w = wfourier.*exp(i*(opt.gamma+opt.delta)/2*(pi-theta));
 
-w = w/opt.scale;
+w = w/sqrt(opt.scale);

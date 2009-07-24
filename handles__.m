@@ -13,6 +13,10 @@ hs.fourier.base = fullfile(hs.base,'fourier');
   hs.fourier.weights.base = fullfile(hs.fourier.base, 'weights');
   hs.fourier.maps.base = fullfile(hs.fourier.base, 'maps');
   hs.fourier.connection.base = fullfile(hs.fourier.base, 'connection');
+hs.wiener.base = fullfile(hs.base,'wiener');
+  hs.wiener.eval.base = fullfile(hs.wiener.base, 'eval');
+  hs.wiener.weights.base = fullfile(hs.wiener.base, 'weights');
+  hs.wiener.maps.base = fullfile(hs.wiener.base, 'maps');
 hs.monomials.base = fullfile(hs.base,'monomials');
 hs.NewtonPolynomials.base = fullfile(hs.base,'NewtonPolynomials');
 

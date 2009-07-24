@@ -27,4 +27,5 @@ end
 w = phase * (opt.delta*(1+exp(-i*theta)) - opt.gamma*(1+exp(i*theta)));
 
 % Weight normalization + derivative Jacobian
+% >>>>>> is this right???
 w = w/opt.scale.^2;
