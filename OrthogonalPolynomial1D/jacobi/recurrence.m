@@ -1,5 +1,5 @@
-function[a,b] = jacobi_recurrence(N,varargin)
-% [A,B] = JACOBI_RECURRENCE(N,{ALPHA=-1/2,BETA=-1/2})
+function[a,b] = recurrence(N,varargin)
+% [A,B] = RECURRENCE(N,{ALPHA=-1/2,BETA=-1/2})
 %
 %     Returns the recurrence coefficients to generate the first N Jacobi
 %     polynomials defined by (ALPHA, BETA). 

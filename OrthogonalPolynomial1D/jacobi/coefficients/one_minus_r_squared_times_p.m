@@ -1,4 +1,4 @@
-function[mu] = one_minus_r_squard_times_p(n,alpha,beta,varargin)
+function[mu] = one_minus_r_squared_times_p(n,alpha,beta,varargin)
 % [MU] = ONE_MINUS_R_SQUARED_TIMES_P(N,ALPHA,BETA,{NORMALIZATION='monic'})
 %
 %     Computes the connection coefficients between (1-r^2) x P and P. I.e.,

@@ -1,4 +1,4 @@
-function[x] = standard_scaleshift1d(x,varargin)
+function[x] = standard_scaleshift_1d(x,varargin)
 % [X] = STANDARD_SCALESHIFT1D(X,{SCALE=1,SHIFT=0});
 %  
 %     Implements the affine shifting+scaling necessary to take things from the

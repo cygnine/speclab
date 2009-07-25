@@ -1,4 +1,4 @@
-function[p] = eval_opoly(x,alpha,beta,n);
+function[p] = eval_monic_orthogonal_poly(x,alpha,beta,n);
 % [P] = EVAL_NORMALIZED_ORTHOGONAL_POLY(X,ALPHA,BETA,N,{D:0,NORMALIZATION='NORMAL'});
 %
 %     Evaluates the monic orthogonal polynomials defined by the recurrence

@@ -1,4 +1,4 @@
-function[x] = physical_scaleshift1d(x,varargin)
+function[x] = physical_scaleshift_1d(x,varargin)
 % [X] = PHYSICAL_SCALESHIFT1D(X,{SCALE=1,SHIFT=0});
 %  
 %     Implements the affine shifting+scaling necessary to take things from the
