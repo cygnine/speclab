@@ -13,6 +13,7 @@ hs.fourier.base = fullfile(hs.base,'fourier');
   hs.fourier.weights.base = fullfile(hs.fourier.base, 'weights');
   hs.fourier.maps.base = fullfile(hs.fourier.base, 'maps');
   hs.fourier.connection.base = fullfile(hs.fourier.base, 'connection');
+  hs.fourier.fft.base = fullfile(hs.fourier.base, 'fft');
 hs.wiener.base = fullfile(hs.base,'wiener');
   hs.wiener.eval.base = fullfile(hs.wiener.base, 'eval');
   hs.wiener.weights.base = fullfile(hs.wiener.base, 'weights');

@@ -1,4 +1,4 @@
-function[nodes] = ifft(modes);
+function[nodes,ks] = ifft(modes,varargin);
 % [NODES] = IFFT(MODES,{GAMMA=0,DELTA=0,SHIFT=0,SCALE=1})
 %
 %     A wrapper for Matlab's IFFT. For GAMMA=DELTA=0, takes in modal
@@ -13,10 +13,17 @@ function[nodes] = ifft(modes);
 global handles;
 opt = handles.common.InputSchema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
 conn = handles.speclab.fourier.connection.negative_integer_separation_connection;
+N = length(modes);
 
 if (opt.gamma+opt.delta)>0
-  modes = conn(modes,0,0,opt.gamma,opt.delta)
+  modes = conn(modes,0,0,opt.gamma,opt.delta);
 end
 
-modes = ifftshift(modes)*length(modes)/sqrt(2*pi);
+ks = handles.speclab.common.integer_range(N);
+phase = exp(-i*ks*pi/N);
+phase(ks==0) = 1;
+phase(mod(ks,2)==1) = phase(mod(ks,2)==1)*-1;
+modes = modes./phase;
+
+modes = ifftshift(modes)*N/sqrt(2*pi);
 nodes = ifft(modes);

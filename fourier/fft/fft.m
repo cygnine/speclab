@@ -10,11 +10,21 @@ function[modes] = fft(nodes,varargin);
 %     generalized Fourier expansion.
 
 global handles;
-opt = handles.common.InputSchema({'G','D','shift','scale'},{0,0,0,1},[],varargin{:});
+opt = handles.common.InputSchema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
 conn = handles.speclab.fourier.connection.positive_integer_separation_connection;
+N = length(nodes);
+
+%modes = fftshift(fft(fftshift(nodes)));
+%phase = 
 
 modes = fft(nodes);
-modes = fftshift(modes)/length(modes)*sqrt(2*pi);
+modes = fftshift(modes)/N*sqrt(2*pi);
+
+ks = handles.speclab.common.integer_range(N);
+phase = exp(-i*ks*pi/N);
+phase(ks==0) = 1;
+phase(mod(ks,2)==1) = phase(mod(ks,2)==1)*-1;
+modes = phase.*modes;
 
 if (opt.gamma+opt.delta)>0
   modes = conn(modes,0,0,opt.gamma,opt.delta);
