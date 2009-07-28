@@ -12,7 +12,7 @@ opt = jac.defaults(varargin{:});
 
 N = max(n)+2;
 
-[a,b] = jac.recurrence(N+1,opt);
+[a,b] = jac.coefficients.recurrence(N+1,opt);
 
 if strcmpi(opt.normalization,'normal')
   p = opoly.eval_polynomial(x,a,b,n,opt);

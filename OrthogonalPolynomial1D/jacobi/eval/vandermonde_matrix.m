@@ -14,10 +14,10 @@ if x ~= false
   n = 0:(length(x)-1);
 
 elseif n ~= false
-  [x,w] = jac.gauss_quadrature(n,opt);
+  [x,w] = jac.quad.gauss_quadrature(n,opt);
   n = 0:(n-1);
 else
   error('You must input either a nodal vector X or a size N');
 end
 
-v = handles.common.make_vandermonde(x,n,jac.eval_jacobi_poly,opt);
+v = handles.common.make_vandermonde(x,n,jac.eval.eval_jacobi_poly,opt);

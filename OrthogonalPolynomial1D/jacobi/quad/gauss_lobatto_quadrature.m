@@ -24,7 +24,7 @@ r1 = sss(r1,opt);
 r2 = sss(r2,opt);
 
 % Compute recurrence constants
-[a,b] = jac.recurrence(N,opt);
+[a,b] = jac.coefficients.recurrence(N,opt);
 
 % Solve eigenvalue problem
 [x,w] = opoly.gauss_lobatto_quadrature(a,b,N,r1,r2);

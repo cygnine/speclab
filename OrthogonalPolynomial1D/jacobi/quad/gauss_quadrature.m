@@ -18,7 +18,7 @@ if (abs(alpha+1/2)<tol)&&(abs(beta+1/2)<tol);
   temp = linspace(pi,0,N+1)';
   x = cos(temp(1:N)-pi/(2*N));
 else
-  [a,b] = jac.recurrence(N+1,opt);
+  [a,b] = jac.coefficients.recurrence(N+1,opt);
 
   [x,w] = opoly.gauss_quadrature(a,b,N);
 end

@@ -29,7 +29,7 @@ if (abs(alpha+1/2)<tol)&&(abs(beta+1/2)<tol)&&(abs(abs(r)-1)<tol);
     w = flipud(w);
   end
 else
-  [a,b] = jac.recurrence(N,opt);
+  [a,b] = jac.coefficients.recurrence(N,opt);
 
   [x,w] = opoly.gauss_radau_quadrature(a,b,N,r);
 end
