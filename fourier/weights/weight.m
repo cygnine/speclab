@@ -10,8 +10,11 @@ function[w] = weight(theta,varargin)
 global handles;
 sss = handles.speclab.common.standard_scaleshift_1d;
 opt = handles.speclab.fourier.defaults(varargin{:});
+jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
 
-theta = sss(theta,opt);
+%theta = sss(theta,opt);
+%w = ((1-cos(theta)).^opt.delta) .* ((1+cos(theta)).^opt.gamma);
 
-w = ((1-cos(theta)).^opt.gamma) .* ((1+cos(theta)).^opt.delta);
+r = xr.theta_to_r(theta,opt);
+w = jac.weights.weight(r,'alpha',opt.delta, 'beta', opt.gamma);
 w = w/opt.scale;
