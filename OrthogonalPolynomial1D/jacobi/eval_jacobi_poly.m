@@ -14,7 +14,6 @@ N = max(n)+2;
 
 [a,b] = jac.recurrence(N+1,opt);
 
-switch opt.normalization
-case 'normal'
+if strcmpi(opt.normalization,'normal')
   p = opoly.eval_polynomial(x,a,b,n,opt);
 end

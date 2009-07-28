@@ -42,11 +42,10 @@ p = zeros([length(x) length(n) length(d)]);
 p0 = zeros([length(x) N+1]);
 p1 = zeros([length(x) N+1]);
 
-switch opt.normalization
-case 'normal'
+if strcmpi(opt.normalization,'normal')
   beta = sqrt(beta);
   p(:,n==0,d==0) = 1/beta(1);
-case 'monic'
+elseif strcmpi(opt.normalization,'monic')
   p(:,n==0,d==0) = 1;
 end
 
@@ -60,22 +59,20 @@ Dcount = 1;
 
 for qq = 0:D
   p1(:,1:qq) = 0;
-  switch opt.normalization
-  case 'normal'
+  if strcmpi(opt.normalization,'normal')
     p1(:,qq+1) = factorial(qq)/prod(beta(1:(qq+1)));
     p1(:,qq+2) = 1/beta(qq+2)*((x-alpha(qq+1)).*p1(:,qq+1) + qq*p0(:,qq+1));
-  case 'monic'
+  elseif strcmpi(opt.normalization, 'monic')
     p1(:,qq+1) = factorial(qq);
     p1(:,qq+2) = (x-alpha(qq+1)).*p1(:,qq+1) + qq*p0(:,qq+1);
   end
 
   for q = (qq+2):N
-    switch opt.normalization
-    case 'normal'
+    if strcmpi(opt.normalization,'normal')
       p1(:,q+1) = 1/beta(q+1)*((x-alpha(q)).*p1(:,q) - ...
                                beta(q)*p1(:,q-1) + ...
                                qq*p0(:,q));
-    case 'monic'
+    elseif strcmpi(opt.normalization,'monic')
       p1(:,q+1) = ((x-alpha(q)).*p1(:,q) - ...
                                beta(q)*p1(:,q-1) + ...
                                qq*p0(:,q));

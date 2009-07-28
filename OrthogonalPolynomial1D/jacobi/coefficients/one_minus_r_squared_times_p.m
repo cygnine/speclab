@@ -1,5 +1,5 @@
 function[mu] = one_minus_r_squared_times_p(n,alpha,beta,varargin)
-% [MU] = ONE_MINUS_R_SQUARED_TIMES_P(N,ALPHA,BETA,{NORMALIZATION='monic'})
+% [MU] = ONE_MINUS_R_SQUARED_TIMES_P(N,ALPHA,BETA,{NORMALIZATION='normal'})
 %
 %     Computes the connection coefficients between (1-r^2) x P and P. I.e.,
 %     given the vector N of whole-number indices, and valid Jacobi class
@@ -21,8 +21,7 @@ N = length(n);
 
 mu = zeros([N,3]);
 
-switch opt.normalization
-case 'normal'
+if strcmpi(opt.normalization,'normal')
   n_is_0 = (n==0);
   n_is_1 = (n==1);
   n_large = ~(n_is_0 & n_is_1);
@@ -45,7 +44,7 @@ case 'normal'
                     ((temp+1).*(temp+2).^2.*(temp+3)));
 %    epsn[:,2] = -sqrt(4*(n+1)*(n+2)*(n+a+1)*(n+b+1)/ \
 %                           ((2*n+a+b+1)*(2*n+a+b+2)**2*(2*n+a+b+3)))
-otherwise
+else
   fprintf('Error: normalization %s not supported', opt.normalization);
   mu = false;
   return

@@ -19,8 +19,7 @@ N = length(n);
 
 mu = zeros([N,2]);
 
-switch opt.normalization
-case 'normal'
+if strcmpi(opt.normalization,'normal')
   tol = 1e-12;
   if abs(alpha+beta)<tol
     n_is_0 = n==0;
@@ -36,7 +35,7 @@ case 'normal'
 
   mu(:,2) = -sqrt(2*(n+1).*(n+beta+1)./...
             ((2*n+alpha+beta+1).*(2*n+alpha+beta+2)));
-otherwise
+else
   fprintf('Error: normalization %s not supported', opt.normalization);
   mu = false;
   return

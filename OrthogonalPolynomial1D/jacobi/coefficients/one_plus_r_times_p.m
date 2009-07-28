@@ -1,5 +1,5 @@
 function[mu] = one_plus_r_times_p(n,alpha,beta,varargin)
-% [MU] = ONE_PLUS_R_TIMES_P(N,ALPHA,BETA,{NORMALIZATION='monic'})
+% [MU] = ONE_PLUS_R_TIMES_P(N,ALPHA,BETA,{NORMALIZATION='normal'})
 %
 %     Computes the connection coefficients between (1+r) x P and P. I.e., given
 %     the vector N of whole-number indices, and valid Jacobi class parameters
@@ -20,11 +20,10 @@ N = length(n);
 
 mu = zeros([N,2]);
 
-switch opt.normalization
-case 'normal'
+if strcmpi(opt.normalization,'normal')
   mu = coeffs.one_minus_r_times_p(n,beta,alpha,opt);
   mu(:,2) = -mu(:,2);
-otherwise
+else
   fprintf('Error: normalization %s not supported', opt.normalization);
   mu = false;
   return
