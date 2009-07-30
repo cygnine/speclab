@@ -18,7 +18,7 @@ parameters = cell(0);
 %%%%%%%%%%% Chebyshev case %%%%%%%%%%% 
 N = 10 + ceil(150*rand);
 opt = jac.defaults('N',N);
-[temp,temp2] = debug.jacobi_polynomial_debug(opt);
+[temp,temp2] = debug.jacobi_polynomial_driver(opt);
 descriptions = debug.description_prepend(descriptions,'Chebyshev polynomial');
 [flags,descriptions,parameters] = dcat(flags,descriptions,parameters, ...
    opt, temp, temp2);
@@ -28,7 +28,7 @@ N = 10 + ceil(150*rand);
 scale = 10*rand;
 shift = 10*randn;
 opt = jac.defaults('N',N,'scale',scale,'shift',shift);
-[temp,temp2] = debug.jacobi_polynomial_debug(opt);
+[temp,temp2] = debug.jacobi_polynomial_driver(opt);
 descriptions = debug.description_prepend(descriptions,'Chebyshev polynomial, shift+scale');
 [flags,descriptions,parameters] = dcat(flags,descriptions,parameters, ...
    opt, temp, temp2);
@@ -36,7 +36,7 @@ descriptions = debug.description_prepend(descriptions,'Chebyshev polynomial, shi
 %%%%%%%%%%% Legendre case %%%%%%%%%%% 
 N = 10 + ceil(150*rand);
 opt = jac.defaults('N',N,'alpha',0,'beta',0);
-[temp,temp2] = debug.jacobi_polynomial_debug(opt);
+[temp,temp2] = debug.jacobi_polynomial_driver(opt);
 descriptions = debug.description_prepend(descriptions,'Legendre polynomial');
 [flags,descriptions,parameters] = dcat(flags,descriptions,parameters, ...
    opt, temp, temp2);
@@ -46,7 +46,7 @@ N = 10 + ceil(150*rand);
 scale = 10*rand;
 shift = 10*randn;
 opt = jac.defaults('N',N,'alpha',0,'beta',0,'scale',scale,'shift',shift);
-[temp,temp2] = debug.jacobi_polynomial_debug(opt);
+[temp,temp2] = debug.jacobi_polynomial_driver(opt);
 descriptions = debug.description_prepend(descriptions,'Legendre polynomial, scale+shift');
 [flags,descriptions,parameters] = dcat(flags,descriptions,parameters, ...
    opt, temp, temp2);
@@ -56,7 +56,7 @@ N = 10 + ceil(150*rand);
 alpha = -1 + 10*rand;
 beta = -1 + 10*rand;
 opt = jac.defaults('N',N,'alpha',alpha,'beta',beta);
-[temp,temp2] = debug.jacobi_polynomial_debug(opt);
+[temp,temp2] = debug.jacobi_polynomial_driver(opt);
 descriptions = debug.description_prepend(descriptions,'Asymmetric Jacobi polynomial');
 [flags,descriptions,parameters] = dcat(flags,descriptions,parameters, ...
    opt, temp, temp2);
@@ -68,7 +68,7 @@ beta = -1 + 10*rand;
 scale = 10*rand;
 shift = 10*randn;
 opt = jac.defaults('N',N,'alpha',alpha,'beta',beta,'scale',scale,'shift',shift);
-[temp,temp2] = debug.jacobi_polynomial_debug(opt);
+[temp,temp2] = debug.jacobi_polynomial_driver(opt);
 descriptions = debug.description_prepend(descriptions,'Asymmetric Jacobi polynomial, shift+scale');
 [flags,descriptions,parameters] = dcat(flags,descriptions,parameters, ...
    opt, temp, temp2);

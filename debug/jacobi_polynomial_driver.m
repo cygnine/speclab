@@ -1,4 +1,4 @@
-function[varargout] = jacobi_polynomial_debug(varargin)
+function[varargout] = jacobi_polynomial_driver(varargin)
 % [FLAGS,DESCRIPTIONS] = JACOBI_POLYNOMIAL_DRIVER({N=10,ALPHA=-1/2,BETA=-1/2,SCALE=1,SHIFT=0})
 % 
 %     Runs various tests on speclab's Jacobi polynomial package. FLAGS is a
@@ -32,6 +32,7 @@ end
 % Gauss-Radau nodes
 opt.r = 1;
 [r,w] = jac.quad.gauss_radau_quadrature(opt.N,opt);
+r
 
 descriptions{end+1} = "Gauss-Radau quadrature nodes inside interval";
 flags(end+1) = all(r<=interval(2)) && all(r>=interval(1));
