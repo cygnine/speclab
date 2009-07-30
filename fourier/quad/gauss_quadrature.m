@@ -15,7 +15,7 @@ pss = handles.speclab.common.physical_scaleshift_1d;
 
 if mod(N,2)==0
 
-  [r,wr] = jac.gauss_quadrature(N/2, 'alpha', opt.delta-1/2,...
+  [r,wr] = jac.quad.gauss_quadrature(N/2, 'alpha', opt.delta-1/2,...
                                         'beta',  opt.gamma-1/2);
   r = flipud(r); wr = flipud(wr);
 
@@ -26,7 +26,7 @@ if mod(N,2)==0
 
 else
   
-  [r,wr] = jac.gauss_radau_quadrature((N+1)/2, 'alpha', opt.delta-1/2, ...
+  [r,wr] = jac.quad.gauss_radau_quadrature((N+1)/2, 'alpha', opt.delta-1/2, ...
                                                   'beta',  opt.gamma-1/2, ...
                                                   'r', 1);
 

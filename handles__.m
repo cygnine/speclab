@@ -6,6 +6,8 @@ function[hs] = handles__()
 % This is by default
 hs.base = fileparts(mfilename('fullpath'));
 
+hs.debug.base = fullfile(hs.base,'debug');
+
 hs.common.base = fullfile(hs.base,'common');
 hs.fourier.base = fullfile(hs.base,'fourier');
   hs.fourier.eval.base = fullfile(hs.fourier.base, 'eval');
@@ -24,6 +26,10 @@ hs.NewtonPolynomials.base = fullfile(hs.base,'NewtonPolynomials');
 hs.OrthogonalPolynomial1D.base = fullfile(hs.base,'OrthogonalPolynomial1D');
   hs.OrthogonalPolynomial1D.jacobi.base = ...
     fullfile(hs.OrthogonalPolynomial1D.base, 'jacobi');
+  hs.OrthogonalPolynomial1D.jacobi.quad.base = ...
+    fullfile(hs.OrthogonalPolynomial1D.jacobi.base, 'quad');
+  hs.OrthogonalPolynomial1D.jacobi.eval.base = ...
+    fullfile(hs.OrthogonalPolynomial1D.jacobi.base, 'eval');
   hs.OrthogonalPolynomial1D.jacobi.coefficients.base = ...
     fullfile(hs.OrthogonalPolynomial1D.jacobi.base, 'coefficients');
   hs.OrthogonalPolynomial1D.jacobi.connection.base = ...
