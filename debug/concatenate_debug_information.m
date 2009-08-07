@@ -9,7 +9,11 @@ M = length(f);
 flags(end+1:end+M) = f;
 
 M = length(d);
-descriptions{end+1:end+M} = d;
+descriptions(end+1:end+M) = d;
 
-M = length(p);
-parameters{end+1:end+M} = p;
+if length(p)==1
+  parameters(end+1:end+M) = {p};
+else
+  M = length(p);
+  parameters(end+1:end+M) = {p};
+end

@@ -5,5 +5,5 @@ function[descriptions] = description_prepend(descriptions,prepend)
 %     string PREPEND.
 
 for q = 1:length(descriptions)
-  descriptions{q} = strcat(descriptions{q},' ',prepend);
+  descriptions{q} = strcat(prepend, ' ', descriptions{q});
 end
