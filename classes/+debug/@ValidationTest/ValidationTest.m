@@ -3,7 +3,7 @@ classdef ValidationTest
     result = false; % Boolean result for test
     description = ''; % Short description of test
     validator = @() false;  % Validation function
-    data_generator = @(x) []; % Function generating data for validator
+    data_generator = @(x,opt) []; % Function generating data for validator
     parameters = struct([]); % Parameters for generating data
     error_exception = MException('ValidationTest:OK', 'No error');
   end
@@ -18,7 +18,7 @@ classdef ValidationTest
 
       global handles;
       inputs = {'description', 'validator', 'data_generator', 'parameters'};
-      defaults = {'No description', @() false, @(x) [], struct([])};
+      defaults = {'No description', @() false, @(x,opt) [], struct([])};
       opt = handles.common.InputSchema(inputs, defaults, [], varargin{:});
 
       obj.description = opt.description;
@@ -28,7 +28,7 @@ classdef ValidationTest
     end
 
     data = get_data(obj); % Retrieves data created by data_generator
-    run_test(obj); % Runs the test and stores outcome in result
+    obj = run_test(obj); % Runs the test and stores outcome in result
     print(obj); % Pretty-prints the test description and parameters
   end
 end

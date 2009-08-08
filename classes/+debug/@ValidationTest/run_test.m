@@ -1,15 +1,15 @@
-function[] = run_test(obj)
-% VALIDATIONTEST.RUN_TEST()
+function self = run_test(self)
+% SELF = VALIDATIONTEST.RUN_TEST(SELF)
 %
-%     Runs the ValidationTest and sticks the boolean result in OBJ.RESULT.
+%     Runs the ValidationTest and sticks the boolean result in SELF.RESULT.
 
 try
-  data = obj.get_data;
+  data = self.get_data;
   try
-    obj.result = obj.validator(data);
-  catch obj.error_exception
-    obj.result = false;
+    self.result = self.validator(data,self.parameters);
+  catch self.error_exception;
+    self.result = false;
   end
-catch obj.error_exception
-  obj.result = false;
+catch self.error_exception;
+  self.result = false;
 end

@@ -1,7 +1,9 @@
-function[] = append(self,test)
-% APPEND(SELF,TEST)
+function self = append(self,test)
+% SELF = APPEND(SELF,TEST)
 %
 %     Adds input TEST (type ValidationTest) to the container SELF.
+
+import debug.ValidationTest
 
 if isa(test,'ValidationTest')
   self.tests{end+1} = test;

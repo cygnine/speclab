@@ -14,9 +14,9 @@ classdef TestContainer
       tests = cell(0);
     end
 
-    append(self,test); % Adds test (type ValidationTest) to the container
-    extend(self,other); % Concatenates tests in other (type TestContainer) to self
-    run_tests(self); % Runs all the test in the container
+    self = append(self,test); % Adds test (type ValidationTest) to the container
+    self = extend(self,other); % Concatenates tests in other (type TestContainer) to self
+    self = run_tests(self); % Runs all the test in the container
     print_failed_tests(self); % Prints information for all failed tests
   end
 end
