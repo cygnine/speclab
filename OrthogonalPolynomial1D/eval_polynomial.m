@@ -1,5 +1,5 @@
 function[p] = eval_polynomial(x,alpha,beta,n,varargin);
-% [P] = EVAL_POLYNOMIAL(X,ALPHA,BETA,N,{D:0,NORMALIZATION='NORMAL'});
+% [P] = EVAL_POLYNOMIAL(X,ALPHA,BETA,N,{D=0,NORMALIZATION='NORMAL',SHIFT=0,SCALE=1});
 %
 %     Evaluates the normalized orthogonal polynomials defined by the recurrence
 %     coefficients ALPHA and BETA. Assumes ALPHA and BETA are long enough as
@@ -17,6 +17,11 @@ function[p] = eval_polynomial(x,alpha,beta,n,varargin);
 %
 %       'normal':  L^2(w) normalized polynomials, where w is the orthogonal
 %         weight function
+%
+%     SHIFT and SCALE are the affine scaling parameters. They are used for two
+%     purposes:
+%      - shifting X back to the standard interval
+%      - normalizing the 'monic' normalization
 %     
 %     Monic:
 %     p_{n+1} = (x-a_{n})*p_n - b_{n}*p_{n-1}
@@ -87,4 +92,4 @@ for qq = 0:D
   p0 = p1;
 end
 
-p = squeeze(p)/sqrt(scale);
+p = squeeze(p);

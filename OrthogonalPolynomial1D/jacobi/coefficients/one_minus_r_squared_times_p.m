@@ -1,5 +1,5 @@
 function[mu] = one_minus_r_squared_times_p(n,alpha,beta,varargin)
-% [MU] = ONE_MINUS_R_SQUARED_TIMES_P(N,ALPHA,BETA,{NORMALIZATION='normal'})
+% [MU] = ONE_MINUS_R_SQUARED_TIMES_P(N,ALPHA,BETA,{NORMALIZATION='normal',SCALE=1})
 %
 %     Computes the connection coefficients between (1-r^2) x P and P. I.e.,
 %     given the vector N of whole-number indices, and valid Jacobi class
@@ -15,7 +15,7 @@ function[mu] = one_minus_r_squared_times_p(n,alpha,beta,varargin)
 
 global handles;
 coeffs = handles.speclab.OrthogonalPolynomial1D.jacobi.coefficients;
-opt = handles.common.InputSchema({'normalization'}, {'normal'}, [],varargin{:});
+opt = handles.common.InputSchema({'normalization','scale'}, {'normal',1}, [],varargin{:});
 n = n(:);
 N = length(n);
 
@@ -44,6 +44,7 @@ if strcmpi(opt.normalization,'normal')
                     ((temp+1).*(temp+2).^2.*(temp+3)));
 %    epsn[:,2] = -sqrt(4*(n+1)*(n+2)*(n+a+1)*(n+b+1)/ \
 %                           ((2*n+a+b+1)*(2*n+a+b+2)**2*(2*n+a+b+3)))
+  mu = mu/opt.scale;
 else
   fprintf('Error: normalization %s not supported', opt.normalization);
   mu = false;

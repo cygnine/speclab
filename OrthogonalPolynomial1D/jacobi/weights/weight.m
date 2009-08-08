@@ -8,6 +8,8 @@ function[w] = weight(r,varargin)
 
 global handles;
 opt = handles.speclab.OrthogonalPolynomial1D.jacobi.defaults(varargin{:});
+sss = handles.speclab.common.standard_scaleshift_1d;
+r = sss(r,opt);
 
 w = (1-r).^opt.alpha;
 w = w.*(1+r).^opt.beta;

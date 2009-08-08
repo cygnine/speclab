@@ -14,7 +14,7 @@ function[mu] = one_plus_r_times_p(n,alpha,beta,varargin)
 
 global handles;
 coeffs = handles.speclab.OrthogonalPolynomial1D.jacobi.coefficients;
-opt = handles.common.InputSchema({'normalization'}, {'normal'}, [],varargin{:});
+opt = handles.common.InputSchema({'normalization','scale'}, {'normal',1}, [],varargin{:});
 n = n(:);
 N = length(n);
 

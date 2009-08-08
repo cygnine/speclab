@@ -13,7 +13,7 @@ function[mu] = one_minus_r_times_p(n,alpha,beta,varargin)
 %     polynomials P, which affects the values of the parameters MU.
 
 global handles;
-opt = handles.common.InputSchema({'normalization'}, {'normal'}, [],varargin{:});
+opt = handles.common.InputSchema({'normalization','scale'}, {'normal',1}, [],varargin{:});
 n = n(:);
 N = length(n);
 
@@ -35,6 +35,8 @@ if strcmpi(opt.normalization,'normal')
 
   mu(:,2) = -sqrt(2*(n+1).*(n+beta+1)./...
             ((2*n+alpha+beta+1).*(2*n+alpha+beta+2)));
+
+  mu = mu/opt.scale;
 else
   fprintf('Error: normalization %s not supported', opt.normalization);
   mu = false;

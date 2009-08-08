@@ -21,6 +21,8 @@ hs.OrthogonalPolynomial1D.base = fullfile(hs.base,'OrthogonalPolynomial1D');
     fullfile(hs.OrthogonalPolynomial1D.jacobi.base, 'coefficients');
   hs.OrthogonalPolynomial1D.jacobi.connection.base = ...
     fullfile(hs.OrthogonalPolynomial1D.jacobi.base, 'connection');
+  hs.OrthogonalPolynomial1D.jacobi.weights.base = ...
+    fullfile(hs.OrthogonalPolynomial1D.jacobi.base, 'weights');
 
 hs.fourier.base = fullfile(hs.base,'fourier');
   hs.fourier.eval.base = fullfile(hs.fourier.base, 'eval');

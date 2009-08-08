@@ -3,8 +3,6 @@ function[x,w] = gauss_quadrature(a,b,N);
 %
 %     Returns the N-point Gaussian polynomial quadrature for the orthogonal
 %     polynomials corresponding to the recurrence coefficients A and B.
-%    
-% 20080522: acn
 
 a = a(1:N);
 b = b(1:N);
