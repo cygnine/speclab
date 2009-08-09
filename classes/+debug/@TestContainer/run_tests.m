@@ -14,6 +14,7 @@ for n = 1:self.N
     fprintf('*');
   else 
     fprintf('F');
+    self.failed_test_indices = [self.failed_test_indices, n];
   end
   if mod(n,10)==0
     fprintf('\n      ')

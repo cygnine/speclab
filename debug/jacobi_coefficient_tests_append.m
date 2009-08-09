@@ -1,8 +1,8 @@
 function[container] = jacobi_coefficient_tests_append(container,opt);
-% [CONTAINER] = JACOBI_COEFFICIENT_TESTS_APPEND(CONTAINER,OPT);
+% [container] = jacobi_coefficient_tests_append(container,opt);
 %
 %     Appends some Jacobi coefficient ValidationTest's to the TestContainer
-%     CONTAINER. The Jacobi family is defined by OPT. 
+%     container. The Jacobi family is defined by opt. 
 
 import debug.*
 
@@ -31,6 +31,12 @@ if (opt.alpha>0) || (opt.beta>0)
                         'data_generator', @integer_connection_data);
   container = container.append(test);
 end
+
+test = ValidationTest('description', 'd/dr P coefficients',...
+                      'parameters', opt,...
+                      'validator', @ddr_P_validator,...
+                      'data_generator', @ddr_P_data);
+container = container.append(test);
 
 end
 
@@ -181,4 +187,29 @@ function[tf] = integer_connection_validator(data,opt)
   tol = 1e-5;
   AB = ceil(opt.alpha) + ceil(opt.beta);
   tf = max(abs(gauss_modes(1:(end-AB)) - promoted_modes(1:(end-AB))))<tol;
+end
+
+function[data] = ddr_P_data(opt);
+  global handles;
+  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+
+  jint = jac.interval(opt);
+  r = linspace(jint(1),jint(2),300);
+  zetas = jac.coefficients.derivative(0:(opt.N-1), opt.alpha, opt.beta,opt);
+  opt.d = 1;
+  dps = jac.eval.eval_jacobi_poly(r,0:(opt.N-1),opt);
+  opt.d = 0;
+  opt.alpha = opt.alpha+1;
+  opt.beta = opt.beta+1;
+  ps = jac.eval.eval_jacobi_poly(r,0:(opt.N-1),opt);
+  [data.r, data.ps, data.dps, data.zetas] = deal(r,ps,dps,zetas);
+end
+
+function[tf] = ddr_P_validator(data,opt);
+  [r,ps,dps,zetas] = deal(data.r, data.ps, data.dps, data.zetas);
+
+  tol = 10^(-8+(opt.alpha/3+opt.beta/3 + abs(opt.alpha-opt.beta)/3));
+  opt.N = min([opt.N, 50]); % don't test them all
+  err = dps(:,2:opt.N) - ps(:,1:(opt.N-1))*spdiags(zetas(2:end),0,opt.N-1,opt.N-1);
+  tf = norm(err)<tol;
 end

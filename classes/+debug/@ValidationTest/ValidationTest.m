@@ -29,6 +29,6 @@ classdef ValidationTest
 
     data = get_data(obj); % Retrieves data created by data_generator
     obj = run_test(obj); % Runs the test and stores outcome in result
-    print(obj); % Pretty-prints the test description and parameters
+    print(obj,varargin); % Pretty-prints the test description and parameters
   end
 end

@@ -25,6 +25,12 @@ test = ValidationTest('description', 'Derivative approximation',...
                       'data_generator', @derivative_data);
 container = container.append(test);
 
+test = ValidationTest('description', 'Derivative approximation (stiffness)',...
+                      'parameters', opt,...
+                      'validator', @derivative_stiffness_validator,...
+                      'data_generator', @derivative_stiffness_data);
+container = container.append(test);
+
 end
 
 function[data] = mass_data(opt)
@@ -96,4 +102,35 @@ function[tf] = derivative_validator(data,opt);
   modes = ps'*(w.*f(x));
   df_approx = dps_refined*modes;
   tf = all(abs(df_approx - df(x_refined))<tol);
+end
+
+function[data] = derivative_stiffness_data(opt);
+  global handles;
+  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jint = jac.interval(opt);
+
+  [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
+  ps = jac.eval.eval_jacobi_poly(x,opt.n,opt);
+
+  vinv = ps'*spdiags(w,0,opt.N,opt.N);
+
+  x_refined = linspace(jint(1),jint(2),5*opt.N)';
+  [data.x,data.x_refined,data.vinv,data.ps] = deal(...
+    x,x_refined,vinv,ps);
+end
+
+function[tf] = derivative_stiffness_validator(data,opt);
+  global handles;
+  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+
+  f = @(x) sin(opt.N/(10*opt.scale)*x);
+  df = @(x) opt.N/(10*opt.scale)*cos(opt.N/(10*opt.scale)*x);
+  tol = 10^(-5+opt.alpha/6+opt.beta/6 + abs(opt.alpha-opt.beta)/6);
+  [x,x_refined,vinv,ps] = deal(data.x,data.x_refined,data.vinv,data.ps);
+  modes = vinv*f(x);
+
+  dmodes = jac.operators.stiffness_operator(modes,opt);
+  drec = ps*dmodes;
+
+  tf = norm(drec-df(x))<tol;
 end
