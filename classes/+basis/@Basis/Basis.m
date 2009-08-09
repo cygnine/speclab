@@ -1,11 +1,14 @@
 classdef Basis
   properties
     dof = 0;
+    N = 0;
     description = 'None';
     fftable = false;
-    vandermonde_matrix = [];
-    evaluation = [];
-    derivative_evaluation = [];
+    vandermonde = [];
+    vandermonde_inverse = [];
+    evaluate = [];
+    derivative = [];
+    range = [];
     differentiation_matrix = [];
     interval = [0,0];
     work_functions = false;
@@ -21,6 +24,10 @@ classdef Basis
       inputs = {'dof','description','fftable'};
       defaults = {0, 'None',false};
       self = handles.common.InputSchema(inputs, defaults, [], varargin{:});
+    end
+    
+    function value = get.N(self)
+      value = self.dof;
     end
   end
 end

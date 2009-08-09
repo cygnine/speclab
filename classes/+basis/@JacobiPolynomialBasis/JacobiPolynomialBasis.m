@@ -7,6 +7,9 @@ classdef JacobiPolynomialBasis < basis.WholeBasis
   end
   methods
     function self = JacobiPolynomialBasis(varargin)
+    % self = JacobiPolynomialBasis(varargin)
+    %
+    %     Creates an instance of a Jacobi Polynomial spectral basis.
 
       global handles;
       inputs = {'alpha', 'beta', 'scale', 'shift', 'dof', 'physical_interval'};
@@ -29,6 +32,8 @@ classdef JacobiPolynomialBasis < basis.WholeBasis
       if (mod(2*params.alpha,2)==1) && (mod(2*params.beta,2)==1)
         self.fftable = true;
       end
+
+      self = self.make_vandermonde;
     end
 
     function output = evaluate(self,x,ns)
@@ -38,5 +43,12 @@ classdef JacobiPolynomialBasis < basis.WholeBasis
       params = self.parameters;
       params.d = 1;
       output = self.work_functions.eval.evaluate(x,ns,params);
+    end
+
+    function value = get.vandermonde(self)
+      if isempty(self.vandermonde)
+        self = self.make_vandermonde
+      end
+      value = self.vandermonde;
     end
 end
