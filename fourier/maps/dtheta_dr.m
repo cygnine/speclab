@@ -8,4 +8,4 @@ function[d] = dtheta_dr(r,varargin)
 global handles;
 opt = handles.common.InputSchema({'shift','scale'}, {0,1}, [],varargin{:});
 
-d = -1/(opt.scale*sqrt(1-r.^2));
+d = -opt.scale/(sqrt(1-r.^2));

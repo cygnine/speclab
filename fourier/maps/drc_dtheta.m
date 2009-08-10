@@ -13,4 +13,4 @@ sss = handles.speclab.common.standard_scaleshift_1d;
 opt = handles.common.InputSchema({'shift','scale'}, {0,1}, [],varargin{:});
 
 theta = sss(theta,opt);
-d = cos(theta)*opt.scale;
+d = cos(theta)/opt.scale;

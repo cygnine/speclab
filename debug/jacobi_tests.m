@@ -1,5 +1,5 @@
 function[container] = jacobi_tests()
-% [CONTAINER] = JACOBI_TESTS()
+% [container] = jacobi_tests()
 %
 %     Returns a TestContainer with all the Jacobi polynomial tests.
 
@@ -19,7 +19,10 @@ container = TestContainer();
 opt = jac.defaults();
 opt.N = 10 + ceil(90*rand());
 container = jquad_tests(container,opt);
+temp = opt.N;
+opt.N = 70 + ceil(30*rand());
 container = japprox_tests(container,opt);
+opt.N = temp;
 container = jcoeff_tests(container,opt);
 container = jop_tests(container,opt);
 
@@ -35,14 +38,20 @@ opt = jac.defaults();
 opt.alpha = 0; opt.beta = 0;
 opt.N = 10 + ceil(90*rand());
 container = jquad_tests(container,opt);
+temp = opt.N;
+opt.N = 70 + ceil(30*rand());
 container = japprox_tests(container,opt);
+opt.N = temp;
 container = jcoeff_tests(container,opt);
 container = jop_tests(container,opt);
 
 opt.shift = randn();
 opt.scale = 3*rand();
 container = jquad_tests(container,opt);
+temp = opt.N;
+opt.N = 70 + ceil(30*rand());
 container = japprox_tests(container,opt);
+opt.N = temp;
 container = jcoeff_tests(container,opt);
 container = jop_tests(container,opt);
 
@@ -51,7 +60,10 @@ opt = jac.defaults();
 opt.alpha = -1 + 10*rand(); opt.beta = -1 + 10*rand();
 opt.N = 10 + ceil(90*rand());
 container = jquad_tests(container,opt);
+temp = opt.N;
+opt.N = 70 + ceil(30*rand());
 container = japprox_tests(container,opt);
+opt.N = temp;
 container = jcoeff_tests(container,opt);
 container = jop_tests(container,opt);
 
@@ -68,13 +80,19 @@ opt.alpha = -1 + 10*rand(); opt.beta = -1 + 10*rand();
 opt.N = 10 + ceil(90*rand());
 container = jquad_tests(container,opt);
 container = japprox_tests(container,opt);
+temp = opt.N;
+opt.N = 70 + ceil(30*rand());
 container = jcoeff_tests(container,opt);
+opt.N = temp;
 container = jop_tests(container,opt);
 
 opt.shift = randn();
 opt.scale = 3*rand();
 container = jquad_tests(container,opt);
+temp = opt.N;
+opt.N = 70 + ceil(30*rand());
 container = japprox_tests(container,opt);
+opt.N = temp;
 container = jcoeff_tests(container,opt);
 container = jop_tests(container,opt);
 
@@ -84,13 +102,19 @@ opt.N = 10 + ceil(90*rand());
 opt.alpha = -1/2 + ceil(10*rand());
 opt.beta = -1/2 + ceil(10*rand());
 container = jquad_tests(container,opt);
+temp = opt.N;
+opt.N = 70 + ceil(30*rand());
 container = japprox_tests(container,opt);
+opt.N = temp;
 container = jcoeff_tests(container,opt);
 container = jop_tests(container,opt);
 
 opt.shift = randn();
 opt.scale = 3*rand();
 container = jquad_tests(container,opt);
+temp = opt.N;
+opt.N = 70 + ceil(30*rand());
 container = japprox_tests(container,opt);
+opt.N = temp;
 container = jcoeff_tests(container,opt);
 container = jop_tests(container,opt);
