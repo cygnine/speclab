@@ -77,3 +77,20 @@ container = jquad_tests(container,opt);
 container = japprox_tests(container,opt);
 container = jcoeff_tests(container,opt);
 container = jop_tests(container,opt);
+
+%%%%% Random fft-able case
+opt = jac.defaults();
+opt.N = 10 + ceil(90*rand());
+opt.alpha = -1/2 + ceil(10*rand());
+opt.beta = -1/2 + ceil(10*rand());
+container = jquad_tests(container,opt);
+container = japprox_tests(container,opt);
+container = jcoeff_tests(container,opt);
+container = jop_tests(container,opt);
+
+opt.shift = randn();
+opt.scale = 3*rand();
+container = jquad_tests(container,opt);
+container = japprox_tests(container,opt);
+container = jcoeff_tests(container,opt);
+container = jop_tests(container,opt);

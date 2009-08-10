@@ -5,7 +5,7 @@ function[f] = chebifft_online(F,data);
 
 if strcmpi(data.points, 'gq')
 
-  f = spdiags(shift,0,data.N,data.N)*F;
+  f = spdiags(data.shift,0,data.N,data.N)*F;
   f = [0; real(flipud(f(2:end))); real(f)] + i*[0; -imag(flipud(f(2:end))); imag(f)];
   f = ifft(ifftshift(f,1),[],1)*2*data.N;
   f = real(f(1:data.N));

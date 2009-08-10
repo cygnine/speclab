@@ -74,7 +74,7 @@ end
 function[tf] = mass_matrix_validator(data,opt)
   [x,w,ps] = deal(data.x,data.w,data.ps);
 
-  tol = 10^(-8+abs(opt.alpha-opt.beta)/5);
+  tol = 10^(-8+abs(opt.alpha-opt.beta)/5 + (opt.alpha+opt.beta)/8);
   mass = ps'*spdiags(w,0,opt.N,opt.N)*ps;
   tf = norm(mass-eye(opt.N))<tol;
 end
@@ -82,7 +82,7 @@ end
 function[tf] = interpolant_validator(data,opt);
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
-  tol = 10^(-9+opt.alpha/3+opt.beta/3 + abs(opt.alpha-opt.beta)/3);
+  tol = 10^(-8+opt.alpha/3+opt.beta/3 + abs(opt.alpha-opt.beta)/3);
   [x,w,ps,x_refined,ps_refined] = deal(data.x,data.w,data.ps, ...
      data.x_refined, data.ps_refined);
 
@@ -95,7 +95,7 @@ function[tf] = derivative_validator(data,opt);
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   df = @(x) opt.N/(10*opt.scale)*cos(opt.N/(10*opt.scale)*x);
-  tol = 10^(-5+opt.alpha/6+opt.beta/6 + abs(opt.alpha-opt.beta)/6);
+  tol = 10^(-4+opt.alpha/6+opt.beta/6 + abs(opt.alpha-opt.beta)/6);
   [x,w,ps,x_refined,dps_refined] = deal(data.x,data.w,data.ps, ...
      data.x_refined, data.dps_refined);
 

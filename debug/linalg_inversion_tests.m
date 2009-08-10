@@ -27,7 +27,7 @@ function[tf] = sparse_triu_validator(data,opt)
   x1 = linv(data.s, data.b, 'bandwidth', opt.bandwidth);
   x2 = inv(data.s)*data.b;
 
-  tol = 10^(-10 + opt.bandwidth);
+  tol = min([10^(-8 + opt.bandwidth), 0.1]);
 
   tf = max(abs(x1-x2))<tol;
 end

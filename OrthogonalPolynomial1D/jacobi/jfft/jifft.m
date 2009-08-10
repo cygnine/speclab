@@ -9,19 +9,13 @@ function[f] = jifft(F,varargin)
 global handles;
 jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
 la = handles.common.linalg;
+inputs = {'points', 'alpha', 'beta', 'normalization', 'scale'};
+defaults = {'gq', -1/2, -1/2, 'normal', 1};
+opt = handles.common.InputSchema(inputs, defaults, [], varargin{:});
 
-tol = 1e-12;
-A = opt.alpha + 1/2;
-B = opt.beta + 1/2;
+[tf,A,B] = jac.jfft.fftable(opt);
+N = size(F,1);
 
-if abs(A-round(A))>tol || abs(B - round(B))>tol
-  error('This basis type is not fftable');
-end
-
-A = round(A);
-B = round(B);
-N = size(f,1);
-
-C = jac.connection.integer_separation_connection_matrix(N,opt.alpha,opt.beta,A,B);
+C = jac.connection.integer_separation_connection_matrix(N,-1/2,-1/2,A,B);
 F = la.triu_sparse_invert(C,F,'bandwidth',A+B+1);
 f = jac.jfft.chebifft(F,opt);

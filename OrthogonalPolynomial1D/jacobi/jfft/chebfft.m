@@ -27,7 +27,7 @@ if strcmpi(opt.points, 'gq')
 
   ft = spdiags(shift,0,N,N)*ft;
 
-  F = real(ft)/opt;
+  F = real(ft);
 elseif strcmpi(opt.points, 'grq')
   error('Not yet implemented')
 elseif strcmpi(opt.points, 'glq')

@@ -19,8 +19,8 @@ container = inversion_tests(container,opt);
 opt.bandwidth = 2;
 container = inversion_tests(container,opt);
 
-opt.bandwidth = 5;
+opt.bandwidth = 4;
 container = inversion_tests(container,opt);
 
-opt.bandwidth = 10;
+opt.bandwidth = 7;
 container = inversion_tests(container,opt);

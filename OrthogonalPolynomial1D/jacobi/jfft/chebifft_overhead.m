@@ -1,4 +1,4 @@
-function[data] = chebifft_overhead(F,varargin);
+function[data] = chebifft_overhead(N,varargin);
 % [data] = chebifft_overhead(N,{normalization='normal', scale=1, points = 'gq'})
 %
 %     Computes overhead data needed for the Chebyshev IFFT.
@@ -16,7 +16,7 @@ if strcmpi(opt.points, 'gq')
   shift = (1+1/(2*N))*(0:(-1):-(N-1)).';
   shift = 1/sqrt(2*pi)*exp(-i*pi*shift);
   shift(1) = sqrt(2)*shift(1);
-  shift = shift*2*N;
+  shift = shift;
 
   [data.N,data.shift,data.points] = deal(N,shift,opt.points);
 
