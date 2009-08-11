@@ -1,9 +1,9 @@
 function[modes] = integer_separation_connection(modes,gamma,delta,G,D)
-% [MODES] = INTEGER_SEPARATION_CONNECTION(MODES,GAMMA,DELTA,G,D)
+% [modes] = integer_separation_connection(modes,gamma,delta,G,D)
 %
-%     Connects the modal coefficients MODES from an unweighted Fourier expansion
-%     of class (GAMMA,DELTA) to the modal coefficients for an expansion of class
-%     (GAMMA+G,DELTA+D). The connection coefficients are not explicity computed. 
+%     Connects the modal coefficients modes from an unweighted Fourier expansion
+%     of class (gamma,delta) to the modal coefficients for an expansion of class
+%     (gamma+G,delta+D). The connection coefficients are not explicity computed. 
 
 global handles;
 pos_conn = handles.speclab.fourier.connection.positive_integer_separation_connection;

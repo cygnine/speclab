@@ -1,9 +1,9 @@
 function[modes] = negative_integer_separation_connection(modes,gamma,delta,G,D)
-% [MODES] = NEGATIVE_INTEGER_SEPARATION_CONNECTION(MODES,GAMMA,DELTA,G,D)
+% [modes] = negative_integer_separation_connection(modes,gamma,delta,G,D)
 %
-%     Connects the modal coefficients MODES from an unweighted Fourier expansion
-%     of class (GAMMA,DELTA) to the modal coefficients for an expansion of class
-%     (GAMMA-G,DELTA-D) for G,D>0. The connection coefficients are not explicity
+%     Connects the modal coefficients modes from an unweighted Fourier expansion
+%     of class (gamma,delta) to the modal coefficients for an expansion of class
+%     (gamma-G,delta-D) for G,D>0. The connection coefficients are not explicity
 %     computed. 
 
 global handles;

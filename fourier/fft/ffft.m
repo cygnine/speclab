@@ -1,12 +1,14 @@
 function[modes] = ffft(nodes,varargin);
-% [MODES] = FFFT(NODES,{GAMMA=0,DELTA=0,SHIFT=0,SCALE=1});
+% [modes] = ffft(nodes,{gamma=0,delta=0,shift=0,scale=1});
+% 
+%     The "Fourier FFT". ("fft" conflicts Matlab's builtin)
 %
 %     A wrapper for Matlab's FFT. This function scales the modes so that they
 %     correspond to modal coefficients in the basis expansion
 %     1/sqrt(2*pi)*exp(i*k*theta), where k is an integer index, negatively
-%     biased when N = length(modes) is even. If the inputs GAMMA or DELTA are
+%     biased when N = length(nodes) is even. If the inputs gamma or delta are
 %     greater than 0 and are natural numbers, this function also performs the
-%     connection problem so that the output is the modes for the (GAMMA,DELTA)
+%     connection problem so that the output is the modes for the (gamma,delta)
 %     generalized Fourier expansion.
 
 global handles;
@@ -14,8 +16,8 @@ opt = handles.common.InputSchema({'gamma','delta','shift','scale'},{0,0,0,1},[],
 conn = handles.speclab.fourier.connection.positive_integer_separation_connection;
 N = length(nodes);
 
-%modes = fftshift(fft(fftshift(nodes)));
-%phase = 
+% This commented-out way is the way I *should* be doing it....
+% modes = fftshift(fft(fftshift(nodes)));
 
 modes = fft(nodes);
 modes = fftshift(modes)/N*sqrt(2*pi);

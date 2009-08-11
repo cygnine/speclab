@@ -1,13 +1,13 @@
 function[nodes,ks] = iffft(modes,varargin);
-% [NODES] = IFFFT(MODES,{GAMMA=0,DELTA=0,SHIFT=0,SCALE=1})
+% [nodes] = iffft(modes,{gamma=0,delta=0,shift=0,scale=1})
 %
-%     A wrapper for Matlab's IFFT. For GAMMA=DELTA=0, takes in modal
+%     A wrapper for Matlab's IFFT. For gamma=delta=0, takes in modal
 %     coefficients corresponding to basis functions 1/sqrt(2*pi)*exp(i*k*theta)
 %     and returns the nodal evaluations at the canonical Fourier nodal
 %     locations. 
 %
-%     The inputs GAMMA and DELTA specify the type of generalized Fourier
-%     expansion, and the values SHIFT and SCALE dictate the affine map from
+%     The inputs gamma and delta specify the type of generalized Fourier
+%     expansion, and the values shift and scale dictate the affine map from
 %     [-pi,pi] to another interval.
 
 global handles;
@@ -16,7 +16,7 @@ conn = handles.speclab.fourier.connection.negative_integer_separation_connection
 N = length(modes);
 
 if (opt.gamma+opt.delta)>0
-  modes = conn(modes,0,0,opt.gamma,opt.delta);
+  modes = conn(modes,opt.gamma,opt.delta,opt.gamma,opt.delta);
 end
 
 ks = handles.speclab.common.integer_range(N);

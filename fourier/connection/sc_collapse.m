@@ -1,8 +1,8 @@
 function[cmodes,smodes] = sc_collapse(modes,N)
-% [CMODES,SMODES] = SC_COLLAPSE(MODES,N)
+% [cmodes,smodes] = sc_collapse(modes,N)
 %
-%     Function helper: collapses the fourier MODES into even cosine-like
-%     modes CMODES and odd sine-like modes SMODES.
+%     Function helper: collapses the fourier modes into even cosine-like
+%     modes cmodes and odd sine-like modes smodes.
 
 N_even = mod(N,2)==0;
 

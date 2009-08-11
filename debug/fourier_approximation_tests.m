@@ -42,7 +42,7 @@ end
 function[tf] = mass_validator(data,opt)
   
   [v,mass] = deal(data.v,data.mass);
-  tol = 1e-8;
+  tol = 1e-6;
   if mod(opt.N,2)==0  % degenerate case
     tf = norm(mass(2:end,2:end)-eye(opt.N-1))<tol;
   else
@@ -75,7 +75,7 @@ function[tf] = interpolation_validator(data,opt)
   [modes,v_refined,fx_refined] = deal(data.modes, data.v_refined, data.fx_refined);
   fx_approx = v_refined*modes;
 
-  tol = 1e-6;
+  tol = 10^(-8 + (opt.gamma+opt.delta)/4);
   tf = norm(fx_approx-fx_refined)<tol;
 end
 
@@ -104,6 +104,6 @@ function[tf] = derivative_validator(data,opt)
   [modes,dv_refined,dfx_refined] = deal(data.modes, data.dv_refined, data.dfx_refined);
   dfx_approx = dv_refined*modes;
 
-  tol = 1e-4;
+  tol = 10^(-4 + (opt.gamma+opt.delta)/2);
   tf = norm(dfx_approx-dfx_refined)<tol;
 end
