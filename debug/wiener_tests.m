@@ -29,3 +29,35 @@ temp = opt.N;
 opt.N = 80 + ceil(20*rand());
 container = approx_tests(container,opt);
 opt.N = temp;
+
+%%%% Other s~=1 case (integer) %%%%
+opt = wiener.defaults();
+opt.N = 10 + ceil(90*rand());
+opt.s = round(0.5 + 10*rand());
+temp = opt.N;
+opt.N = 80 + ceil(20*rand());
+container = approx_tests(container,opt);
+opt.N = temp;
+
+opt.scale = 3*rand();
+opt.shift = randn();
+temp = opt.N;
+opt.N = 80 + ceil(20*rand());
+container = approx_tests(container,opt);
+opt.N = temp;
+
+%%%% Other s~=1 cases %%%%
+opt = wiener.defaults();
+opt.N = 10 + ceil(90*rand());
+opt.s = 0.5 + 10*rand();
+temp = opt.N;
+opt.N = 80 + ceil(20*rand());
+container = approx_tests(container,opt);
+opt.N = temp;
+
+opt.scale = 3*rand();
+opt.shift = randn();
+temp = opt.N;
+opt.N = 80 + ceil(20*rand());
+container = approx_tests(container,opt);
+opt.N = temp;

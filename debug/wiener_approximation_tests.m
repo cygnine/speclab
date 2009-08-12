@@ -42,9 +42,12 @@ end
 function[tf] = mass_validator(data,opt)
   
   mass = data.mass;
-  tol = 1e-6;
-
-  tf = norm(mass-eye(opt.N))<tol;
+  tol = 10^(-6 + opt.s/10);
+  if mod(opt.N,2)==0 % Degenerate case
+    tf = norm(mass(2:end,2:end)-eye(opt.N-1))<tol;
+  else
+    tf = norm(mass-eye(opt.N))<tol;
+  end
 end
 
 function[data] = interpolation_data(opt)
@@ -55,8 +58,9 @@ function[data] = interpolation_data(opt)
   ks = handles.speclab.common.integer_range(opt.N);
   ws = wiener.eval.wiener_function(x,ks,opt);
 
-  f = @(x) exp(-x.^2)./(1+x.^2);
-  df = @(x) -2*x.*f(x) - 2*x.*exp(-x.^2)./(1+x.^2).^2;
+  f = @(x) exp(-(x-opt.shift).^2)./(1+(x-opt.shift).^2);
+  df = @(x) -2*(x-opt.shift).*f(x) - ...
+     2*(x-opt.shift).*exp(-(x-opt.shift).^2)./(1+(x-opt.shift).^2).^2;
 
   fx = f(x);
   modes = ws'*(fx.*w);
@@ -70,7 +74,7 @@ end
 
 function[tf] = interpolation_validator(data,opt)
   
-  tol = 1e-6;
+  tol = 10^(-6+opt.s/10);
   [modes, x_refined, ws_refined, fx] = deal(data.modes,...
   data.x_refined, data.ws_refined, data.fx);
 
@@ -89,6 +93,9 @@ function[data] = derivative_data(opt)
 
   f = @(x) exp(-x.^2)./(1+x.^2);
   df = @(x) -2*x.*f(x) - 2*x.*exp(-x.^2)./(1+x.^2).^2;
+  f = @(x) exp(-(x-opt.shift).^2)./(1+(x-opt.shift).^2);
+  df = @(x) -2*(x-opt.shift).*f(x) - ...
+     2*(x-opt.shift).*exp(-(x-opt.shift).^2)./(1+(x-opt.shift).^2).^2;
 
   fx = f(x);
   modes = ws'*(fx.*w);
@@ -102,7 +109,7 @@ end
 
 function[tf] = derivative_validator(data,opt)
   
-  tol = 1e-6;
+  tol = 10^(-4+opt.s/10);
   [modes, x_refined, dws_refined, dfx] = deal(data.modes,...
   data.x_refined, data.dws_refined, data.dfx);
 
