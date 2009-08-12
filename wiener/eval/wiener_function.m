@@ -1,20 +1,19 @@
 function[w] = wiener_function(x,k,varargin)
-% [W] = WIENER_FUNCTION(X,K,{S=1, T=0, SHIFT=0, SCALE=1})
-%     
-%     Evaluates the Wiener function \Phi_K(x) of class (S,T), which is a direct
-%     map of the generalized Fourier series (gamma=S-1,delta=T). The input X is
-%     any real number, and SHIFT and SCALE dictate the affine scaling of the
-%     functions. The output W has size length(X) x length(K). 
+% [w] = wiener_function(x,k,{s=1, t=0, shift=0, scale=1})
+% 
+%     Evaluates the generalized Wiener rational functions \phi_k^(x) of class
+%     (s,t). These are a mapping and a weighting of the canonical Fourier
+%     series. The parameters shift and scale dictate the affine mapping. The
+%     output w has size length(x) x length(k).
 
 global handles;
-fourier = handles.speclab.fourier;
-rx = handles.speclab.wiener.maps;
 opt = handles.speclab.wiener.defaults(varargin{:});
 
-x = x(:);
-theta = rx.x_to_theta(x,opt);
+wiener = handles.speclab.wiener;
+weight = wiener.weights.phase_shifted_sqrt_weight;
 
-% The `unweighted' Wiener functions are a direct map of the generalized Fourier
-% series:
-fopt = struct('gamma',s-1,'delta',t);
-w = fourier.eval.fseries(theta,k,fopt);
+w = wiener.eval.unweighted_wiener_function(x,k,opt);
+x = x(:);
+
+N = length(x);
+w = spdiags(weight(x,opt),0,N,N)*w;

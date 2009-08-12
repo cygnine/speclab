@@ -1,9 +1,9 @@
 function[w] = weight(r,varargin)
-% [W] = WEIGHT(R,{ALPHA=-1/2,BETA=-1/2,SHIFT=0,SCALE=1})
+% [w] = weight(r,{alpha=-1/2,beta=-1/2,shift=0,scale=1})
 %
-%     Evaluates the Jacobi polynomial weight function for class (ALPHA,BETA)
-%     under the affine map r -> r*SCALE + SHIFT. Note that this function also
-%     takes into account the Jacobian of the transformation so that if SCALE is
+%     Evaluates the Jacobi polynomial weight function for class (alpha,beta)
+%     under the affine map r -> r*scale + shift. Note that this function also
+%     takes into account the Jacobian of the transformation so that if scale is
 %     not 1, then the polynomials that were once 'normal', aren't anymore.
 
 global handles;

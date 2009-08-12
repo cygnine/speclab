@@ -15,5 +15,5 @@ global handles;
 
 jnames = {'s', 't', 'shift', ...
           'scale','x','n'};
-jdefaults = {0, 0, 0, 1, false, false};
+jdefaults = {1, 0, 0, 1, false, false};
 opt = handles.common.InputSchema(jnames,jdefaults,[],varargin{:});

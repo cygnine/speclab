@@ -40,6 +40,7 @@ hs.fourier.base = fullfile(hs.base,'fourier');
 hs.wiener.base = fullfile(hs.base,'wiener');
   hs.wiener.eval.base = fullfile(hs.wiener.base, 'eval');
   hs.wiener.weights.base = fullfile(hs.wiener.base, 'weights');
+  hs.wiener.quad.base = fullfile(hs.wiener.base, 'quad');
   hs.wiener.maps.base = fullfile(hs.wiener.base, 'maps');
 hs.monomials.base = fullfile(hs.base,'monomials');
 hs.NewtonPolynomials.base = fullfile(hs.base,'NewtonPolynomials');
