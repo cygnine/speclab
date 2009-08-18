@@ -11,8 +11,6 @@ test = ValidationTest('description', 'Evaluation same as classic WF',...
                       'data_generator', @eval_wiener_data);
 container = container.append(test);
 
-end
-
 function[data] = eval_wiener_data(opt)
   global handles;
   wiener = handles.speclab.wiener;
@@ -31,11 +29,9 @@ function[data] = eval_wiener_data(opt)
     wf_form(:,q) = wf_form(:,q)./(x-i);
   end
   [data.wf, data.wf_form] = deal(wf,wf_form);
-end
 
 function[tf] = eval_wiener_validator(data,opt)
   tol = 1e-8;
   [wf,wf_form] = deal(data.wf, data.wf_form);
 
   tf = norm(wf - wf_form)<tol;
-end

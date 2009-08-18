@@ -82,8 +82,6 @@ test = ValidationTest('description', 'Gauss-Lobatto quadrature integration accur
                       'data_generator', @gauss_lobatto_quad_acc_data);
 container = container.append(test);
 
-end
-
 function[data] = gauss_quad_data(opt)
   global handles;
   jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
@@ -91,7 +89,6 @@ function[data] = gauss_quad_data(opt)
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
   data.x = x;
   data.w = w;
-end
 
 function[data] = gauss_radau_data(opt)
   global handles;
@@ -100,7 +97,6 @@ function[data] = gauss_radau_data(opt)
   [x,w] = jac.quad.gauss_radau_quadrature(opt.N,opt);
   data.x = x;
   data.w = w;
-end
 
 function[data] = gauss_lobatto_data(opt)
   global handles;
@@ -109,7 +105,6 @@ function[data] = gauss_lobatto_data(opt)
   [x,w] = jac.quad.gauss_lobatto_quadrature(opt.N,opt);
   data.x = x;
   data.w = w;
-end
 
 function[tf] = gauss_quad_nodes(data,opt)
   global handles;
@@ -119,7 +114,6 @@ function[tf] = gauss_quad_nodes(data,opt)
   tol = 1e-12;
   [x,w] = deal(data.x,data.w);
   tf = all(x<jint(2)+tol) && all(x>jint(1)-tol);
-end
 
 function[tf] = gauss_quad_weights(data,opt)
   global handles;
@@ -129,7 +123,6 @@ function[tf] = gauss_quad_weights(data,opt)
   jint = jac.interval(opt);
   [x,w] = deal(data.x,data.w);
   tf = all(w>-tol);
-end
 
 function[data] = gauss_quad_acc_data(opt)
   global handles;
@@ -138,7 +131,6 @@ function[data] = gauss_quad_acc_data(opt)
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
   ps = jac.eval.eval_jacobi_poly(x,0:(2*opt.N-1),opt);
   [data.x,data.w,data.ps] = deal(x,w,ps);
-end
 
 function[data] = gauss_radau_quad_acc_data(opt)
   global handles;
@@ -147,7 +139,6 @@ function[data] = gauss_radau_quad_acc_data(opt)
   [x,w] = jac.quad.gauss_radau_quadrature(opt.N,opt);
   ps = jac.eval.eval_jacobi_poly(x,0:(2*opt.N-2),opt);
   [data.x,data.w,data.ps] = deal(x,w,ps);
-end
 
 function[data] = gauss_lobatto_quad_acc_data(opt)
   global handles;
@@ -156,7 +147,6 @@ function[data] = gauss_lobatto_quad_acc_data(opt)
   [x,w] = jac.quad.gauss_lobatto_quadrature(opt.N,opt);
   ps = jac.eval.eval_jacobi_poly(x,0:(2*opt.N-3),opt);
   [data.x,data.w,data.ps] = deal(x,w,ps);
-end
 
 function[tf] = gauss_quad_acc(data,opt)
   tol = 1e-8;
@@ -168,4 +158,3 @@ function[tf] = gauss_quad_acc(data,opt)
   end
 
   tf = all(abs(intval)<tol);
-end

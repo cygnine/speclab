@@ -5,6 +5,9 @@ function[w] = phase_shifted_sqrt_weight(x,varargin)
 %     generalized Wiener rational functions. The parameters s and t determine
 %     the particular class of functions, and the affine shift factors scale and
 %     shift determine the affine map of the functions.
+%
+%     For t=0, scale=1, shift=0, this weight is equivalent to 
+%     [i/sqrt(2)*(1 + exp(-i*theta))].^s
 
 global handles;
 opt = handles.speclab.wiener.defaults(varargin{:});

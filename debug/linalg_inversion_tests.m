@@ -11,14 +11,12 @@ test = ValidationTest('description', 'Inversion of sparse, upper triangular syst
                       'data_generator', @sparse_triu_data);
 container = container.append(test);
 
-end
 function[data] = sparse_triu_data(opt)
   % If we allow negative values in s, it's horribly conditioned
   s = rand([opt.N,opt.bandwidth]);
   s = spdiags(s,0:(opt.bandwidth-1),opt.N,opt.N);
   b = randn([opt.N,1]);
   [data.s, data.b] = deal(s,b);
-end
   
 function[tf] = sparse_triu_validator(data,opt)
   global handles;
@@ -30,4 +28,3 @@ function[tf] = sparse_triu_validator(data,opt)
   tol = min([10^(-8 + opt.bandwidth), 0.1]);
 
   tf = max(abs(x1-x2))<tol;
-end

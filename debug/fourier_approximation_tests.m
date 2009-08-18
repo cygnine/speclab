@@ -25,8 +25,6 @@ test = ValidationTest('description', 'Fourier derivative',...
                       'data_generator', @derivative_data);
 container = container.append(test);
 
-end
-
 function[data] = mass_data(opt)
 
   global handles;
@@ -37,7 +35,6 @@ function[data] = mass_data(opt)
   v = fourier.eval.fseries(x,ks,opt);
   mass = v'*spdiags(w,0,opt.N,opt.N)*v;
   [data.v,data.mass] = deal(v,mass);
-end
 
 function[tf] = mass_validator(data,opt)
   
@@ -48,7 +45,6 @@ function[tf] = mass_validator(data,opt)
   else
     tf = norm(mass-eye(opt.N))<tol;
   end
-end
 
 function[data] = interpolation_data(opt)
   global handles;
@@ -66,18 +62,19 @@ function[data] = interpolation_data(opt)
   v_refined = fourier.eval.fseries(x_refined,ks,opt);
   modes = v'*spdiags(w,0,opt.N,opt.N)*f(x);
   fx_refined = f(x_refined);
+  w_refined = fourier.weights.weight(x_refined,opt);
 
-  [data.modes,data.v_refined,data.fx_refined] = deal(modes,v_refined,fx_refined);
-end
+  [data.modes,data.v_refined,data.fx_refined,data.w_refined] = ...
+    deal(modes,v_refined,fx_refined,w_refined);
 
 function[tf] = interpolation_validator(data,opt)
 
-  [modes,v_refined,fx_refined] = deal(data.modes, data.v_refined, data.fx_refined);
+  [modes,v_refined,fx_refined,w_refined] = ...
+    deal(data.modes, data.v_refined, data.fx_refined, data.w_refined);
   fx_approx = v_refined*modes;
 
-  tol = 10^(-8 + (opt.gamma+opt.delta)/4);
-  tf = norm(fx_approx-fx_refined)<tol;
-end
+  tol = 10^(-8 + (opt.gamma+opt.delta)/2);
+  tf = norm((fx_approx-fx_refined).*w_refined)<tol;
 
 function[data] = derivative_data(opt)
   global handles;
@@ -95,15 +92,16 @@ function[data] = derivative_data(opt)
   dv_refined = fourier.eval.dfseries(x_refined,ks,opt);
   modes = v'*spdiags(w,0,opt.N,opt.N)*f(x);
   dfx_refined = df(x_refined);
+  w_refined = fourier.weights.weight(x_refined,opt);
 
-  [data.modes,data.dv_refined,data.dfx_refined] = deal(modes,dv_refined,dfx_refined);
-end
+  [data.modes,data.dv_refined,data.dfx_refined,data.w_refined] = ...
+    deal(modes,dv_refined,dfx_refined,w_refined);
 
 function[tf] = derivative_validator(data,opt)
 
-  [modes,dv_refined,dfx_refined] = deal(data.modes, data.dv_refined, data.dfx_refined);
+  [modes,dv_refined,dfx_refined,w_refined] = ...
+    deal(data.modes, data.dv_refined, data.dfx_refined,data.w_refined);
   dfx_approx = dv_refined*modes;
 
   tol = 10^(-4 + (opt.gamma+opt.delta)/2);
-  tf = norm(dfx_approx-dfx_refined)<tol;
-end
+  tf = norm(w_refined.*(dfx_approx-dfx_refined))<tol;

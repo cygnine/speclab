@@ -31,8 +31,6 @@ test = ValidationTest('description', 'Fourier online Negative connection',...
                       'data_generator', @pconnection_online_data);
 container = container.append(test);
 
-end
-
 function[data] = pconnection_data(opt)
   global handles;
   fourier = handles.speclab.fourier;
@@ -51,7 +49,6 @@ function[data] = pconnection_data(opt)
   demoted_modes = v'*spdiags(w,0,opt.N,opt.N)*f(x);
 
   [data.modes,data.demoted_modes] = deal(modes,demoted_modes);
-end
 
 function[tf] = pconnection_validator(data,opt)
   global handles;
@@ -66,7 +63,6 @@ function[tf] = pconnection_validator(data,opt)
   GD = opt.gamma+opt.delta;
 
   tf = norm(modes_promoted(1+GD:end-GD) - modes(1+GD:end-GD))<tol;
-end
 
 function[tf] = nconnection_validator(data,opt)
   global handles;
@@ -77,11 +73,10 @@ function[tf] = nconnection_validator(data,opt)
 
   modes_connect = nconnect(modes,opt.gamma,opt.delta,opt.gamma,opt.delta);
 
-  tol = 10^(-8+(opt.gamma+opt.delta)/4);
+  tol = 10^(-8+(opt.gamma+opt.delta)/2);
   GD = opt.gamma+opt.delta;
 
   tf = norm(demoted_modes(1+GD:end-GD) - modes_connect(1+GD:end-GD))<tol;
-end
 
 function[data] = pconnection_online_data(opt)
   global handles;
@@ -105,7 +100,6 @@ function[data] = pconnection_online_data(opt)
 
   [data.modes,data.demoted_modes, data.conndata] = ...
       deal(modes,demoted_modes,conndata);
-end
 
 function[tf] = pconnection_online_validator(data,opt)
   global handles;
@@ -117,11 +111,10 @@ function[tf] = pconnection_online_validator(data,opt)
 
   modes_promoted = pconnect(demoted_modes,conndata);
 
-  tol = 10^(-8+(opt.gamma+opt.delta)/4);
+  tol = 10^(-8+(opt.gamma+opt.delta)/2);
   GD = opt.gamma+opt.delta;
 
   tf = norm(modes_promoted(1+GD:end-GD) - modes(1+GD:end-GD))<tol;
-end
 
 function[tf] = nconnection_online_validator(data,opt)
   global handles;
@@ -133,8 +126,7 @@ function[tf] = nconnection_online_validator(data,opt)
 
   modes_connect = nconnect(modes,conndata);
 
-  tol = 10^(-8+(opt.gamma+opt.delta)/4);
+  tol = 10^(-8+(opt.gamma+opt.delta)/2);
   GD = opt.gamma+opt.delta;
 
   tf = norm(demoted_modes(1+GD:end-GD) - modes_connect(1+GD:end-GD))<tol;
-end

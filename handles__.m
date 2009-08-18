@@ -37,12 +37,16 @@ hs.fourier.base = fullfile(hs.base,'fourier');
   hs.fourier.maps.base = fullfile(hs.fourier.base, 'maps');
   hs.fourier.connection.base = fullfile(hs.fourier.base, 'connection');
   hs.fourier.fft.base = fullfile(hs.fourier.base, 'fft');
+
 hs.wiener.base = fullfile(hs.base,'wiener');
   hs.wiener.eval.base = fullfile(hs.wiener.base, 'eval');
   hs.wiener.weights.base = fullfile(hs.wiener.base, 'weights');
   hs.wiener.quad.base = fullfile(hs.wiener.base, 'quad');
   hs.wiener.maps.base = fullfile(hs.wiener.base, 'maps');
+  hs.wiener.fft.base = fullfile(hs.wiener.base, 'fft');
+
 hs.monomials.base = fullfile(hs.base,'monomials');
+
 hs.NewtonPolynomials.base = fullfile(hs.base,'NewtonPolynomials');
 
 pathadditions = cell(0);

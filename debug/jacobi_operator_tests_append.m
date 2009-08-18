@@ -68,8 +68,6 @@ if tf
   container = container.append(test);
 end
 
-end
-
 function[data] = stiffness_data(opt);
   global handles;
   jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
@@ -86,7 +84,6 @@ function[data] = stiffness_data(opt);
   dmodes = vinv*dfun_rec;
 
   [data.modes,data.dmodes] = deal(modes,dmodes);
-end
 
 function[tf] = stiffness_validator(data,opt);
   global handles;
@@ -97,7 +94,6 @@ function[tf] = stiffness_validator(data,opt);
   dmodes2 = jac.operators.stiffness_operator(modes,opt);
   tol = 10^(-7 + opt.alpha/3 + opt.beta/3 + abs(opt.alpha-opt.beta)/3);
   tf = norm(dmodes - dmodes2)<tol;
-end
 
 function[data] = chebfft_data(opt);
   global handles;
@@ -111,7 +107,6 @@ function[data] = chebfft_data(opt);
   fx = f(x);
 
   [data.modes, data.fx] = deal(modes,fx);
-end
 
 function[tf] = chebfft_validator(data,opt);
   global handles;
@@ -121,7 +116,6 @@ function[tf] = chebfft_validator(data,opt);
   [modes,fx] = deal(data.modes,data.fx);
   modes2 = jac.jfft.chebfft(fx,opt);
   tf = norm(modes-modes2)<tol;
-end
 
 function[data] = chebfft_online_data(opt);
   global handles;
@@ -136,7 +130,6 @@ function[data] = chebfft_online_data(opt);
   fftdata = jac.jfft.chebfft_overhead(opt.N,opt);
 
   [data.modes, data.fx, data.fftdata] = deal(modes,fx,fftdata);
-end
 
 function[tf] = chebfft_online_validator(data,opt);
   global handles;
@@ -146,7 +139,6 @@ function[tf] = chebfft_online_validator(data,opt);
   [modes,fx,fftdata] = deal(data.modes,data.fx,data.fftdata);
   modes2 = jac.jfft.chebfft_online(fx,fftdata);
   tf = norm(modes-modes2)<tol;
-end
 
 function[data] = chebifft_data(opt);
   global handles;
@@ -156,7 +148,6 @@ function[data] = chebifft_data(opt);
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
   modes = jac.jfft.chebfft(f(x),opt);
   [data.fx, data.modes] = deal(f(x),modes);
-end
 
 function[tf] = chebifft_validator(data,opt);
   global handles;
@@ -166,7 +157,6 @@ function[tf] = chebifft_validator(data,opt);
   [fx,modes] = deal(data.fx,data.modes);
   fx2 = jac.jfft.chebifft(modes,opt);
   tf = norm(fx-fx2)<tol;
-end
 
 function[data] = chebifft_online_data(opt);
   global handles;
@@ -177,7 +167,6 @@ function[data] = chebifft_online_data(opt);
   modes = jac.jfft.chebfft(f(x),opt);
   fftdata = jac.jfft.chebifft_overhead(opt.N,opt);
   [data.fx, data.modes, data.fftdata] = deal(f(x),modes,fftdata);
-end
 
 function[tf] = chebifft_online_validator(data,opt);
   global handles;
@@ -187,7 +176,6 @@ function[tf] = chebifft_online_validator(data,opt);
   [fx,modes,fftdata] = deal(data.fx,data.modes,data.fftdata);
   fx2 = jac.jfft.chebifft_online(modes,fftdata);
   tf = norm(fx-fx2)<tol;
-end
 
 function[data] = jfft_data(opt);
   global handles;
@@ -204,7 +192,6 @@ function[data] = jfft_data(opt);
   [x,w] = jac.quad.gauss_quadrature(chebopt.N,chebopt);
   fx = f(x);
   [data.modes,data.fx] = deal(modes,fx);
-end
 
 function[tf] = jfft_validator(data,opt);
   global handles;
@@ -216,7 +203,6 @@ function[tf] = jfft_validator(data,opt);
   modes2 = jac.jfft.jfft(fx,opt);
 
   tf = norm(modes(1:(end-A-B)) - modes2(1:(end-A-B)))<tol;
-end
 
 function[data] = jfft_online_data(opt);
   global handles;
@@ -235,7 +221,6 @@ function[data] = jfft_online_data(opt);
   
   fftdata = jac.jfft.jfft_overhead(opt.N,opt);
   [data.modes,data.fx,data.fftdata] = deal(modes,fx,fftdata);
-end
 
 function[tf] = jfft_online_validator(data,opt);
   global handles;
@@ -247,7 +232,6 @@ function[tf] = jfft_online_validator(data,opt);
   modes2 = jac.jfft.jfft_online(fx,fftdata);
 
   tf = norm(modes(1:(end-A-B)) - modes2(1:(end-A-B)))<tol;
-end
 
 function[data] = jifft_data(opt);
   global handles;
@@ -263,7 +247,6 @@ function[data] = jifft_data(opt);
   modes = jac.jfft.jfft(fx,opt);
 
   [data.fx,data.modes] = deal(fx,modes);
-end
 
 function[tf] = jifft_validator(data,opt);
   global handles;
@@ -275,7 +258,6 @@ function[tf] = jifft_validator(data,opt);
   fx2 = jac.jfft.jifft(modes,opt);
 
   tf = norm(fx-fx2)<tol;
-end
 
 function[data] = jifft_online_data(opt);
   global handles;
@@ -292,7 +274,6 @@ function[data] = jifft_online_data(opt);
   fftdata = jac.jfft.jifft_overhead(opt.N,opt);
 
   [data.fx,data.modes,data.fftdata] = deal(fx,modes,fftdata);
-end
 
 function[tf] = jifft_online_validator(data,opt);
   global handles;
@@ -304,4 +285,3 @@ function[tf] = jifft_online_validator(data,opt);
   fx2 = jac.jfft.jifft_online(modes,fftdata);
 
   tf = norm(fx-fx2)<tol;
-end

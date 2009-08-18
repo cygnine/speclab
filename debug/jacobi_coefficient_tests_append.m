@@ -38,8 +38,6 @@ test = ValidationTest('description', 'd/dr P coefficients',...
                       'data_generator', @ddr_P_data);
 container = container.append(test);
 
-end
-
 function[data] = one_minus_r_data(opt)
   global handles;
   jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
@@ -58,7 +56,6 @@ function[data] = one_minus_r_data(opt)
   ps_temp = jac.eval.eval_jacobi_poly(r,ns_1,opt);
 
   [data.ps,data.mu,data.ps_temp,data.r] = deal(ps,mu,ps_temp,r);
-end
 
 function[tf] = one_minus_r_validator(data,opt)
   global handles;
@@ -75,7 +72,6 @@ function[tf] = one_minus_r_validator(data,opt)
   err = spdiags(jac.weights.weight(r,tempopt),0,Nr,Nr)*ps - ps_temp(:,1:opt.N)*spdiags(mu(:,1),0,opt.N,opt.N) - ...
                                 ps_temp(:,2:(opt.N+1))*spdiags(mu(:,2),0,opt.N,opt.N);
   tf = max(max(abs(err)<tol));
-end
 
 function[data] = one_plus_r_data(opt)
   global handles;
@@ -95,7 +91,6 @@ function[data] = one_plus_r_data(opt)
   ps_temp = jac.eval.eval_jacobi_poly(r,ns_1,opt);
 
   [data.ps,data.mu,data.ps_temp,data.r] = deal(ps,mu,ps_temp,r);
-end
 
 function[tf] = one_plus_r_validator(data,opt)
   global handles;
@@ -113,7 +108,6 @@ function[tf] = one_plus_r_validator(data,opt)
                                 ps_temp(:,2:(opt.N+1))*spdiags(mu(:,2),0,opt.N,opt.N);
 
   tf = max(max(abs(err)<tol));
-end
 
 function[data] = one_minus_r_squared_data(opt)
   global handles;
@@ -134,7 +128,6 @@ function[data] = one_minus_r_squared_data(opt)
   ps_temp = jac.eval.eval_jacobi_poly(r,ns_2,opt);
 
   [data.ps,data.mu,data.ps_temp,data.r] = deal(ps,mu,ps_temp,r);
-end
 
 function[tf] = one_minus_r_squared_validator(data,opt)
   global handles;
@@ -153,7 +146,6 @@ function[tf] = one_minus_r_squared_validator(data,opt)
                                    ps_temp(:,3:end)*spdiags(mu(:,3),0,opt.N,opt.N); 
 
   tf = max(max(abs(err)<tol));
-end
 
 function[data] = integer_connection_data(opt)
 
@@ -177,7 +169,6 @@ function[data] = integer_connection_data(opt)
 
   C = jac.connection.integer_separation_connection_matrix(opt.N,demoted_opt.alpha,demoted_opt.beta,A,B);
   [data.modes, data.C, data.demoted_opt, data.gauss_modes] = deal(modes,C,demoted_opt,gauss_modes);
-end
 
 function[tf] = integer_connection_validator(data,opt)
   
@@ -187,7 +178,6 @@ function[tf] = integer_connection_validator(data,opt)
   tol = 1e-5;
   AB = ceil(opt.alpha) + ceil(opt.beta);
   tf = max(abs(gauss_modes(1:(end-AB)) - promoted_modes(1:(end-AB))))<tol;
-end
 
 function[data] = ddr_P_data(opt);
   global handles;
@@ -203,7 +193,6 @@ function[data] = ddr_P_data(opt);
   opt.beta = opt.beta+1;
   ps = jac.eval.eval_jacobi_poly(r,0:(opt.N-1),opt);
   [data.r, data.ps, data.dps, data.zetas] = deal(r,ps,dps,zetas);
-end
 
 function[tf] = ddr_P_validator(data,opt);
   [r,ps,dps,zetas] = deal(data.r, data.ps, data.dps, data.zetas);
@@ -212,4 +201,3 @@ function[tf] = ddr_P_validator(data,opt);
   opt.N = min([opt.N, 50]); % don't test them all
   err = dps(:,2:opt.N) - ps(:,1:(opt.N-1))*spdiags(zetas(2:end),0,opt.N-1,opt.N-1);
   tf = norm(err)<tol;
-end

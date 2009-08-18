@@ -25,8 +25,6 @@ test = ValidationTest('description', 'Wiener derivative',...
                       'data_generator', @derivative_data);
 container = container.append(test);
 
-end
-
 function[data] = mass_data(opt)
   
   global handles;
@@ -37,18 +35,16 @@ function[data] = mass_data(opt)
 
   mass = ws'*spdiags(w,0,opt.N,opt.N)*ws;
   data.mass = mass;
-end
 
 function[tf] = mass_validator(data,opt)
   
   mass = data.mass;
-  tol = 10^(-6 + opt.s/10);
+  tol = 10^(-6 + opt.s/5);
   if mod(opt.N,2)==0 % Degenerate case
     tf = norm(mass(2:end,2:end)-eye(opt.N-1))<tol;
   else
     tf = norm(mass-eye(opt.N))<tol;
   end
-end
 
 function[data] = interpolation_data(opt)
 
@@ -70,18 +66,16 @@ function[data] = interpolation_data(opt)
   fx = f(x_refined);
   [data.modes, data.x_refined, data.ws_refined, data.fx] = deal(modes, ...
      x_refined, ws_refined, fx);
-end
 
 function[tf] = interpolation_validator(data,opt)
   
-  tol = 10^(-6+opt.s/10);
+  tol = 10^(-6+opt.s/5 + abs(opt.scale-1)/2);
   [modes, x_refined, ws_refined, fx] = deal(data.modes,...
   data.x_refined, data.ws_refined, data.fx);
 
   fx_interp = ws_refined*modes;
 
   tf = norm(fx_interp-fx)<tol;
-end
 
 function[data] = derivative_data(opt)
 
@@ -105,15 +99,13 @@ function[data] = derivative_data(opt)
   dfx = df(x_refined);
   [data.modes, data.x_refined, data.dws_refined, data.dfx] = deal(modes, ...
      x_refined, dws_refined, dfx);
-end
 
 function[tf] = derivative_validator(data,opt)
   
-  tol = 10^(-4+opt.s/10);
+  tol = 10^(-4+opt.s/5 + abs(opt.scale-1)/2);
   [modes, x_refined, dws_refined, dfx] = deal(data.modes,...
   data.x_refined, data.dws_refined, data.dfx);
 
   dfx_interp = dws_refined*modes;
 
   tf = norm(dfx_interp-dfx)<tol;
-end
