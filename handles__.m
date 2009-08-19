@@ -44,6 +44,7 @@ hs.wiener.base = fullfile(hs.base,'wiener');
   hs.wiener.quad.base = fullfile(hs.wiener.base, 'quad');
   hs.wiener.maps.base = fullfile(hs.wiener.base, 'maps');
   hs.wiener.fft.base = fullfile(hs.wiener.base, 'fft');
+  hs.wiener.operators.base = fullfile(hs.wiener.base, 'operators');
 
 hs.monomials.base = fullfile(hs.base,'monomials');
 

@@ -54,9 +54,10 @@ function[data] = interpolation_data(opt)
   ks = handles.speclab.common.integer_range(opt.N);
   ws = wiener.eval.wiener_function(x,ks,opt);
 
-  f = @(x) exp(-(x-opt.shift).^2)./(1+(x-opt.shift).^2);
-  df = @(x) -2*(x-opt.shift).*f(x) - ...
-     2*(x-opt.shift).*exp(-(x-opt.shift).^2)./(1+(x-opt.shift).^2).^2;
+  sss = handles.speclab.common.standard_scaleshift_1d;
+  f = @(x) exp(-sss(x,opt).^2)./(1+sss(x,opt).^2);
+  df = @(x) (-2*sss(x,opt).*f(x) - ...
+     2*sss(x,opt).*exp(-sss(x,opt).^2)./(1+sss(x,opt).^2).^2)/opt.scale;
 
   fx = f(x);
   modes = ws'*(fx.*w);
@@ -69,7 +70,7 @@ function[data] = interpolation_data(opt)
 
 function[tf] = interpolation_validator(data,opt)
   
-  tol = 10^(-6+opt.s/5 + abs(opt.scale-1)/2);
+  tol = 10^(-6+opt.s/5 + abs(opt.scale-1));
   [modes, x_refined, ws_refined, fx] = deal(data.modes,...
   data.x_refined, data.ws_refined, data.fx);
 
@@ -85,11 +86,10 @@ function[data] = derivative_data(opt)
   ks = handles.speclab.common.integer_range(opt.N);
   ws = wiener.eval.wiener_function(x,ks,opt);
 
-  f = @(x) exp(-x.^2)./(1+x.^2);
-  df = @(x) -2*x.*f(x) - 2*x.*exp(-x.^2)./(1+x.^2).^2;
-  f = @(x) exp(-(x-opt.shift).^2)./(1+(x-opt.shift).^2);
-  df = @(x) -2*(x-opt.shift).*f(x) - ...
-     2*(x-opt.shift).*exp(-(x-opt.shift).^2)./(1+(x-opt.shift).^2).^2;
+  sss = handles.speclab.common.standard_scaleshift_1d;
+  f = @(x) exp(-sss(x,opt).^2)./(1+sss(x,opt).^2);
+  df = @(x) (-2*sss(x,opt).*f(x) - ...
+     2*sss(x,opt).*exp(-sss(x,opt).^2)./(1+sss(x,opt).^2).^2)/opt.scale;
 
   fx = f(x);
   modes = ws'*(fx.*w);
