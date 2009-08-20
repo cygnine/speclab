@@ -10,7 +10,7 @@ function[w] = weight(theta,varargin)
 global handles;
 sss = handles.speclab.common.standard_scaleshift_1d;
 opt = handles.speclab.fourier.defaults(varargin{:});
-jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+jac = handles.speclab.orthopoly1d.jacobi;
 xr = handles.speclab.fourier.maps;
 
 %theta = sss(theta,opt);

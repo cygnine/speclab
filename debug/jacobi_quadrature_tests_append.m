@@ -84,7 +84,7 @@ container = container.append(test);
 
 function[data] = gauss_quad_data(opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
   data.x = x;
@@ -92,7 +92,7 @@ function[data] = gauss_quad_data(opt)
 
 function[data] = gauss_radau_data(opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   [x,w] = jac.quad.gauss_radau_quadrature(opt.N,opt);
   data.x = x;
@@ -100,7 +100,7 @@ function[data] = gauss_radau_data(opt)
 
 function[data] = gauss_lobatto_data(opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   [x,w] = jac.quad.gauss_lobatto_quadrature(opt.N,opt);
   data.x = x;
@@ -108,7 +108,7 @@ function[data] = gauss_lobatto_data(opt)
 
 function[tf] = gauss_quad_nodes(data,opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   jint = jac.interval(opt);
   tol = 1e-12;
@@ -117,7 +117,7 @@ function[tf] = gauss_quad_nodes(data,opt)
 
 function[tf] = gauss_quad_weights(data,opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   tol = 1e-12;
   jint = jac.interval(opt);
@@ -126,7 +126,7 @@ function[tf] = gauss_quad_weights(data,opt)
 
 function[data] = gauss_quad_acc_data(opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
   ps = jac.eval.eval_jacobi_poly(x,0:(2*opt.N-1),opt);
@@ -134,7 +134,7 @@ function[data] = gauss_quad_acc_data(opt)
 
 function[data] = gauss_radau_quad_acc_data(opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   [x,w] = jac.quad.gauss_radau_quadrature(opt.N,opt);
   ps = jac.eval.eval_jacobi_poly(x,0:(2*opt.N-2),opt);
@@ -142,7 +142,7 @@ function[data] = gauss_radau_quad_acc_data(opt)
 
 function[data] = gauss_lobatto_quad_acc_data(opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   [x,w] = jac.quad.gauss_lobatto_quadrature(opt.N,opt);
   ps = jac.eval.eval_jacobi_poly(x,0:(2*opt.N-3),opt);

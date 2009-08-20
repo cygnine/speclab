@@ -13,19 +13,19 @@ test = ValidationTest('description', 'Mass matrix identity, Gauss quadrature',..
                       'data_generator', @mass_data);
 container = container.append(test);
 
-test = ValidationTest('description', 'Interpolant approximation',...
+test = ValidationTest('description', 'Jacobi Interpolant approximation',...
                       'parameters', opt,...
                       'validator', @interpolant_validator,...
                       'data_generator', @interpolant_data);
 container = container.append(test);
 
-test = ValidationTest('description', 'Derivative approximation',...
+test = ValidationTest('description', 'Jacobi Derivative approximation',...
                       'parameters', opt,...
                       'validator', @derivative_validator,...
                       'data_generator', @derivative_data);
 container = container.append(test);
 
-test = ValidationTest('description', 'Derivative approximation (stiffness)',...
+test = ValidationTest('description', 'Jacobi Derivative approximation (stiffness)',...
                       'parameters', opt,...
                       'validator', @derivative_stiffness_validator,...
                       'data_generator', @derivative_stiffness_data);
@@ -35,7 +35,7 @@ end
 
 function[data] = mass_data(opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
   ps = jac.eval.eval_jacobi_poly(x,opt.n,opt);
@@ -44,7 +44,7 @@ end
 
 function[data] = interpolant_data(opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
   jint = jac.interval(opt);
 
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
@@ -58,7 +58,7 @@ end
 
 function[data] = derivative_data(opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
   jint = jac.interval(opt);
 
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
@@ -82,7 +82,7 @@ end
 function[tf] = interpolant_validator(data,opt);
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
-  tol = 10^(-8+opt.alpha/3+opt.beta/3 + abs(opt.alpha-opt.beta)/3);
+  tol = 10^(-7+opt.alpha/3+opt.beta/3 + abs(opt.alpha-opt.beta)/3);
   [x,w,ps,x_refined,ps_refined] = deal(data.x,data.w,data.ps, ...
      data.x_refined, data.ps_refined);
 
@@ -106,7 +106,7 @@ end
 
 function[data] = derivative_stiffness_data(opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
   jint = jac.interval(opt);
 
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
@@ -121,7 +121,7 @@ end
 
 function[tf] = derivative_stiffness_validator(data,opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   df = @(x) opt.N/(10*opt.scale)*cos(opt.N/(10*opt.scale)*x);

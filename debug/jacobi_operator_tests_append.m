@@ -6,7 +6,7 @@ function[container] = jacobi_operator_tests_append(container,opt);
 
 import debug.*
 global handles;
-jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+jac = handles.speclab.orthopoly1d.jacobi;
 
 test = ValidationTest('description', 'Stiffness operator',...
                       'parameters', opt,...
@@ -70,7 +70,7 @@ end
 
 function[data] = stiffness_data(opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   modes = randn([opt.N,1]);
   [r,w] = jac.quad.gauss_quadrature(opt.N,opt);
@@ -87,7 +87,7 @@ function[data] = stiffness_data(opt);
 
 function[tf] = stiffness_validator(data,opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   [modes,dmodes] = deal(data.modes,data.dmodes);
 
@@ -97,7 +97,7 @@ function[tf] = stiffness_validator(data,opt);
 
 function[data] = chebfft_data(opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
 
@@ -110,7 +110,7 @@ function[data] = chebfft_data(opt);
 
 function[tf] = chebfft_validator(data,opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   tol = 1e-8;
   [modes,fx] = deal(data.modes,data.fx);
@@ -119,7 +119,7 @@ function[tf] = chebfft_validator(data,opt);
 
 function[data] = chebfft_online_data(opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
 
@@ -133,7 +133,7 @@ function[data] = chebfft_online_data(opt);
 
 function[tf] = chebfft_online_validator(data,opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   tol = 1e-8;
   [modes,fx,fftdata] = deal(data.modes,data.fx,data.fftdata);
@@ -142,7 +142,7 @@ function[tf] = chebfft_online_validator(data,opt);
 
 function[data] = chebifft_data(opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
@@ -151,7 +151,7 @@ function[data] = chebifft_data(opt);
 
 function[tf] = chebifft_validator(data,opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   tol = 1e-8;
   [fx,modes] = deal(data.fx,data.modes);
@@ -160,7 +160,7 @@ function[tf] = chebifft_validator(data,opt);
 
 function[data] = chebifft_online_data(opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
@@ -170,7 +170,7 @@ function[data] = chebifft_online_data(opt);
 
 function[tf] = chebifft_online_validator(data,opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   tol = 1e-8;
   [fx,modes,fftdata] = deal(data.fx,data.modes,data.fftdata);
@@ -179,7 +179,7 @@ function[tf] = chebifft_online_validator(data,opt);
 
 function[data] = jfft_data(opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
@@ -195,7 +195,7 @@ function[data] = jfft_data(opt);
 
 function[tf] = jfft_validator(data,opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   [tf,A,B] = jac.jfft.fftable(opt);
   tol = 10^(-8+(A+B)/4);
@@ -206,7 +206,7 @@ function[tf] = jfft_validator(data,opt);
 
 function[data] = jfft_online_data(opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
@@ -224,7 +224,7 @@ function[data] = jfft_online_data(opt);
 
 function[tf] = jfft_online_validator(data,opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   [tf,A,B] = jac.jfft.fftable(opt);
   tol = 10^(-8+(A+B)/4);
@@ -235,7 +235,7 @@ function[tf] = jfft_online_validator(data,opt);
 
 function[data] = jifft_data(opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   chebopt = opt;
@@ -250,7 +250,7 @@ function[data] = jifft_data(opt);
 
 function[tf] = jifft_validator(data,opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   [tf,A,B] = jac.jfft.fftable(opt);
   tol = 10^(-8+(A+B)/4);
@@ -261,7 +261,7 @@ function[tf] = jifft_validator(data,opt);
 
 function[data] = jifft_online_data(opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   chebopt = opt;
@@ -277,7 +277,7 @@ function[data] = jifft_online_data(opt);
 
 function[tf] = jifft_online_validator(data,opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   [tf,A,B] = jac.jfft.fftable(opt);
   tol = 10^(-8+(A+B)/4);

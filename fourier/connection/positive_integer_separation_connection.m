@@ -7,7 +7,7 @@ function[modes] = positive_integer_separation_connection(modes,gamma,delta,G,D)
 %     computed. It is assumed that the inputs G and D are integers.
 
 global handles;
-jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+jac = handles.speclab.orthopoly1d.jacobi;
 fourier = handles.speclab.fourier;
 sc_expand = fourier.connection.sc_expand;
 sc_collapse = fourier.connection.sc_collapse;

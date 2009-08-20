@@ -9,7 +9,7 @@ function[varargout] = jacobi_polynomial_debug()
 fprintf('Running Jacobi polynomial tests...');
 
 global handles;
-jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+jac = handles.speclab.orthopoly1d.jacobi;
 debug = handles.speclab.debug;
 dcat = debug.concatenate_debug_information;
 

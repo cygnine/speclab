@@ -13,7 +13,7 @@ classdef JacobiQuadratureRule < QuadratureRule
         error('The degrees of freedom must be a positive integer');
       end
       global handles;
-      jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+      jac = handles.speclab.orthopoly1d.jacobi;
       inputs = {'type', 'alpha', 'beta', 'interval', 'scale', 'shift', 'r'};
       defaults = {'gauss', -1/2, -1/2, [], 1, 0, 1};
       opt = handles.common.InputSchema(inputs, defaults, [], varargin{:});
@@ -42,7 +42,7 @@ classdef JacobiQuadratureRule < QuadratureRule
 
     function vals = weight_function(self,x)
       global handles;
-      jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+      jac = handles.speclab.orthopoly1d.jacobi;
       vals = jac.weights.weight(x,self.parameters);
     end
 end

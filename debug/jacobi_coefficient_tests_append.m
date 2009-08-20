@@ -40,7 +40,7 @@ container = container.append(test);
 
 function[data] = one_minus_r_data(opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
   
   opt.N = min([opt.N,50]); % need not go above 50 polys
   promote_opt = opt;
@@ -59,7 +59,7 @@ function[data] = one_minus_r_data(opt)
 
 function[tf] = one_minus_r_validator(data,opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
   [ps,mu,ps_temp,r] = deal(data.ps, data.mu, data.ps_temp,data.r);
   opt.N = min([opt.N,50]); % need not go above 50 polys
   Nr = length(r);
@@ -75,7 +75,7 @@ function[tf] = one_minus_r_validator(data,opt)
 
 function[data] = one_plus_r_data(opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
   
   opt.N = min([opt.N,50]); % need not go above 50 polys
   promote_opt = opt;
@@ -94,7 +94,7 @@ function[data] = one_plus_r_data(opt)
 
 function[tf] = one_plus_r_validator(data,opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
   [ps,mu,ps_temp,r] = deal(data.ps, data.mu, data.ps_temp,data.r);
   opt.N = min([opt.N,50]); % need not go above 50 polys
   Nr = length(r);
@@ -111,7 +111,7 @@ function[tf] = one_plus_r_validator(data,opt)
 
 function[data] = one_minus_r_squared_data(opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
   
   opt.N = min([opt.N,50]); % need not go above 50 polys
   promote_opt = opt;
@@ -131,7 +131,7 @@ function[data] = one_minus_r_squared_data(opt)
 
 function[tf] = one_minus_r_squared_validator(data,opt)
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
   [ps,mu,ps_temp,r] = deal(data.ps, data.mu, data.ps_temp,data.r);
   opt.N = min([opt.N,50]); % need not go above 50 polys
   Nr = length(r);
@@ -150,7 +150,7 @@ function[tf] = one_minus_r_squared_validator(data,opt)
 function[data] = integer_connection_data(opt)
 
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
 
@@ -181,7 +181,7 @@ function[tf] = integer_connection_validator(data,opt)
 
 function[data] = ddr_P_data(opt);
   global handles;
-  jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+  jac = handles.speclab.orthopoly1d.jacobi;
 
   jint = jac.interval(opt);
   r = linspace(jint(1),jint(2),300);

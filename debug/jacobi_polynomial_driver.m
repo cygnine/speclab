@@ -6,7 +6,7 @@ function[varargout] = jacobi_polynomial_driver(varargin)
 %     description is in the cell array DESCRIPTIONS.
 
 global handles;
-jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+jac = handles.speclab.orthopoly1d.jacobi;
 opt = jac.defaults(varargin{:});
 
 flags = false(0);

@@ -11,7 +11,7 @@ global handles;
 opt = handles.speclab.fourier.defaults(varargin{:});
 sss = handles.speclab.common.standard_scaleshift_1d;
 fourier = handles.speclab.fourier;
-jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+jac = handles.speclab.orthopoly1d.jacobi;
 tr = handles.speclab.fourier.maps;
 
 opt.gamma = opt.gamma/2;

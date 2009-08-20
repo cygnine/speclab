@@ -9,7 +9,7 @@ function[w] = dweight(theta,varargin)
 
 global handles;
 opt = handles.speclab.fourier.defaults(varargin{:});
-jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+jac = handles.speclab.orthopoly1d.jacobi;
 tr = handles.speclab.fourier.maps;
 
 dtheta = tr.dr_dtheta(theta,opt);

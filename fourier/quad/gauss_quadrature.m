@@ -10,7 +10,7 @@ function[theta,w] = gauss_quadrature(N,varargin)
 
 global handles;
 opt = handles.speclab.fourier.defaults(varargin{:});
-jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+jac = handles.speclab.orthopoly1d.jacobi;
 pss = handles.speclab.common.physical_scaleshift_1d;
 
 if mod(N,2)==0

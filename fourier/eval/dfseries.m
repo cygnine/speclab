@@ -16,7 +16,7 @@ function[dPsi] = dfseries(theta,k,varargin)
 %     speclab/fourier/weights.
 
 global handles;
-jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+jac = handles.speclab.orthopoly1d.jacobi;
 rtheta = handles.speclab.fourier.maps;
 opt = handles.speclab.fourier.defaults(varargin{:});
 

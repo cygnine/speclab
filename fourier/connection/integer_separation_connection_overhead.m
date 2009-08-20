@@ -5,7 +5,7 @@ function[data] = integer_separation_connection_overhead(N,gamma,delta,G,D)
 %     and stores the information in data.
 
 global handles;
-jac = handles.speclab.OrthogonalPolynomial1D.jacobi;
+jac = handles.speclab.orthopoly1d.jacobi;
 fourier = handles.speclab.fourier;
 sc_expand = fourier.connection.sc_expand;
 sc_collapse = fourier.connection.sc_collapse;
