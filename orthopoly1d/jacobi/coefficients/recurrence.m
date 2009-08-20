@@ -1,8 +1,8 @@
 function[a,b] = recurrence(N,varargin)
-% [A,B] = RECURRENCE(N,{ALPHA=-1/2,BETA=-1/2})
+% [a,b] = recurrence(N,{alpha=-1/2,beta=-1/2})
 %
 %     Returns the recurrence coefficients to generate the first N Jacobi
-%     polynomials defined by (ALPHA, BETA). 
+%     polynomials defined by (alpha, beta). 
 
 % Sets default values for alpha, beta
 global handles;

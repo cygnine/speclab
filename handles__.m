@@ -8,27 +8,21 @@ function[hs,pathadditions] = handles__()
 % This is by default
 hs.base = fileparts(mfilename('fullpath'));
 
-hs.debug.base = fullfile(hs.base,'debug');
-
 hs.common.base = fullfile(hs.base,'common');
 
 hs.orthopoly1d.base = fullfile(hs.base,'orthopoly1d');
-  hs.orthopoly1d.jacobi.base = ...
-    fullfile(hs.orthopoly1d.base, 'jacobi');
-  hs.orthopoly1d.jacobi.quad.base = ...
-    fullfile(hs.orthopoly1d.jacobi.base, 'quad');
-  hs.orthopoly1d.jacobi.eval.base = ...
-    fullfile(hs.orthopoly1d.jacobi.base, 'eval');
-  hs.orthopoly1d.jacobi.coefficients.base = ...
-    fullfile(hs.orthopoly1d.jacobi.base, 'coefficients');
-  hs.orthopoly1d.jacobi.connection.base = ...
-    fullfile(hs.orthopoly1d.jacobi.base, 'connection');
-  hs.orthopoly1d.jacobi.weights.base = ...
-    fullfile(hs.orthopoly1d.jacobi.base, 'weights');
-  hs.orthopoly1d.jacobi.operators.base = ...
-    fullfile(hs.orthopoly1d.jacobi.base, 'operators');
-  hs.orthopoly1d.jacobi.jfft.base = ...
-    fullfile(hs.orthopoly1d.jacobi.base, 'jfft');
+  hs.orthopoly1d.jacobi.base = fullfile(hs.orthopoly1d.base, 'jacobi');
+    hs.orthopoly1d.jacobi.quad.base = fullfile(hs.orthopoly1d.jacobi.base, 'quad');
+    hs.orthopoly1d.jacobi.eval.base = fullfile(hs.orthopoly1d.jacobi.base, 'eval');
+    hs.orthopoly1d.jacobi.coefficients.base = ...
+      fullfile(hs.orthopoly1d.jacobi.base, 'coefficients');
+    hs.orthopoly1d.jacobi.connection.base = ...
+      fullfile(hs.orthopoly1d.jacobi.base, 'connection');
+    hs.orthopoly1d.jacobi.weights.base = ...
+      fullfile(hs.orthopoly1d.jacobi.base, 'weights');
+    hs.orthopoly1d.jacobi.operators.base = ...
+      fullfile(hs.orthopoly1d.jacobi.base, 'operators');
+    hs.orthopoly1d.jacobi.jfft.base = fullfile(hs.orthopoly1d.jacobi.base, 'jfft');
 
 hs.fourier.base = fullfile(hs.base,'fourier');
   hs.fourier.eval.base = fullfile(hs.fourier.base, 'eval');
@@ -51,6 +45,11 @@ hs.wiener.base = fullfile(hs.base,'wiener');
 hs.monomials.base = fullfile(hs.base,'monomials');
 
 hs.NewtonPolynomials.base = fullfile(hs.base,'NewtonPolynomials');
+
+hs.debug.base = fullfile(hs.base,'debug');
+hs.examples.base = fullfile(hs.base,'examples');
+  hs.examples.chebyshev.base = fullfile(hs.examples.base, 'chebyshev');
+  hs.examples.legendre.base = fullfile(hs.examples.base, 'legendre');
 
 pathadditions = cell(0);
 pathadditions{end+1} = fullfile(hs.base, 'classes');

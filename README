@@ -1,2 +1,125 @@
-You must first have the CommonMatlab repo installed before using this one:
+Contents:
+1.) Setup (PLEASE READ)
+2.) Validation tests (optional)
+3.) Examples (PLEASE READ)
+4.) Other README's
+5.) Development history
+
+________________________________________________________________________________
+
+                            1.) Setup
+________________________________________________________________________________
+
+Speclab does *not* work out of the box. You have to run one function beforehand,
+aptly named 'setup.m'. This file is located in the base directory of the Speclab
+bundle. You can just cd into the directory in Matlab, and run
+
+>> setup;
+
+Depending on what your directory structure is set up like, setup might make some
+comments about ignoring directories. Setup should terminate with some
+nice-sounding message(s) about successfully doing things. 
+
+Speclab is now set up and ready for use. In the course of your computations, if
+you ever run 'clear all' or 'clear global' then *you will have to run setup
+again*.  
+
+PLEASE READ THE EXAMPLES SECTION IN THIS FILE BEFORE PROCEEDING TO USE SPECLAB.
+
+Optional reading:
+
+setup.m does two things:
+1.) Creates a Matlab-global variable called 'handles'. handles is a nested
+    struct whose tree-like structure mimics Speclab's directory structure. Each
+    node of the tree corresponds to an m-file function inside Speclab. In this
+    way, functions in e.g. the Fourier side of Speclab can access functions in
+    the Jacobi polynomial section of Speclab without needing to do messy things
+    like changing directories or adding a bunch of directories to Matlab's PATH
+    variable, thereby polluting the command line namespace. As mentioned before,
+    if you happen to clear this global variable, you'll have to run setup.m
+    again to rewrite it. You can inspect handles yourself by typing
+
+    >> global handles
+
+    at the command line. And then inspecting the variable.
+
+2.) Regrettably...adds some directories to Matlab's PATH variable. However, the
+    only directories it adds are those associated with class declarations.
+    Function names are not introduced into the global path at all, only class
+    names.  
+
+    Class names are declared in the FirstLetterUppercase format. Functions are
+    declared in the all_lowercase_underscore_separation format. This rubric is
+    (hopefully) consistent across Speclab. 
+
+________________________________________________________________________________
+
+                            2.) Validation Tests
+________________________________________________________________________________
+
+Once setup.m is run, Speclab is ready to go. However, for peace of mind, it
+might be beneficial to run the Speclab validation tests. Running these tests can
+take up to 5 minutes, but generally only take 2 minutes or so. 
+
+>> setup;
+>> global handles
+>> handles.debug.all_tests();
+
+This runs a bunch (~400) of tests with some relatively well-formatted output.
+The test parameters are randomized, so it's not a big deal if a dozen or so of
+the tests fail. I haven't gotten around to tweaking the randomness to ensure
+success. 
+
+NOTE: As of this writing, Speclab does *not* require class/object-oriented
+support in Matlab to work. (That will change in the future.) However, running
+the validation tests *does* require classes. The validation tests should run
+with Matlab version >= 7.6 (R2008a). For lower versions, Matlab will probably
+return a slew of errors. 
+
+________________________________________________________________________________
+                            
+                            3.) Examples
+________________________________________________________________________________
+
+All examples are contained in the speclab/examples folder. All examples are
+script m-files with code and comments to describe what is going on.  You should
+be able to jump to whatever expansion you care about and start running those
+examples. However, it is *highly recommended* that you go through the Chebyshev
+examples first (speclab/examples/jacobi/chebyshev). The Chebyshev example files
+contain comments that describe the gist of how to run things in Speclab
+including helpstring format, parameter inputs, general structure of a spectral
+expansion. 
+
+The other expansion examples do not go into such wordy detail in the comments
+and assume you know how to do basic things in Speclab. 
+
+________________________________________________________________________________
+                            
+                            4.) Other README's
+________________________________________________________________________________
+
+Each spectral expansion type in Speclab has it's own README with basis-specific
+information about what is and is not available, and also TODO lists. The other
+README files are
+
+-- speclab/orthopoly1d/README
+-- speclab/orthopoly1d/jacobi/README
+-- speclab/orthopoly1d/fourier/README
+-- speclab/orthopoly1d/wiener/README
+
+TODO: hermite, sinc, laguerre, other mapped methods
+
+________________________________________________________________________________
+                            
+                            5.) Development history
+________________________________________________________________________________
+
+If you'd like the whole development history for Speclab, 
+BLAH BLAH BLAH
+BLAH BLAH BLAH
+BLAH BLAH BLAH
+BLAH BLAH BLAH
+BLAH BLAH BLAH 
+
+You must first have the CommonMatlab repo installed before using this one: 
 git clone git://github.com/cygnine/CommonMatlab.git

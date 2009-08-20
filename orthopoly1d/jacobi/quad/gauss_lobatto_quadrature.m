@@ -1,11 +1,10 @@
 function[x,w] = gauss_lobatto_quadrature(N,varargin)
-% [X,W] = GAUSS_LOBATTO_QUADRATURE(N,
-%             {ALPHA=-1/2,BETA=-1/2,SHIFT=0,SCALE=1,R1=-1,R2=1})
+% [x,w] = gauss_lobatto_quadrature(N, {alpha=-1/2,beta=-1/2,shift=0,scale=1,r1=-1,r2=1})
 %
 %     Returns the N-point Gauss-Lobatto quadrature rule for the Jacobi polynomials.
 %     The weight function is
-%     (1-1/SCALE*(x-SHIFT))^ALPHA*(1+1/SCALE*(x-SHIFT))^BETA. The Lobatto points
-%     are located at x=R1,R2.
+%     (1-1/scale*(x-shift))^alpha*(1+1/scale*(x-shift))^beta. The Lobatto points
+%     are located at x=r1,r2.
 %
 %     TODO: Chebyshev case exception
 

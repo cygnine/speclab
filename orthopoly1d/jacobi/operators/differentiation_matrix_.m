@@ -1,9 +1,9 @@
 function[v] = differentiation_matrix(varargin);
-% [V] = DIFFERENTIATION_MATRIX({X=GQ(N), N=LENGTH(X), ALPHA=-1/2,BETA=-1/2,SHIFT=0,SCALE=1,NORMALIZATION='NORMAL'});
+% [v] = differentiation_matrix({x=gq(n), n=length(x), alpha=-1/2,beta=-1/2,shift=0,scale=1,normalization='normal'});
 %
 %     Returns the nodal differentiation matrix for the Jacobi polynomials.
-%     Either the input X or the input N is required. If e.g. Gauss-Radau is
-%     Lobatto points are desired for X, form them externally and feed them in.
+%     Either the input x or the input n is required. If e.g. Gauss-Radau is
+%     Lobatto points are desired for x, form them externally and feed them in.
 %     This function uses direct matrix multiplication to form the differentation
 %     matrix. 
 

@@ -1,16 +1,16 @@
 function[mu] = one_minus_r_times_p(n,alpha,beta,varargin)
-% [MU] = ONE_MINUS_R_TIMES_P(N,ALPHA,BETA,{NORMALIZATION='normal'})
+% [mu] = one_minus_r_times_p(n,alpha,beta,{normalization='normal'})
 %
 %     Computes the connection coefficients between (1-r) x P and P. I.e., given
-%     the vector N of whole-number indices, and valid Jacobi class parameters
-%     ALPHA and BETA, MU is a length(N) x 2 matrix, where each row contains the
+%     the vector n of whole-number indices, and valid Jacobi class parameters
+%     alpha and beta, mu is a length(n) x 2 matrix, where each row contains the
 %     coefficients defined by the relation:
 %
 %     (1-r)*P^(alpha,beta)_n = mu(1)*P^(alpha-1,beta)_n +
 %                              mu(2)*P^(alpha-1,beta)_{n+1}
 %
-%     The optional input NORMALIZATION defines the normalization of the
-%     polynomials P, which affects the values of the parameters MU.
+%     The optional input normalization defines the normalization of the
+%     polynomials P, which affects the values of the parameters mu.
 
 global handles;
 opt = handles.common.InputSchema({'normalization','scale'}, {'normal',1}, [],varargin{:});

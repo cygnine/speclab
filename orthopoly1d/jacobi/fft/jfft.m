@@ -13,9 +13,9 @@ defaults = {'gq', -1/2, -1/2, 'normal', 1};
 opt = handles.common.InputSchema(inputs, defaults, [], varargin{:});
 
 tol = 1e-12;
-[tf,A,B] = jac.jfft.fftable(opt);
+[tf,A,B] = jac.fft.fftable(opt);
 N = size(f,1);
 
 C = jac.connection.integer_separation_connection_matrix(N,-1/2,-1/2,A,B);
-F = jac.jfft.chebfft(f,opt);
+F = jac.fft.chebfft(f,opt);
 F = C*F;

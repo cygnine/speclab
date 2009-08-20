@@ -1,5 +1,5 @@
 function[p] = eval_jacobi_poly(x,n,varargin)
-% [P] = EVAL_JACOBI_POLY(X,N,{ALPHA=-1/2,BETA=-1/2,SHIFT=0,SCALE=1})
+% [p] = eval_jacobi_poly(x,n,{alpha=-1/2,beta=-1/2,shift=0,scale=1})
 %
 %     Evaluates the nth generalized Jacobi polynomials at the locations x. 
 %     The weight function is (1-1/scale*(x-shift))^alpha*(1+1/scale*(x-shift))^beta
@@ -14,6 +14,8 @@ N = max(n)+2;
 
 [a,b] = jac.coefficients.recurrence(N+1,opt);
 
-if strcmpi(opt.normalization,'normal')
+if any(strcmpi(opt.normalization,{'normal', 'monic'}))
   p = opoly.eval_polynomial(x,a,b,n,opt);
+else
+  error('Normalization type not supported');
 end

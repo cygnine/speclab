@@ -13,9 +13,9 @@ inputs = {'points', 'alpha', 'beta', 'normalization', 'scale'};
 defaults = {'gq', -1/2, -1/2, 'normal', 1};
 opt = handles.common.InputSchema(inputs, defaults, [], varargin{:});
 
-[tf,A,B] = jac.jfft.fftable(opt);
+[tf,A,B] = jac.fft.fftable(opt);
 N = size(F,1);
 
 C = jac.connection.integer_separation_connection_matrix(N,-1/2,-1/2,A,B);
 F = la.triu_sparse_invert(C,F,'bandwidth',A+B+1);
-f = jac.jfft.chebifft(F,opt);
+f = jac.fft.chebifft(F,opt);

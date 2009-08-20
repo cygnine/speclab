@@ -8,4 +8,4 @@ jac = handles.speclab.orthopoly1d.jacobi;
 la = handles.common.linalg;
 
 F = la.triu_sparse_invert(data.C,F,'bandwidth',data.A+data.B+1);
-f = jac.jfft.chebifft_online(F,data.chebdata);
+f = jac.fft.chebifft_online(F,data.chebdata);

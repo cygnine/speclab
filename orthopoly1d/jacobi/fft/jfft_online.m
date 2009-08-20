@@ -6,5 +6,5 @@ function[F] = jfft_online(f,data)
 global handles;
 jac = handles.speclab.orthopoly1d.jacobi;
 
-F = jac.jfft.chebfft_online(f,data.chebdata);
+F = jac.fft.chebfft_online(f,data.chebdata);
 F = data.C*F;
