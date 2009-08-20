@@ -10,6 +10,7 @@ wiener = handles.speclab.wiener;
 classic_tests = handles.speclab.debug.classic_wiener_tests;
 approx_tests = handles.speclab.debug.wiener_approximation_tests;
 fft_tests = handles.speclab.debug.wiener_fft_tests;
+matrix_tests = handles.speclab.debug.wiener_matrix_tests;
 
 import debug.*
 container = TestContainer();
@@ -22,6 +23,7 @@ temp = opt.N;
 opt.N = 80 + ceil(20*rand());
 container = approx_tests(container,opt);
 container = fft_tests(container,opt);
+container = matrix_tests(container,opt);
 opt.N = temp;
 
 opt.scale = 3*rand();
@@ -31,6 +33,7 @@ temp = opt.N;
 opt.N = 80 + ceil(20*rand());
 container = approx_tests(container,opt);
 container = fft_tests(container,opt);
+container = matrix_tests(container,opt);
 opt.N = temp;
 
 %%%% Other s~=1 case (integer) %%%%
@@ -41,6 +44,7 @@ temp = opt.N;
 opt.N = 80 + ceil(20*rand());
 container = approx_tests(container,opt);
 container = fft_tests(container,opt);
+container = matrix_tests(container,opt);
 opt.N = temp;
 
 opt.scale = 3*rand();
@@ -49,6 +53,7 @@ temp = opt.N;
 opt.N = 80 + ceil(20*rand());
 container = approx_tests(container,opt);
 container = fft_tests(container,opt);
+container = matrix_tests(container,opt);
 opt.N = temp;
 
 %%%% Other s~=1 cases %%%%
@@ -58,6 +63,7 @@ opt.s = 0.5 + 10*rand();
 temp = opt.N;
 opt.N = 80 + ceil(20*rand());
 container = approx_tests(container,opt);
+container = matrix_tests(container,opt);
 opt.N = temp;
 
 opt.scale = 3*rand();
@@ -65,4 +71,5 @@ opt.shift = randn();
 temp = opt.N;
 opt.N = 80 + ceil(20*rand());
 container = approx_tests(container,opt);
+container = matrix_tests(container,opt);
 opt.N = temp;
