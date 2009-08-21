@@ -22,7 +22,7 @@ hs.orthopoly1d.base = fullfile(hs.base,'orthopoly1d');
       fullfile(hs.orthopoly1d.jacobi.base, 'weights');
     hs.orthopoly1d.jacobi.operators.base = ...
       fullfile(hs.orthopoly1d.jacobi.base, 'operators');
-    hs.orthopoly1d.jacobi.jfft.base = fullfile(hs.orthopoly1d.jacobi.base, 'jfft');
+    hs.orthopoly1d.jacobi.fft.base = fullfile(hs.orthopoly1d.jacobi.base, 'fft');
 
 hs.fourier.base = fullfile(hs.base,'fourier');
   hs.fourier.eval.base = fullfile(hs.fourier.base, 'eval');

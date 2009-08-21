@@ -5,10 +5,16 @@ function[f] = chebifft_online(F,data);
 
 if strcmpi(data.points, 'gq')
 
-  f = spdiags(data.shift,0,data.N,data.N)*F;
-  f = [0; real(flipud(f(2:end))); real(f)] + i*[0; -imag(flipud(f(2:end))); imag(f)];
-  f = ifft(ifftshift(f,1),[],1)*2*data.N;
-  f = real(f(1:data.N));
+  %%%%%%%%%%% The FFT way -- almost always slower
+  %f = spdiags(data.shift,0,data.N,data.N)*F;
+  %f = [0; real(flipud(f(2:end))); real(f)] + i*[0; -imag(flipud(f(2:end))); imag(f)];
+  %f = ifft(ifftshift(f,1),[],1)*2*data.N;
+  %f = real(f(1:data.N));
+  %%%%%%%%%%%
+
+  %%%%%%%%%%% The DCT way -- usually faster
+  f = idct(F./shift);
+  %%%%%%%%%%%
 
 elseif strcmpi(data.points, 'grq')
   error('Not yet implemented')

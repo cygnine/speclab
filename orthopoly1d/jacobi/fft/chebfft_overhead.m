@@ -12,13 +12,22 @@ opt = handles.common.InputSchema({'normalization','scale', 'points'}, ...
   {'normal',1, 'gq'},[], varargin{:});
 
 if strcmpi(opt.points, 'gq')
-  shift = (1+1/(2*N))*(0:(-1):-(N-1)).';
+  %%%%%%%%%%% The FFT way -- almost always slower
+  %shift = (1+1/(2*N))*(0:(-1):-(N-1)).';
+  %shift = sqrt(2*pi)*exp(i*pi*shift);
+  %shift(1) = shift(1)/sqrt(2);
+  %shift = shift/(2*N);
+  %ft = complex(zeros([2*N 1]));
 
-  shift = sqrt(2*pi)*exp(i*pi*shift);
-  shift(1) = shift(1)/sqrt(2);
-  shift = shift/(2*N);
+  %[data.N, data.shift,data.points, data.ft] = ...
+  %  deal(N,shift,opt.points,ft);
+  %%%%%%%%%%%
 
+  %%%%%%%%%%% The DCT way -- usually faster
+  shift = (-1).^([0:(N-1)].')/sqrt(N/pi);;
   [data.N, data.shift,data.points] = deal(N,shift,opt.points);
+  %%%%%%%%%%%
+
 elseif strcmpi(opt.points, 'grq')
   error('Not yet implemented')
 elseif strcmpi(opt.points, 'glq')

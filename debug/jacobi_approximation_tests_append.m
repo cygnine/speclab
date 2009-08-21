@@ -95,7 +95,7 @@ function[tf] = derivative_validator(data,opt);
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   df = @(x) opt.N/(10*opt.scale)*cos(opt.N/(10*opt.scale)*x);
-  tol = 10^(-4+opt.alpha/6+opt.beta/6 + abs(opt.alpha-opt.beta)/6);
+  tol = 2*10^(-4+opt.alpha/6+opt.beta/6 + abs(opt.alpha-opt.beta)/6);
   [x,w,ps,x_refined,dps_refined] = deal(data.x,data.w,data.ps, ...
      data.x_refined, data.dps_refined);
 
@@ -125,7 +125,7 @@ function[tf] = derivative_stiffness_validator(data,opt);
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   df = @(x) opt.N/(10*opt.scale)*cos(opt.N/(10*opt.scale)*x);
-  tol = 10^(-5+opt.alpha/6+opt.beta/6 + abs(opt.alpha-opt.beta)/6);
+  tol = 2*10^(-5+opt.alpha/6+opt.beta/6 + abs(opt.alpha-opt.beta)/6);
   [x,x_refined,vinv,ps] = deal(data.x,data.x_refined,data.vinv,data.ps);
   modes = vinv*f(x);
 

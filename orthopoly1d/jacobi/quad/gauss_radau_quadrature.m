@@ -35,4 +35,3 @@ else
 end
 
 x = pss(x,opt);
-w = w*scale;
