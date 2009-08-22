@@ -1,0 +1,25 @@
+This folder contains examples for generalized Fourier Series approximations. A
+(generalized) Fourier Series family is defined by two parameters: (gamma,
+delta). (Cf. Jacobi polynomial expansion parameters) Both gamma and delta must
+be greater than -1/2, and gamma=delta=0 corresponds to the classical Fourier
+Series.
+
+Fourier examples
+- intro: Basic operations for Fourier expansions. The code has a slightly different
+  flavor than e.g. Chebyshev expansions.
+- fft_example: usage of the FFT routines, online/offline method.
+
+What's coded (easily accessible):
+- evaluation of L2-normalized Fourier Series and their first derivatives
+- Gauss-type quadratures and "pi"-Gauss-type quadratures. See
+  speclab/fourier/quad/pi_gauss_quadrature.m
+- FFT if gamma and delta are integers
+- Connections between Fourier Series expansions when the difference between the
+  parameter values for gamma and delta are both integers.
+- scale/shift parameters for explicit affine scaling
+- affine mapping determination based on given interval of approximation
+- affine mapping determination based on fractional resolution inside a specified
+  interval
+
+What's coded (not-so-easily accessible):
+- nodal/modal differentiation matrices (of order 1)

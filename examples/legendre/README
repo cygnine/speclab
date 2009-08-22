@@ -1,0 +1,31 @@
+The Legendre approximation is a special case of the Jacobi approximation. You
+must specify alpha=beta=0 in calling the Jacobi routines, or the routines will
+default to Chebyshev instead.
+
+If you've seen the Chebyshev examples, you can jump right in anywhere.
+
+Legendre examples
+- resolution_scaling: the function speclab/orthopoly1d/jacobi/affine_scaling.m
+  calculates affine shift+scale parameters based on a desired interval of
+  approximation. It can also put some percentage of the `resolution' for a given
+  expansion of order N inside a desired interval. For example, you can put 65%
+  of the 'resolution' of an N-function Legendre expansion inside the interval
+  [-5,0]. The function will return the desired shift+scale parameters to do
+  this. The measure of resolution is based on canonical quadrature points of the
+  expansion.
+- approximation_convergence: Legendre expansions converge quickly if the
+  function is analytic. This file shows an example of this via plots. 
+
+What's coded (easily accessible):
+- evaluation of monic/L2-normalized polynomials + any order derivative
+- Gauss-(Radau/Lobatto)-type quadratures
+- O(N) application of the stiffness matrix operator
+- scale/shift parameters for explicit affine scaling
+- affine mapping determination based on given interval of approximation
+- affine mapping determination based on fractional resolution inside a specified
+  interval
+
+What's coded (not-so-easily accessible):
+- connection coefficients between Chebyshev and other Jacobi classes with
+  alpha and beta integers
+- nodal/modal differentiation matrices (of any order)

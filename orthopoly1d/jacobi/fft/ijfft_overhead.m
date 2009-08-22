@@ -11,8 +11,11 @@ defaults = {'gq', -1/2, -1/2, 'normal', 1};
 opt = handles.common.InputSchema(inputs, defaults, [], varargin{:});
 
 [tf,A,B] = jac.fft.fftable(opt);
+if not(tf)
+  error('Cannot use the FFT when 2*alpha and 2*beta are not odd integers');
+end
 
-chebdata = jac.fft.chebifft_overhead(N,opt);
+chebdata = jac.fft.chebfft_overhead(N,opt);
 if strcmpi(opt.normalization,'normal')
   C = jac.connection.integer_separation_connection_matrix(N,-1/2,-1/2,A,B);
 else

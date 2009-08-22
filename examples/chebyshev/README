@@ -1,0 +1,23 @@
+The Chebyshev approximation is a special case of the Jacobi approximation. This
+is the default for the Jacobi approximation. 
+
+The Chebyshev examples go over the basics of how to use Speclab. It's
+recommended that you go through these examples in the following order:
+- intro.m
+- scaling.m
+- chebfft.m
+
+What's coded (easily accessible):
+- evaluation of monic/L2-normalized polynomials + any order derivative
+- Gauss-(Radau/Lobatto)-type quadratures
+- FFT for nodal/modal transformations (so far on interior Gauss points only)
+- O(N) application of the stiffness matrix operator
+- scale/shift parameters for explicit affine scaling
+- affine mapping determination based on given interval of approximation
+- affine mapping determination based on fractional resolution inside a specified
+  interval
+
+What's coded (not-so-easily accessible):
+- connection coefficients between Chebyshev and other Jacobi classes with
+  2*alpha and 2*beta odd integers
+- nodal/modal differentiation matrices (of any order)

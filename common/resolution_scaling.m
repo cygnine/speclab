@@ -21,11 +21,11 @@ end
 Lbig = 1e6;
 Lsmall = Lbig;
 % fraction inside interval [-Lnext, Lnext]
-Nnodes = sum(abs(x*Lsmall)<=L);
+Nnodes = sum(abs(nodes*Lsmall)<=L);
 while Nnodes < Nfrac
   Lbig = Lsmall;
   Lsmall = Lsmall/2;
-  Nnodes = sum(abs(x*Lsmall)<=L);
+  Nnodes = sum(abs(nodes*Lsmall)<=L);
 end
 
 % Now [Lsmall, Lbig] contains delta. Use bisection
@@ -33,7 +33,7 @@ Lmiddle = mean([Lsmall, Lbig]);
 Lsep = Lbig-Lmiddle;
 Ltol = 1e-6;
 while Lsep>Ltol
-  Nnodes = sum(abs(x*Lmiddle)<=L);
+  Nnodes = sum(abs(nodes*Lmiddle)<=L);
   if Nnodes > Nfrac
     Lsmall = Lmiddle;
   else

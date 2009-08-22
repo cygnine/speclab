@@ -50,6 +50,9 @@ hs.debug.base = fullfile(hs.base,'debug');
 hs.examples.base = fullfile(hs.base,'examples');
   hs.examples.chebyshev.base = fullfile(hs.examples.base, 'chebyshev');
   hs.examples.legendre.base = fullfile(hs.examples.base, 'legendre');
+  hs.examples.jacobi.base = fullfile(hs.examples.base, 'jacobi');
+  hs.examples.fourier.base = fullfile(hs.examples.base, 'fourier');
+  hs.examples.wiener.base = fullfile(hs.examples.base, 'wiener');
 
 pathadditions = cell(0);
 pathadditions{end+1} = fullfile(hs.base, 'classes');

@@ -13,7 +13,7 @@ if strcmpi(data.points, 'gq')
   %%%%%%%%%%%
 
   %%%%%%%%%%% The DCT way -- usually faster
-  f = idct(F./shift);
+  f = idct(F./data.shift);
   %%%%%%%%%%%
 
 elseif strcmpi(data.points, 'grq')

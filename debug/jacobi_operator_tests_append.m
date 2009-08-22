@@ -165,7 +165,7 @@ function[data] = chebifft_online_data(opt);
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
   modes = jac.fft.chebfft(f(x),opt);
-  fftdata = jac.fft.chebifft_overhead(opt.N,opt);
+  fftdata = jac.fft.chebfft_overhead(opt.N,opt);
   [data.fx, data.modes, data.fftdata] = deal(f(x),modes,fftdata);
 
 function[tf] = chebifft_online_validator(data,opt);
@@ -255,7 +255,7 @@ function[tf] = jifft_validator(data,opt);
   [tf,A,B] = jac.fft.fftable(opt);
   tol = 10^(-8+(A+B)/4);
   [fx,modes] = deal(data.fx,data.modes);
-  fx2 = jac.fft.jifft(modes,opt);
+  fx2 = jac.fft.ijfft(modes,opt);
 
   tf = norm(fx-fx2)<tol;
 
@@ -271,7 +271,7 @@ function[data] = jifft_online_data(opt);
 
   fx = f(x);
   modes = jac.fft.jfft(fx,opt);
-  fftdata = jac.fft.jifft_overhead(opt.N,opt);
+  fftdata = jac.fft.ijfft_overhead(opt.N,opt);
 
   [data.fx,data.modes,data.fftdata] = deal(fx,modes,fftdata);
 
@@ -282,6 +282,6 @@ function[tf] = jifft_online_validator(data,opt);
   [tf,A,B] = jac.fft.fftable(opt);
   tol = 10^(-8+(A+B)/4);
   [fx,modes,fftdata] = deal(data.fx,data.modes,data.fftdata);
-  fx2 = jac.fft.jifft_online(modes,fftdata);
+  fx2 = jac.fft.ijfft_online(modes,fftdata);
 
   tf = norm(fx-fx2)<tol;

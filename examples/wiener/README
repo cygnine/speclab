@@ -1,0 +1,29 @@
+This folder contains examples for generalized Wiener rational function
+approximations. These functions are a mapping and weighting of the generalized
+Fourier series to the real line. They are parameterized by s>1/2. s=1 is the
+original Wiener basis and corresponds to the classical Fourier series. 
+
+Wiener examples
+- plot_functions: Basic operations and plotting of some of the Wiener rational
+  functions. 
+- wfft_examples: Illustration of usage of the Wiener FFT collocation and Galerkin
+  algorithms.
+- stiff_matrix: Generation of some example stiffness matrices. Numerical
+  demonstrations that the stiffness matrices are indeed sparse; verification of
+  their spectral radius.
+
+What's coded (easily accessible):
+- evaluation of L2-normalized Wiener functions and their first derivatives
+- Gauss-type quadratures and "pi"-Gauss-type quadratures. See
+  speclab/wiener/quad/pi_gauss_quadrature.m
+- FFT `collocation' and `Galerkin' methods if s is an integer
+- Sparse stiffness matrix generation
+- scale/shift parameters for explicit affine scaling
+- affine mapping determination based on given interval of approximation
+- affine mapping determination based on fractional resolution inside a specified
+  interval
+
+What's coded (not-so-easily accessible):
+- nodal/modal differentiation matrices (of order 1)
+- Connections between Wiener expansions when the difference between the
+  parameter value for s is an integer.

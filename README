@@ -1,9 +1,10 @@
 Contents:
 1.) Setup (PLEASE READ)
 2.) Validation tests (optional)
-3.) Examples (PLEASE READ)
-4.) Other README's
-5.) Development history
+3.) Coding conventions
+4.) Examples (PLEASE READ)
+5.) Other README's
+6.) Development history
 
 ________________________________________________________________________________
 
@@ -78,14 +79,57 @@ return a slew of errors.
 
 ________________________________________________________________________________
                             
-                            3.) Examples
+                            3.) Coding conventions
+________________________________________________________________________________
+
+Throughout Speclab, the following coding conventions are used. 
+
+All function names use the lowercase_verbose_underscore_separated_naming
+convention. This does not relieve one from typing a long name, but does
+remove the problem of figuring out what onemrsqtimesp.m does. Instead, it will
+say one_minus_r_squared_times_p.m, which is much easier to figure out.
+
+Classes are not yet (really) built into Speclab yet. When they are, class names
+will use the AllUppercaseNoSpacing format. Again, not necessarily short, but
+effective at getting the point across and differentiating from function names. 
+
+Each m-file has a (hopefully) descriptive helpstring. In Matlab, you can cd into
+the directory containing file.m and type "help file" and it will print the
+helpstring. However, functions in Speclab are usually called via a function
+handle and not by changing directories (see section 1). Matlab's help function
+does not recognize what to do with function handles, so unfortunately you have
+to take the roundabout way of getting help:
+If you want help for the function with handle
+handles.speclab.fourier.affine_scaling, you can type at the command line:
+>> handles.helper('speclab', 'fourier', 'affine_scaling')
+I.e., just use the same tree structure split into strings as multiple inputs
+into the function handles.helper. 
+
+Most m-files take optional arguments. Rather than deal with things like "if
+nargin<5 elseif nargin>3..." I've decided to use something akin to Matlab's
+InputParser. However, the way InputParser works is not very transparent to me,
+and it's new enough that I feel like Mathworks might change conventions on me.
+Therefore, I've written handles.common.InputSchema, which does two things:
+- conspicuously breaks the aforementioned convention that function_names will
+  have a certain format :( (on a TODO list for a future release)
+- essentially does the same thing as InputParser but works very transparently
+  with structs.  InputSchema handles almost all optional input arguments in
+  Speclab. (There are some exceptions when I avoid calling InputSchema because
+  it saves a bit of run-time.)
+In helpstrings, optional inputs are given in curly {} brackets. See
+speclab/examples/chebyshev/intro.m on how to call functions with optional
+arguments.
+
+________________________________________________________________________________
+                            
+                            4.) Examples
 ________________________________________________________________________________
 
 All examples are contained in the speclab/examples folder. All examples are
 script m-files with code and comments to describe what is going on.  You should
 be able to jump to whatever expansion you care about and start running those
 examples. However, it is *highly recommended* that you go through the Chebyshev
-examples first (speclab/examples/jacobi/chebyshev). The Chebyshev example files
+examples first (speclab/examples/chebyshev). The Chebyshev example files
 contain comments that describe the gist of how to run things in Speclab
 including helpstring format, parameter inputs, general structure of a spectral
 expansion. 
@@ -95,7 +139,7 @@ and assume you know how to do basic things in Speclab.
 
 ________________________________________________________________________________
                             
-                            4.) Other README's
+                            5.) Other README's
 ________________________________________________________________________________
 
 Each spectral expansion type in Speclab has it's own README with basis-specific
@@ -111,7 +155,7 @@ TODO: hermite, sinc, laguerre, other mapped methods
 
 ________________________________________________________________________________
                             
-                            5.) Development history
+                            6.) Development history
 ________________________________________________________________________________
 
 If you'd like the whole development history for Speclab, 

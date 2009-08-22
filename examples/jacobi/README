@@ -1,0 +1,28 @@
+This folder contains examples for Jacobi polynomial approximations. Legendre and
+Chebyshev are technically special cases of Jacobi, but they have separate
+folders to illustrate more basic coding concepts. This folder contains some
+advanced examples.
+
+Jacobi examples
+- jacobi_fft: The FFT may be used to calculated Jacobi polynomial expansion
+  modal coefficients from evaluations at the Chebyshev nodes if both 2*alpha and
+  2*beta are odd integers in O(N log N) time.
+- gibbs_resolution: Gottlieb and Shu proposed a post-processing method for
+  pointwise recovery of function values free of any Gibbs' phenomenon that
+  might be present. The method is a filtering method based on expansion in
+  Gegenbauer polynomials.
+
+What's coded (easily accessible):
+- evaluation of monic/L2-normalized polynomials + any order derivative
+- Gauss-(Radau/Lobatto)-type quadratures
+- FFT if 2*alpha and 2*beta are odd integers
+- O(N) application of the stiffness matrix operator
+- Connections between Jacobi polynomial classes where alpha and beta are
+  separated by integers. 
+- scale/shift parameters for explicit affine scaling
+- affine mapping determination based on given interval of approximation
+- affine mapping determination based on fractional resolution inside a specified
+  interval
+
+What's coded (not-so-easily accessible):
+- nodal/modal differentiation matrices (of any order)

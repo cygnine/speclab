@@ -14,6 +14,9 @@ opt = handles.common.InputSchema(inputs, defaults, [], varargin{:});
 
 tol = 1e-12;
 [tf,A,B] = jac.fft.fftable(opt);
+if not(tf)
+  error('Cannot use the FFT when 2*alpha and 2*beta are not odd integers');
+end
 N = size(f,1);
 
 C = jac.connection.integer_separation_connection_matrix(N,-1/2,-1/2,A,B);

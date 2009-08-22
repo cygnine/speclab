@@ -1,5 +1,5 @@
-function[out] = affine_scaling(interval,varargin)
-% [out] = affine_scaling(interval, {N=0, alpha=-1/2, beta=-1/2, resolution_fraction=1})
+function[out] = affine_scaling(interval,N,varargin)
+% [out] = affine_scaling(interval, N {s=1, t=0, resolution_fraction=1})
 %
 %     Determines the affine parameters scale and shift so that
 %     resolution_fraction*N canonical modes lie inside interval. The output
@@ -7,18 +7,18 @@ function[out] = affine_scaling(interval,varargin)
 %     affine map.
 
 global handles;
-jac = handles.speclab.orthopoly1d.jacobi;
-inputs = {'N', 'alpha', 'beta', 'resolution_fraction'};
-defaults = {0, -1/2, -1/2, 1};
+wiener = handles.speclab.wiener;
+inputs = {'s', 't', 'resolution_fraction'};
+defaults = {1, 0, 1};
 opt = handles.common.InputSchema(inputs, defaults, [], varargin{:});
 
 out.shift = mean(interval);
-if (opt.N==0) | (opt.resolution_fraction==1)
-  out.scale = max(interval) - out.shift;
+if (N<1)
+  error('The number of degrees of freedom must be > 0');
   return
 end
 
-nodes = jac.quad.gauss_quadrature(opt.N,'alpha',opt.alpha,'beta',opt.beta);
+nodes = wiener.quad.gauss_quadrature(N,'s',opt.s,'t',opt.t);
 L = abs(diff(interval))/2;
 
 out.scale = handles.speclab.common.resolution_scaling(L, nodes,...
