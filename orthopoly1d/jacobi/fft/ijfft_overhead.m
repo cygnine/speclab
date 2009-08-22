@@ -1,5 +1,5 @@
-function[data] = jifft_overhead(N,varargin)
-% [data] = jifft_overhead(N,{points='gq', alpha=-1/2, beta=-1/2, normalization='normal', scale=1})
+function[data] = ijfft_overhead(N,varargin)
+% [data] = ijfft_overhead(N,{points='gq', alpha=-1/2, beta=-1/2, normalization='normal', scale=1})
 %
 %     If 2*alpha and 2*beta are odd, this function computes the overhead data
 %     necessary for using the N-point Jacobi IFFT.

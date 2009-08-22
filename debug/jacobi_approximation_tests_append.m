@@ -31,8 +31,6 @@ test = ValidationTest('description', 'Jacobi Derivative approximation (stiffness
                       'data_generator', @derivative_stiffness_data);
 container = container.append(test);
 
-end
-
 function[data] = mass_data(opt)
   global handles;
   jac = handles.speclab.orthopoly1d.jacobi;
@@ -40,7 +38,6 @@ function[data] = mass_data(opt)
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
   ps = jac.eval.eval_jacobi_poly(x,opt.n,opt);
   [data.x,data.w,data.ps] = deal(x,w,ps);
-end
 
 function[data] = interpolant_data(opt)
   global handles;
@@ -54,7 +51,6 @@ function[data] = interpolant_data(opt)
   ps_refined = jac.eval.eval_jacobi_poly(x_refined,opt.n,opt);
   [data.x,data.w,data.ps,data.x_refined,data.ps_refined] = deal(...
     x,w,ps,x_refined,ps_refined);
-end
 
 function[data] = derivative_data(opt)
   global handles;
@@ -65,11 +61,11 @@ function[data] = derivative_data(opt)
   ps = jac.eval.eval_jacobi_poly(x,opt.n,opt);
 
   x_refined = linspace(jint(1),jint(2),5*opt.N)';
+  x_refined = x_refined(2:end-1);
   opt.d = 1;
   dps_refined = jac.eval.eval_jacobi_poly(x_refined,opt.n,opt);
   [data.x,data.w,data.ps,data.x_refined,data.dps_refined] = deal(...
     x,w,ps,x_refined,dps_refined);
-end
 
 function[tf] = mass_matrix_validator(data,opt)
   [x,w,ps] = deal(data.x,data.w,data.ps);
@@ -77,7 +73,6 @@ function[tf] = mass_matrix_validator(data,opt)
   tol = 10^(-8+abs(opt.alpha-opt.beta)/5 + (opt.alpha+opt.beta)/8);
   mass = ps'*spdiags(w,0,opt.N,opt.N)*ps;
   tf = norm(mass-eye(opt.N))<tol;
-end
 
 function[tf] = interpolant_validator(data,opt);
 
@@ -89,10 +84,11 @@ function[tf] = interpolant_validator(data,opt);
   modes = ps'*(w.*f(x));
   f_approx = ps_refined*modes;
   tf = all(abs(f_approx - f(x_refined))<tol);
-end
 
 function[tf] = derivative_validator(data,opt);
 
+  global handles
+  jac = handles.speclab.orthopoly1d.jacobi;
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   df = @(x) opt.N/(10*opt.scale)*cos(opt.N/(10*opt.scale)*x);
   tol = 2*10^(-4+opt.alpha/6+opt.beta/6 + abs(opt.alpha-opt.beta)/6);
@@ -101,8 +97,8 @@ function[tf] = derivative_validator(data,opt);
 
   modes = ps'*(w.*f(x));
   df_approx = dps_refined*modes;
-  tf = all(abs(df_approx - df(x_refined))<tol);
-end
+  wgt = sqrt(jac.weights.weight(x_refined,opt));
+  tf = all(abs(df_approx - df(x_refined)).*wgt<tol);
 
 function[data] = derivative_stiffness_data(opt);
   global handles;
@@ -117,7 +113,6 @@ function[data] = derivative_stiffness_data(opt);
   x_refined = linspace(jint(1),jint(2),5*opt.N)';
   [data.x,data.x_refined,data.vinv,data.ps] = deal(...
     x,x_refined,vinv,ps);
-end
 
 function[tf] = derivative_stiffness_validator(data,opt);
   global handles;
@@ -133,4 +128,3 @@ function[tf] = derivative_stiffness_validator(data,opt);
   drec = ps*dmodes;
 
   tf = norm(drec-df(x))<tol;
-end

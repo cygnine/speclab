@@ -54,7 +54,7 @@ function[tf] = fft_validator(data,opt)
 
   [modes,fx] = deal(data.modes,data.fx);
 
-  tol = 5*10^(-8+(opt.gamma+opt.delta)/4);
+  tol = 5*10^(-8+(opt.gamma+opt.delta)/2);
 
   fft_modes = fourier.fft.ffft(fx,opt);
 
@@ -68,7 +68,7 @@ function[tf] = ifft_validator(data,opt)
 
   [modes,fx] = deal(data.modes,data.fx);
 
-  tol = 5*10^(-8+(opt.gamma+opt.delta)/4);
+  tol = 5*10^(-8+(opt.gamma+opt.delta)/2);
 
   ifft_fx= fourier.fft.iffft(modes,opt);
 

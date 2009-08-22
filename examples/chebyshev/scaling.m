@@ -22,9 +22,8 @@
 %      ---- OR ----
 % >> myfun(whatever1, whatever2, 'opt2', otherthing, 'opt1', something)
 %
-% I.e., the order of optional inputs doesn't matter. You cannot input
-% *individual* optional arguments without giving ('key', value) pairs. For
-% *multiple* optional arguments, there is an alternative: see below. 
+% I.e., the order of optional inputs doesn't matter. There is an alternative to
+% specifying ('key', value) pairs; see below.
 %
 % Any optional arguments that aren't recognized are retained in each function,
 % but are ignored. 
@@ -49,7 +48,8 @@ fprintf('The smallest nodal value is %1.2f and the largest nodal value is %1.2f\
 % Specifying optional arguments in ('key', value) pairs is cumbersome for large
 % numbers of optional arguments. To ameliorate this, you can bundle key/value
 % pairs into a struct, in which case you can bypass the onerous ('key', value)
-% input scheme and just input the whole struct. 
+% input scheme and just input the whole struct. The struct must be the only
+% optional argument given.
 map.scale = 3;
 map.shift = -1;
 [r,w] = cheb.quad.gauss_lobatto_quadrature(N,map);

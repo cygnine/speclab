@@ -29,7 +29,9 @@ end
 jopt.alpha = 11/2;
 jopt.beta = 7/2;
 fprintf('\nNow using alpha = %2.1f, beta = %2.1f\n\n', jopt.alpha, jopt.beta);
-% You don't need to run the following: it's just a helper for this script:
+% You don't need to run the following for other applications: it's just a helper
+% for this script. It determines (a) if a basis set can use the FFT, and (b)
+% (alpha+1/2) and (beta+1/2)
 [blah,A,B] = jac.fft.fftable(jopt);
 
 % example function
@@ -108,3 +110,6 @@ fprintf('            Online   time: %1.4e\n', jfft_online_time);
 % Note: the Jacobi FFT is in theory *much* faster than this example shows: the
 % quadrature timings are all for Matlab's precompiled BLAS operations. The FFT
 % times are dominated by m-file runtime-compiled code.
+
+% The "ijfft" routines are used in an identical way. However, the fftdata given
+% as input to ijfft_online is identical to that given to jfft_online. 

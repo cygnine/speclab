@@ -43,12 +43,12 @@ title('Original function');
 ltex(xlabel('$\theta$'));
 axis([0,4,-0.5 1.25]);
 subplot(2,2,2);
-plot(theta, real(fourier_interp)); % ugly-looking, eh?
+plot(theta, real(fourier_interp)); % See plot: ugly-looking, eh?
 title('Gibbs'' oscillation-polluted Fourier approximation');
 ltex(xlabel('$\theta$'));
 axis([0,4,-0.5 1.25]);
 
-beta_factor = 0.10;
+beta_factor = 0.10;  % See Gottlieb/Shu for explanations of what these are
 alpha_factor = 0.18;
 gegenbauer_postprocessing = zeros(size(fourier_interp));
 
@@ -61,7 +61,7 @@ intervals = [0, 1;...
 Nplots = 20:20:200;  % For these #'s of Fourier modes, we'll do the method
 Linf_error = zeros(size(Nplots));
 NNcount = 1;
-Nq = Nq/100;  %  Don't really need 10^5 points now, do we?
+Nq = round(Nq/100);  %  Don't really need 10^5 points now, do we?
 for NN=Nplots
   ks = irange(NN);
   NN_fourier_modes = fourier_modes(ks+1-kmin);
@@ -79,6 +79,7 @@ for NN=Nplots
     % vandermonde matrix. This line looping over q, NN does the same thing lots
     % of times and can be optimized.
     vandermonde = fourier.eval.fseries(r,ks,fopt);
+    % This is the Gibbs'-polluted solution evaluated at the Chebyshev points:
     fr = real(vandermonde*NN_fourier_modes);
 
     % Use the Jacobi fft to get Gegenbauer modes
@@ -87,7 +88,7 @@ for NN=Nplots
     jopt.beta = jopt.alpha;
 
     gegenbauer_modes = jac.fft.jfft(fr,jopt);
-    gegenbauer_modes = gegenbauer_modes(1:m);
+    gegenbauer_modes = gegenbauer_modes(1:m); % Only take the first m modes
 
     % find theta's inside interval
     theta_inds = interval(1)<theta & theta<interval(2);
@@ -98,7 +99,7 @@ for NN=Nplots
     gegenbauer_postprocessing(theta_inds) = vandermonde*gegenbauer_modes;
   end
 
-  % What's the Linf error?
+  % What's the Linf error for this value of NN?
   Linf_error(NNcount) = max(abs(gegenbauer_postprocessing - f(theta)));
   NNcount = NNcount + 1;
 end

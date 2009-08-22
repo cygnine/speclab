@@ -19,7 +19,7 @@ map.r = -pi/2;
 [r,w] = cheb.quad.gauss_radau_quadrature(N,map);
 
 % Giving the (meaningless) optional input map.r to eval_jacobi_poly doesn't
-% matter:
+% matter: it'll just ignore it.
 vandermonde = cheb.eval.eval_jacobi_poly(r,0:(N-1),map);
 
 % To evaluate derivatives in orthogonal polynomial evaluation routines, the
@@ -53,8 +53,8 @@ fprintf('Second derivative error is %1.3e\n', err);
 %     recurrence relation/inversion of tridiagonal system - O(N)
 % 4.) Compute nodal evaluations - IFFT O(N log N)
 %
-% Since the chebfft is supported only on the Gauss nodes, we have to go back to
-% Gauss nodes
+% Since the chebfft is supported only on the Gauss nodes (at present), we have
+% to go back to Gauss nodes
 [r,w] = cheb.quad.gauss_quadrature(N,map);
 fr = f0(r);
 

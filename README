@@ -1,10 +1,11 @@
 Contents:
 1.) Setup (PLEASE READ)
-2.) Validation tests (optional)
-3.) Coding conventions
-4.) Examples (PLEASE READ)
-5.) Other README's
+2.) Intended audience
+3.) Validation tests (optional)
+4.) Coding conventions
+5.) Examples (PLEASE READ)
 6.) Development history
+7.) TODO's
 
 ________________________________________________________________________________
 
@@ -55,7 +56,22 @@ setup.m does two things:
 
 ________________________________________________________________________________
 
-                            2.) Validation Tests
+                            2.) Intended audience
+________________________________________________________________________________
+
+Speclab is intended for those familiar with spectral expansions of various
+types. It can also be used by those who are in the process of learning about
+spectral approximations from a different source. It is meant to be a tool used
+for quick implementation to test something out, or a sandbox to try out some
+ideas. 
+
+Speclab is NOT meant to
+- have commercial-grade speed. This is Matlab, after all. If you want something
+  faster, write and compile code.
+- be a tutorial for those wholly unfamiliar with spectral expansions
+________________________________________________________________________________
+
+                            3.) Validation Tests
 ________________________________________________________________________________
 
 Once setup.m is run, Speclab is ready to go. However, for peace of mind, it
@@ -79,15 +95,15 @@ return a slew of errors.
 
 ________________________________________________________________________________
                             
-                            3.) Coding conventions
+                            4.) Coding conventions
 ________________________________________________________________________________
 
 Throughout Speclab, the following coding conventions are used. 
 
 All function names use the lowercase_verbose_underscore_separated_naming
-convention. This does not relieve one from typing a long name, but does
-remove the problem of figuring out what onemrsqtimesp.m does. Instead, it will
-say one_minus_r_squared_times_p.m, which is much easier to figure out.
+convention. This does not relieve one from typing a long name, but does remove
+the problem of figuring out what onemrsqxp.m does. Instead, it will say
+one_minus_r_squared_times_p.m, which is much easier to figure out.
 
 Classes are not yet (really) built into Speclab yet. When they are, class names
 will use the AllUppercaseNoSpacing format. Again, not necessarily short, but
@@ -106,7 +122,7 @@ I.e., just use the same tree structure split into strings as multiple inputs
 into the function handles.helper. 
 
 Most m-files take optional arguments. Rather than deal with things like "if
-nargin<5 elseif nargin>3..." I've decided to use something akin to Matlab's
+nargin<=5 elseif nargin>3..." I've decided to use something akin to Matlab's
 InputParser. However, the way InputParser works is not very transparent to me,
 and it's new enough that I feel like Mathworks might change conventions on me.
 Therefore, I've written handles.common.InputSchema, which does two things:
@@ -120,9 +136,14 @@ In helpstrings, optional inputs are given in curly {} brackets. See
 speclab/examples/chebyshev/intro.m on how to call functions with optional
 arguments.
 
+There are some files strewn about Speclab that are named something like
+function_name_.m. Notice the extra underscore "_" before the extension .m. This
+underscore at the end denotes that this is a deprecated/in-progress file and you
+should not rely on it; I haven't tested such files at all. 
+
 ________________________________________________________________________________
                             
-                            4.) Examples
+                            5.) Examples
 ________________________________________________________________________________
 
 All examples are contained in the speclab/examples folder. All examples are
@@ -135,35 +156,50 @@ including helpstring format, parameter inputs, general structure of a spectral
 expansion. 
 
 The other expansion examples do not go into such wordy detail in the comments
-and assume you know how to do basic things in Speclab. 
+and assume you know how to do basic things in Speclab. Other README files in the
+examples folder with some not-so-detailed specifics about expansions:
 
-________________________________________________________________________________
-                            
-                            5.) Other README's
-________________________________________________________________________________
-
-Each spectral expansion type in Speclab has it's own README with basis-specific
-information about what is and is not available, and also TODO lists. The other
-README files are
-
--- speclab/orthopoly1d/README
--- speclab/orthopoly1d/jacobi/README
--- speclab/orthopoly1d/fourier/README
--- speclab/orthopoly1d/wiener/README
-
-TODO: hermite, sinc, laguerre, other mapped methods
+-- speclab/examples/chebyshev/README
+-- speclab/examples/legendre/README
+-- speclab/examples/jacobi/README
+-- speclab/examples/fourier/README
+-- speclab/examples/wiener/README
 
 ________________________________________________________________________________
                             
                             6.) Development history
 ________________________________________________________________________________
 
-If you'd like the whole development history for Speclab, 
-BLAH BLAH BLAH
-BLAH BLAH BLAH
-BLAH BLAH BLAH
-BLAH BLAH BLAH
-BLAH BLAH BLAH 
+If you'd like the whole development history for Speclab, you'll need the
+open-source "distributed version control system" called "git". 
 
-You must first have the CommonMatlab repo installed before using this one: 
-git clone git://github.com/cygnine/CommonMatlab.git
+Once you have git installed. Open up a command line, and do the following:
+1.) Decide what directory you'd like to install this stuff in. For this example,
+    I'll call this directory mfiles.
+2.) Run "git clone git://github.com/cygnine/CommonMatlab.git mfiles"
+3.) Run "cd mfiles"
+4.) Run "git clone git://github.com/cygnine/speclab.git"
+
+There are two git repositories: the "CommonMatlab" one handles all things not
+related to (but used by) Speclab. Speclab has it's own git repository and
+history. 
+
+You may navigate a web browser to 
+- http://www.github.com/cygnine/CommonMatlab
+- http://www.github.com/cygnine/speclab
+and github will show a pretty GUI of the development history and included files.
+You can also download a tarball directly from github of each repo, but the
+tarball won't have the history. 
+
+________________________________________________________________________________
+                            
+                            7.) TODO's
+________________________________________________________________________________
+
+- Hermite polynomial/function expansions
+- Sinc expansions
+- mapped methods
+- filters
+- object-oriented implementation. This will increase user-friendliness a great
+  deal. It will also standardize calling syntax.
+- fast 'special function' zero calculations a la Glaser & Rohklin.

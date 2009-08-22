@@ -21,7 +21,8 @@ vandermonde = cheb.eval.eval_jacobi_poly(r,0:(N-1),map);
 f = @(r) exp(sin(20*r));
 fr = f(r);
 
-% The first run is a wash because matlab has to store it's own overhead.
+% The first run is a wash because matlab has to store it's own overhead, so
+% carry out each task M times and take average
 modal_coefficients_1 = zeros([N,1]);
 modal_coefficients_2 = zeros([N,1]);
 modal_coefficients_3 = zeros([N,1]);

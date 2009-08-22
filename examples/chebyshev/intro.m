@@ -10,6 +10,10 @@
 global handles;
 cheb = handles.speclab.orthopoly1d.jacobi;
 common = handles.common;
+% We've called 'cheb' the jacobi module. Unless you say otherwise, speclab
+% assumes the Jacobi polynomial you want to evaluate is the Chebyshev kind. To
+% see how to specify a different Jacobi polynomial type, see the jacobi examples
+% folder. 
 
 %% Construct a chebyshev Vandermonde matrix on the default [-1,1] interval.
 N = 50;  % or whatever
@@ -30,7 +34,8 @@ f = @(r) sin(5*(r-3).^2);
 % Determine an interpolant by inverting the Vandermonde matrix
 modal_coefficients_1 = inv(vandermonde)*f(r);
 
-% Better way: use the quadrature rule. The mass matrix is the identity
+% Better way: use the quadrature rule. The mass matrix is the identity since by
+% default the vandermonde matrix is the evaluation of L^2 normalized polynomials
 modal_coefficients_2 = vandermonde'*(f(r).*w);
 
 % The following is effectively the L2 error
