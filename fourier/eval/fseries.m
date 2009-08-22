@@ -1,17 +1,17 @@
 function[Psi] = fseries(theta,k,varargin)
-% [PSI] = FSERIES(THETA,K,{GAMMA=0, DELTA=0, SHIFT=0, SCALE=1,NORMALIZATION='normal'})
+% [psi] = fseries(theta,k,{gamma=0, delta=0, shift=0, scale=1,normalization='normal'})
 %
 %     Evaluates the generalized Fourier Series functions with indices K at the
-%     locations THETA over [0,2*pi]. The matrix PSI returned has dimensions
-%     length(THETA) x length(K).
+%     locations theta over [0,2*pi]. The matrix psi returned has dimensions
+%     length(theta) x length(k).
 %
-%     The parameters GAMMA and DELTA specify the generalization class of the
-%     Fourier Series. GAMMA=DELTA=0 is the canonical basis. SHIFT and SCALE
+%     The parameters gamma and delta specify the generalization class of the
+%     Fourier Series. gamma=delta=0 is the canonical basis. shift and scale
 %     define the affine mapping for evaluation of the functions over general
-%     intervals. NORMALIZATION denotes the type of normalization for the
+%     intervals. normalization denotes the type of normalization for the
 %     trigonometric functions. The default 'normal' indicates that the functions
 %     will be L^2-normalized, where L^2 refers to the weighted norm specified by
-%     GAMMA and DELTA. See the files in speclab/fourier/weights.
+%     gamma and delta. See the files in speclab/fourier/weights.
 
 global handles;
 jac = handles.speclab.orthopoly1d.jacobi;

@@ -80,3 +80,12 @@ fprintf('The difference between direct and Galerkin is %1.4e\n', err);
 
 % And you can also check that the online/straightforward fft methods produce
 % (nearly) identical results.
+
+% As with the Fourier/Jacobi case, the routines
+% - iwfft_collocation
+% - iwfft_collocation_online
+% - iwfft_galerkin
+% - iwfft_galerkin_online
+% exist and do what it looks like they do. However, there are no iwfft_overhead
+% routines. Instead, use wfft_collocation_overhead and wfft_galerkin_overhead to
+% generate the fftdata and feed that straight into the iwfft online routines. 

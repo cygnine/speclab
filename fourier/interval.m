@@ -1,5 +1,5 @@
 function[I] = interval(varargin)
-% [I] = INTERVAL({SHIFT=0, SCALE=1})
+% [I] = interval({shift=0, scale=1})
 %
 %     Returns a 2-element vector specifying the domain of approximation for
 %     Fourier Series given the affine scalings SHIFT and SCALE. The default

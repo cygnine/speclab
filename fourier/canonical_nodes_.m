@@ -1,5 +1,5 @@
 function[nodes] = canonical_nodes(N)
-% [NODES] = CANONICAL_NODES(N)
+% [nodes] = canonical_nodes(n)
 %
 %     Returns the N-point canonical Fourier equidistant nodal set over the
 %     interval [0,2*pi].

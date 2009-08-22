@@ -1,10 +1,10 @@
 function[w] = weight(x,varargin)
-% [W] = WEIGHT(X,{S=1, T=0, SCALE=1, SHIFT=0})
+% [w] = weight(x,{s=1, t=0, scale=1, shift=0})
 %
 %     Evaluates the weight function for the (unweighted) Wiener rational
 %     functions. The parameters S and T specify which function class to
-%     consider, and the affine parameters SHIFT and SCALE determine the affine
-%     map of the functions. This weight function does depend on SCALE. 
+%     consider, and the affine parameters shift and scale determine the affine
+%     map of the functions. This weight function does depend on scale. 
 
 global handles;
 wf = handles.speclab.fourier.weights.weight;

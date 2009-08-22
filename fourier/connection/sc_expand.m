@@ -1,8 +1,8 @@
 function[modes] = sc_expand(cmodes,smodes,N)
-% [MODES] = SC_EXPAND(CMODES,SMODES,N)
+% [modes] = sc_expand(cmodes,smodes,N)
 %
-%     Function helper: expands the even cosine-like modes CMODES and the odd
-%     sine-like modes SMODES into a length-N vector MODES.
+%     Function helper: expands the even cosine-like modes cmodes and the odd
+%     sine-like modes smodes into a length-N vector modes.
 
 N_even = mod(N,2)==0;
 n = floor(N/2);

@@ -1,8 +1,8 @@
 function[d] = drc_dx(x,varargin)
-% [D] = DRC_DX(X,VARARGIN)
+% [d] = drc_dx(x,varargin)
 %
-%     The derivative of the mapping X_TO_RC. The standard interval rc=[-1,1] is
-%     assumed, and the SHIFT and SCALE parameters are the scaling of the X
+%     The derivative of the mapping x_to_rc. The standard interval rc=[-1,1] is
+%     assumed, and the shift and scale parameters are the scaling of the x
 %     interval.
 
 global handles;

@@ -1,8 +1,8 @@
 function[d] = dtheta_dx(x,varargin)
-% [D] = DTHETA_DX(X,{SHIFT=0,SCALE=1})
+% [d] = dtheta_dx(x,{shift=0,scale=1})
 %
-%     The derivative of the mapping X_TO_THETA. The standard interval THETA =
-%     [-pi,pi] is assumed and SCALE and SHIFT refer to the affine scalings of X. 
+%     The derivative of the mapping x_to_theta. The standard interval theta =
+%     [-pi,pi] is assumed and scale and shift refer to the affine scalings of x. 
 
 global handles;
 sss = handles.speclab.common.standard_scaleshift_1d;

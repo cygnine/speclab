@@ -1,5 +1,5 @@
 function[opt] = defaults(varargin);
-% [OPT] = DEFAULTS(VARARGIN);
+% [opt] = defaults(varargin);
 %     Function that generates default values for generalized Fourier expansions
 %     given key-value pairs as input. The output is a struct of the results by
 %     key-value combination.

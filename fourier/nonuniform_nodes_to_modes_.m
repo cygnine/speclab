@@ -1,11 +1,11 @@
 function[modes] = nonuniform_nodes_to_modes(theta,f);
-% [MODES] = NONUNIFORM_NODES_TO_MODES(THETA,F);
+% [modes] = nonuniform_nodes_to_modes(theta,f);
 %
 %     Assuming that theta lives on [-pi,pi], this function uses Vandermonde
 %     interpolation to compute the modal coefficients corresponding to the
-%     Fourier interpolant passing through the points (THETA,F).  The modes are
+%     Fourier interpolant passing through the points (theta,f).  The modes are
 %     for L^2 orthonormalized canonical Fourier basis functions. The optional
-%     output KS are the integer indices corresponding to the basis functions. 
+%     output ks are the integer indices corresponding to the basis functions. 
 
 global handles;
 fourier = handles.speclab.fourier;

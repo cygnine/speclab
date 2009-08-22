@@ -1,5 +1,5 @@
 function[opt] = defaults(varargin);
-% [OPT] = DEFAULTS({S=0,T=0,SCALE=1,SHIFT=0,X=false,N=false});
+% [opt] = defaults({s=0,t=0,scale=1,shift=0,x=false,n=false});
 %     Function that generates default values for generalized Wiener expansions
 %     given key-value pairs as input. The output is a struct of the results by
 %     key-value combination.
@@ -13,7 +13,6 @@ function[opt] = defaults(varargin);
 % 
 global handles;
 
-jnames = {'s', 't', 'shift', ...
-          'scale','x','n'};
+jnames = {'s', 't', 'shift', 'scale','x','n'};
 jdefaults = {1, 0, 0, 1, false, false};
 opt = handles.common.InputSchema(jnames,jdefaults,[],varargin{:});

@@ -1,7 +1,7 @@
 function[output_modes] = modal_padding(modes,N)
-% [OUTPUT_MODES] = MODAL_PADDING(MODES,N)
+% [output_modes] = modal_padding(modes,n)
 %
-%     Symmetrically zero-pads the modal vector MODES so that it has length N.
+%     Symmetrically zero-pads the modal vector modes so that it has length N.
 %     This is basically a utility function that can be used to take a low-order
 %     approximation and use the FFT to interpolate it at a high-order equispaced
 %     collection of nodes.

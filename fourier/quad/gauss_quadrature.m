@@ -1,12 +1,12 @@
 function[theta,w] = gauss_quadrature(N,varargin)
-% [THETA,WR] = GAUSS_QUADRATURE(N,{GAMMA=0, DELTA=0, SHIFT=0, SCALE=1})
+% [theta,wr] = gauss_quadrature(N,{gamma=0, delta=0, shift=0, scale=1})
 %
-%     Returns the Gauss-Quadrature nodes + weights for the generalized Fourier
-%     Series. The default interval is [0,2*pi].
+%     Returns N-point the Gauss-Quadrature nodes + weights for the generalized
+%     Fourier Series. The default interval is [-pi,pi].
 %
-%     The parameters GAMMA, DELTA determine the weight function for which this
-%     quadrature rule is valid. GAMMA=DELTA=0 is the canonical Fourier set.
-%     SHIFT and SCALE are affine scaling parameters. 
+%     The parameters gamma, delta determine the weight function for which this
+%     quadrature rule is valid. gamma=delta=0 is the canonical Fourier set.
+%     shift and scale are affine scaling parameters. 
 
 global handles;
 opt = handles.speclab.fourier.defaults(varargin{:});
