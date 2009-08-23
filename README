@@ -1,16 +1,68 @@
+________________________________________________________________________________
+
+           Speclab: A spectral/high-order methods package for Matlab
+                      Copyright (c) 2009 Akil Narayan
+                               Version 0.5
+________________________________________________________________________________
+
 Contents:
-1.) Setup (PLEASE READ)
-2.) Intended audience
-3.) Validation tests (optional)
-4.) Coding conventions
-5.) Examples (PLEASE READ)
-6.) Development history
-7.) TODO's
+1.) License
+2.) Features
+3.) Setup (PLEASE READ)
+4.) Intended audience
+5.) Validation tests (optional)
+6.) Coding conventions
+7.) Examples (PLEASE READ)
+8.) Development history
+9.) TODO's
+10.) Contact
 
 ________________________________________________________________________________
 
-                            1.) Setup
+                            1.) License
 ________________________________________________________________________________
+
+Speclab is released under the MIT License. See the LICENSE file in this
+directory.
+
+Basically do what you want, and don't sue me. And give me credit if any is due.
+
+________________________________________________________________________________
+
+                            2.) Features
+________________________________________________________________________________
+
+Version 0.5 of Speclab provides the following functionality:
+- User-prescribed affine scaling 
+- Automatic affine scaling based on user-desired resolution requirements
+- Jacobi polynomials (Chebyshev, Legendre, Gegenbauer inclusive)
+  - evaluation of L^2-normalized and monic polynomials and derivatives of any
+    order
+  - Gauss(-Radau/Lobatto) quadrature
+  - Jacobi-Jacobi connection operators between certain classes
+  - FFT algorithms for certain classes of Jacobi polynomials
+  - O(N) differentiation in modal space via connection coefficients/three-term
+    recurrences
+- (Generalized) Fourier series
+  - evaluation of L^2-normalized functions and first derivatives
+  - Gauss quadrature
+  - Fourier-Fourier connections between certain classes
+  - FFT algorithms for certain classes
+- Generalized Wiener rational functions
+  - evaluation of L^2 normalized functions and first derivatives
+  - Gauss-type quadrature
+  - FFT 'collocation' and 'Galerkin' algorithms for certain classes
+  - stiffness matrix computations
+
+________________________________________________________________________________
+
+                            3.) Setup
+________________________________________________________________________________
+
+Speclab should work under Matlab version >= 7.6 (R2008a). And although I haven't
+explicitly tested it, I see no reason why it wouldn't work with versions earlier
+than that as well. (There is an exception for running the optional validation
+tests, see section 5.)
 
 Speclab does *not* work out of the box. You have to run one function beforehand,
 aptly named 'setup.m'. This file is located in the base directory of the Speclab
@@ -56,22 +108,30 @@ setup.m does two things:
 
 ________________________________________________________________________________
 
-                            2.) Intended audience
+                            4.) Intended audience
 ________________________________________________________________________________
 
 Speclab is intended for those familiar with spectral expansions of various
 types. It can also be used by those who are in the process of learning about
 spectral approximations from a different source. It is meant to be a tool used
 for quick implementation to test something out, or a sandbox to try out some
-ideas. 
+ideas. If you want a primer on high-order methods, look elsewhere.
 
 Speclab is NOT meant to
-- have commercial-grade speed. This is Matlab, after all. If you want something
-  faster, write and compile code.
+- have commercial-grade speed. The entire package is written in Matlab and has
+  limited speed for that reason.
+- be super fast even in Matlab. It is written with the intention of being fast
+  for most applications, but the emphasis is on giving routines license to do
+  very general things while keeping the code simple, easy to read, and
+  modularized.
 - be a tutorial for those wholly unfamiliar with spectral expansions
+
+If you're interested in having a robust tool for doing spectral calculations in
+Matlab that prizes generality and usability over speed, then you may be
+interested in Speclab.
 ________________________________________________________________________________
 
-                            3.) Validation Tests
+                            5.) Validation Tests
 ________________________________________________________________________________
 
 Once setup.m is run, Speclab is ready to go. However, for peace of mind, it
@@ -95,7 +155,7 @@ return a slew of errors.
 
 ________________________________________________________________________________
                             
-                            4.) Coding conventions
+                            6.) Coding conventions
 ________________________________________________________________________________
 
 Throughout Speclab, the following coding conventions are used. 
@@ -112,7 +172,7 @@ effective at getting the point across and differentiating from function names.
 Each m-file has a (hopefully) descriptive helpstring. In Matlab, you can cd into
 the directory containing file.m and type "help file" and it will print the
 helpstring. However, functions in Speclab are usually called via a function
-handle and not by changing directories (see section 1). Matlab's help function
+handle and not by changing directories (see the Setup section). Matlab's help function
 does not recognize what to do with function handles, so unfortunately you have
 to take the roundabout way of getting help:
 If you want help for the function with handle
@@ -143,7 +203,7 @@ should not rely on it; I haven't tested such files at all.
 
 ________________________________________________________________________________
                             
-                            5.) Examples
+                            7.) Examples
 ________________________________________________________________________________
 
 All examples are contained in the speclab/examples folder. All examples are
@@ -167,7 +227,7 @@ examples folder with some not-so-detailed specifics about expansions:
 
 ________________________________________________________________________________
                             
-                            6.) Development history
+                            8.) Development history
 ________________________________________________________________________________
 
 If you'd like the whole development history for Speclab, you'll need the
@@ -193,7 +253,7 @@ tarball won't have the history.
 
 ________________________________________________________________________________
                             
-                            7.) TODO's
+                            9.) TODO's
 ________________________________________________________________________________
 
 - Hermite polynomial/function expansions
@@ -202,4 +262,15 @@ ________________________________________________________________________________
 - filters
 - object-oriented implementation. This will increase user-friendliness a great
   deal. It will also standardize calling syntax.
+- more general connections between spectral expansions 
 - fast 'special function' zero calculations a la Glaser & Rohklin.
+
+________________________________________________________________________________
+                            
+                            10.) Contact
+________________________________________________________________________________
+
+Any comments/suggestions/improvements are welcome. 
+
+Akil Narayan
+anaray@dam.brown.edu
