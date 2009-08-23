@@ -3,6 +3,7 @@
 
 % Test a hallmark of `spectral' methods: exponential convergence for analytic
 % functions. 
+clear
 global handles;
 exloglog = handles.common.exloglog;
 typelatex = handles.common.typelatex;

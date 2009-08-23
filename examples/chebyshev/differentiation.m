@@ -1,6 +1,7 @@
 %%% Example script for Chebyshev approximation
 %%% Differentiation: how to take derivatives
 
+clear
 global handles;
 cheb = handles.speclab.orthopoly1d.jacobi;
 

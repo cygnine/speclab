@@ -2,6 +2,7 @@
 %%% Stiffness matrix: the Wiener stiffness matrix is sparse, O(N) spectral
 %%% radius
 
+clear
 global handles;
 wiener = handles.speclab.wiener;
 ltex = handles.common.typelatex;

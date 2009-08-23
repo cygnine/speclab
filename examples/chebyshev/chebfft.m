@@ -9,6 +9,7 @@
 % Otherwise, one might as well store the inverted Vandermonde matrix and apply
 % it as regular matrix-multiplication; it'll be much faster than the FFT. 
 
+clear
 global handles;
 cheb = handles.speclab.orthopoly1d.jacobi;
 map = cheb.affine_scaling([3,4]); % for no particularly compelling reason

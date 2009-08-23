@@ -3,6 +3,7 @@
 
 % If 2*alpha and 2*beta are odd integers, the FFT may be used to compute Jacobi
 % polynomial expansion modal coefficients in N*log(N) time. 
+clear
 global handles;
 jac = handles.speclab.orthopoly1d.jacobi;
 M = 100;  % # of times to repeat calculation for timing

@@ -6,6 +6,7 @@
 % parameters, the approximation will be valid on the interval [-scale+shift,
 % scale+shift]. This corresponds to a mapping r -----> s = scale*r + shift.
 
+clear
 % The following two lines extract the 'module' of functions we'll need
 global handles;
 cheb = handles.speclab.orthopoly1d.jacobi;

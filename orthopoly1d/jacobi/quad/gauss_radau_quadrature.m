@@ -2,9 +2,8 @@ function[x,w] = gauss_radau_quadrature(N,varargin)
 % [x,w] = gauss_radau_quadrature(N,{alpha=-1/2,beta=-1/2,shift=0,scale=1,r=1})
 %
 %     Returns the N-point Gauss-Radau quadrature rule for the Jacobi polynomials.
-%     The weight function is
-%     (1-1/scale*(x-shift))^alpha*(1+1/scale*(x-shift))^beta. The Radau point is
-%     located at x=r.
+%     The weight function is given by speclab.orthopoly1d.jacobi.weights.weight.
+%     The Radau point is located at x=r.
 
 global handles;
 opoly = handles.speclab.orthopoly1d;

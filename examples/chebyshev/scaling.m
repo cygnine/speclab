@@ -28,6 +28,7 @@
 % Any optional arguments that aren't recognized are retained in each function,
 % but are ignored. 
 
+clear;
 global handles;
 speclab = handles.speclab;
 cheb = speclab.orthopoly1d.jacobi;

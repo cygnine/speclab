@@ -8,6 +8,7 @@
 % You may want to take a look at the examples/fourier/intro.m file before going
 % through this.
 
+clear
 global handles;
 fourier = handles.speclab.fourier;
 jac = handles.speclab.orthopoly1d.jacobi;

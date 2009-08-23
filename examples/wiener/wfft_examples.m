@@ -20,6 +20,7 @@
 % If s is large (> ~10), the Galerkin method also suffers more due to roundoff
 % error
 
+clear
 global handles;
 wiener = handles.speclab.wiener;
 wfft = wiener.fft;

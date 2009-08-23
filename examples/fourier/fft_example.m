@@ -5,6 +5,7 @@
 % path. To avoid such problems, I've renamed the "fast Fourier transform" as the
 % "Fourier fast Fourier transform". ffft instead of fft. iffft instead of ifft.
 
+clear
 global handles;
 fourier = handles.speclab.fourier;
 

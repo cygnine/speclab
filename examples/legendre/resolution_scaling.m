@@ -9,6 +9,7 @@
 % scale the basis if I want, say, 80% of the resolution inside some given
 % interval. 
 
+clear
 global handles;
 leg = handles.speclab.orthopoly1d.jacobi;
 opt.alpha = 0; 

@@ -11,6 +11,7 @@
 %
 % The standard interval of approximation for the Fourier series is [-pi, pi].
 
+clear
 global handles;
 fourier = handles.speclab.fourier;
 irange = handles.speclab.common.integer_range;

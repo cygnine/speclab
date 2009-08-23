@@ -1,6 +1,7 @@
 %%% Example script for Wiener approximation
 %%% Plotting functions: plots Wiener basis functions
 
+clear
 global handles;
 wiener = handles.speclab.wiener;
 explot = handles.common.explot;

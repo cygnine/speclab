@@ -140,7 +140,7 @@ take up to 5 minutes, but generally only take 2 minutes or so.
 
 >> setup;
 >> global handles
->> handles.debug.all_tests();
+>> handles.speclab.debug.all_tests();
 
 This runs a bunch (~400) of tests with some relatively well-formatted output.
 The test parameters are randomized, so it's not a big deal if a dozen or so of
@@ -270,7 +270,7 @@ ________________________________________________________________________________
                             10.) Contact
 ________________________________________________________________________________
 
-Any comments/suggestions/improvements are welcome. 
+Any comments/suggestions/improvements/complaints are welcome. 
 
 Akil Narayan
 anaray@dam.brown.edu
