@@ -1,5 +1,5 @@
 function[p] = eval_jacobi_poly(x,n,varargin)
-% [p] = eval_jacobi_poly(x,n,{alpha=-1/2,beta=-1/2,shift=0,scale=1})
+% [p] = eval_jacobi_poly(x,n,{alpha=-1/2,beta=-1/2,d=0,shift=0,scale=1})
 %
 %     Evaluates the nth generalized Jacobi polynomials at the locations x. 
 %     The weight function is (1-1/scale*(x-shift))^alpha*(1+1/scale*(x-shift))^beta
