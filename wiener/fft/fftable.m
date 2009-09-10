@@ -1,5 +1,7 @@
-function[tf,varargout] = fftable(varargin)
-% [tf,{S,T}] = fftable({s=1, t=0})
+function[tf,S,T] = fftable(varargin)
+% fftable -- Determines if the given Wiener expansion can use the FFT
+%
+% [tf,S,T] = fftable({s=1, t=0})
 % 
 %     This function is meant to take in a struct of parameters specifying a
 %     Wiener function family and output a boolean describing whether or not
@@ -25,6 +27,3 @@ else
   S = [];
   T = [];
 end
-
-varargout{1} = S;
-varargout{2} = T;

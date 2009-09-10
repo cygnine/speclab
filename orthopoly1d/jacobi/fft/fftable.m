@@ -1,5 +1,5 @@
-function[tf,varargout] = fftable(varargin)
-% [tf,{A,B}] = fftable({alpha=-1/2, beta=-1/2})
+function[tf,A,B] = fftable(varargin)
+% [tf,A,B] = fftable({alpha=-1/2, beta=-1/2})
 % 
 %     This function is meant to take in a struct of parameters specifying a
 %     Jacobi polynomial family and output a boolean describing whethet or not
@@ -22,6 +22,3 @@ else
   A = [];
   B = [];
 end
-
-varargout{1} = A;
-varargout{2} = B;
