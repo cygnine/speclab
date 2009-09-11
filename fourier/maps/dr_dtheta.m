@@ -7,7 +7,7 @@ function[d] = dr_dtheta(theta,varargin)
 
 global handles;
 sss = handles.speclab.common.standard_scaleshift_1d;
-opt = handles.common.InputSchema({'shift','scale'}, {0,1}, [],varargin{:});
+opt = handles.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 theta = sss(theta,opt);
 d = -sin(theta)/opt.scale;

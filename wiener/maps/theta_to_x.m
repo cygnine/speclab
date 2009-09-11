@@ -7,7 +7,7 @@ function[x] = theta_to_x(theta,varargin)
 
 global handles;
 pss = handles.speclab.common.physical_scaleshift_1d;
-opt = handles.common.InputSchema({'shift','scale'}, {0,1}, [],varargin{:});
+opt = handles.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 x = tan(theta/2);
 x = pss(x,opt);

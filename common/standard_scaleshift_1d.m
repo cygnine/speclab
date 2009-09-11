@@ -6,6 +6,6 @@ function[x] = standard_scaleshift_1d(x,varargin)
 %     domain [-1,1].
 
 global handles;
-opt = handles.common.InputSchema({'scale','shift'}, {1,0}, [],varargin{:});
+opt = handles.common.input_schema({'scale','shift'}, {1,0}, [],varargin{:});
 
 x = (x-opt.shift)/opt.scale;

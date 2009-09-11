@@ -10,7 +10,7 @@ function[r] = theta_to_rc(theta,varargin)
 
 global handles;
 sss = handles.speclab.common.standard_scaleshift_1d;
-opt = handles.common.InputSchema({'shift','scale'}, {0,1}, [],varargin{:});
+opt = handles.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 theta = sss(theta,opt);
 r = sin(theta);

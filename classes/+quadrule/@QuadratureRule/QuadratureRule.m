@@ -16,7 +16,7 @@ classdef QuadratureRule
       global handles;
       inputs = {'dof', 'nodes', 'weights', 'description'};
       defaults = {0,[],[],'no description'};
-      self = handles.common.InputSchema(inputs,defaults,[],varargin{:});
+      self = handles.common.input_schema(inputs,defaults,[],varargin{:});
     end
     function vals = weight_function(self,x)
       vals = 0*x;

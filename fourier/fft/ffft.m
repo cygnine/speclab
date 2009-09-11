@@ -12,7 +12,7 @@ function[modes] = ffft(nodes,varargin);
 %     generalized Fourier expansion.
 
 global handles;
-opt = handles.common.InputSchema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
+opt = handles.common.input_schema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
 conn = handles.speclab.fourier.connection.positive_integer_separation_connection;
 N = length(nodes);
 

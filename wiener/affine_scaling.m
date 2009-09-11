@@ -10,7 +10,7 @@ global handles;
 wiener = handles.speclab.wiener;
 inputs = {'s', 't', 'resolution_fraction'};
 defaults = {1, 0, 1};
-opt = handles.common.InputSchema(inputs, defaults, [], varargin{:});
+opt = handles.common.input_schema(inputs, defaults, [], varargin{:});
 
 out.shift = mean(interval);
 if (N<1)

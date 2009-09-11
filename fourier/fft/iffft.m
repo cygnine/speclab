@@ -11,7 +11,7 @@ function[nodes,ks] = iffft(modes,varargin);
 %     [-pi,pi] to another interval.
 
 global handles;
-opt = handles.common.InputSchema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
+opt = handles.common.input_schema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
 conn = handles.speclab.fourier.connection.negative_integer_separation_connection;
 N = length(modes);
 

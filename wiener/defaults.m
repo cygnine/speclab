@@ -15,4 +15,4 @@ global handles;
 
 jnames = {'s', 't', 'shift', 'scale','x','n'};
 jdefaults = {1, 0, 0, 1, false, false};
-opt = handles.common.InputSchema(jnames,jdefaults,[],varargin{:});
+opt = handles.common.input_schema(jnames,jdefaults,[],varargin{:});

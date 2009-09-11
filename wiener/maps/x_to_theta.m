@@ -7,7 +7,7 @@ function[theta] = x_to_theta(x,varargin)
 
 global handles;
 sss = handles.speclab.common.standard_scaleshift_1d;
-opt = handles.common.InputSchema({'shift','scale'}, {0,1}, [],varargin{:});
+opt = handles.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 x = sss(x,opt);
 theta = 2*atan(x);

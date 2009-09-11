@@ -10,7 +10,7 @@ function[f] = chebifft(F,varargin);
 %     F must be a column vector (but this is vectorized across columns)
 
 global handles;
-opt = handles.common.InputSchema({'normalization','scale', 'points'}, ...
+opt = handles.common.input_schema({'normalization','scale', 'points'}, ...
   {'normal',1, 'gq'},[], varargin{:});
 
 if strcmpi(opt.points, 'gq')

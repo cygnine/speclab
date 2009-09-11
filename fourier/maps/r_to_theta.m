@@ -7,7 +7,7 @@ function[theta] = r_to_theta(r,varargin)
 
 global handles;
 pss = handles.speclab.common.physical_scaleshift_1d;
-opt = handles.common.InputSchema({'shift','scale'}, {0,1}, [],varargin{:});
+opt = handles.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 theta = acos(r);
 theta = pss(theta,opt);

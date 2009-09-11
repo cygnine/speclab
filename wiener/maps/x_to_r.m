@@ -7,7 +7,7 @@ function[r] = x_to_r(x,varargin)
 
 global handles;
 sss = handles.speclab.common.standard_scaleshift_1d;
-opt = handles.common.InputSchema({'shift','scale'}, {0,1}, [],varargin{:});
+opt = handles.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 x = sss(x,opt);
 r = (1-x.^2)./(1+x.^2);

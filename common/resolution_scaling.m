@@ -6,7 +6,7 @@ function[scale] = resolution_scaling(L,nodes,varargin)
 %     interval [-L,L]. Mostly used for infinite-interval expansions.
 
 global handles;
-opt = handles.common.InputSchema({'resolution_fraction'}, {1}, [], varargin{:});
+opt = handles.common.input_schema({'resolution_fraction'}, {1}, [], varargin{:});
 
 N = length(nodes);
 delta = min([1, opt.resolution_fraction]);

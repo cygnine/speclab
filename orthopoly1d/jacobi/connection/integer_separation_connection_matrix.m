@@ -10,7 +10,7 @@ function[C] = integer_separation_connection_matrix(N,alpha,beta,A,B,varargin)
 %     polynomials P, which affects the matrix C.
 
 global handles;
-opt = handles.common.InputSchema({'normalization'}, {'normal'}, [],varargin{:});
+opt = handles.common.input_schema({'normalization'}, {'normal'}, [],varargin{:});
 
 coeffs = handles.speclab.orthopoly1d.jacobi.coefficients;
 

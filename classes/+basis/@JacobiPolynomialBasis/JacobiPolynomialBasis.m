@@ -14,7 +14,7 @@ classdef JacobiPolynomialBasis < basis.WholeBasis
       global handles;
       inputs = {'alpha', 'beta', 'scale', 'shift', 'dof', 'physical_interval'};
       defaults = {-0.5, -0.5, 1, 0, 0, false};
-      opt = handles.common.InputSchema(inputs, defaults, varargin{:});
+      opt = handles.common.input_schema(inputs, defaults, varargin{:});
       self = basis.WholeBasis(opt);
 
       if opt.physical_interval

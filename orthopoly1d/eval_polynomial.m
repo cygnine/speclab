@@ -30,7 +30,7 @@ function[p] = eval_polynomial(x,alpha,beta,n,varargin);
 
 global handles;
 sss = handles.speclab.common.standard_scaleshift_1d;
-opt = handles.common.InputSchema({'d','scale','shift','normalization'},{0,1,0,'normal'},[],varargin{:});
+opt = handles.common.input_schema({'d','scale','shift','normalization'},{0,1,0,'normal'},[],varargin{:});
 
 % Pre-processing:
 x = x(:);

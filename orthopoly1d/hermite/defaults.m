@@ -21,7 +21,7 @@ global handles;
 hnames = {'mu', 'shift', 'scale', 'd', 'x', 'normalization'};
 hdefaults = {0, 0, 1, 0, 0, 'normal'};
 
-opt = handles.common.InputSchema(hnames, hdefaults, [], varargin{:});
+opt = handles.common.input_schema(hnames, hdefaults, [], varargin{:});
 
 % Change default x to match shift, scale
 opt.x = opt.x*opt.scale + opt.shift;

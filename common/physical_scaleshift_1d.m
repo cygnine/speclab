@@ -6,6 +6,6 @@ function[x] = physical_scaleshift_1d(x,varargin)
 %     [shift-scale,shift+scale].
 
 global handles;
-opt = handles.common.InputSchema({'scale','shift'}, {1,0}, [],varargin{:});
+opt = handles.common.input_schema({'scale','shift'}, {1,0}, [],varargin{:});
 
 x = x*opt.scale+opt.shift;

@@ -8,7 +8,7 @@ global handles;
 jac = handles.speclab.orthopoly1d.jacobi;
 inputs = {'points', 'alpha', 'beta', 'normalization', 'scale'};
 defaults = {'gq', -1/2, -1/2, 'normal', 1};
-opt = handles.common.InputSchema(inputs, defaults, [], varargin{:});
+opt = handles.common.input_schema(inputs, defaults, [], varargin{:});
 
 [tf,A,B] = jac.fft.fftable(opt);
 if not(tf)

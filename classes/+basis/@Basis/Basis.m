@@ -23,7 +23,7 @@ classdef Basis
       global handles;
       inputs = {'dof','description','fftable'};
       defaults = {0, 'None',false};
-      self = handles.common.InputSchema(inputs, defaults, [], varargin{:});
+      self = handles.common.input_schema(inputs, defaults, [], varargin{:});
     end
     
     function value = get.N(self)
