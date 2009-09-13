@@ -14,7 +14,7 @@ pss = handles.speclab.common.physical_scaleshift_1d;
 sss = handles.speclab.common.standard_scaleshift_1d;
 
 opt = hermite.defaults(varargin{:});
-[mu,scale,shift,r] = deal(opt.scale,opt.shift,opt.r);
+[mu,scale,shift,r] = deal(opt.scale,opt.shift,opt.x);
 r = sss(r,opt);
 
 [a,b] = hermite.coefficients.recurrence(N,opt);

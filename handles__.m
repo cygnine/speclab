@@ -1,9 +1,13 @@
-function[hs,pathadditions] = handles__()
-% [HS,PATHADDITIONS] = HANDLES__()
+function[hs,pathadditions,name] = handles__()
+% handles__ -- constructs path tree for the speclab module
+%
+% [hs,pathadditions,name] = handles__()
 %
 %     Returns directory pointers for common module in HS. PATHADDITIONS is a
 %     cell array with a string in each element indicated paths to add to the
 %     global path structure. 
+
+name = 'speclab';
 
 % This is by default
 hs.base = fileparts(mfilename('fullpath'));
@@ -23,6 +27,22 @@ hs.orthopoly1d.base = fullfile(hs.base,'orthopoly1d');
     hs.orthopoly1d.jacobi.operators.base = ...
       fullfile(hs.orthopoly1d.jacobi.base, 'operators');
     hs.orthopoly1d.jacobi.fft.base = fullfile(hs.orthopoly1d.jacobi.base, 'fft');
+
+  hs.orthopoly1d.hermite.base = fullfile(hs.orthopoly1d.base, 'hermite');
+    hs.orthopoly1d.hermite.quad.base = fullfile(hs.orthopoly1d.hermite.base, 'quad');
+    hs.orthopoly1d.hermite.eval.base = fullfile(hs.orthopoly1d.hermite.base, 'eval');
+    hs.orthopoly1d.hermite.coefficients.base = ...
+      fullfile(hs.orthopoly1d.hermite.base, 'coefficients');
+    hs.orthopoly1d.hermite.weights.base = ...
+      fullfile(hs.orthopoly1d.hermite.base, 'weights');
+
+  hs.orthopoly1d.laguerre.base = fullfile(hs.orthopoly1d.base, 'laguerre');
+    hs.orthopoly1d.laguerre.quad.base = fullfile(hs.orthopoly1d.laguerre.base, 'quad');
+    hs.orthopoly1d.laguerre.eval.base = fullfile(hs.orthopoly1d.laguerre.base, 'eval');
+    hs.orthopoly1d.laguerre.coefficients.base = ...
+      fullfile(hs.orthopoly1d.laguerre.base, 'coefficients');
+    hs.orthopoly1d.laguerre.weights.base = ...
+      fullfile(hs.orthopoly1d.laguerre.base, 'weights');
 
 hs.fourier.base = fullfile(hs.base,'fourier');
   hs.fourier.eval.base = fullfile(hs.fourier.base, 'eval');
