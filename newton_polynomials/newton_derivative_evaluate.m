@@ -21,7 +21,7 @@ function[f] = newton_derivative_evaluate(x,c,varargin)
 %     to the this function and using a parfor to parallelize the outer loop. 
 
 global handles;
-newton = handles.speclab.NewtonPolynomials;
+newton = handles.speclab.newton_polynomials;
 mono = handles.speclab.monomials;
 
 [n,C] = size(c);

@@ -3,9 +3,9 @@ function[hs,pathadditions,name] = handles__()
 %
 % [hs,pathadditions,name] = handles__()
 %
-%     Returns directory pointers for common module in HS. PATHADDITIONS is a
+%     Returns directory pointers for common module in hs. pathadditions is a
 %     cell array with a string in each element indicated paths to add to the
-%     global path structure. 
+%     global path structure. name is the name of this module.
 
 name = 'speclab';
 
@@ -64,7 +64,7 @@ hs.wiener.base = fullfile(hs.base,'wiener');
 
 hs.monomials.base = fullfile(hs.base,'monomials');
 
-hs.NewtonPolynomials.base = fullfile(hs.base,'NewtonPolynomials');
+hs.newton_polynomials.base = fullfile(hs.base,'newton_polynomials');
 
 hs.debug.base = fullfile(hs.base,'debug');
 hs.examples.base = fullfile(hs.base,'examples');
