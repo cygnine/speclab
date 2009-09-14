@@ -9,3 +9,7 @@ n = size(mc,1);
 
 mc(1:(n-1),:) = spdiags((1:(n-1)).',0,n-1,n-1)*mc(2:n,:);
 mc(n,:) = [];
+
+if n==1
+  mc = zeros(size(mc));
+end

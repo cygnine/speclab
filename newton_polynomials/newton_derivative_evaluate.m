@@ -59,8 +59,10 @@ else
   % Find the derivative
   monomial_coefficients = mono.monomial_derivative(monomial_coefficients);
 
+  temp = size(z);
   % Evaluate at desired points
-  f = mono.evaluate(monomial_coefficients,z);
+  f = mono.evaluate(monomial_coefficients,z(:));
+  f = reshape(f,temp);
 
   return
 end
