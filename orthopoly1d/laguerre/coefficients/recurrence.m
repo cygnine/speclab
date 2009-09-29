@@ -16,4 +16,4 @@ b(1) = gamma(1+opt.alpha);
 a = 2*(0:(N-1)).' + opt.alpha + 1;
 
 ks = (1:(N-1)).';
-b(2:end) = ks.*(ks+alpha);
+b(2:end) = ks.*(ks+opt.alpha);

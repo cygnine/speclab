@@ -15,4 +15,4 @@ b = a;
 b(1) = gamma(opt.mu+1/2);
 oddk = 1:2:(N-1);
 b(2:end) = 1/2*(1:(N-1));
-b(oddk+1) = b(oddk+1)+mu;
+b(oddk+1) = b(oddk+1)+opt.mu;

@@ -9,8 +9,8 @@ function[w] = weight(x,varargin)
 
 global handles;
 opt = handles.speclab.orthopoly1d.hermite.defaults(varargin{:});
-sss = handles.speclab.common.standard_scaleshift1d;
+sss = handles.speclab.common.standard_scaleshift_1d;
 x = sss(x,opt);
 
-w = (x.^2).^mu.*exp(-x.^2);
+w = (x.^2).^opt.mu.*exp(-x.^2);
 w = w/opt.scale;

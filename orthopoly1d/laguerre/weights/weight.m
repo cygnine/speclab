@@ -9,7 +9,7 @@ function[w] = weight(x,varargin)
 
 global handles;
 opt = handles.speclab.orthopoly1d.laguerre.defaults(varargin{:});
-sss = handles.speclab.common.standard_scaleshift1d;
+sss = handles.speclab.common.standard_scaleshift_1d;
 x = sss(x,opt);
 
 w = x.^opt.alpha.*exp(-x);

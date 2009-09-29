@@ -14,7 +14,7 @@ pss = handles.speclab.common.physical_scaleshift_1d;
 sss = handles.speclab.common.standard_scaleshift_1d;
 
 opt = laguerre.defaults(varargin{:});
-[alpha,scale,shift,r] = deal(opt.scale,opt.shift,opt.r);
+[scale,shift,r] = deal(opt.scale,opt.shift,opt.r);
 r = sss(r,opt);
 
 [a,b] = laguerre.coefficients.recurrence(N,opt);

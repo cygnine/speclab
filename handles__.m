@@ -43,6 +43,10 @@ hs.orthopoly1d.base = fullfile(hs.base,'orthopoly1d');
       fullfile(hs.orthopoly1d.laguerre.base, 'coefficients');
     hs.orthopoly1d.laguerre.weights.base = ...
       fullfile(hs.orthopoly1d.laguerre.base, 'weights');
+    hs.orthopoly1d.laguerre.connection.base = ...
+      fullfile(hs.orthopoly1d.laguerre.base, 'connection');
+    hs.orthopoly1d.laguerre.operators.base = ...
+      fullfile(hs.orthopoly1d.laguerre.base, 'operators');
 
 hs.fourier.base = fullfile(hs.base,'fourier');
   hs.fourier.eval.base = fullfile(hs.fourier.base, 'eval');
