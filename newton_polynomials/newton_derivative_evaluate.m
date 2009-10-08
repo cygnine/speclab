@@ -1,12 +1,12 @@
 function[f] = newton_derivative_evaluate(x,c,varargin)
-% [F] = NEWTON_DERIVATIVE_EVALUATE(X,C)
-% [F] = NEWTON_DERIVATIVE_EVALUATE(X,C,Z)
+% [f] = newton_derivative_evaluate(x,c)
+% [f] = newton_derivative_evaluate(x,c,{z=NaN, d=1})
 %
-%     If Z is not given:
-%     For nodal locations X and modal coefficients C, calculates the
-%     value of the derivative of the Newton interpolant at X(1). The Horner
+%     If z is not given:
+%     For nodal locations x and modal coefficients c, calculates the
+%     value of the derivative of the Newton interpolant at x(1). The Horner
 %     decomposition of the interpolant makes this task very easy. 
-%     If C has multiple columns (say NC of them), we assume that there are multiple
+%     If c has multiple columns (say nc of them), we assume that there are multiple
 %     interpolants whose derivatives must be evaluated simultaneously.
 %
 %     For vectors:
@@ -19,10 +19,14 @@ function[f] = newton_derivative_evaluate(x,c,varargin)
 %     Z is just the number of evaluations per cell. Unless this is going to be
 %     constant across cells, you might be better off feeding one cell at a time
 %     to the this function and using a parfor to parallelize the outer loop. 
+%
+%     In either case, the optional argument d determines how many derivatives to
+%     take.
 
 global handles;
 newton = handles.speclab.newton_polynomials;
 mono = handles.speclab.monomials;
+opt = handles.common.input_schema({'z', 'd'}, {NaN, 1}, [], varargin{:});
 
 [n,C] = size(c);
 if and(n==1,C>1)  % I don't think you're calling this for derivatives of
@@ -32,10 +36,14 @@ if and(n==1,C>1)  % I don't think you're calling this for derivatives of
   y = y';
 end
 
-if length(varargin)<1
+%if length(varargin)<1
+if isnan(opt.z);
 
   f = c(n,:);
   z = x(1,:);
+  if opt.d>1
+    error('Not coded yet')
+  end
   for q = (n-1):(-1):2
     f = f.*(z-x(q,:)) + c(q,:);
   end
@@ -44,7 +52,8 @@ if length(varargin)<1
 
 % Need to evaluate at points inside the cells ... gets more complicated
 else
-  z = varargin{1};
+  %z = varargin{1};
+  z = opt.z;
   if length(z)==0
     f = [];
     return
@@ -57,7 +66,9 @@ else
   monomial_coefficients = newton.newton_to_monomial(c,x);
   
   % Find the derivative
-  monomial_coefficients = mono.monomial_derivative(monomial_coefficients);
+  for q = 1:opt.d
+    monomial_coefficients = mono.monomial_derivative(monomial_coefficients);
+  end
 
   temp = size(z);
   % Evaluate at desired points
