@@ -29,8 +29,9 @@ function[p] = eval_polynomial(x,alpha,beta,n,varargin);
 %     sqrt(b_{n+1}) p_{n+1} = (x-a_n) p_n - sqrt(b_n) p_{n-1}
 
 global handles;
-sss = handles.speclab.common.standard_scaleshift_1d;
-opt = handles.common.input_schema({'d','scale','shift','normalization'},{0,1,0,'normal'},[],varargin{:});
+sss = handles.speclab.common.standard_scaleshift_1d.handle;
+inputs = handles.common.input_schema.handle;
+opt = inputs({'d','scale','shift','normalization'},{0,1,0,'normal'},[],varargin{:});
 
 % Pre-processing:
 x = x(:);
