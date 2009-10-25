@@ -6,9 +6,9 @@ function[modes] = positive_integer_separation_connection(modes,gamma,delta,G,D)
 %     (gamma+G,delta+D) for G,D>0. The connection coefficients are not explicity
 %     computed. It is assumed that the inputs G and D are integers.
 
-global handles;
-jac = handles.speclab.orthopoly1d.jacobi;
-fourier = handles.speclab.fourier;
+global packages;
+jac = packages.speclab.orthopoly1d.jacobi;
+fourier = packages.speclab.fourier;
 sc_expand = fourier.connection.sc_expand;
 sc_collapse = fourier.connection.sc_collapse;
 

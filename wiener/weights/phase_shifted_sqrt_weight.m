@@ -9,10 +9,10 @@ function[w] = phase_shifted_sqrt_weight(x,varargin)
 %     For t=0, scale=1, shift=0, this weight is equivalent to 
 %     [i/sqrt(2)*(1 + exp(-i*theta))].^s
 
-global handles;
-opt = handles.speclab.wiener.defaults(varargin{:});
-psw = handles.speclab.fourier.weights.phase_shifted_sqrt_weight;
-rx = handles.speclab.wiener.maps;
+global packages;
+opt = packages.speclab.wiener.defaults(varargin{:});
+psw = packages.speclab.fourier.weights.phase_shifted_sqrt_weight;
+rx = packages.speclab.wiener.maps;
 
 theta = rx.x_to_theta(x,opt);
 % Note: it just so happens that dtheta/dx = (1-cos(theta)). Therefore, we

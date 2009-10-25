@@ -5,8 +5,8 @@ function[v] = vandermonde_matrix(varargin);
 %     input x or the input n is required. If e.g. Gauss-Radau is Lobatto
 %     points are desired for x, form them externally and feed them in.
 
-global handles;
-jac = handles.speclab.orthopoly1d.jacobi;
+global packages;
+jac = packages.speclab.orthopoly1d.jacobi;
 opt = jac.defaults(varargin{:});
 
 if x ~= false
@@ -20,4 +20,4 @@ else
   error('You must input either a nodal vector x or a size n');
 end
 
-v = handles.common.make_vandermonde(x,n,jac.eval.eval_jacobi_poly,opt);
+v = packages.common.make_vandermonde(x,n,jac.eval.eval_jacobi_poly,opt);

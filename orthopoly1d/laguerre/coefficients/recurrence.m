@@ -6,8 +6,8 @@ function[a,b] = recurrence(N,varargin)
 %     Laguerre polynomials.  
 
 % Sets default parameter values
-global handles;
-opt = handles.speclab.orthopoly1d.laguerre.defaults(varargin{:});
+global packages;
+opt = packages.speclab.orthopoly1d.laguerre.defaults(varargin{:});
 
 a = zeros([N 1]);
 b = a;

@@ -7,8 +7,8 @@ function[v] = differentiation_matrix(varargin);
 %     This function uses direct matrix multiplication to form the differentation
 %     matrix. 
 
-global handles;
-jac = handles.speclab.orthopoly1d.jacobi;
+global packages;
+jac = packages.speclab.orthopoly1d.jacobi;
 opt = jac.defaults(varargin{:});
 
 if x ~= false
@@ -22,9 +22,9 @@ else
   error('You must input either a nodal vector X or a size N');
 end
 
-v = handles.common.make_vandermonde(x,n,jac.eval.eval_jacobi_poly,opt);
+v = packages.common.make_vandermonde(x,n,jac.eval.eval_jacobi_poly,opt);
 
 opt.d = 1;
-dv = handles.common.make_vandermonde(x,n,jac.eval.eval_jacobi_poly,opt);
+dv = packages.common.make_vandermonde(x,n,jac.eval.eval_jacobi_poly,opt);
 
 v = dv*inv(v);

@@ -5,9 +5,9 @@ function[x,w] = gauss_radau_quadrature(a,b,N,r);
 %     polynomials corresponding to the recurrence coefficients A and B.
 %     The fixed Radau point is at the location r.
 
-global handles;
-opoly = handles.speclab.orthopoly1d;
-gq = handles.speclab.orthopoly1d.gauss_quadrature;
+global packages;
+opoly = packages.speclab.orthopoly1d;
+gq = packages.speclab.orthopoly1d.gauss_quadrature;
 
 a = a(1:N);
 b = b(1:N);

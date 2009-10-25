@@ -3,8 +3,8 @@ function[modes] = ffft_online(nodes,data);
 % 
 %     The online "Fourier FFT".
 
-global handles;
-conn = handles.speclab.fourier.connection.positive_integer_separation_connection_online;
+global packages;
+conn = packages.speclab.fourier.connection.positive_integer_separation_connection_online;
 
 modes = fftshift(fft(nodes));
 

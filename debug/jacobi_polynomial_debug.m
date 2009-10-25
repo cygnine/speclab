@@ -8,9 +8,9 @@ function[varargout] = jacobi_polynomial_debug()
 
 fprintf('Running Jacobi polynomial tests...');
 
-global handles;
-jac = handles.speclab.orthopoly1d.jacobi;
-debug = handles.speclab.debug;
+global packages;
+jac = packages.speclab.orthopoly1d.jacobi;
+debug = packages.speclab.debug;
 dcat = debug.concatenate_debug_information;
 
 flags = false(0);

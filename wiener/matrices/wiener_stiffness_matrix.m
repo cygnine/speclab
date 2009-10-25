@@ -7,11 +7,11 @@ function[S] = wiener_stiffness_matrix(N,varargin)
 %
 %     TODO: this is hardly the most efficient way to construct this....
 
-global handles;
-wiener = handles.speclab.wiener;
+global packages;
+wiener = packages.speclab.wiener;
 opt = wiener.defaults(varargin{:});
 
-ks = handles.speclab.common.integer_range(N+4);
+ks = packages.speclab.common.integer_range(N+4);
 
 if opt.s==1
   S = spalloc(N+4,N+4,3*(N+4));

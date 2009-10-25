@@ -6,11 +6,11 @@ function[out] = affine_scaling(interval,N,varargin)
 %     out is a struct with two fields, 'scale' and 'shift', specifying the
 %     affine map.
 
-global handles;
-wiener = handles.speclab.wiener;
+global packages;
+wiener = packages.speclab.wiener;
 inputs = {'s', 't', 'resolution_fraction'};
 defaults = {1, 0, 1};
-opt = handles.common.input_schema(inputs, defaults, [], varargin{:});
+opt = packages.common.input_schema(inputs, defaults, [], varargin{:});
 
 out.shift = mean(interval);
 if (N<1)
@@ -21,5 +21,5 @@ end
 nodes = wiener.quad.gauss_quadrature(N,'s',opt.s,'t',opt.t);
 L = abs(diff(interval))/2;
 
-out.scale = handles.speclab.common.resolution_scaling(L, nodes,...
+out.scale = packages.speclab.common.resolution_scaling(L, nodes,...
   'resolution_fraction', opt.resolution_fraction);

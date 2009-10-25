@@ -9,8 +9,8 @@ function[F] = chebfft(f,varargin);
 %     points either 'grq' for Gauss-Radau or 'glq' for Gauss-Lobatto.
 %     f must be a column vector (but this is vectorized across columns)
 
-global handles;
-opt = handles.common.input_schema({'normalization','scale', 'points'}, ...
+global packages;
+opt = packages.common.input_schema({'normalization','scale', 'points'}, ...
   {'normal',1, 'gq'},[], varargin{:});
 
 if strcmpi(opt.points, 'gq')

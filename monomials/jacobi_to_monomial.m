@@ -12,9 +12,9 @@ function[c] = jacobi_to_monomial(c, cell_boundaries, varargin)
 %     The length-(K+1) vector cell_boundaries specifies the global vertices of
 %     the cells. This is necessary to provide monomial global coefficients. 
 
-global handles;
-opt = handles.common.input_schema({'alpha', 'beta'}, {0,0}, [], varargin{:});
-jac = handles.speclab.orthopoly1d.jacobi;
+global packages;
+opt = packages.common.input_schema({'alpha', 'beta'}, {0,0}, [], varargin{:});
+jac = packages.speclab.orthopoly1d.jacobi;
 
 [N,K] = size(c);
 % Rudimentary error checking

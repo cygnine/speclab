@@ -3,8 +3,8 @@ function[tests] = all_tests()
 %
 %     Runs all validation tests for speclab.
 
-global handles;
-debug = handles.speclab.debug;
+global packages;
+debug = packages.speclab.debug;
 tests = debug.linalg_tests();
 tests = tests.extend(debug.jacobi_tests());
 tests = tests.extend(debug.laguerre_tests());

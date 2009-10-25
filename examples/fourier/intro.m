@@ -12,9 +12,9 @@
 % The standard interval of approximation for the Fourier series is [-pi, pi].
 
 clear
-global handles;
-fourier = handles.speclab.fourier;
-irange = handles.speclab.common.integer_range;
+global packages;
+fourier = packages.speclab.fourier;
+irange = packages.speclab.common.integer_range;
 
 % Quadrature+scaling doesn't really change
 N = 100;
@@ -27,7 +27,7 @@ ks = irange(N);
 % you want 7 modes, I'll return [-3, -2, -1, 0, 1, 2, 3]'. If you tell me you
 % want 6 modes, I'll return [-3, -2, -1, 0, 1, 2]'. This "bias" towards
 % negatives modes for N even is consistent throughout Speclab. The function
-% handles.speclab.common.integer_range (or irange here) does this N <---> ks
+% packages.speclab.common.integer_range (or irange here) does this N <---> ks
 % translation for you.
 fs = fourier.eval.fseries(theta, ks, fopt);
 

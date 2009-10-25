@@ -83,7 +83,7 @@ PLEASE READ THE EXAMPLES SECTION IN THIS FILE BEFORE PROCEEDING TO USE SPECLAB.
 Optional reading:
 
 setup.m does two things:
-1.) Creates a Matlab-global variable called 'handles'. handles is a nested
+1.) Creates a Matlab-global variable called 'packages'. packages is a nested
     struct whose tree-like structure mimics Speclab's directory structure. Each
     node of the tree corresponds to an m-file function inside Speclab. In this
     way, functions in e.g. the Fourier side of Speclab can access functions in
@@ -91,9 +91,9 @@ setup.m does two things:
     like changing directories or adding a bunch of directories to Matlab's PATH
     variable, thereby polluting the command line namespace. As mentioned before,
     if you happen to clear this global variable, you'll have to run setup.m
-    again to rewrite it. You can inspect handles yourself by typing
+    again to rewrite it. You can inspect packages yourself by typing
 
-    >> global handles
+    >> global packages
 
     at the command line. And then inspecting the variable.
 
@@ -139,8 +139,8 @@ might be beneficial to run the Speclab validation tests. Running these tests can
 take up to 5 minutes, but generally only take 2 minutes or so. 
 
 >> setup;
->> global handles
->> handles.speclab.debug.all_tests();
+>> global packages
+>> packages.speclab.debug.all_tests();
 
 This runs a bunch (~400) of tests with some relatively well-formatted output.
 The test parameters are randomized, so it's not a big deal if a dozen or so of
@@ -173,23 +173,23 @@ Each m-file has a (hopefully) descriptive helpstring. In Matlab, you can cd into
 the directory containing file.m and type "help file" and it will print the
 helpstring. However, functions in Speclab are usually called via a function
 handle and not by changing directories (see the Setup section). Matlab's help function
-does not recognize what to do with function handles, so unfortunately you have
+does not recognize what to do with function packages, so unfortunately you have
 to take the roundabout way of getting help:
 If you want help for the function with handle
-handles.speclab.fourier.affine_scaling, you can type at the command line:
->> handles.helper('speclab', 'fourier', 'affine_scaling')
+packages.speclab.fourier.affine_scaling, you can type at the command line:
+>> packages.helper('speclab', 'fourier', 'affine_scaling')
 I.e., just use the same tree structure split into strings as multiple inputs
-into the function handles.helper. 
+into the function packages.helper. 
 
 Most m-files take optional arguments. Rather than deal with things like "if
 nargin<=5 elseif nargin>3..." I've decided to use something akin to Matlab's
 InputParser. However, the way InputParser works is not very transparent to me,
 and it's new enough that I feel like Mathworks might change conventions on me.
-Therefore, I've written handles.common.input_schema, which does two things:
+Therefore, I've written packages.common.input_schema, which does two things:
 - conspicuously breaks the aforementioned convention that function_names will
   have a certain format :( (on a TODO list for a future release)
 - essentially does the same thing as InputParser but works very transparently
-  with structs.  input_schema handles almost all optional input arguments in
+  with structs.  input_schema packages almost all optional input arguments in
   Speclab. (There are some exceptions when I avoid calling input_schema because
   it saves a bit of run-time.)
 In helpstrings, optional inputs are given in curly {} brackets. See
@@ -240,7 +240,7 @@ Once you have git installed. Open up a command line, and do the following:
 3.) Run "cd mfiles"
 4.) Run "git clone git://github.com/cygnine/speclab.git"
 
-There are two git repositories: the "CommonMatlab" one handles all things not
+There are two git repositories: the "CommonMatlab" one packages all things not
 related to (but used by) Speclab. Speclab has it's own git repository and
 history. 
 

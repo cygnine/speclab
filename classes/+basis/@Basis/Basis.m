@@ -20,10 +20,10 @@ classdef Basis
     %
     %     The generic basis class for all spectral expansions.
 
-      global handles;
+      global packages;
       inputs = {'dof','description','fftable'};
       defaults = {0, 'None',false};
-      self = handles.common.input_schema(inputs, defaults, [], varargin{:});
+      self = packages.common.input_schema(inputs, defaults, [], varargin{:});
     end
     
     function value = get.N(self)

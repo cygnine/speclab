@@ -4,9 +4,9 @@ function[data] = integer_separation_connection_overhead(N,gamma,delta,G,D)
 %     Performs overhead computations for Fourier integer-parameter connections
 %     and stores the information in data.
 
-global handles;
-jac = handles.speclab.orthopoly1d.jacobi;
-fourier = handles.speclab.fourier;
+global packages;
+jac = packages.speclab.orthopoly1d.jacobi;
+fourier = packages.speclab.fourier;
 sc_expand = fourier.connection.sc_expand;
 sc_collapse = fourier.connection.sc_collapse;
 

@@ -5,7 +5,7 @@ function[d] = dtheta_dr(r,varargin)
 %     interval r=[-1,1] is assumed, and the shift and scale parameters refer to
 %     the scaling of the theta interval.
 
-global handles;
-opt = handles.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
+global packages;
+opt = packages.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 d = -opt.scale/(sqrt(1-r.^2));

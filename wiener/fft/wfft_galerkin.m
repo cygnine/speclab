@@ -6,9 +6,9 @@ function[F] = wfft_galerkin(f,varargin)
 %     canonical Fourier points mapped to the real line. Both parameters s and t
 %     must be integers.
 
-global handles;
-wiener = handles.speclab.wiener;
-fourier = handles.speclab.fourier;
+global packages;
+wiener = packages.speclab.wiener;
+fourier = packages.speclab.fourier;
 opt = wiener.defaults(varargin{:});
 wconnect = fourier.connection.positive_integer_separation_connection;
 

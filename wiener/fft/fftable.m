@@ -12,8 +12,8 @@ function[tf,S,T] = fftable(varargin)
 %     A Wiener expansion can support the FFT if s>1/2, t>-1/2, and both s and t are
 %     integers.
 
-global handles;
-opt = handles.common.input_schema({'s', 't'}, {1, 0}, [], varargin{:});
+global packages;
+opt = packages.common.input_schema({'s', 't'}, {1, 0}, [], varargin{:});
 
 tol = 1e-12;
 S = opt.s - 1;

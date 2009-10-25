@@ -10,8 +10,8 @@ if data.no_connect
   return
 end
 
-global handles;
-fourier = handles.speclab.fourier;
+global packages;
+fourier = packages.speclab.fourier;
 sc_expand = fourier.connection.sc_expand;
 sc_collapse = fourier.connection.sc_collapse;
 

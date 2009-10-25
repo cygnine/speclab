@@ -6,11 +6,11 @@ function[F] = jfft(f,varargin)
 %     locations of the nodes must be a **Chebyshev** fft-compatible set of
 %     points. See chebfft. 
 
-global handles;
-jac = handles.speclab.orthopoly1d.jacobi;
+global packages;
+jac = packages.speclab.orthopoly1d.jacobi;
 inputs = {'points', 'alpha', 'beta', 'normalization', 'scale'};
 defaults = {'gq', -1/2, -1/2, 'normal', 1};
-opt = handles.common.input_schema(inputs, defaults, [], varargin{:});
+opt = packages.common.input_schema(inputs, defaults, [], varargin{:});
 
 tol = 1e-12;
 [tf,A,B] = jac.fft.fftable(opt);

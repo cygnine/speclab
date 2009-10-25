@@ -7,11 +7,11 @@ function[w] = weight(theta,varargin)
 %     evaluate the weight function. Note that this weight function depends on
 %     scale. 
 
-global handles;
-sss = handles.speclab.common.standard_scaleshift_1d;
-opt = handles.speclab.fourier.defaults(varargin{:});
-jac = handles.speclab.orthopoly1d.jacobi;
-xr = handles.speclab.fourier.maps;
+global packages;
+sss = packages.speclab.common.standard_scaleshift_1d;
+opt = packages.speclab.fourier.defaults(varargin{:});
+jac = packages.speclab.orthopoly1d.jacobi;
+xr = packages.speclab.fourier.maps;
 
 %theta = sss(theta,opt);
 %w = ((1-cos(theta)).^opt.delta) .* ((1+cos(theta)).^opt.gamma);

@@ -31,10 +31,10 @@ test = ValidationTest('description', 'Fourier ifft online',...
 container = container.append(test);
 
 function[data] = fft_data(opt)
-  global handles;
-  fourier = handles.speclab.fourier;
-  ks = handles.speclab.common.integer_range(opt.N);
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  global packages;
+  fourier = packages.speclab.fourier;
+  ks = packages.speclab.common.integer_range(opt.N);
+  sss = packages.speclab.common.standard_scaleshift_1d;
 
   f = @(x) exp(sin(sss(x,opt)));
 
@@ -49,8 +49,8 @@ function[data] = fft_data(opt)
   [data.modes,data.fx] = deal(modes,fx);
 
 function[tf] = fft_validator(data,opt)
-  global handles;
-  fourier = handles.speclab.fourier;
+  global packages;
+  fourier = packages.speclab.fourier;
 
   [modes,fx] = deal(data.modes,data.fx);
 
@@ -63,8 +63,8 @@ function[tf] = fft_validator(data,opt)
   tf = norm(fft_modes(1+GD:end-GD) - modes(1+GD:end-GD))<tol;
 
 function[tf] = ifft_validator(data,opt)
-  global handles;
-  fourier = handles.speclab.fourier;
+  global packages;
+  fourier = packages.speclab.fourier;
 
   [modes,fx] = deal(data.modes,data.fx);
 
@@ -75,10 +75,10 @@ function[tf] = ifft_validator(data,opt)
   tf = norm(fx - ifft_fx)<tol;
 
 function[data] = fft_online_data(opt)
-  global handles;
-  fourier = handles.speclab.fourier;
-  ks = handles.speclab.common.integer_range(opt.N);
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  global packages;
+  fourier = packages.speclab.fourier;
+  ks = packages.speclab.common.integer_range(opt.N);
+  sss = packages.speclab.common.standard_scaleshift_1d;
   fft_overhead = fourier.fft.ffft_overhead;
 
   f = @(x) exp(sin(sss(x,opt)));
@@ -96,8 +96,8 @@ function[data] = fft_online_data(opt)
   [data.modes,data.fx,data.fftdata] = deal(modes,fx,fftdata);
 
 function[tf] = fft_online_validator(data,opt)
-  global handles;
-  fourier = handles.speclab.fourier;
+  global packages;
+  fourier = packages.speclab.fourier;
 
   [modes,fx,fftdata] = deal(data.modes,data.fx,data.fftdata);
 
@@ -110,8 +110,8 @@ function[tf] = fft_online_validator(data,opt)
   tf = norm(fft_modes(1+GD:end-GD) - modes(1+GD:end-GD))<tol;
 
 function[tf] = ifft_online_validator(data,opt)
-  global handles;
-  fourier = handles.speclab.fourier;
+  global packages;
+  fourier = packages.speclab.fourier;
 
   [modes,fx,fftdata] = deal(data.modes,data.fx,data.fftdata);
 

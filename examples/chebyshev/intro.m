@@ -8,9 +8,9 @@
 
 clear
 % The following two lines extract the 'module' of functions we'll need
-global handles;
-cheb = handles.speclab.orthopoly1d.jacobi;
-common = handles.common;
+global packages;
+cheb = packages.speclab.orthopoly1d.jacobi;
+common = packages.common;
 % We've called 'cheb' the jacobi module. Unless you say otherwise, speclab
 % assumes the Jacobi polynomial you want to evaluate is the Chebyshev kind. To
 % see how to specify a different Jacobi polynomial type, see the jacobi examples
@@ -21,11 +21,11 @@ N = 50;  % or whatever
 [r,w] = cheb.quad.gauss_quadrature(N);   % N-point chebyshev-gauss quadrature
 vandermonde = cheb.eval.eval_jacobi_poly(r,0:(N-1)); % The L2-normalized polys
 
-% To get help on any function, use the function handles.helper. You need to know
+% To get help on any function, use the function packages.helper. You need to know
 % the full tree structure of the file you want to know information about. For
 % example, print the helpstring for cheb.quad.gauss_quadrature:
 fprintf('Helpstring for Jacobi Gauss quadrature routine:\n');
-handles.helper('speclab','orthopoly1d','jacobi','quad','gauss_quadrature')
+packages.helper('speclab','orthopoly1d','jacobi','quad','gauss_quadrature')
 % Alternatively, you can also cd into the appropriate directory and use Matlab's
 % help function, but this latter approach requires more typing.
 

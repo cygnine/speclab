@@ -12,12 +12,12 @@ test = ValidationTest('description', 'Evaluation same as classic WF',...
 container = container.append(test);
 
 function[data] = eval_wiener_data(opt)
-  global handles;
-  wiener = handles.speclab.wiener;
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  global packages;
+  wiener = packages.speclab.wiener;
+  sss = packages.speclab.common.standard_scaleshift_1d;
 
   x = linspace(-10,10,300).';
-  ks= handles.speclab.common.integer_range(opt.N);
+  ks= packages.speclab.common.integer_range(opt.N);
   ks = reshape(ks,[1,length(ks)]);
 
   wf = wiener.eval.wiener_function(x,ks,opt);

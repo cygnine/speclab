@@ -27,9 +27,9 @@ container = container.append(test);
 
 function[data] = mass_data(opt)
 
-  global handles;
-  fourier = handles.speclab.fourier;
-  ks = handles.speclab.common.integer_range(opt.N);
+  global packages;
+  fourier = packages.speclab.fourier;
+  ks = packages.speclab.common.integer_range(opt.N);
   [x,w] = fourier.quad.gauss_quadrature(opt.N,opt);
 
   v = fourier.eval.fseries(x,ks,opt);
@@ -47,10 +47,10 @@ function[tf] = mass_validator(data,opt)
   end
 
 function[data] = interpolation_data(opt)
-  global handles;
-  fourier = handles.speclab.fourier;
-  ks = handles.speclab.common.integer_range(opt.N);
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  global packages;
+  fourier = packages.speclab.fourier;
+  ks = packages.speclab.common.integer_range(opt.N);
+  sss = packages.speclab.common.standard_scaleshift_1d;
 
   f = @(x) exp(sin(sss(x,opt)));
   df = @(x) 1/opt.scale*cos(sss(x,opt)).*exp(sin(sss(x,opt)));
@@ -77,10 +77,10 @@ function[tf] = interpolation_validator(data,opt)
   tf = norm((fx_approx-fx_refined).*w_refined)<tol;
 
 function[data] = derivative_data(opt)
-  global handles;
-  fourier = handles.speclab.fourier;
-  ks = handles.speclab.common.integer_range(opt.N);
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  global packages;
+  fourier = packages.speclab.fourier;
+  ks = packages.speclab.common.integer_range(opt.N);
+  sss = packages.speclab.common.standard_scaleshift_1d;
 
   f = @(x) exp(sin(sss(x,opt)));
   df = @(x) 1/opt.scale*cos(sss(x,opt)).*exp(sin(sss(x,opt)));

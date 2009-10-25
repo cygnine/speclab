@@ -1,7 +1,7 @@
 %%% Example script for Legendre approximation
 %%% Resolution scaling: doing some advanced affine scaling methods
 
-% The 'affine_scaling' function in speclab.orthopoly.jacobi also handles
+% The 'affine_scaling' function in speclab.orthopoly.jacobi also packages
 % `fractional resolution scaling'. The resolution each collection of basis
 % functions can attain can be characterized using their 'canonical' nodal
 % distributions. For orthogonal polynomials, this canonical set of modes is the
@@ -10,8 +10,8 @@
 % interval. 
 
 clear
-global handles;
-leg = handles.speclab.orthopoly1d.jacobi;
+global packages;
+leg = packages.speclab.orthopoly1d.jacobi;
 opt.alpha = 0; 
 opt.beta = 0;
 

@@ -5,11 +5,11 @@ function[x,w] = gauss_radau_quadrature(N,varargin)
 %     The weight function is given by speclab.orthopoly1d.jacobi.weights.weight.
 %     The Radau point is located at x=r.
 
-global handles;
-opoly = handles.speclab.orthopoly1d;
+global packages;
+opoly = packages.speclab.orthopoly1d;
 jac = opoly.jacobi;
-pss = handles.speclab.common.physical_scaleshift_1d;
-sss = handles.speclab.common.standard_scaleshift_1d;
+pss = packages.speclab.common.physical_scaleshift_1d;
+sss = packages.speclab.common.standard_scaleshift_1d;
 
 opt = jac.defaults(varargin{:});
 [alpha,beta,scale,shift,r] = ...

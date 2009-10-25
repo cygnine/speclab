@@ -19,11 +19,11 @@ function[opt] = defaults(varargin)
 %     normalization       'normal' -- the L^2 normalized polynomials
 %                         'monic' -- the monic polynomials
 
-global handles;
+global packages;
 lnames = {'alpha', 'shift', 'scale', 'd', 'x', 'normalization'};
 ldefaults = {0, 0, 1, 0, 0, 'normal'};
 
-opt = handles.common.input_schema(lnames, ldefaults, [], varargin{:});
+opt = packages.common.input_schema(lnames, ldefaults, [], varargin{:});
 
 % Change default x to match shift, scale
 opt.x = opt.x*opt.scale + opt.shift;

@@ -6,10 +6,10 @@ function[w] = weight(x,varargin)
 %     consider, and the affine parameters shift and scale determine the affine
 %     map of the functions. This weight function does depend on scale. 
 
-global handles;
-wf = handles.speclab.fourier.weights.weight;
-opt = handles.speclab.wiener.defaults(varargin{:});
-rx = handles.speclab.wiener.maps;
+global packages;
+wf = packages.speclab.fourier.weights.weight;
+opt = packages.speclab.wiener.defaults(varargin{:});
+rx = packages.speclab.wiener.maps;
 
 theta = rx.x_to_theta(x,opt);
 % Note: it just so happens that dtheta/dx = (1-cos(theta)). Therefore, we

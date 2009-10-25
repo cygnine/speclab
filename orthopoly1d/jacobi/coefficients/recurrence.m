@@ -5,8 +5,8 @@ function[a,b] = recurrence(N,varargin)
 %     polynomials defined by (alpha, beta). 
 
 % Sets default values for alpha, beta
-global handles;
-opt = handles.speclab.orthopoly1d.jacobi.defaults(varargin{:});
+global packages;
+opt = packages.speclab.orthopoly1d.jacobi.defaults(varargin{:});
 [alpha,beta] = deal(opt.alpha,opt.beta);
 
 N = double(N);

@@ -2,10 +2,10 @@
 %%% Plotting functions: plots Wiener basis functions
 
 clear
-global handles;
-wiener = handles.speclab.wiener;
-explot = handles.common.explot;
-ltex = handles.common.typelatex;
+global packages;
+wiener = packages.speclab.wiener;
+explot = packages.common.explot;
+ltex = packages.common.typelatex;
 
 opt.s = 3;
 N = 500;

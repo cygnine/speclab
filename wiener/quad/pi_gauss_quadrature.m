@@ -4,9 +4,9 @@ function[x,w] = pi_gauss_quadrature(N,varargin)
 %     Computes the N-point pi-Gauss quadrature rule for the Wiener
 %     rational functions. 
 
-global handles;
-opt = handles.speclab.wiener.defaults(varargin{:});
-wiener = handles.speclab.wiener;
+global packages;
+opt = packages.speclab.wiener.defaults(varargin{:});
+wiener = packages.speclab.wiener;
 
 % Unweighted quadrature rule
 [x,w] = wiener.quad.gauss_quadrature(N,opt);

@@ -5,12 +5,12 @@ function[container] = jacobi_tests()
 
 fprintf('Building Jacobi polynomial validation tests....\n');
 
-global handles;
-jac = handles.speclab.orthopoly1d.jacobi;
-jquad_tests = handles.speclab.debug.jacobi_quadrature_tests_append;
-japprox_tests = handles.speclab.debug.jacobi_approximation_tests_append;
-jcoeff_tests = handles.speclab.debug.jacobi_coefficient_tests_append;
-jop_tests = handles.speclab.debug.jacobi_operator_tests_append;
+global packages;
+jac = packages.speclab.orthopoly1d.jacobi;
+jquad_tests = packages.speclab.debug.jacobi_quadrature_tests_append;
+japprox_tests = packages.speclab.debug.jacobi_approximation_tests_append;
+jcoeff_tests = packages.speclab.debug.jacobi_coefficient_tests_append;
+jop_tests = packages.speclab.debug.jacobi_operator_tests_append;
 import debug.*
 
 container = TestContainer();

@@ -29,8 +29,8 @@ function[inds] = modal_derivative(k,varargin)
 %     inds(:,5) <-----> sgn(k)
 %     inds(:,6) <-----> 2*sgn(k)
 
-global handles;
-wiener = handles.speclab.wiener;
+global packages;
+wiener = packages.speclab.wiener;
 opt = wiener.defaults(varargin{:});
 s = opt.s;
 inds = zeros([length(k) 6]);

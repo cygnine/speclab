@@ -5,9 +5,9 @@ function[modes] = integer_separation_connection(modes,gamma,delta,G,D)
 %     of class (gamma,delta) to the modal coefficients for an expansion of class
 %     (gamma+G,delta+D). The connection coefficients are not explicity computed. 
 
-global handles;
-pos_conn = handles.speclab.fourier.connection.positive_integer_separation_connection;
-neg_conn = handles.speclab.fourier.connection.negative_integer_separation_connection;
+global packages;
+pos_conn = packages.speclab.fourier.connection.positive_integer_separation_connection;
+neg_conn = packages.speclab.fourier.connection.negative_integer_separation_connection;
 
 % Test if G,D are integers:
 tol = 1e-8;

@@ -4,10 +4,10 @@ function[x,w] = gauss_quadrature(N,varargin)
 %     Returns the N-point Gaussian quadrature rule for the Jacobi polynomials. 
 %     The weight function is given by speclab.orthopoly1d.jacobi.weights.weight.
 
-global handles;
-opoly = handles.speclab.orthopoly1d;
+global packages;
+opoly = packages.speclab.orthopoly1d;
 jac = opoly.jacobi;
-pss = handles.speclab.common.physical_scaleshift_1d;
+pss = packages.speclab.common.physical_scaleshift_1d;
 
 opt = jac.defaults(varargin{:});
 [alpha,beta,scale,shift] = deal(opt.alpha,opt.beta,opt.scale,opt.shift);

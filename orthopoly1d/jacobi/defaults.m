@@ -16,12 +16,12 @@ function[opt] = defaults(varargin);
 %           x: false                   Placeholder for optional input in vandermonde routines
 %           n: false                   Placeholder for optional input in vandermonde routines
 % 
-global handles;
+global packages;
 
 jnames = {'alpha', 'beta', 'shift', ...
           'scale','d','normalization','r','r1','r2','x','n'};
 jdefaults = {-1/2, -1/2, 0, 1,0,'normal',1,-1,1,false, false};
-opt = handles.common.input_schema(jnames,jdefaults,[],varargin{:});
+opt = packages.common.input_schema(jnames,jdefaults,[],varargin{:});
 
 % Change r, r1, r2 to match scale+shift
 opt.r = opt.scale+opt.shift;

@@ -6,10 +6,10 @@ function[w] = wiener_function(x,k,varargin)
 %     series. The parameters shift and scale dictate the affine mapping. The
 %     output w has size length(x) x length(k).
 
-global handles;
-opt = handles.speclab.wiener.defaults(varargin{:});
+global packages;
+opt = packages.speclab.wiener.defaults(varargin{:});
 
-wiener = handles.speclab.wiener;
+wiener = packages.speclab.wiener;
 weight = wiener.weights.phase_shifted_sqrt_weight;
 
 w = wiener.eval.unweighted_wiener_function(x,k,opt);

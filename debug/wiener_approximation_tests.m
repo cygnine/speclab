@@ -27,10 +27,10 @@ container = container.append(test);
 
 function[data] = mass_data(opt)
   
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
   [x,w] = wiener.quad.pi_gauss_quadrature(opt.N,opt);
-  ks = handles.speclab.common.integer_range(opt.N);
+  ks = packages.speclab.common.integer_range(opt.N);
   ws = wiener.eval.wiener_function(x,ks,opt);
 
   mass = ws'*spdiags(w,0,opt.N,opt.N)*ws;
@@ -48,13 +48,13 @@ function[tf] = mass_validator(data,opt)
 
 function[data] = interpolation_data(opt)
 
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
   [x,w] = wiener.quad.pi_gauss_quadrature(opt.N,opt);
-  ks = handles.speclab.common.integer_range(opt.N);
+  ks = packages.speclab.common.integer_range(opt.N);
   ws = wiener.eval.wiener_function(x,ks,opt);
 
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  sss = packages.speclab.common.standard_scaleshift_1d;
   f = @(x) exp(-sss(x,opt).^2)./(1+sss(x,opt).^2);
   df = @(x) (-2*sss(x,opt).*f(x) - ...
      2*sss(x,opt).*exp(-sss(x,opt).^2)./(1+sss(x,opt).^2).^2)/opt.scale;
@@ -80,13 +80,13 @@ function[tf] = interpolation_validator(data,opt)
 
 function[data] = derivative_data(opt)
 
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
   [x,w] = wiener.quad.pi_gauss_quadrature(opt.N,opt);
-  ks = handles.speclab.common.integer_range(opt.N);
+  ks = packages.speclab.common.integer_range(opt.N);
   ws = wiener.eval.wiener_function(x,ks,opt);
 
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  sss = packages.speclab.common.standard_scaleshift_1d;
   f = @(x) exp(-sss(x,opt).^2)./(1+sss(x,opt).^2);
   df = @(x) (-2*sss(x,opt).*f(x) - ...
      2*sss(x,opt).*exp(-sss(x,opt).^2)./(1+sss(x,opt).^2).^2)/opt.scale;

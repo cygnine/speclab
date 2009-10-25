@@ -7,10 +7,10 @@ function[dw] = derivative_unweighted_wiener_function(x,k,varargin)
 %     dictate the affine scaling of the functions. The output w has size
 %     length(x) x length(k). 
 
-global handles;
-fourier = handles.speclab.fourier;
-rx = handles.speclab.wiener.maps;
-opt = handles.speclab.wiener.defaults(varargin{:});
+global packages;
+fourier = packages.speclab.fourier;
+rx = packages.speclab.wiener.maps;
+opt = packages.speclab.wiener.defaults(varargin{:});
 
 % Force column vector
 x = x(:);

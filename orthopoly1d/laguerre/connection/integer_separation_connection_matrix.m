@@ -9,10 +9,10 @@ function[C] = integer_separation_connection_matrix(N,alpha,A,varargin)
 %     The optional input normalization defines the normalization of the
 %     polynomials P, which affects the matrix C.
 
-global handles;
-opt = handles.common.input_schema({'normalization'}, {'normal'}, [],varargin{:});
+global packages;
+opt = packages.common.input_schema({'normalization'}, {'normal'}, [],varargin{:});
 
-coeffs = handles.speclab.orthopoly1d.laguerre.coefficients;
+coeffs = packages.speclab.orthopoly1d.laguerre.coefficients;
 
 C = spalloc(N,N,A*N - A*(A+1)/2);
 C = C + speye(N);

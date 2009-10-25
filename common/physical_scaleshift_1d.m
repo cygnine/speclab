@@ -5,7 +5,7 @@ function[x] = physical_scaleshift_1d(x,varargin)
 %     one-dimensional standard domain [-1,1] to the physical domain specified by
 %     [shift-scale,shift+scale].
 
-global handles;
-opt = handles.common.input_schema({'scale','shift'}, {1,0}, [],varargin{:});
+global packages;
+opt = packages.common.input_schema({'scale','shift'}, {1,0}, [],varargin{:});
 
 x = x*opt.scale+opt.shift;

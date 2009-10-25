@@ -32,10 +32,10 @@ test = ValidationTest('description', 'Fourier online Negative connection',...
 container = container.append(test);
 
 function[data] = pconnection_data(opt)
-  global handles;
-  fourier = handles.speclab.fourier;
-  ks = handles.speclab.common.integer_range(opt.N);
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  global packages;
+  fourier = packages.speclab.fourier;
+  ks = packages.speclab.common.integer_range(opt.N);
+  sss = packages.speclab.common.standard_scaleshift_1d;
 
   f = @(x) exp(sin(sss(x,opt)));
 
@@ -51,8 +51,8 @@ function[data] = pconnection_data(opt)
   [data.modes,data.demoted_modes] = deal(modes,demoted_modes);
 
 function[tf] = pconnection_validator(data,opt)
-  global handles;
-  fourier = handles.speclab.fourier;
+  global packages;
+  fourier = packages.speclab.fourier;
   pconnect = fourier.connection.positive_integer_separation_connection;
 
   [modes,demoted_modes] = deal(data.modes,data.demoted_modes);
@@ -65,8 +65,8 @@ function[tf] = pconnection_validator(data,opt)
   tf = norm(modes_promoted(1+GD:end-GD) - modes(1+GD:end-GD))<tol;
 
 function[tf] = nconnection_validator(data,opt)
-  global handles;
-  fourier = handles.speclab.fourier;
+  global packages;
+  fourier = packages.speclab.fourier;
   nconnect = fourier.connection.negative_integer_separation_connection;
 
   [modes,demoted_modes] = deal(data.modes,data.demoted_modes);
@@ -79,10 +79,10 @@ function[tf] = nconnection_validator(data,opt)
   tf = norm(demoted_modes(1+GD:end-GD) - modes_connect(1+GD:end-GD))<tol;
 
 function[data] = pconnection_online_data(opt)
-  global handles;
-  fourier = handles.speclab.fourier;
-  ks = handles.speclab.common.integer_range(opt.N);
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  global packages;
+  fourier = packages.speclab.fourier;
+  ks = packages.speclab.common.integer_range(opt.N);
+  sss = packages.speclab.common.standard_scaleshift_1d;
 
   f = @(x) exp(sin(sss(x,opt)));
 
@@ -102,8 +102,8 @@ function[data] = pconnection_online_data(opt)
       deal(modes,demoted_modes,conndata);
 
 function[tf] = pconnection_online_validator(data,opt)
-  global handles;
-  fourier = handles.speclab.fourier;
+  global packages;
+  fourier = packages.speclab.fourier;
   pconnect = fourier.connection.positive_integer_separation_connection_online;
 
   [modes,demoted_modes,conndata] =...
@@ -117,8 +117,8 @@ function[tf] = pconnection_online_validator(data,opt)
   tf = norm(modes_promoted(1+GD:end-GD) - modes(1+GD:end-GD))<tol;
 
 function[tf] = nconnection_online_validator(data,opt)
-  global handles;
-  fourier = handles.speclab.fourier;
+  global packages;
+  fourier = packages.speclab.fourier;
   nconnect = fourier.connection.negative_integer_separation_connection_online;
 
   [modes,demoted_modes,conndata] = ...

@@ -13,11 +13,11 @@ function[dwPsi] = dweighted_fseries(theta,k,varargin)
 %     will be L^2-normalized with respect to the unweighted L^2 norm over the
 %     interval.
 
-global handles;
-fseries = handles.speclab.fourier.eval.fseries;
-sqrt_weight = handles.speclab.fourier.weights.phase_shifted_sqrt_weight;
-dsqrt_weight = handles.speclab.fourier.weights.dphase_shifted_sqrt_weight;
-opt = handles.speclab.fourier.defaults(varargin{:});
+global packages;
+fseries = packages.speclab.fourier.eval.fseries;
+sqrt_weight = packages.speclab.fourier.weights.phase_shifted_sqrt_weight;
+dsqrt_weight = packages.speclab.fourier.weights.dphase_shifted_sqrt_weight;
+opt = packages.speclab.fourier.defaults(varargin{:});
 
 theta = theta(:);
 N_theta = length(theta);

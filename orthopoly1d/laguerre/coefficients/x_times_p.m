@@ -13,9 +13,9 @@ function[mu] = x_times_p(n,alpha,varargin)
 %     The optional input normalization defines the normalization of the
 %     polynomials L, which affects the values of the parameters mu.
 
-global handles;
-opt = handles.speclab.orthopoly1d.laguerre.defaults(varargin{:});
-%opt = handles.common.input_schema({'normalization','scale'}, {'normal',1}, [],varargin{:});
+global packages;
+opt = packages.speclab.orthopoly1d.laguerre.defaults(varargin{:});
+%opt = packages.common.input_schema({'normalization','scale'}, {'normal',1}, [],varargin{:});
 n = n(:);
 N = length(n);
 

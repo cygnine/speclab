@@ -13,11 +13,11 @@ function[Psi] = fseries(theta,k,varargin)
 %     will be L^2-normalized, where L^2 refers to the weighted norm specified by
 %     gamma and delta. See the files in speclab/fourier/weights.
 
-global handles;
-jac = handles.speclab.orthopoly1d.jacobi;
-fourier = handles.speclab.fourier;
-rtheta = handles.speclab.fourier.maps;
-opt = handles.speclab.fourier.defaults(varargin{:});
+global packages;
+jac = packages.speclab.orthopoly1d.jacobi;
+fourier = packages.speclab.fourier;
+rtheta = packages.speclab.fourier.maps;
+opt = packages.speclab.fourier.defaults(varargin{:});
 
 theta = theta(:);
 N_theta = length(theta);
@@ -25,7 +25,7 @@ k = k(:);
 N_k = length(k);
 
 if fourier.classic_fourier(opt);
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  sss = packages.speclab.common.standard_scaleshift_1d;
   Psi = 1/sqrt(2*pi)*exp(i*sss(theta,opt)*k.');
   return;
 end

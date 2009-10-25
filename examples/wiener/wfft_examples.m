@@ -21,10 +21,10 @@
 % error
 
 clear
-global handles;
-wiener = handles.speclab.wiener;
+global packages;
+wiener = packages.speclab.wiener;
 wfft = wiener.fft;
-irange = handles.speclab.common.integer_range;
+irange = packages.speclab.common.integer_range;
 
 opt.s = ceil(1 + 9*rand); % Just some natural number >= 2
 % Now that s is determined, let's add on the over-integration penalty. This is

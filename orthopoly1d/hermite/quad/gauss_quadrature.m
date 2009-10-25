@@ -6,10 +6,10 @@ function[x,w] = gauss_quadrature(N,varargin)
 %     Returns the N-point Gaussian quadrature rule for the Hermite polynomials. 
 %     The weight function is given by speclab.orthopoly1d.hermite.weights.weight.
 
-global handles;
-opoly = handles.speclab.orthopoly1d;
+global packages;
+opoly = packages.speclab.orthopoly1d;
 hermite = opoly.hermite;
-pss = handles.speclab.common.physical_scaleshift_1d;
+pss = packages.speclab.common.physical_scaleshift_1d;
 
 opt = hermite.defaults(varargin{:});
 [mu,scale,shift] = deal(opt.mu,opt.scale,opt.shift);

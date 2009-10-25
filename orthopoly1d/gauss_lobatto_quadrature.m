@@ -5,9 +5,9 @@ function[x,w] = gauss_lobatto_quadrature(a,b,N,r1,r2);
 %     polynomials corresponding to the recurrence coefficients a and b.
 %     The fixed Lobatto points are r1, r2.
 
-global handles;
-opoly = handles.speclab.orthopoly1d;
-gq = handles.speclab.orthopoly1d.gauss_quadrature;
+global packages;
+opoly = packages.speclab.orthopoly1d;
+gq = packages.speclab.orthopoly1d.gauss_quadrature;
 
 a = a(1:N);
 b = b(1:N);

@@ -23,10 +23,10 @@ function[f] = newton_derivative_evaluate(x,c,varargin)
 %     In either case, the optional argument d determines how many derivatives to
 %     take.
 
-global handles;
-newton = handles.speclab.newton_polynomials;
-mono = handles.speclab.monomials;
-opt = handles.common.input_schema({'z', 'd'}, {NaN, 1}, [], varargin{:});
+global packages;
+newton = packages.speclab.newton_polynomials;
+mono = packages.speclab.monomials;
+opt = packages.common.input_schema({'z', 'd'}, {NaN, 1}, [], varargin{:});
 
 [n,C] = size(c);
 if and(n==1,C>1)  % I don't think you're calling this for derivatives of

@@ -1,5 +1,5 @@
-global handles;
-jac = handles.speclab.OrthgonalPolynomial1D.jacobi;
+global packages;
+jac = packages.speclab.OrthgonalPolynomial1D.jacobi;
 
 classdef JacobiPolynomialBasis < basis.WholeBasis
   properties
@@ -11,10 +11,10 @@ classdef JacobiPolynomialBasis < basis.WholeBasis
     %
     %     Creates an instance of a Jacobi Polynomial spectral basis.
 
-      global handles;
+      global packages;
       inputs = {'alpha', 'beta', 'scale', 'shift', 'dof', 'physical_interval'};
       defaults = {-0.5, -0.5, 1, 0, 0, false};
-      opt = handles.common.input_schema(inputs, defaults, varargin{:});
+      opt = packages.common.input_schema(inputs, defaults, varargin{:});
       self = basis.WholeBasis(opt);
 
       if opt.physical_interval

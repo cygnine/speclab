@@ -11,9 +11,9 @@ function[modes] = ffft(nodes,varargin);
 %     connection problem so that the output is the modes for the (gamma,delta)
 %     generalized Fourier expansion.
 
-global handles;
-opt = handles.common.input_schema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
-conn = handles.speclab.fourier.connection.positive_integer_separation_connection;
+global packages;
+opt = packages.common.input_schema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
+conn = packages.speclab.fourier.connection.positive_integer_separation_connection;
 N = length(nodes);
 
 % This commented-out way is the way I *should* be doing it....
@@ -22,7 +22,7 @@ N = length(nodes);
 modes = fft(nodes);
 modes = fftshift(modes)/N*sqrt(2*pi);
 
-ks = handles.speclab.common.integer_range(N);
+ks = packages.speclab.common.integer_range(N);
 phase = exp(-i*ks*pi/N);
 phase(ks==0) = 1;
 phase(mod(ks,2)==1) = phase(mod(ks,2)==1)*-1;

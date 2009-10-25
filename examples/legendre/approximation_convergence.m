@@ -4,10 +4,10 @@
 % Test a hallmark of `spectral' methods: exponential convergence for analytic
 % functions. 
 clear
-global handles;
-exloglog = handles.common.exloglog;
-typelatex = handles.common.typelatex;
-leg = handles.speclab.orthopoly1d.jacobi;
+global packages;
+exloglog = packages.common.exloglog;
+typelatex = packages.common.typelatex;
+leg = packages.speclab.orthopoly1d.jacobi;
 opt.alpha = 0;
 opt.beta = 0;
 

@@ -5,8 +5,8 @@ function[scale] = resolution_scaling(L,nodes,varargin)
 %     ceil(resolution_fraction*lenght(nodes)) of the nodes lie inside the
 %     interval [-L,L]. Mostly used for infinite-interval expansions.
 
-global handles;
-opt = handles.common.input_schema({'resolution_fraction'}, {1}, [], varargin{:});
+global packages;
+opt = packages.common.input_schema({'resolution_fraction'}, {1}, [], varargin{:});
 
 N = length(nodes);
 delta = min([1, opt.resolution_fraction]);

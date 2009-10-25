@@ -14,10 +14,10 @@ function[y] = stiffness_operator(x,varargin)
 %         polynomials of class (alpha+1). Then use the sparse integer-separation
 %         connection to invert a tridiagonal upper-diagonal system. 
 
-global handles;
-lag = handles.speclab.orthopoly1d.laguerre;
+global packages;
+lag = packages.speclab.orthopoly1d.laguerre;
 opt = lag.defaults(varargin{:});
-linv = handles.common.linalg.triu_sparse_invert;
+linv = packages.common.linalg.triu_sparse_invert;
 
 % Force column vector
 x = x(:);

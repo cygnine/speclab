@@ -7,8 +7,8 @@ function[modes] = nonuniform_nodes_to_modes(theta,f);
 %     for L^2 orthonormalized canonical Fourier basis functions. The optional
 %     output ks are the integer indices corresponding to the basis functions. 
 
-global handles;
-fourier = handles.speclab.fourier;
+global packages;
+fourier = packages.speclab.fourier;
 
 % Force column vector
 theta = theta(:);

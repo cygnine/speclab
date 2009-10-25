@@ -7,11 +7,11 @@ function[x,w] = gauss_lobatto_quadrature(N,varargin)
 %
 %     TODO: Chebyshev case exception
 
-global handles;
-opoly = handles.speclab.orthopoly1d;
+global packages;
+opoly = packages.speclab.orthopoly1d;
 jac = opoly.jacobi;
-pss = handles.speclab.common.physical_scaleshift_1d;
-sss = handles.speclab.common.standard_scaleshift_1d;
+pss = packages.speclab.common.physical_scaleshift_1d;
+sss = packages.speclab.common.standard_scaleshift_1d;
 
 opt = jac.defaults(varargin{:});
 [alpha,beta,scale,shift,r1,r2] = ...

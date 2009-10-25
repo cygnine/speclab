@@ -5,12 +5,12 @@ function[container] = fourier_tests()
 
 fprintf('Building Fourier validation tests....\n');
 
-global handles;
-fourier = handles.speclab.fourier;
-classic_tests = handles.speclab.debug.classic_fourier_tests;
-approx_tests = handles.speclab.debug.fourier_approximation_tests;
-connection_tests = handles.speclab.debug.fourier_connection_tests;
-fft_tests = handles.speclab.debug.fourier_fft_tests;
+global packages;
+fourier = packages.speclab.fourier;
+classic_tests = packages.speclab.debug.classic_fourier_tests;
+approx_tests = packages.speclab.debug.fourier_approximation_tests;
+connection_tests = packages.speclab.debug.fourier_connection_tests;
+fft_tests = packages.speclab.debug.fourier_fft_tests;
 
 import debug.*
 

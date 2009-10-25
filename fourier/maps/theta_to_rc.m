@@ -8,9 +8,9 @@ function[r] = theta_to_rc(theta,varargin)
 %     Note that, in contrast to the mapping r = cos(theta), this mapping depends
 %     on the sign parity of theta.
 
-global handles;
-sss = handles.speclab.common.standard_scaleshift_1d;
-opt = handles.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
+global packages;
+sss = packages.speclab.common.standard_scaleshift_1d;
+opt = packages.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 theta = sss(theta,opt);
 r = sin(theta);

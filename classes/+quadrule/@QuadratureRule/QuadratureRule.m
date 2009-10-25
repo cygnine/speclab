@@ -13,10 +13,10 @@ classdef QuadratureRule
       %
       %     The base class instance for quadrature rules.
 
-      global handles;
+      global packages;
       inputs = {'dof', 'nodes', 'weights', 'description'};
       defaults = {0,[],[],'no description'};
-      self = handles.common.input_schema(inputs,defaults,[],varargin{:});
+      self = packages.common.input_schema(inputs,defaults,[],varargin{:});
     end
     function vals = weight_function(self,x)
       vals = 0*x;

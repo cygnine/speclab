@@ -4,11 +4,11 @@ function[data] = jfft_overhead(N,varargin)
 %     If 2*alpha and 2*beta are odd, this function computes the overhead data
 %     necessary for using the N-point Jacobi FFT.
 
-global handles;
-jac = handles.speclab.orthopoly1d.jacobi;
+global packages;
+jac = packages.speclab.orthopoly1d.jacobi;
 inputs = {'points', 'alpha', 'beta', 'normalization', 'scale'};
 defaults = {'gq', -1/2, -1/2, 'normal', 1};
-opt = handles.common.input_schema(inputs, defaults, [], varargin{:});
+opt = packages.common.input_schema(inputs, defaults, [], varargin{:});
 
 [tf,A,B] = jac.fft.fftable(opt);
 if not(tf)

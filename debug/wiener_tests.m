@@ -5,12 +5,12 @@ function[container] = wiener_tests()
 
 fprintf('Building Wiener validation tests....\n');
 
-global handles;
-wiener = handles.speclab.wiener;
-classic_tests = handles.speclab.debug.classic_wiener_tests;
-approx_tests = handles.speclab.debug.wiener_approximation_tests;
-fft_tests = handles.speclab.debug.wiener_fft_tests;
-matrix_tests = handles.speclab.debug.wiener_matrix_tests;
+global packages;
+wiener = packages.speclab.wiener;
+classic_tests = packages.speclab.debug.classic_wiener_tests;
+approx_tests = packages.speclab.debug.wiener_approximation_tests;
+fft_tests = packages.speclab.debug.wiener_fft_tests;
+matrix_tests = packages.speclab.debug.wiener_matrix_tests;
 
 import debug.*
 container = TestContainer();

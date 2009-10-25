@@ -11,8 +11,8 @@ function[eta] = derivative(n,alpha,varargin)
 %     The optional input normalization defines the normalization of the
 %     polynomials P, which affects the values of the parameters eta.
 
-global handles;
-opt = handles.speclab.orthopoly1d.laguerre.defaults(varargin{:});
+global packages;
+opt = packages.speclab.orthopoly1d.laguerre.defaults(varargin{:});
 n = n(:);
 N = length(n);
 

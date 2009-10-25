@@ -19,8 +19,8 @@ function[data] = sparse_triu_data(opt)
   [data.s, data.b] = deal(s,b);
   
 function[tf] = sparse_triu_validator(data,opt)
-  global handles;
-  linv = handles.common.linalg.triu_sparse_invert;
+  global packages;
+  linv = packages.common.linalg.triu_sparse_invert;
 
   x1 = linv(data.s, data.b, 'bandwidth', opt.bandwidth);
   x2 = inv(data.s)*data.b;

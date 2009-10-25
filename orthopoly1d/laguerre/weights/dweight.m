@@ -7,9 +7,9 @@ function[dw] = dweight(x,varargin)
 %     Laguerre polynomials. The weight function incorporates the affine scale
 %     and shift. (Including the affine Jacobian)
 
-global handles;
-opt = handles.speclab.orthopoly1d.laguerre.defaults(varargin{:});
-sss = handles.speclab.common.standard_scaleshift1d;
+global packages;
+opt = packages.speclab.orthopoly1d.laguerre.defaults(varargin{:});
+sss = packages.speclab.common.standard_scaleshift1d;
 x = sss(x,opt);
 
 if opt.alpha==0

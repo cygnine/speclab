@@ -32,16 +32,16 @@ test = ValidationTest('description', 'Jacobi Derivative approximation (stiffness
 container = container.append(test);
 
 function[data] = mass_data(opt)
-  global handles;
-  jac = handles.speclab.orthopoly1d.jacobi;
+  global packages;
+  jac = packages.speclab.orthopoly1d.jacobi;
 
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
   ps = jac.eval.eval_jacobi_poly(x,opt.n,opt);
   [data.x,data.w,data.ps] = deal(x,w,ps);
 
 function[data] = interpolant_data(opt)
-  global handles;
-  jac = handles.speclab.orthopoly1d.jacobi;
+  global packages;
+  jac = packages.speclab.orthopoly1d.jacobi;
   jint = jac.interval(opt);
 
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
@@ -53,8 +53,8 @@ function[data] = interpolant_data(opt)
     x,w,ps,x_refined,ps_refined);
 
 function[data] = derivative_data(opt)
-  global handles;
-  jac = handles.speclab.orthopoly1d.jacobi;
+  global packages;
+  jac = packages.speclab.orthopoly1d.jacobi;
   jint = jac.interval(opt);
 
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
@@ -87,8 +87,8 @@ function[tf] = interpolant_validator(data,opt);
 
 function[tf] = derivative_validator(data,opt);
 
-  global handles
-  jac = handles.speclab.orthopoly1d.jacobi;
+  global packages
+  jac = packages.speclab.orthopoly1d.jacobi;
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   df = @(x) opt.N/(10*opt.scale)*cos(opt.N/(10*opt.scale)*x);
   tol = 2*10^(-4+opt.alpha/6+opt.beta/6 + abs(opt.alpha-opt.beta)/6);
@@ -101,8 +101,8 @@ function[tf] = derivative_validator(data,opt);
   tf = all(abs(df_approx - df(x_refined)).*wgt<tol);
 
 function[data] = derivative_stiffness_data(opt);
-  global handles;
-  jac = handles.speclab.orthopoly1d.jacobi;
+  global packages;
+  jac = packages.speclab.orthopoly1d.jacobi;
   jint = jac.interval(opt);
 
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
@@ -115,8 +115,8 @@ function[data] = derivative_stiffness_data(opt);
     x,x_refined,vinv,ps);
 
 function[tf] = derivative_stiffness_validator(data,opt);
-  global handles;
-  jac = handles.speclab.orthopoly1d.jacobi;
+  global packages;
+  jac = packages.speclab.orthopoly1d.jacobi;
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   df = @(x) opt.N/(10*opt.scale)*cos(opt.N/(10*opt.scale)*x);

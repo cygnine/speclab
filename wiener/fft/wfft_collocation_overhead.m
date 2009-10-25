@@ -6,9 +6,9 @@ function[data] = wfft_collocation_overhead(N,varargin)
 %     assumed to be the canonical Fourier points mapped to the real line. Both
 %     parameters s and t must be integers.
 
-global handles;
-wiener = handles.speclab.wiener;
-fourier = handles.speclab.fourier;
+global packages;
+wiener = packages.speclab.wiener;
+fourier = packages.speclab.fourier;
 opt = wiener.defaults(varargin{:});
 
 [fftable,S,T] = wiener.fft.fftable(opt);

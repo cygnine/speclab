@@ -6,10 +6,10 @@ function[x,w] = gauss_quadrature(N,varargin)
 %     Returns the N-point Gaussian quadrature rule for the Laguerre polynomials. 
 %     The weight function is given by speclab.orthopoly1d.laguerre.weights.weight.
 
-global handles;
-opoly = handles.speclab.orthopoly1d;
+global packages;
+opoly = packages.speclab.orthopoly1d;
 laguerre = opoly.laguerre;
-pss = handles.speclab.common.physical_scaleshift_1d;
+pss = packages.speclab.common.physical_scaleshift_1d;
 
 opt = laguerre.defaults(varargin{:});
 [alpha,scale,shift] = deal(opt.alpha,opt.scale,opt.shift);

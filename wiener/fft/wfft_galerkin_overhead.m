@@ -4,10 +4,10 @@ function[data] = wfft_galerkin_overhead(N,varargin)
 %     Computes overhead data required to perform the FFT 'galerkin' algorithm 
 %     for the Wiener basis functions. See wfft_galerkin.m
 
-global handles;
-wiener = handles.speclab.wiener;
+global packages;
+wiener = packages.speclab.wiener;
 opt = wiener.defaults(varargin{:});
-fourier = handles.speclab.fourier;
+fourier = packages.speclab.fourier;
 
 [fftable,S,T] = wiener.fft.fftable(opt);
 if not(fftable)

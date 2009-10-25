@@ -6,11 +6,11 @@ function[out] = affine_scaling(interval,varargin)
 %     out is a struct with two fields, 'scale' and 'shift', specifying the
 %     affine map.
 
-global handles;
-fourier = handles.speclab.fourier;
+global packages;
+fourier = packages.speclab.fourier;
 inputs = {'N', 'gamma', 'delta', 'resolution_fraction'};
 defaults = {0, 0, 0, 1};
-opt = handles.common.input_schema(inputs, defaults, [], varargin{:});
+opt = packages.common.input_schema(inputs, defaults, [], varargin{:});
 
 out.shift = mean(interval);
 if (opt.N==0) | (opt.resolution_fraction==1)
@@ -21,5 +21,5 @@ end
 nodes = fourier.quad.gauss_quadrature(opt.N,'gamma',opt.gamma,'delta',opt.delta);
 L = abs(diff(interval))/2;
 
-out.scale = handles.speclab.common.resolution_scaling(L, nodes,...
+out.scale = packages.speclab.common.resolution_scaling(L, nodes,...
   'resolution_fraction', opt.resolution_fraction);

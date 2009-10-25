@@ -6,9 +6,9 @@ function[w] = derivative_wiener_function(x,k,varargin)
 %     canonical Fourier series. The parameters shift and scale dictate the
 %     affine mapping. The output w has size length(x) x length(k).
 
-global handles;
-opt = handles.speclab.wiener.defaults(varargin{:});
-wiener = handles.speclab.wiener;
+global packages;
+opt = packages.speclab.wiener.defaults(varargin{:});
+wiener = packages.speclab.wiener;
 
 x = x(:);
 weight = wiener.weights.phase_shifted_sqrt_weight(x,opt);

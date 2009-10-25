@@ -11,8 +11,8 @@ function[opt] = defaults(varargin);
 %           x: false                   Placeholder for optional input in vandermonde routines
 %           n: false                   Placeholder for optional input in vandermonde routines
 % 
-global handles;
+global packages;
 
 jnames = {'s', 't', 'shift', 'scale','x','n'};
 jdefaults = {1, 0, 0, 1, false, false};
-opt = handles.common.input_schema(jnames,jdefaults,[],varargin{:});
+opt = packages.common.input_schema(jnames,jdefaults,[],varargin{:});

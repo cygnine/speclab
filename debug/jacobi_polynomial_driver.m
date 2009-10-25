@@ -5,8 +5,8 @@ function[varargout] = jacobi_polynomial_driver(varargin)
 %     boolean array containing success indicators for each test, whose
 %     description is in the cell array DESCRIPTIONS.
 
-global handles;
-jac = handles.speclab.orthopoly1d.jacobi;
+global packages;
+jac = packages.speclab.orthopoly1d.jacobi;
 opt = jac.defaults(varargin{:});
 
 flags = false(0);

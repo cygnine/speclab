@@ -16,10 +16,10 @@ classdef ValidationTest
     %     Constructor method for classtype ValidationTest. This object is a
     %     boolean test to validate other code. 
 
-      global handles;
+      global packages;
       inputs = {'description', 'validator', 'data_generator', 'parameters'};
       defaults = {'No description', @() false, @(x,opt) [], struct([])};
-      opt = handles.common.input_schema(inputs, defaults, [], varargin{:});
+      opt = packages.common.input_schema(inputs, defaults, [], varargin{:});
 
       obj.description = opt.description;
       obj.parameters = opt.parameters;

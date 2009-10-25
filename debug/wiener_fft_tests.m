@@ -56,15 +56,15 @@ test = ValidationTest('description', 'online Wiener IFFT Galerkin',...
 container = container.append(test);
 
 function[data] = fftcoll_data(opt)
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
 
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  sss = packages.speclab.common.standard_scaleshift_1d;
   f = @(x) exp(-sss(x,opt).^2)./(1+sss(x,opt).^2);
   sopt = opt; sopt.s = 1; sopt.t = 0;
 
   [x,w] = wiener.quad.pi_gauss_quadrature(opt.N,sopt);
-  ks = handles.speclab.common.integer_range(opt.N);
+  ks = packages.speclab.common.integer_range(opt.N);
   ws = wiener.eval.wiener_function(x,ks,opt);
   fx = f(x);
   modes = ws'*(fx.*w);
@@ -83,15 +83,15 @@ function[tf] = fftcoll_validator(data,opt)
   tf = norm(modes(ST:(end-ST-1)) - fft_modes(ST:(end-ST-1)))<tol;
 
 function[data] = ifftcoll_data(opt)
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
 
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  sss = packages.speclab.common.standard_scaleshift_1d;
   f = @(x) exp(-sss(x,opt).^2)./(1+sss(x,opt).^2);
   sopt = opt; sopt.s = 1; sopt.t = 0;
 
   [x,w] = wiener.quad.pi_gauss_quadrature(opt.N,sopt);
-  ks = handles.speclab.common.integer_range(opt.N);
+  ks = packages.speclab.common.integer_range(opt.N);
   ws = wiener.eval.wiener_function(x,ks,opt);
   fx = f(x);
   modes = ws'*(fx.*w);
@@ -102,8 +102,8 @@ function[data] = ifftcoll_data(opt)
 
 function[tf] = ifftcoll_validator(data,opt)
   
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
   
   [modes,fx] = deal(data.modes, data.fx);
 
@@ -114,10 +114,10 @@ function[tf] = ifftcoll_validator(data,opt)
   tf = norm(fx_fft - fx)<tol;
 
 function[data] = online_fftcoll_data(opt)
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
 
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  sss = packages.speclab.common.standard_scaleshift_1d;
   f = @(x) exp(-sss(x,opt).^2)./(1+sss(x,opt).^2);
   sopt = opt; sopt.s = 1; sopt.t = 0;
 
@@ -130,8 +130,8 @@ function[data] = online_fftcoll_data(opt)
   [data.fft_modes, data.fx, data.fft_data] = deal(fft_modes, fx, fft_data);
 
 function[tf] = online_fftcoll_validator(data,opt)
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
 
   [fft_modes,fx,fft_data] = deal(data.fft_modes, data.fx, data.fft_data);
   fft_modes_online = wiener.fft.wfft_collocation_online(fx,fft_data);
@@ -140,10 +140,10 @@ function[tf] = online_fftcoll_validator(data,opt)
   tf = norm(fft_modes - fft_modes_online)<tol;
 
 function[data] = online_ifftcoll_data(opt)
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
 
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  sss = packages.speclab.common.standard_scaleshift_1d;
   f = @(x) exp(-sss(x,opt).^2)./(1+sss(x,opt).^2);
   sopt = opt; sopt.s = 1; sopt.t = 0;
 
@@ -156,8 +156,8 @@ function[data] = online_ifftcoll_data(opt)
     deal(fft_modes, fx, fft_data);
 
 function[tf] = online_ifftcoll_validator(data,opt)
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
 
   [fft_modes, fx, fft_data] = deal(data.fft_modes, data.fx, data.fft_data);
   fx_online = wiener.fft.iwfft_collocation_online(fft_modes,fft_data);
@@ -166,15 +166,15 @@ function[tf] = online_ifftcoll_validator(data,opt)
   tf = norm(fx-fx_online)<tol;
 
 function[data] = fftgal_data(opt)
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
 
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  sss = packages.speclab.common.standard_scaleshift_1d;
   f = @(x) exp(-sss(x,opt).^2)./(1+sss(x,opt).^2);
   sopt = opt; sopt.s = 1; sopt.t = 0;
 
   [x,w] = wiener.quad.pi_gauss_quadrature(opt.N,sopt);
-  ks = handles.speclab.common.integer_range(opt.N);
+  ks = packages.speclab.common.integer_range(opt.N);
   ws = wiener.eval.wiener_function(x,ks,opt);
   fx = f(x);
   modes = ws'*(fx.*w);
@@ -193,15 +193,15 @@ function[tf] = fftgal_validator(data,opt)
   tf = norm(modes(ST:(end-ST-1)) - fft_modes(ST:(end-ST-1)))<tol;
 
 function[data] = ifftgal_data(opt)
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
 
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  sss = packages.speclab.common.standard_scaleshift_1d;
   f = @(x) exp(-sss(x,opt).^2)./(1+sss(x,opt).^2);
   sopt = opt; sopt.s = 1; sopt.t = 0;
 
   [x,w] = wiener.quad.pi_gauss_quadrature(opt.N,sopt);
-  ks = handles.speclab.common.integer_range(opt.N);
+  ks = packages.speclab.common.integer_range(opt.N);
   ws = wiener.eval.wiener_function(x,ks,opt);
   fx = f(x);
   modes = ws'*(fx.*w);
@@ -210,8 +210,8 @@ function[data] = ifftgal_data(opt)
 
 function[tf] = ifftgal_validator(data,opt)
   
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
   
   [modes,fx] = deal(data.modes, data.fx);
 
@@ -222,10 +222,10 @@ function[tf] = ifftgal_validator(data,opt)
   tf = norm(fx_fft - fx)<tol;
 
 function[data] = online_fftgal_data(opt)
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
 
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  sss = packages.speclab.common.standard_scaleshift_1d;
   f = @(x) exp(-sss(x,opt).^2)./(1+sss(x,opt).^2);
   sopt = opt; sopt.s = 1; sopt.t = 0;
 
@@ -238,8 +238,8 @@ function[data] = online_fftgal_data(opt)
   [data.fft_modes, data.fx, data.fft_data] = deal(fft_modes, fx, fft_data);
 
 function[tf] = online_fftgal_validator(data,opt)
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
 
   [fft_modes,fx,fft_data] = deal(data.fft_modes, data.fx, data.fft_data);
   fft_modes_online = wiener.fft.wfft_galerkin_online(fx,fft_data);
@@ -248,10 +248,10 @@ function[tf] = online_fftgal_validator(data,opt)
   tf = norm(fft_modes - fft_modes_online)<tol;
 
 function[data] = online_ifftgal_data(opt)
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
 
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  sss = packages.speclab.common.standard_scaleshift_1d;
   f = @(x) exp(-sss(x,opt).^2)./(1+sss(x,opt).^2);
   sopt = opt; sopt.s = 1; sopt.t = 0;
 
@@ -264,8 +264,8 @@ function[data] = online_ifftgal_data(opt)
     deal(fft_modes, fx, fft_data);
 
 function[tf] = online_ifftgal_validator(data,opt)
-  global handles;
-  wiener = handles.speclab.wiener;
+  global packages;
+  wiener = packages.speclab.wiener;
 
   [fft_modes, fx, fft_data] = deal(data.fft_modes, data.fx, data.fft_data);
   fx_online = wiener.fft.iwfft_galerkin_online(fft_modes,fft_data);

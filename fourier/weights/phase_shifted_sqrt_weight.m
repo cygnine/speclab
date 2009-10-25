@@ -7,13 +7,13 @@ function[w] = phase_shifted_sqrt_weight(theta,varargin)
 %     the interval over which to evaluate the weight function. Note that this
 %     weight function depends on scale. 
 
-global handles;
-sss = handles.speclab.common.standard_scaleshift_1d;
-opt = handles.speclab.fourier.defaults(varargin{:});
+global packages;
+sss = packages.speclab.common.standard_scaleshift_1d;
+opt = packages.speclab.fourier.defaults(varargin{:});
 
 opt.gamma = opt.gamma/2;
 opt.delta = opt.delta/2;
-wfourier = handles.speclab.fourier.weights.weight(theta,opt);
+wfourier = packages.speclab.fourier.weights.weight(theta,opt);
 theta = sss(theta,opt);
 w = wfourier.*exp(i*(opt.gamma+opt.delta)*(pi-theta));
 

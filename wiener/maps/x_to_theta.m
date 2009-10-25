@@ -5,9 +5,9 @@ function[theta] = x_to_theta(x,varargin)
 %     theta=[-pi,pi] is assumed, and the shift and scale parameters refer to the
 %     scaling of the x interval.
 
-global handles;
-sss = handles.speclab.common.standard_scaleshift_1d;
-opt = handles.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
+global packages;
+sss = packages.speclab.common.standard_scaleshift_1d;
+opt = packages.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 x = sss(x,opt);
 theta = 2*atan(x);

@@ -27,8 +27,8 @@ test = ValidationTest('description', 'd/dr P coefficients',...
 container = container.append(test);
 
 function[data] = x_times_p_data(opt)
-  global handles;
-  lag = handles.speclab.orthopoly1d.laguerre;
+  global packages;
+  lag = packages.speclab.orthopoly1d.laguerre;
   
   opt.N = min([opt.N,50]); % need not go above 50 polys
   promote_opt = opt;
@@ -50,9 +50,9 @@ function[data] = x_times_p_data(opt)
   [data.ps,data.mu,data.ps_temp,data.r] = deal(ps,mu,ps_temp,r);
 
 function[tf] = x_times_p_validator(data,opt)
-  global handles;
-  lag = handles.speclab.orthopoly1d.laguerre;
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  global packages;
+  lag = packages.speclab.orthopoly1d.laguerre;
+  sss = packages.speclab.common.standard_scaleshift_1d;
   [ps,mu,ps_temp,r] = deal(data.ps, data.mu, data.ps_temp,data.r);
   opt.N = min([opt.N,50]); % need not go above 50 polys
   Nr = length(r);
@@ -68,8 +68,8 @@ function[tf] = x_times_p_validator(data,opt)
 
 function[data] = integer_connection_data(opt)
 
-  global handles;
-  lag = handles.speclab.orthopoly1d.laguerre;
+  global packages;
+  lag = packages.speclab.orthopoly1d.laguerre;
 
   f = @(x) exp(-x.^2);
 
@@ -97,8 +97,8 @@ function[tf] = integer_connection_validator(data,opt)
   tf = max(abs(gauss_modes(1:(end-AB)) - promoted_modes(1:(end-AB))))<tol;
 
 function[data] = ddr_P_data(opt);
-  global handles;
-  lag = handles.speclab.orthopoly1d.laguerre;
+  global packages;
+  lag = packages.speclab.orthopoly1d.laguerre;
 
   lint = lag.interval(opt);
   if lint(2)==Inf

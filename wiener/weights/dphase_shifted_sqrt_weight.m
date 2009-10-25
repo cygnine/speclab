@@ -6,10 +6,10 @@ function[w] = dphase_shifted_sqrt_weight(x,varargin)
 %     determine the particular class of functions, and the affine shift factors
 %     scale and shift determine the affine map of the functions.
 
-global handles;
-opt = handles.speclab.wiener.defaults(varargin{:});
-dpsw = handles.speclab.fourier.weights.dphase_shifted_sqrt_weight;
-rx = handles.speclab.wiener.maps;
+global packages;
+opt = packages.speclab.wiener.defaults(varargin{:});
+dpsw = packages.speclab.fourier.weights.dphase_shifted_sqrt_weight;
+rx = packages.speclab.wiener.maps;
 
 theta = rx.x_to_theta(x,opt);
 % Note: it just so happens that dtheta/dx = (1-cos(theta)). Therefore, we

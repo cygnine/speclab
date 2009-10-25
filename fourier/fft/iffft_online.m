@@ -3,8 +3,8 @@ function[nodes] = iffft_online(modes,data);
 % 
 %     The online "inverse Fourier FFT".
 
-global handles;
-conn = handles.speclab.fourier.connection.negative_integer_separation_connection_online;
+global packages;
+conn = packages.speclab.fourier.connection.negative_integer_separation_connection_online;
 
 if data.GD>0
   modes = conn(modes,data.conndata);

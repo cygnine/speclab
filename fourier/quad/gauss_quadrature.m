@@ -8,10 +8,10 @@ function[theta,w] = gauss_quadrature(N,varargin)
 %     quadrature rule is valid. gamma=delta=0 is the canonical Fourier set.
 %     shift and scale are affine scaling parameters. 
 
-global handles;
-opt = handles.speclab.fourier.defaults(varargin{:});
-jac = handles.speclab.orthopoly1d.jacobi;
-pss = handles.speclab.common.physical_scaleshift_1d;
+global packages;
+opt = packages.speclab.fourier.defaults(varargin{:});
+jac = packages.speclab.orthopoly1d.jacobi;
+pss = packages.speclab.common.physical_scaleshift_1d;
 
 if mod(N,2)==0
 

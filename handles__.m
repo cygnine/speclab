@@ -1,7 +1,7 @@
-function[hs,pathadditions,name] = handles__()
-% handles__ -- constructs path tree for the speclab module
+function[hs,pathadditions,name] = packages__(varargin)
+% packages__ -- constructs path tree for the speclab module
 %
-% [hs,pathadditions,name] = handles__()
+% [hs,pathadditions,name] = packages__()
 %
 %     Returns directory pointers for common module in hs. pathadditions is a
 %     cell array with a string in each element indicated paths to add to the

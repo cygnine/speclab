@@ -7,8 +7,8 @@ function[S] = stiffness_matrix(N,varargin)
 %
 %     This is the direct method for stiffness_operator.
 
-global handles;
-jac = handles.speclab.orthopoly1d.jacobi;
+global packages;
+jac = packages.speclab.orthopoly1d.jacobi;
 opt = jac.defaults(varargin{:});
 
 % Force column vector

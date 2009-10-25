@@ -4,8 +4,8 @@ function[I] = interval(varargin)
 %     Returns a 2-element vector specifying the domain of approximation for
 %     Laguerre polynomials given the affine scalings shift and scale. 
 
-global handles;
-opt = handles.speclab.orthopoly1d.laguerre.defaults(varargin{:});
+global packages;
+opt = packages.speclab.orthopoly1d.laguerre.defaults(varargin{:});
 
 if opt.scale<0
   I = [-Inf, opt.shift];

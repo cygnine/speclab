@@ -6,10 +6,10 @@ function[modes] = negative_integer_separation_connection(modes,gamma,delta,G,D)
 %     (gamma-G,delta-D) for G,D>0. The connection coefficients are not explicity
 %     computed. 
 
-global handles;
-jac = handles.speclab.orthopoly1d.jacobi;
-fourier = handles.speclab.fourier;
-la = handles.common.linalg;
+global packages;
+jac = packages.speclab.orthopoly1d.jacobi;
+fourier = packages.speclab.fourier;
+la = packages.common.linalg;
 sc_expand = fourier.connection.sc_expand;
 sc_collapse = fourier.connection.sc_collapse;
 

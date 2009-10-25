@@ -15,10 +15,10 @@ function[dPsi] = dfseries(theta,k,varargin)
 %     the weighted norm specified by gamma and delta. See the files in
 %     speclab/fourier/weights.
 
-global handles;
-jac = handles.speclab.orthopoly1d.jacobi;
-rtheta = handles.speclab.fourier.maps;
-opt = handles.speclab.fourier.defaults(varargin{:});
+global packages;
+jac = packages.speclab.orthopoly1d.jacobi;
+rtheta = packages.speclab.fourier.maps;
+opt = packages.speclab.fourier.defaults(varargin{:});
 
 theta = theta(:);
 N_theta = length(theta);

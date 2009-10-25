@@ -14,10 +14,10 @@ function[F] = wiener_weight_divide(F,varargin)
 %      TODO: optimize via sliding s-length updater over vector (removes outer
 %      for loop).
 
-global handles;
-wiener = handles.speclab.wiener;
+global packages;
+wiener = packages.speclab.wiener;
 opt = wiener.defaults(varargin{:});
-linalg = handles.common.linalg;
+linalg = packages.common.linalg;
 
 N = length(F);
 fconnection = spdiags(ones([N,2]), [0,1], N,N);

@@ -29,10 +29,10 @@
 % but are ignored. 
 
 clear;
-global handles;
-speclab = handles.speclab;
+global packages;
+speclab = packages.speclab;
 cheb = speclab.orthopoly1d.jacobi;
-common = handles.common;
+common = packages.common;
 
 %% Manually set affine scale and shift parameters.
 scale = 3;

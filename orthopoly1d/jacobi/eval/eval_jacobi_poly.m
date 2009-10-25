@@ -5,8 +5,8 @@ function[p] = eval_jacobi_poly(x,n,varargin)
 %     The weight function is (1-1/scale*(x-shift))^alpha*(1+1/scale*(x-shift))^beta
 %     Is vectorized in x and n.
 
-global handles;
-opoly = handles.speclab.orthopoly1d;
+global packages;
+opoly = packages.speclab.orthopoly1d;
 jac = opoly.jacobi;
 opt = jac.defaults(varargin{:});
 

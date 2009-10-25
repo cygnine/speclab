@@ -7,8 +7,8 @@ function[tf,A,B] = fftable(varargin)
 %     denoting the parameter separation of alpha and beta from -1/2,
 %     respectively. 
 
-global handles;
-opt = handles.common.input_schema({'alpha', 'beta'}, {-1/2, -1/2}, [], varargin{:});
+global packages;
+opt = packages.common.input_schema({'alpha', 'beta'}, {-1/2, -1/2}, [], varargin{:});
 
 tol = 1e-12;
 A = opt.alpha + 1/2;

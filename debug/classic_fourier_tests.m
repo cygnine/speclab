@@ -19,13 +19,13 @@ test = ValidationTest('description', 'Derivative same as classic FS',...
 container = container.append(test);
 
 function[data] = eval_fs_data(opt)
-  global handles;
-  fourier = handles.speclab.fourier;
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  global packages;
+  fourier = packages.speclab.fourier;
+  sss = packages.speclab.common.standard_scaleshift_1d;
 
   fint = fourier.interval(opt);
   x = linspace(fint(1),fint(2),300).';
-  ks = handles.speclab.common.integer_range(opt.N);
+  ks = packages.speclab.common.integer_range(opt.N);
   ks = reshape(ks,[1,length(ks)]);
 
   fs = fourier.eval.fseries(x,ks,opt);
@@ -39,13 +39,13 @@ function[tf] = eval_fs_validator(data,opt)
   tf = norm(fs - fs_exp)<tol;
 
 function[data] = derivative_fs_data(opt)
-  global handles;
-  fourier = handles.speclab.fourier;
-  sss = handles.speclab.common.standard_scaleshift_1d;
+  global packages;
+  fourier = packages.speclab.fourier;
+  sss = packages.speclab.common.standard_scaleshift_1d;
 
   fint = fourier.interval(opt);
   x = linspace(fint(1),fint(2),300).';
-  ks = handles.speclab.common.integer_range(opt.N);
+  ks = packages.speclab.common.integer_range(opt.N);
   ks = reshape(ks,[1,length(ks)]);
 
   dfs = fourier.eval.dfseries(x,ks,opt);
