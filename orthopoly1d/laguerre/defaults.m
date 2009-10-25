@@ -23,7 +23,7 @@ global packages;
 lnames = {'alpha', 'shift', 'scale', 'd', 'x', 'normalization'};
 ldefaults = {0, 0, 1, 0, 0, 'normal'};
 
-opt = packages.common.input_schema(lnames, ldefaults, [], varargin{:});
+opt = packages.labtools.input_schema(lnames, ldefaults, [], varargin{:});
 
 % Change default x to match shift, scale
 opt.x = opt.x*opt.scale + opt.shift;

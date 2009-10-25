@@ -26,7 +26,7 @@ function[f] = newton_derivative_evaluate(x,c,varargin)
 global packages;
 newton = packages.speclab.newton_polynomials;
 mono = packages.speclab.monomials;
-opt = packages.common.input_schema({'z', 'd'}, {NaN, 1}, [], varargin{:});
+opt = packages.labtools.input_schema({'z', 'd'}, {NaN, 1}, [], varargin{:});
 
 [n,C] = size(c);
 if and(n==1,C>1)  % I don't think you're calling this for derivatives of

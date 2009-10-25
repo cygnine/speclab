@@ -20,4 +20,4 @@ else
   error('You must input either a nodal vector x or a size n');
 end
 
-v = packages.common.make_vandermonde(x,n,jac.eval.eval_jacobi_poly,opt);
+v = packages.labtools.make_vandermonde(x,n,jac.eval.eval_jacobi_poly,opt);

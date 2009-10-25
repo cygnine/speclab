@@ -13,7 +13,7 @@ function[c] = jacobi_to_monomial(c, cell_boundaries, varargin)
 %     the cells. This is necessary to provide monomial global coefficients. 
 
 global packages;
-opt = packages.common.input_schema({'alpha', 'beta'}, {0,0}, [], varargin{:});
+opt = packages.labtools.input_schema({'alpha', 'beta'}, {0,0}, [], varargin{:});
 jac = packages.speclab.orthopoly1d.jacobi;
 
 [N,K] = size(c);

@@ -10,7 +10,7 @@ function[d] = drc_dtheta(theta,varargin)
 
 global packages;
 sss = packages.speclab.common.standard_scaleshift_1d;
-opt = packages.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
+opt = packages.labtools.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 theta = sss(theta,opt);
 d = cos(theta)/opt.scale;

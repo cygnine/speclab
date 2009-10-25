@@ -10,7 +10,7 @@ clear
 % The following two lines extract the 'module' of functions we'll need
 global packages;
 cheb = packages.speclab.orthopoly1d.jacobi;
-common = packages.common;
+common = packages.labtools;
 % We've called 'cheb' the jacobi module. Unless you say otherwise, speclab
 % assumes the Jacobi polynomial you want to evaluate is the Chebyshev kind. To
 % see how to specify a different Jacobi polynomial type, see the jacobi examples

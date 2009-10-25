@@ -19,7 +19,7 @@ classdef ValidationTest
       global packages;
       inputs = {'description', 'validator', 'data_generator', 'parameters'};
       defaults = {'No description', @() false, @(x,opt) [], struct([])};
-      opt = packages.common.input_schema(inputs, defaults, [], varargin{:});
+      opt = packages.labtools.input_schema(inputs, defaults, [], varargin{:});
 
       obj.description = opt.description;
       obj.parameters = opt.parameters;

@@ -13,7 +13,7 @@ function[tf,S,T] = fftable(varargin)
 %     integers.
 
 global packages;
-opt = packages.common.input_schema({'s', 't'}, {1, 0}, [], varargin{:});
+opt = packages.labtools.input_schema({'s', 't'}, {1, 0}, [], varargin{:});
 
 tol = 1e-12;
 S = opt.s - 1;

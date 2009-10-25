@@ -5,7 +5,7 @@ function[f] = jifft_online(F,data)
 
 global packages;
 jac = packages.speclab.orthopoly1d.jacobi;
-la = packages.common.linalg;
+la = packages.labtools.linalg;
 
 F = la.triu_sparse_invert(data.C,F,'bandwidth',data.A+data.B+1);
 f = jac.fft.chebifft_online(F,data.chebdata);

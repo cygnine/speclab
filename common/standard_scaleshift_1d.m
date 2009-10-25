@@ -6,6 +6,6 @@ function[x] = standard_scaleshift_1d(x,varargin)
 %     domain [-1,1].
 
 global packages;
-opt = packages.common.input_schema({'scale','shift'}, {1,0}, [],varargin{:});
+opt = packages.labtools.input_schema({'scale','shift'}, {1,0}, [],varargin{:});
 
 x = (x-opt.shift)/opt.scale;

@@ -32,7 +32,7 @@ clear;
 global packages;
 speclab = packages.speclab;
 cheb = speclab.orthopoly1d.jacobi;
-common = packages.common;
+common = packages.labtools;
 
 %% Manually set affine scale and shift parameters.
 scale = 3;

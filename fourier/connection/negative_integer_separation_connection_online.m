@@ -12,7 +12,7 @@ end
 
 global packages;
 fourier = packages.speclab.fourier;
-la = packages.common.linalg;
+la = packages.labtools.linalg;
 sc_expand = fourier.connection.sc_expand;
 sc_collapse = fourier.connection.sc_collapse;
 

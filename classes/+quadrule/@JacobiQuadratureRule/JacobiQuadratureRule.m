@@ -16,7 +16,7 @@ classdef JacobiQuadratureRule < QuadratureRule
       jac = packages.speclab.orthopoly1d.jacobi;
       inputs = {'type', 'alpha', 'beta', 'interval', 'scale', 'shift', 'r'};
       defaults = {'gauss', -1/2, -1/2, [], 1, 0, 1};
-      opt = packages.common.input_schema(inputs, defaults, [], varargin{:});
+      opt = packages.labtools.input_schema(inputs, defaults, [], varargin{:});
       [params.alpha, params.beta, params.scale, params.shift] = deal(...
         opt.alpha, opt.beta, opt.scale, opt.shift);
 

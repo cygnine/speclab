@@ -10,7 +10,7 @@ global packages;
 jac = packages.speclab.orthopoly1d.jacobi;
 inputs = {'points', 'alpha', 'beta', 'normalization', 'scale'};
 defaults = {'gq', -1/2, -1/2, 'normal', 1};
-opt = packages.common.input_schema(inputs, defaults, [], varargin{:});
+opt = packages.labtools.input_schema(inputs, defaults, [], varargin{:});
 
 tol = 1e-12;
 [tf,A,B] = jac.fft.fftable(opt);

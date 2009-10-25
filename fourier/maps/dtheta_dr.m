@@ -6,6 +6,6 @@ function[d] = dtheta_dr(r,varargin)
 %     the scaling of the theta interval.
 
 global packages;
-opt = packages.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
+opt = packages.labtools.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 d = -opt.scale/(sqrt(1-r.^2));

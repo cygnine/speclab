@@ -13,7 +13,7 @@ global packages;
 fourier = packages.speclab.fourier;
 jac = packages.speclab.orthopoly1d.jacobi;
 irange = packages.speclab.common.integer_range;
-ltex = packages.common.typelatex;
+ltex = packages.labtools.typelatex;
 
 % Let's try to approximate a discontinuous function by a Fourier Series
 f = @(x) (x>=0).*(x<=1).*exp(-x) + ...

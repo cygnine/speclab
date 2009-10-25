@@ -4,7 +4,7 @@ function[data] = ffft_overhead(N,varargin);
 %     Overhead computation and storage for the forward and inverse Fourier FFT.
 
 global packages;
-opt = packages.common.input_schema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
+opt = packages.labtools.input_schema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
 conn = packages.speclab.fourier.connection.integer_separation_connection_overhead;
 
 conndata = conn(N,0,0,opt.gamma,opt.delta);

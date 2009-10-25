@@ -16,7 +16,7 @@ function[p] = eval_polynomial_standard(x,alpha,beta,n);
 
 global packages;
 %sss = packages.speclab.common.standard_scaleshift_1d.handle;
-%inputs = packages.common.input_schema.handle;
+%inputs = packages.labtools.input_schema.handle;
 %opt = inputs({'d','scale','shift','normalization'},{0,1,0,'normal'},[],varargin{:});
 
 % Pre-processing:

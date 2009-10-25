@@ -17,4 +17,4 @@ global packages;
 jnames = {'gamma', 'delta', 'shift', ...
           'scale','normalization','x','n'};
 jdefaults = {0, 0, 0, 1,0,'normal',false, false};
-opt = packages.common.input_schema(jnames,jdefaults,[],varargin{:});
+opt = packages.labtools.input_schema(jnames,jdefaults,[],varargin{:});

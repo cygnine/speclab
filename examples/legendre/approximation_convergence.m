@@ -5,8 +5,8 @@
 % functions. 
 clear
 global packages;
-exloglog = packages.common.exloglog;
-typelatex = packages.common.typelatex;
+exloglog = packages.labtools.exloglog;
+typelatex = packages.labtools.typelatex;
 leg = packages.speclab.orthopoly1d.jacobi;
 opt.alpha = 0;
 opt.beta = 0;

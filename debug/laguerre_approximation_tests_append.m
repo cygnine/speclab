@@ -48,7 +48,8 @@ function[data] = interpolant_data(opt)
   ps = lag.eval.eval_laguerre_poly(x,opt.n,opt);
 
   if lint(2)==Inf
-    x_refined = linspace(lint(1), x(end), 5*opt.N).';
+    %x_refined = linspace(lint(1), x(end), 5*opt.N).';
+    x_refined = linspace(lint(1), opt.scale*10, 5*opt.N).';
   else
     x_refined = linspace(x(1), lint(2), 5*opt.N).';
   end
@@ -65,7 +66,8 @@ function[data] = derivative_data(opt)
   ps = lag.eval.eval_laguerre_poly(x,opt.n,opt);
 
   if lint(2)==Inf
-    x_refined = linspace(lint(1), x(end), 5*opt.N).';
+    %x_refined = linspace(lint(1), x(end), 5*opt.N).';
+    x_refined = linspace(lint(1), opt.scale*10, 5*opt.N).';
   else
     x_refined = linspace(x(1), lint(2), 5*opt.N).';
   end

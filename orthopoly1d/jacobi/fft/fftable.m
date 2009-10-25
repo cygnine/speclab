@@ -8,7 +8,7 @@ function[tf,A,B] = fftable(varargin)
 %     respectively. 
 
 global packages;
-opt = packages.common.input_schema({'alpha', 'beta'}, {-1/2, -1/2}, [], varargin{:});
+opt = packages.labtools.input_schema({'alpha', 'beta'}, {-1/2, -1/2}, [], varargin{:});
 
 tol = 1e-12;
 A = opt.alpha + 1/2;

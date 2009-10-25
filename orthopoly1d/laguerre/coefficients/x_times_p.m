@@ -15,7 +15,7 @@ function[mu] = x_times_p(n,alpha,varargin)
 
 global packages;
 opt = packages.speclab.orthopoly1d.laguerre.defaults(varargin{:});
-%opt = packages.common.input_schema({'normalization','scale'}, {'normal',1}, [],varargin{:});
+%opt = packages.labtools.input_schema({'normalization','scale'}, {'normal',1}, [],varargin{:});
 n = n(:);
 N = length(n);
 

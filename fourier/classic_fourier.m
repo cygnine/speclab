@@ -5,7 +5,7 @@ function[tf] = classic_fourier(varargin)
 %     the corresponding Fourier Series family is the canonical one.
 
 global packages;
-opt = packages.common.input_schema({'gamma', 'delta'}, {0,0}, [], varargin{:});
+opt = packages.labtools.input_schema({'gamma', 'delta'}, {0,0}, [], varargin{:});
 
 tol = 1e-12;
 tf = abs(opt.gamma)<tol & abs(opt.delta)<tol;

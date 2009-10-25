@@ -10,7 +10,7 @@ function[F] = wiener_weight_multiply(F,varargin)
 global packages;
 wiener = packages.speclab.wiener;
 opt = wiener.defaults(varargin{:});
-linalg = packages.common.linalg;
+linalg = packages.labtools.linalg;
 
 N = length(F);
 fconnection = spdiags(ones([N,2]), [0,1], N,N);

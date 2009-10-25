@@ -17,7 +17,7 @@ function[y] = stiffness_operator(x,varargin)
 global packages;
 lag = packages.speclab.orthopoly1d.laguerre;
 opt = lag.defaults(varargin{:});
-linv = packages.common.linalg.triu_sparse_invert;
+linv = packages.labtools.linalg.triu_sparse_invert;
 
 % Force column vector
 x = x(:);

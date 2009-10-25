@@ -4,8 +4,8 @@
 clear
 global packages;
 wiener = packages.speclab.wiener;
-explot = packages.common.explot;
-ltex = packages.common.typelatex;
+explot = packages.labtools.explot;
+ltex = packages.labtools.typelatex;
 
 opt.s = 3;
 N = 500;

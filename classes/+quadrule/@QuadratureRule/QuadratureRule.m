@@ -16,7 +16,7 @@ classdef QuadratureRule
       global packages;
       inputs = {'dof', 'nodes', 'weights', 'description'};
       defaults = {0,[],[],'no description'};
-      self = packages.common.input_schema(inputs,defaults,[],varargin{:});
+      self = packages.labtools.input_schema(inputs,defaults,[],varargin{:});
     end
     function vals = weight_function(self,x)
       vals = 0*x;

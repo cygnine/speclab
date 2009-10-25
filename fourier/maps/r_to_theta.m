@@ -7,7 +7,7 @@ function[theta] = r_to_theta(r,varargin)
 
 global packages;
 pss = packages.speclab.common.physical_scaleshift_1d;
-opt = packages.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
+opt = packages.labtools.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 theta = acos(r);
 theta = pss(theta,opt);

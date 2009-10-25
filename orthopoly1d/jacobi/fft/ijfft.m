@@ -8,10 +8,10 @@ function[f] = jifft(F,varargin)
 
 global packages;
 jac = packages.speclab.orthopoly1d.jacobi;
-la = packages.common.linalg;
+la = packages.labtools.linalg;
 inputs = {'points', 'alpha', 'beta', 'normalization', 'scale'};
 defaults = {'gq', -1/2, -1/2, 'normal', 1};
-opt = packages.common.input_schema(inputs, defaults, [], varargin{:});
+opt = packages.labtools.input_schema(inputs, defaults, [], varargin{:});
 
 [tf,A,B] = jac.fft.fftable(opt);
 if not(tf)

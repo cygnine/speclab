@@ -9,7 +9,7 @@ function[modes] = negative_integer_separation_connection(modes,gamma,delta,G,D)
 global packages;
 jac = packages.speclab.orthopoly1d.jacobi;
 fourier = packages.speclab.fourier;
-la = packages.common.linalg;
+la = packages.labtools.linalg;
 sc_expand = fourier.connection.sc_expand;
 sc_collapse = fourier.connection.sc_collapse;
 

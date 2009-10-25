@@ -10,7 +10,7 @@ global packages;
 fourier = packages.speclab.fourier;
 inputs = {'N', 'gamma', 'delta', 'resolution_fraction'};
 defaults = {0, 0, 0, 1};
-opt = packages.common.input_schema(inputs, defaults, [], varargin{:});
+opt = packages.labtools.input_schema(inputs, defaults, [], varargin{:});
 
 out.shift = mean(interval);
 if (opt.N==0) | (opt.resolution_fraction==1)

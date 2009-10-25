@@ -185,7 +185,7 @@ Most m-files take optional arguments. Rather than deal with things like "if
 nargin<=5 elseif nargin>3..." I've decided to use something akin to Matlab's
 InputParser. However, the way InputParser works is not very transparent to me,
 and it's new enough that I feel like Mathworks might change conventions on me.
-Therefore, I've written packages.common.input_schema, which does two things:
+Therefore, I've written packages.labtools.input_schema, which does two things:
 - conspicuously breaks the aforementioned convention that function_names will
   have a certain format :( (on a TODO list for a future release)
 - essentially does the same thing as InputParser but works very transparently

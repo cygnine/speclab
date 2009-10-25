@@ -7,7 +7,7 @@ function[d] = dr_dx(x,varargin)
 
 global packages;
 sss = packages.speclab.common.standard_scaleshift_1d;
-opt = packages.common.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
+opt = packages.labtools.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 x = sss(x,opt);
 d = -4*x./(x.^2+1).^2;

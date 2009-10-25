@@ -23,7 +23,7 @@ classdef Basis
       global packages;
       inputs = {'dof','description','fftable'};
       defaults = {0, 'None',false};
-      self = packages.common.input_schema(inputs, defaults, [], varargin{:});
+      self = packages.labtools.input_schema(inputs, defaults, [], varargin{:});
     end
     
     function value = get.N(self)

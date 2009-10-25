@@ -10,7 +10,7 @@ function[C] = integer_separation_connection_matrix(N,alpha,A,varargin)
 %     polynomials P, which affects the matrix C.
 
 global packages;
-opt = packages.common.input_schema({'normalization'}, {'normal'}, [],varargin{:});
+opt = packages.labtools.input_schema({'normalization'}, {'normal'}, [],varargin{:});
 
 coeffs = packages.speclab.orthopoly1d.laguerre.coefficients;
 

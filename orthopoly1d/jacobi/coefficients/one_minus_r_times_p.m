@@ -13,7 +13,7 @@ function[mu] = one_minus_r_times_p(n,alpha,beta,varargin)
 %     polynomials P, which affects the values of the parameters mu.
 
 global packages;
-opt = packages.common.input_schema({'normalization','scale'}, {'normal',1}, [],varargin{:});
+opt = packages.labtools.input_schema({'normalization','scale'}, {'normal',1}, [],varargin{:});
 n = n(:);
 N = length(n);
 
