@@ -5,10 +5,10 @@ function[container] = linalg_tests()
 
 fprintf('Building linear algebra tests....\n');
 
-global packages;
 import debug.*
 
-inversion_tests = packages.speclab.debug.linalg_inversion_tests;
+%inversion_tests = packages.speclab.debug.linalg_inversion_tests;
+inversion_tests = from_package_import_as('speclab.debug', 'linalg_inversion_tests');
 
 container = TestContainer();
 

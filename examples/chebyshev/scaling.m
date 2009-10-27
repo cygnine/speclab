@@ -29,10 +29,12 @@
 % but are ignored. 
 
 clear;
-global packages;
-speclab = packages.speclab;
+import_package('speclab');
 cheb = speclab.orthopoly1d.jacobi;
-common = packages.labtools;
+common = import_package_as('labtools');
+%speclab = packages.speclab;
+%cheb = speclab.orthopoly1d.jacobi;
+%common = packages.labtools;
 
 %% Manually set affine scale and shift parameters.
 scale = 3;

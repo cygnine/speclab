@@ -9,11 +9,14 @@
 % through this.
 
 clear
-global packages;
-fourier = packages.speclab.fourier;
-jac = packages.speclab.orthopoly1d.jacobi;
-irange = packages.speclab.common.integer_range;
-ltex = packages.labtools.typelatex;
+from_package_import('speclab', 'fourier');
+jac = from_package_import_as('speclab.orthopoly1d', 'jacobi');
+[irange, ltex] = from_package_import_as('speclab.labtools', 'integer_range', 'typelatex')
+ltex = 
+%fourier = packages.speclab.fourier;
+%jac = packages.speclab.orthopoly1d.jacobi;
+%irange = packages.speclab.common.integer_range;
+%ltex = packages.labtools.typelatex;
 
 % Let's try to approximate a discontinuous function by a Fourier Series
 f = @(x) (x>=0).*(x<=1).*exp(-x) + ...

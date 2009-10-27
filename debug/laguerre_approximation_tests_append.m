@@ -32,16 +32,16 @@ test = ValidationTest('description', 'laguerre Derivative approximation (stiffne
 container = container.append(test);
 
 function[data] = mass_data(opt)
-  global packages;
-  lag = packages.speclab.orthopoly1d.laguerre;
+  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  %lag = packages.speclab.orthopoly1d.laguerre;
 
   [x,w] = lag.quad.gauss_quadrature(opt.N,opt);
   ps = lag.eval.eval_laguerre_poly(x,opt.n,opt);
   [data.x,data.w,data.ps] = deal(x,w,ps);
 
 function[data] = interpolant_data(opt)
-  global packages;
-  lag = packages.speclab.orthopoly1d.laguerre;
+  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  %lag = packages.speclab.orthopoly1d.laguerre;
   lint = lag.interval(opt);
 
   [x,w] = lag.quad.gauss_quadrature(opt.N,opt);
@@ -58,8 +58,8 @@ function[data] = interpolant_data(opt)
     x,w,ps,x_refined,ps_refined);
 
 function[data] = derivative_data(opt)
-  global packages;
-  lag = packages.speclab.orthopoly1d.laguerre;
+  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  %lag = packages.speclab.orthopoly1d.laguerre;
   lint = lag.interval(opt);
 
   [x,w] = lag.quad.gauss_quadrature(opt.N,opt);
@@ -84,8 +84,8 @@ function[tf] = mass_matrix_validator(data,opt)
   tf = norm(mass-eye(opt.N))<tol;
 
 function[tf] = interpolant_validator(data,opt);
-  global packages;
-  lag = packages.speclab.orthopoly1d.laguerre;
+  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  %lag = packages.speclab.orthopoly1d.laguerre;
 
   f = @(x) exp(-x.^2);
   tol = 10^(-3.5+opt.alpha/3);
@@ -99,8 +99,8 @@ function[tf] = interpolant_validator(data,opt);
 
 function[tf] = derivative_validator(data,opt);
 
-  global packages
-  lag = packages.speclab.orthopoly1d.laguerre;
+  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  %lag = packages.speclab.orthopoly1d.laguerre;
   f = @(x) exp(-x.^2);
   df = @(x) -2*x.*exp(-x.^2);
   tol = 2*10^(-2+opt.alpha/6);
@@ -113,8 +113,8 @@ function[tf] = derivative_validator(data,opt);
   tf = all(abs(df_approx - df(x_refined)).*wgt<tol);
 
 function[data] = derivative_stiffness_data(opt);
-  global packages;
-  lag = packages.speclab.orthopoly1d.laguerre;
+  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  %lag = packages.speclab.orthopoly1d.laguerre;
   jint = lag.interval(opt);
 
   [x,w] = lag.quad.gauss_quadrature(opt.N,opt);
@@ -127,8 +127,8 @@ function[data] = derivative_stiffness_data(opt);
     x,x_refined,vinv,ps);
 
 function[tf] = derivative_stiffness_validator(data,opt);
-  global packages;
-  lag = packages.speclab.orthopoly1d.laguerre;
+  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  %lag = packages.speclab.orthopoly1d.laguerre;
 
   f = @(x) exp(-x.^2);
   df = @(x) -2*x.*exp(-x.^2);

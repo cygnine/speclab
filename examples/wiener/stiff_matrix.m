@@ -3,10 +3,12 @@
 %%% radius
 
 clear
-global packages;
-wiener = packages.speclab.wiener;
-ltex = packages.labtools.typelatex;
-explot = packages.labtools.explot;
+import_package('speclab');
+wiener = speclab.wiener;
+[ltex,explot] = from_package_import_as('labtools', 'typelatex', 'explot');
+%wiener = packages.speclab.wiener;
+%ltex = packages.labtools.typelatex;
+%explot = packages.labtools.explot;
 
 opt.s = 1;
 N = 130;
@@ -50,7 +52,7 @@ ltex(title('Spectral radius of $N \times N$ stiffness matrix'));
 
 % The above really is the stiffness matrix:
 [x,w] = wiener.quad.pi_gauss_quadrature(2*N);
-ks = packages.speclab.common.integer_range(N);
+ks = speclab.common.integer_range(N);
 ws = wiener.eval.wiener_function(x,ks);
 dws = wiener.eval.derivative_wiener_function(x,ks);
 

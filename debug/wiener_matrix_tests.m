@@ -14,11 +14,12 @@ test = ValidationTest('description', 'Wiener stiffness matrix',...
 container = container.append(test);
 
 function[data] = stiff_data(opt)
-  global packages;
-  wiener = packages.speclab.wiener;
+  import_package('speclab');
+  wiener = speclab.wiener;
+  %wiener = packages.speclab.wiener;
 
   [x,w] = wiener.quad.pi_gauss_quadrature(2*opt.N,opt);
-  ks = packages.speclab.common.integer_range(opt.N);
+  ks = speclab.common.integer_range(opt.N);
   ws = wiener.eval.wiener_function(x,ks,opt);
   dws = wiener.eval.derivative_wiener_function(x,ks,opt);
 

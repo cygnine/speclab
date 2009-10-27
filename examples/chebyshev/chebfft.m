@@ -10,8 +10,8 @@
 % it as regular matrix-multiplication; it'll be much faster than the FFT. 
 
 clear
-global packages;
-cheb = packages.speclab.orthopoly1d.jacobi;
+cheb = from_package_import_as('speclab.orthopoly1d', 'jacobi');
+%cheb = packages.speclab.orthopoly1d.jacobi;
 map = cheb.affine_scaling([3,4]); % for no particularly compelling reason
 
 N = 700;

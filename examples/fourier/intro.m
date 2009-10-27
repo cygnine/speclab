@@ -12,9 +12,10 @@
 % The standard interval of approximation for the Fourier series is [-pi, pi].
 
 clear
-global packages;
-fourier = packages.speclab.fourier;
-irange = packages.speclab.common.integer_range;
+from_package_import('speclab', 'fourier');
+irange = from_package_import_as('speclab.common', 'integer_range');
+%fourier = packages.speclab.fourier;
+%irange = packages.speclab.common.integer_range;
 
 % Quadrature+scaling doesn't really change
 N = 100;

@@ -10,8 +10,8 @@
 % interval. 
 
 clear
-global packages;
-leg = packages.speclab.orthopoly1d.jacobi;
+leg = from_package_import_as('speclab.orthopoly1d', 'jacobi');
+%leg = packages.speclab.orthopoly1d.jacobi;
 opt.alpha = 0; 
 opt.beta = 0;
 

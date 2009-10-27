@@ -2,8 +2,8 @@
 %%% Differentiation: how to take derivatives
 
 clear
-global packages;
-cheb = packages.speclab.orthopoly1d.jacobi;
+cheb = from_package_import_as('speclab.orthopoly1d', 'jacobi');
+%cheb = packages.speclab.orthopoly1d.jacobi;
 
 map = cheb.affine_scaling([-pi/2,exp(1)]);  % why not?
 

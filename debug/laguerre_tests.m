@@ -5,11 +5,15 @@ function[container] = laguerre_tests()
 
 fprintf('Building Laguerre polynomial validation tests....\n');
 
-global packages;
-lag = packages.speclab.orthopoly1d.laguerre;
-lquad_tests = packages.speclab.debug.laguerre_quadrature_tests_append;
-lapprox_tests = packages.speclab.debug.laguerre_approximation_tests_append;
-lcoeff_tests = packages.speclab.debug.laguerre_coefficient_tests_append;
+lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+[lquad_tests, lapprox_tests, lcoeff_tests] = from_package_import_as(...
+  'speclab.debug', 'laguerre_quadrature_tests_append', ...
+                   'laguerre_approximation_tests_append', ...
+                   'laguerre_coefficient_tests_append');
+%lag = packages.speclab.orthopoly1d.laguerre;
+%lquad_tests = packages.speclab.debug.laguerre_quadrature_tests_append;
+%lapprox_tests = packages.speclab.debug.laguerre_approximation_tests_append;
+%lcoeff_tests = packages.speclab.debug.laguerre_coefficient_tests_append;
 %jop_tests = packages.speclab.debug.laguerre_operator_tests_append;
 import debug.*
 
