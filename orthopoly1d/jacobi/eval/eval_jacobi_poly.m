@@ -10,12 +10,15 @@ opoly = packages.speclab.orthopoly1d;
 jac = opoly.jacobi;
 opt = jac.defaults(varargin{:});
 
-N = max(n)+2;
+if opt.dim==1
+  N = max(n)+2;
 
-[a,b] = jac.coefficients.recurrence(N+1,opt);
+  [a,b] = jac.coefficients.recurrence(N+1,opt);
 
-if any(strcmpi(opt.normalization,{'normal', 'monic'}))
-  p = opoly.eval_polynomial(x,a,b,n,opt);
+  if any(strcmpi(opt.normalization,{'normal', 'monic'}))
+    p = opoly.eval_polynomial(x,a,b,n,opt);
+  else
+    error('Normalization type not supported');
+  end
 else
-  error('Normalization type not supported');
 end
