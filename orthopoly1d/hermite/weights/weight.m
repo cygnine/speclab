@@ -7,10 +7,18 @@ function[w] = weight(x,varargin)
 %     weight function incorporates the affine scale and shift. (Including the
 %     affine Jacobian)
 
-global packages;
-opt = packages.speclab.orthopoly1d.hermite.defaults(varargin{:});
-sss = packages.speclab.common.standard_scaleshift_1d;
+defaults = from_as('speclab.orthopoly1d.hermite', 'defaults');
+sss = from_as('speclab.common', 'standard_scaleshift_1d');
+opt = defaults(varargin{:});
 x = sss(x,opt);
 
 w = (x.^2).^opt.mu.*exp(-x.^2);
-w = w/opt.scale;
+
+switch opt.weight_normalization
+case 'probability'
+  recur = from_as('speclab.orthopoly1d.hermite.coefficients', 'recurrence');
+  [a,b] = recur(1,'alpha',opt.alpha,'beta',opt.beta);
+  w = w/b;
+otherwise
+  w = w/opt.scale;
+end

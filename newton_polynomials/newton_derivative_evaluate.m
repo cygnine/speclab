@@ -1,5 +1,4 @@
 function[f] = newton_derivative_evaluate(x,c,varargin)
-% [f] = newton_derivative_evaluate(x,c)
 % [f] = newton_derivative_evaluate(x,c,{z=NaN, d=1})
 %
 %     If z is not given:
@@ -23,10 +22,13 @@ function[f] = newton_derivative_evaluate(x,c,varargin)
 %     In either case, the optional argument d determines how many derivatives to
 %     take.
 
-global packages;
-newton = packages.speclab.newton_polynomials;
-mono = packages.speclab.monomials;
-opt = packages.labtools.input_schema({'z', 'd'}, {NaN, 1}, [], varargin{:});
+persistent input_schema newton_to_monomial monomial_derivative evaluate
+if isempty(input_schema)
+  from labtools input_schema;
+  from speclab.newton_polynomials newton_to_monomial;
+  from speclab.monomials monomial_derivative evaluate
+end
+opt = input_schema({'z', 'd'}, {NaN, 1}, [], varargin{:});
 
 [n,C] = size(c);
 if and(n==1,C>1)  % I don't think you're calling this for derivatives of
@@ -63,16 +65,17 @@ else
 
   % We're going to cheat and translate to monomials. In the long run, this could
   % be problematic for both speed and numerical stability. But for now I'm lazy.
-  monomial_coefficients = newton.newton_to_monomial(c,x);
+  monomial_coefficients = newton_to_monomial(c,x);
   
   % Find the derivative
   for q = 1:opt.d
-    monomial_coefficients = mono.monomial_derivative(monomial_coefficients);
+    monomial_coefficients = monomial_derivative(monomial_coefficients);
   end
 
   temp = size(z);
   % Evaluate at desired points
-  f = mono.evaluate(monomial_coefficients,z(:));
+  %f = evaluate(monomial_coefficients,z(:));
+  f = evaluate(monomial_coefficients,z);
   f = reshape(f,temp);
 
   return

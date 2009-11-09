@@ -24,13 +24,20 @@ NBTemp = NewtonBasis;
 
 mc(1,:) = nc(1,:);
 
+temp = spalloc(C,C,C);
+indices = (0:(C-1))*C + (1:C);
+
 for k = 2:n
   % Update Newton Basis
-  NewtonBasis(1:(k-1),:) = -NBTemp(1:(k-1),:)*spdiags(x(k-1,:).',0,C,C);
+  temp(indices) = x(k-1,:);
+  %NewtonBasis(1:(k-1),:) = -NBTemp(1:(k-1),:)*spdiags(x(k-1,:).',0,C,C);
+  NewtonBasis(1:(k-1),:) = -NBTemp(1:(k-1),:)*temp;
   NewtonBasis(2:k,:) = NewtonBasis(2:k,:) + ...
                        NBTemp(1:(k-1),:);
   NBTemp = NewtonBasis;
 
   % Update monomial coefficients
-  mc(1:k,:) = mc(1:k,:) + NewtonBasis(1:k,:)*spdiags(nc(k,:).',0,C,C);
+  temp(indices) = nc(k,:);
+  %mc(1:k,:) = mc(1:k,:) + NewtonBasis(1:k,:)*spdiags(nc(k,:).',0,C,C);
+  mc(1:k,:) = mc(1:k,:) + NewtonBasis(1:k,:)*temp;
 end

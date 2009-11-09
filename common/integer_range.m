@@ -1,5 +1,5 @@
 function[ks] = integer_range(N)
-% [KS] = INTEGER_RANGE(N)
+% [ks] = integer_range(N)
 %
 %     Creates the range of integers from -N/2, -N/2+1, ..., N/2, with a negative
 %     bias if N is even. 

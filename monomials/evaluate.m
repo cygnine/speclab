@@ -30,7 +30,7 @@ else     % pfft, fine: the hard way
 
   fz = repmat(mc(1,:),[Z,1]);
   for q = 2:n
-    fz = fz + z.^(q-1)*spdiags(mc(q,:),0,C,C);
+    fz = fz + z.^(q-1)*spdiags(mc(q,:).',0,C,C);
   end
 
   return
