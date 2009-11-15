@@ -34,10 +34,14 @@ opt.r = opt.scale+opt.shift;
 opt.r2 = opt.r;
 opt.r1 = -opt.scale+opt.shift;
 
-% Change scales/shifts to have correct dimensionality
+% Change inputs to have correct dimensionality
 if opt.dim>1
   if length(opt.scale)==1
     opt.scale = opt.scale*ones([opt.dim 1]);
     opt.shift = opt.shift*ones([opt.dim 1]);
+  end
+  if length(opt.alpha)==1
+    opt.alpha = opt.alpha*ones([opt.dim 1]);
+    opt.beta = opt.beta*ones([opt.dim 1]);
   end
 end
