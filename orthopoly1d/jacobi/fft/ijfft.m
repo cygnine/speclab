@@ -6,12 +6,19 @@ function[f] = jifft(F,varargin)
 %     IFFT. The locations of the nodes must be a **Chebyshev** fft-compatible
 %     set of points. See chebifft. 
 
-global packages;
-jac = packages.speclab.orthopoly1d.jacobi;
-la = packages.labtools.linalg;
+persistent jac la input_schema
+if isempty(input_schema)
+  imp speclab.labtools.jacobi as jac
+  imp labtools.linalg as la
+  from labtools import input_schema
+end
+
+%global packages;
+%jac = packages.speclab.orthopoly1d.jacobi;
+%la = packages.labtools.linalg;
 inputs = {'points', 'alpha', 'beta', 'normalization', 'scale'};
 defaults = {'gq', -1/2, -1/2, 'normal', 1};
-opt = packages.labtools.input_schema(inputs, defaults, [], varargin{:});
+opt = input_schema(inputs, defaults, [], varargin{:});
 
 [tf,A,B] = jac.fft.fftable(opt);
 if not(tf)

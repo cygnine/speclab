@@ -8,9 +8,15 @@ function[p] = eval_hermite_poly(x,n,varargin)
 %     scaled to interval*scale + shift. The Jacobian resulting from this affine
 %     transform is built into the weight function.
 
-global packages;
-opoly = packages.speclab.orthopoly1d;
-hermite = opoly.hermite;
+persisten opoly hermite
+if isempty(opoly)
+  from speclab import orthopoly1d as opoly
+  from speclab.orthopoly1d import hermite 
+end
+
+%global packages;
+%opoly = packages.speclab.orthopoly1d;
+%hermite = opoly.hermite;
 opt = hermite.defaults(varargin{:});
 
 N = max(n)+2;

@@ -8,9 +8,14 @@ function[p] = eval_laguerre_poly(x,n,varargin)
 %     scaled to interval*scale + shift. The Jacobian resulting from this affine
 %     transform is built into the weight function.
 
-global packages;
-opoly = packages.speclab.orthopoly1d;
-laguerre = opoly.laguerre;
+persistent opoly laguerre 
+if isempty(opoly)
+  imp speclab.orthopoly1d as opoly
+  from speclab.orthopoly1d import laguerre
+end
+%global packages;
+%opoly = packages.speclab.orthopoly1d;
+%laguerre = opoly.laguerre;
 opt = laguerre.defaults(varargin{:});
 
 N = max(n)+2;

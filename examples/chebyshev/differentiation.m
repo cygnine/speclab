@@ -2,7 +2,7 @@
 %%% Differentiation: how to take derivatives
 
 clear
-cheb = from_package_import_as('speclab.orthopoly1d', 'jacobi');
+from speclab.orthopoly1d import jacobi as cheb
 %cheb = packages.speclab.orthopoly1d.jacobi;
 
 map = cheb.affine_scaling([-pi/2,exp(1)]);  % why not?

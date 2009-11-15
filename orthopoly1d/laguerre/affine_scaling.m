@@ -8,8 +8,14 @@ function[out] = affine_scaling(interval,varargin)
 %
 %     Does not yet support "negative" scaling.
 
-from labtools input_schema
-lag = from_as('speclab.orthopoly1d', 'laguerre');
+persistent input_schema lag
+if isempty(input_schema)
+  from labtools import input_schema
+  imp speclab.orthopoly1d.laguerre as lag
+end
+
+%lag = from_as('speclab.orthopoly1d', 'laguerre');
+
 inputs = {'N', 'alpha', 'resolution_fraction'};
 defaults = {0, 0, 1};
 opt = input_schema(inputs, defaults, [], varargin{:});

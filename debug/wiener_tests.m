@@ -7,9 +7,10 @@ fprintf('Building Wiener validation tests....\n');
 
 import_package('speclab');
 wiener = speclab.wiener;
-[classic_tests, approx_tests, fft_tests, matrix_tests] = from_package_import_as(...
-   'speclab.debug', 'classic_wiener_tests', 'wiener_approximation_tests', ...
-                    'wiener_fft_tests', 'wiener_matrix_tests');
+from speclab.debug import classic_wiener_tests as classic_tests
+from speclab.debug import wiener_approximation_tests as approx_tests
+from speclab.debug import wiener_fft_tests as fft_tests
+from speclab.debug import wiener_matrix_tests as matrix_tests
 %wiener = packages.speclab.wiener;
 %classic_tests = packages.speclab.debug.classic_wiener_tests;
 %approx_tests = packages.speclab.debug.wiener_approximation_tests;

@@ -6,14 +6,20 @@ function[modes] = positive_integer_separation_connection_online(modes,data);
 %     (gamma+G,delta+D) for G,D>0. The values of G, D, gamma, and delta were
 %     already set in the construction of the input data. 
 
+persisten fourier sc_expand sc_collapse
+if isempty(fourier)
+  from speclab import fourier
+  from speclab.fourier.connection import sc_expand sc_collapse
+end
+
+%global packages;
+%fourier = packages.speclab.fourier;
+%sc_expand = fourier.connection.sc_expand;
+%sc_collapse = fourier.connection.sc_collapse;
+
 if data.no_connect
   return
 end
-
-global packages;
-fourier = packages.speclab.fourier;
-sc_expand = fourier.connection.sc_expand;
-sc_collapse = fourier.connection.sc_collapse;
 
 [cmodes,smodes] = sc_collapse(modes,data.N);
 

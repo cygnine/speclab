@@ -4,10 +4,16 @@ function[F] = wfft_galerkin_online(f,data)
 %     Computes the wfft 'Galerkin' algorithm using an online/offline
 %     decomposition. The input data comes from wfft_galerkin_overhead.
 
-global packages;
-wiener = packages.speclab.wiener;
-fourier = packages.speclab.fourier;
-wconnect = fourier.connection.positive_integer_separation_connection_online;
+persistent wiener fourier wconnect
+if isempty(wiener)
+  from speclab import wiener fourier
+  from speclab.fourier.connection import positive_integer_separation_connection_online as wconnect
+end
+
+%global packages;
+%wiener = packages.speclab.wiener;
+%fourier = packages.speclab.fourier;
+%wconnect = fourier.connection.positive_integer_separation_connection_online;
 
 F = fourier.fft.ffft_online(f,data.fftdata);
 F = wiener.operators.wiener_weight_divide(F,data.opt);

@@ -9,10 +9,11 @@
 % through this.
 
 clear
-from_package_import('speclab', 'fourier');
-jac = from_package_import_as('speclab.orthopoly1d', 'jacobi');
-[irange, ltex] = from_package_import_as('speclab.labtools', 'integer_range', 'typelatex')
-ltex = 
+from speclab import fourier
+from speclab.orthopoly1d import jacobi as jac
+from labtools import integer_range as irange
+from labtools import typelatex as ltex
+%[irange, ltex] = from_package_import_as('labtools', 'integer_range', 'typelatex')
 %fourier = packages.speclab.fourier;
 %jac = packages.speclab.orthopoly1d.jacobi;
 %irange = packages.speclab.common.integer_range;

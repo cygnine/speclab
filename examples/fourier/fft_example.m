@@ -6,7 +6,7 @@
 % "Fourier fast Fourier transform". ffft instead of fft. iffft instead of ifft.
 
 clear
-from_package_import('speclab', 'fourier');
+from speclab import fourier
 %fourier = packages.speclab.fourier;
 
 % The regular FFT is possible:

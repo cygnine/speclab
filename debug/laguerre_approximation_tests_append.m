@@ -32,7 +32,7 @@ test = ValidationTest('description', 'laguerre Derivative approximation (stiffne
 container = container.append(test);
 
 function[data] = mass_data(opt)
-  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  from speclab.orthopoly1d import laguerre as lag
   %lag = packages.speclab.orthopoly1d.laguerre;
 
   [x,w] = lag.quad.gauss_quadrature(opt.N,opt);
@@ -40,7 +40,7 @@ function[data] = mass_data(opt)
   [data.x,data.w,data.ps] = deal(x,w,ps);
 
 function[data] = interpolant_data(opt)
-  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  from speclab.orthopoly1d import lageurre as lag
   %lag = packages.speclab.orthopoly1d.laguerre;
   lint = lag.interval(opt);
 
@@ -58,7 +58,7 @@ function[data] = interpolant_data(opt)
     x,w,ps,x_refined,ps_refined);
 
 function[data] = derivative_data(opt)
-  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  from speclab.orthopoly1d import lageurre as lag
   %lag = packages.speclab.orthopoly1d.laguerre;
   lint = lag.interval(opt);
 
@@ -84,7 +84,7 @@ function[tf] = mass_matrix_validator(data,opt)
   tf = norm(mass-eye(opt.N))<tol;
 
 function[tf] = interpolant_validator(data,opt);
-  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  from speclab.orthopoly1d import lageurre as lag
   %lag = packages.speclab.orthopoly1d.laguerre;
 
   f = @(x) exp(-x.^2);
@@ -99,7 +99,7 @@ function[tf] = interpolant_validator(data,opt);
 
 function[tf] = derivative_validator(data,opt);
 
-  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  from speclab.orthopoly1d import lageurre as lag
   %lag = packages.speclab.orthopoly1d.laguerre;
   f = @(x) exp(-x.^2);
   df = @(x) -2*x.*exp(-x.^2);
@@ -113,7 +113,7 @@ function[tf] = derivative_validator(data,opt);
   tf = all(abs(df_approx - df(x_refined)).*wgt<tol);
 
 function[data] = derivative_stiffness_data(opt);
-  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  from speclab.orthopoly1d import lageurre as lag
   %lag = packages.speclab.orthopoly1d.laguerre;
   jint = lag.interval(opt);
 
@@ -127,7 +127,7 @@ function[data] = derivative_stiffness_data(opt);
     x,x_refined,vinv,ps);
 
 function[tf] = derivative_stiffness_validator(data,opt);
-  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  from speclab.orthopoly1d import lageurre as lag
   %lag = packages.speclab.orthopoly1d.laguerre;
 
   f = @(x) exp(-x.^2);

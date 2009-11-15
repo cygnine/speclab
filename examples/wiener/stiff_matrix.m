@@ -5,7 +5,8 @@
 clear
 import_package('speclab');
 wiener = speclab.wiener;
-[ltex,explot] = from_package_import_as('labtools', 'typelatex', 'explot');
+from labtools import typelatex as ltex
+from labtools import explot
 %wiener = packages.speclab.wiener;
 %ltex = packages.labtools.typelatex;
 %explot = packages.labtools.explot;

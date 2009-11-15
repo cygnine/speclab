@@ -6,11 +6,18 @@ function[F] = wfft_galerkin(f,varargin)
 %     canonical Fourier points mapped to the real line. Both parameters s and t
 %     must be integers.
 
-global packages;
-wiener = packages.speclab.wiener;
-fourier = packages.speclab.fourier;
+persistent wiener fourier wconnect
+if isempty(wiener)
+  from speclab import wiener fourier
+  from speclab.fourier.connection import positive_integer_separation_connection as wconnect
+end
+
+%global packages;
+%wiener = packages.speclab.wiener;
+%fourier = packages.speclab.fourier;
+%wconnect = fourier.connection.positive_integer_separation_connection;
+
 opt = wiener.defaults(varargin{:});
-wconnect = fourier.connection.positive_integer_separation_connection;
 
 [fftable,S,T] = wiener.fft.fftable(opt);
 if not(fftable)

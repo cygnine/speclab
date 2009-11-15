@@ -27,8 +27,8 @@ container = container.append(test);
 
 function[data] = mass_data(opt)
   
-  from_package_import('speclab', 'wiener');
-  from_package_import('speclab.common', 'integer_range');
+  from speclab import wiener
+  from speclab.common import integer_range
   %wiener = packages.speclab.wiener;
   [x,w] = wiener.quad.pi_gauss_quadrature(opt.N,opt);
   ks = integer_range(opt.N);

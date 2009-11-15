@@ -4,8 +4,8 @@
 % Test a hallmark of `spectral' methods: exponential convergence for analytic
 % functions. 
 clear
-from_package_import('labtools', 'exloglog', 'typelatex');
-leg = from_package_import_as('speclab.orthopoly1d', 'jacobi');
+from labtools import exloglog typelatex
+imp speclab.orthopoly1d.jacobi as leg
 %exloglog = packages.labtools.exloglog;
 %typelatex = packages.labtools.typelatex;
 %leg = packages.speclab.orthopoly1d.jacobi;

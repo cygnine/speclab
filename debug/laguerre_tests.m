@@ -5,11 +5,14 @@ function[container] = laguerre_tests()
 
 fprintf('Building Laguerre polynomial validation tests....\n');
 
-lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
-[lquad_tests, lapprox_tests, lcoeff_tests] = from_package_import_as(...
-  'speclab.debug', 'laguerre_quadrature_tests_append', ...
-                   'laguerre_approximation_tests_append', ...
-                   'laguerre_coefficient_tests_append');
+from speclab.orthopoly1d import laguerre as lag
+from speclab.debug import laguerre_quadrature_tests_append as lquad_tests
+from speclab.debug import laguerre_approximation_tests_append as lapprox_tests
+from speclab.debug import laguerre_coefficient_tests_append as lcoeff_tests
+%[lquad_tests, lapprox_tests, lcoeff_tests] = from_package_import_as(...
+%  'speclab.debug', 'laguerre_quadrature_tests_append', ...
+%                   'laguerre_approximation_tests_append', ...
+%                   'laguerre_coefficient_tests_append');
 %lag = packages.speclab.orthopoly1d.laguerre;
 %lquad_tests = packages.speclab.debug.laguerre_quadrature_tests_append;
 %lapprox_tests = packages.speclab.debug.laguerre_approximation_tests_append;

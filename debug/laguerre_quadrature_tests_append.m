@@ -44,7 +44,7 @@ test = ValidationTest('description', 'Gauss-Radau quadrature integration accurac
 container = container.append(test);
 
 function[data] = gauss_quad_data(opt)
-  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  from speclab.orthopoly1d import laguerre as lag
   %lag = packages.speclab.orthopoly1d.laguerre;
 
   [x,w] = lag.quad.gauss_quadrature(opt.N,opt);
@@ -52,7 +52,7 @@ function[data] = gauss_quad_data(opt)
   data.w = w;
 
 function[data] = gauss_radau_data(opt)
-  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  from speclab.orthopoly1d import laguerre as lag
   %lag = packages.speclab.orthopoly1d.laguerre;
 
   [x,w] = lag.quad.gauss_radau_quadrature(opt.N,opt);
@@ -60,7 +60,7 @@ function[data] = gauss_radau_data(opt)
   data.w = w;
 
 function[tf] = gauss_quad_nodes(data,opt)
-  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  from speclab.orthopoly1d import laguerre as lag
   %lag = packages.speclab.orthopoly1d.laguerre;
 
   lint = lag.interval(opt);
@@ -69,7 +69,7 @@ function[tf] = gauss_quad_nodes(data,opt)
   tf = all(x<lint(2)+tol) & all(x>lint(1)-tol);
 
 function[tf] = gauss_quad_weights(data,opt)
-  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  from speclab.orthopoly1d import laguerre as lag
   %lag = packages.speclab.orthopoly1d.laguerre;
 
   tol = 1e-12;
@@ -77,7 +77,7 @@ function[tf] = gauss_quad_weights(data,opt)
   tf = all(w>-tol);
 
 function[data] = gauss_quad_acc_data(opt)
-  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  from speclab.orthopoly1d import laguerre as lag
   %lag = packages.speclab.orthopoly1d.laguerre;
 
   [x,w] = lag.quad.gauss_quadrature(opt.N,opt);
@@ -85,7 +85,7 @@ function[data] = gauss_quad_acc_data(opt)
   [data.x,data.w,data.ps] = deal(x,w,ps);
 
 function[data] = gauss_radau_quad_acc_data(opt)
-  lag = from_package_import_as('speclab.orthopoly1d', 'laguerre');
+  from speclab.orthopoly1d import laguerre as lag
   %lag = packages.speclab.orthopoly1d.laguerre;
 
   [x,w] = lag.quad.gauss_radau_quadrature(opt.N,opt);

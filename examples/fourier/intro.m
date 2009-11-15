@@ -12,8 +12,8 @@
 % The standard interval of approximation for the Fourier series is [-pi, pi].
 
 clear
-from_package_import('speclab', 'fourier');
-irange = from_package_import_as('speclab.common', 'integer_range');
+from speclab import fourier
+from speclab.common import integer_range as irange
 %fourier = packages.speclab.fourier;
 %irange = packages.speclab.common.integer_range;
 

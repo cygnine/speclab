@@ -28,10 +28,12 @@ function[p] = eval_polynomial(x,alpha,beta,n,varargin);
 %     Normalized:
 %     sqrt(b_{n+1}) p_{n+1} = (x-a_n) p_n - sqrt(b_n) p_{n-1}
 
-global packages;
-sss = packages.speclab.common.standard_scaleshift_1d.handle;
-inputs = packages.labtools.input_schema.handle;
-opt = inputs({'d','scale','shift','normalization'},{0,1,0,'normal'},[],varargin{:});
+persistent labtools sss
+if isempty(labtools)
+  from labtools import input_schema
+  from speclab.common import standard_scaleshift_1d as sss
+end
+opt = input_schema({'d','scale','shift','normalization'},{0,1,0,'normal'},[],varargin{:});
 
 % Pre-processing:
 x = x(:);

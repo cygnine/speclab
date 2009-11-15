@@ -8,7 +8,7 @@ fprintf('Building linear algebra tests....\n');
 import debug.*
 
 %inversion_tests = packages.speclab.debug.linalg_inversion_tests;
-inversion_tests = from_package_import_as('speclab.debug', 'linalg_inversion_tests');
+from speclab.debug import linalg_inversion_tests as inversion_tests
 
 container = TestContainer();
 

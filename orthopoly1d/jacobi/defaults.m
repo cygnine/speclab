@@ -18,14 +18,26 @@ function[opt] = defaults(varargin);
 %           dim: 1                     Spatial dimension of the tensor-product evaluation
 %           weight_normalization: ''   Specifies the normalization of the weight function
 % 
-global packages;
+
+persistent input_schema
+if isempty(input_schema)
+  from labtools import input_schema
+end
 
 jnames = {'alpha', 'beta', 'shift', ...
           'scale','d','normalization','r','r1','r2','x','n','dim','weight_normalization'};
 jdefaults = {-1/2, -1/2, 0, 1,0,'normal',1,-1,1,false, false, 1, ''};
-opt = packages.labtools.input_schema(jnames,jdefaults,[],varargin{:});
+opt = input_schema(jnames,jdefaults,[],varargin{:});
 
 % Change r, r1, r2 to match scale+shift
 opt.r = opt.scale+opt.shift;
 opt.r2 = opt.r;
 opt.r1 = -opt.scale+opt.shift;
+
+% Change scales/shifts to have correct dimensionality
+if opt.dim>1
+  if length(opt.scale)==1
+    opt.scale = opt.scale*ones([opt.dim 1]);
+    opt.shift = opt.shift*ones([opt.dim 1]);
+  end
+end

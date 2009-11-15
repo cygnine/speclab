@@ -7,8 +7,13 @@ function[tf,A,B] = fftable(varargin)
 %     denoting the parameter separation of alpha and beta from -1/2,
 %     respectively. 
 
-global packages;
-opt = packages.labtools.input_schema({'alpha', 'beta'}, {-1/2, -1/2}, [], varargin{:});
+persistent input_schema
+if isempty(input_schema)
+  from labtools import input_schema
+end
+
+%global packages;
+opt = input_schema({'alpha', 'beta'}, {-1/2, -1/2}, [], varargin{:});
 
 tol = 1e-12;
 A = opt.alpha + 1/2;

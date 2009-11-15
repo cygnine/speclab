@@ -3,7 +3,7 @@ function[tests] = all_tests()
 %
 %     Runs all validation tests for speclab.
 
-debug = from_package_import_as('speclab', 'debug');
+from speclab import debug
 %debug = packages.speclab.debug;
 tests = debug.linalg_tests();
 tests = tests.extend(debug.jacobi_tests());

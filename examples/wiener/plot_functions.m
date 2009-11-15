@@ -2,8 +2,10 @@
 %%% Plotting functions: plots Wiener basis functions
 
 clear
-from_package_import('speclab', 'wiener');
-[explot, ltex] = from_package_import_as('labtools', 'explot', 'typelatex');
+from speclab import wiener
+from labtools import explot 
+from labtools import typelatex as ltex
+
 %wiener = packages.speclab.wiener;
 %explot = packages.labtools.explot;
 %ltex = packages.labtools.typelatex;

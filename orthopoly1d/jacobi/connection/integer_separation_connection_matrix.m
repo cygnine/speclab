@@ -9,10 +9,16 @@ function[C] = integer_separation_connection_matrix(N,alpha,beta,A,B,varargin)
 %     The optional input normalization defines the normalization of the
 %     polynomials P, which affects the matrix C.
 
-global packages;
-opt = packages.labtools.input_schema({'normalization'}, {'normal'}, [],varargin{:});
+persistent input_schema coeffs
+if isempty(input_schema)
+  from labtools import input_schema
+  from speclab.orthopoly1d.jacobi import coefficients as coeffs
+end
 
-coeffs = packages.speclab.orthopoly1d.jacobi.coefficients;
+%global packages;
+opt = input_schema({'normalization'}, {'normal'}, [],varargin{:});
+
+%coeffs = packages.speclab.orthopoly1d.jacobi.coefficients;
 
 ab_min = min([A,B]);
 C = spalloc(N,N,(A+B)*N - (A+B)*(A+B+1)/2);

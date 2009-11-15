@@ -24,9 +24,9 @@ function[f] = newton_derivative_evaluate(x,c,varargin)
 
 persistent input_schema newton_to_monomial monomial_derivative evaluate
 if isempty(input_schema)
-  from labtools input_schema;
-  from speclab.newton_polynomials newton_to_monomial;
-  from speclab.monomials monomial_derivative evaluate
+  from labtools import input_schema;
+  from speclab.newton_polynomials import newton_to_monomial;
+  from speclab.monomials import monomial_derivative evaluate
 end
 opt = input_schema({'z', 'd'}, {NaN, 1}, [], varargin{:});
 
