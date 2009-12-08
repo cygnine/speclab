@@ -8,7 +8,7 @@ function[p] = eval_hermite_poly(x,n,varargin)
 %     scaled to interval*scale + shift. The Jacobian resulting from this affine
 %     transform is built into the weight function.
 
-persisten opoly hermite
+persistent opoly hermite
 if isempty(opoly)
   from speclab import orthopoly1d as opoly
   from speclab.orthopoly1d import hermite 
@@ -27,4 +27,9 @@ if any(strcmpi(opt.normalization,{'normal', 'monic'}))
   p = opoly.eval_polynomial(x,a,b,n,opt);
 else
   error('Normalization type not supported');
+end
+
+switch opt.weight_normalization
+case 'probability'
+  p = p*sqrt(b(1));
 end

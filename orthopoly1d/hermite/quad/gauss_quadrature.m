@@ -17,4 +17,9 @@ opt = hermite.defaults(varargin{:});
 [a,b] = hermite.coefficients.recurrence(N+1,opt);
 [x,w] = opoly.gauss_quadrature(a,b,N);
 
+switch opt.weight_normalization
+case 'probability'
+  w = w/b(1);
+end
+
 x = pss(x,opt);

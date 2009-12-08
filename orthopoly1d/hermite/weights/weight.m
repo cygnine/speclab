@@ -17,8 +17,8 @@ w = (x.^2).^opt.mu.*exp(-x.^2);
 switch opt.weight_normalization
 case 'probability'
   recur = from_as('speclab.orthopoly1d.hermite.coefficients', 'recurrence');
-  [a,b] = recur(1,'alpha',opt.alpha,'beta',opt.beta);
-  w = w/b;
+  [a,b] = recur(1,'mu',opt.mu);
+  w = w/(b*opt.scale);
 otherwise
   w = w/opt.scale;
 end

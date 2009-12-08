@@ -48,7 +48,7 @@ case 'normal'
   for q = 1:opt.dim
     [a,b] = recurrence(N+1,'alpha', opt.alpha(q), 'beta', opt.beta(q));
 
-    factor = factor*b(1)*opt.scale(q);
+    factor = factor*b(1);
 
     one_d_opts.shift = opt.shift(q);
     one_d_opts.scale = opt.scale(q);
