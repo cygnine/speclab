@@ -7,23 +7,24 @@ function[p] = eval_laguerre_poly(x,n,varargin)
 %     This function is vectorized in x and n. The interval of approximation is
 %     scaled to interval*scale + shift. The Jacobian resulting from this affine
 %     transform is built into the weight function.
+%
+%     The optional dimension dim specifies the dimension of the x-variable. If
+%     dim > 1, a tensor-product function is assumed. If dim > 1, x is assumed to
+%     be an M x dim array, with each row corresponding to a d-dimensional data
+%     point. In the multidimensional case the linear index n is given by the
+%     array indexing procedure from
+%     speclab.common.tensor.linear_to_array_indexing.
 
-persistent opoly laguerre 
-if isempty(opoly)
-  imp speclab.orthopoly1d as opoly
-  from speclab.orthopoly1d import laguerre
+persistent recurrence defaults driver
+if isempty(recurrence)
+  from speclab.orthopoly1d.laguerre.coefficients import recurrence
+  from speclab.orthopoly1d.laguerre import defaults
+  from speclab.orthopoly1d import eval_poly_driver as driver
 end
-%global packages;
-%opoly = packages.speclab.orthopoly1d;
-%laguerre = opoly.laguerre;
-opt = laguerre.defaults(varargin{:});
 
-N = max(n)+2;
+opt = defaults(varargin{:});
 
-[a,b] = laguerre.coefficients.recurrence(N+1,opt);
+poly_parameters = struct('alpha', opt.alpha);
 
-if any(strcmpi(opt.normalization,{'normal', 'monic'}))
-  p = opoly.eval_polynomial(x,a,b,n,opt);
-else
-  error('Normalization type not supported');
-end
+p = driver(x,n,opt.d,recurrence,opt.dim,opt.shift,opt.scale,opt.normalization, ...
+           opt.weight_normalization, poly_parameters);

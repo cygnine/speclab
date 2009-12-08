@@ -1,35 +1,30 @@
 function[p] = eval_hermite_poly(x,n,varargin)
 % eval_hermite_poly -- evaluate Hermite polynomials
 %
-% [p] = eval_hermite_poly(x,n,{mu=0,d=0,shift=0,scale=1})
+% [p] = eval_hermite_poly(x,n,{mu=0,d=0,shift=0,scale=1,dim=1})
 %
 %     Evaluates the nth generalized Hermite polynomials at the locations x.
 %     This function is vectorized in x and n. The interval of approximation is
 %     scaled to interval*scale + shift. The Jacobian resulting from this affine
 %     transform is built into the weight function.
+%
+%     The optional dimension dim specifies the dimension of the x-variable. If
+%     dim > 1, a tensor-product function is assumed. If dim > 1, x is assumed to
+%     be an M x dim array, with each row corresponding to a d-dimensional data
+%     point. In the multidimensional case the linear index n is given by the
+%     array indexing procedure from
+%     speclab.common.tensor.linear_to_array_indexing.
 
-persistent opoly hermite
-if isempty(opoly)
-  from speclab import orthopoly1d as opoly
-  from speclab.orthopoly1d import hermite 
+persistent recurrence defaults driver
+if isempty(recurrence)
+  from speclab.orthopoly1d.hermite.coefficients import recurrence
+  from speclab.orthopoly1d.hermite import defaults
+  from speclab.orthopoly1d import eval_poly_driver as driver
 end
 
-%global packages;
-%opoly = packages.speclab.orthopoly1d;
-%hermite = opoly.hermite;
-opt = hermite.defaults(varargin{:});
+opt = defaults(varargin{:});
 
-N = max(n)+2;
+poly_parameters = struct('mu', opt.mu);
 
-[a,b] = hermite.coefficients.recurrence(N+1,opt);
-
-if any(strcmpi(opt.normalization,{'normal', 'monic'}))
-  p = opoly.eval_polynomial(x,a,b,n,opt);
-else
-  error('Normalization type not supported');
-end
-
-switch opt.weight_normalization
-case 'probability'
-  p = p*sqrt(b(1));
-end
+p = driver(x,n,opt.d,recurrence,opt.dim,opt.shift,opt.scale,opt.normalization, ...
+           opt.weight_normalization, poly_parameters);
