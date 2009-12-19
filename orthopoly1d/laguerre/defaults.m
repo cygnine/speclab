@@ -18,10 +18,13 @@ function[opt] = defaults(varargin)
 %     x                   The location of the Gauss-Radau point.
 %     normalization       'normal' -- the L^2 normalized polynomials
 %                         'monic' -- the monic polynomials
+%     weight_normalization: ''   Specifies the normalization of the weight function
+%     dim: 1                     Spatial dimension of the tensor-product evaluation
 
 global packages;
-lnames = {'alpha', 'shift', 'scale', 'd', 'x', 'normalization'};
-ldefaults = {0, 0, 1, 0, 0, 'normal'};
+lnames = {'alpha', 'shift', 'scale', 'd', 'x', 'normalization', ...
+          'weight_normalization', 'dim'};
+ldefaults = {0, 0, 1, 0, 0, 'normal', '', 1};
 
 opt = packages.labtools.input_schema(lnames, ldefaults, [], varargin{:});
 

@@ -197,7 +197,7 @@ function[data] = ddr_P_data(opt);
 function[tf] = ddr_P_validator(data,opt);
   [r,ps,dps,zetas] = deal(data.r, data.ps, data.dps, data.zetas);
 
-  tol = 10^(-8+(opt.alpha/3+opt.beta/3 + abs(opt.alpha-opt.beta)/3));
+  tol = 5*10^(-8+(opt.alpha/3+opt.beta/3 + abs(opt.alpha-opt.beta)/3));
   opt.N = min([opt.N, 50]); % don't test them all
   err = dps(:,2:opt.N) - ps(:,1:(opt.N-1))*spdiags(zetas(2:end),0,opt.N-1,opt.N-1);
   tf = norm(err)<tol;

@@ -6,11 +6,11 @@ function[modes] = positive_integer_separation_connection(modes,gamma,delta,G,D)
 %     (gamma+G,delta+D) for G,D>0. The connection coefficients are not explicity
 %     computed. It is assumed that the inputs G and D are integers.
 
-persisten jac fourier sc_expand sc_collapse
-if isempty(jac)
-  imp speclab.orthopoly1d.jacobi as jac
+persistent connection sc_expand sc_collapse
+if isempty(connection)
+  from speclab.fourier.connection import sc_expand sc_collapse
+  from speclab.orthopoly1d.jacobi.connection import integer_separation_connection_matrix as connection
   from speclab import fourier
-  from fourier.connection import sc_expand sc_collapse
 end
 
 %global packages;
@@ -31,8 +31,8 @@ N = length(modes);
 
 [cmodes,smodes] = sc_collapse(modes,N);
 Nc = ceil((N+1)/2);
-C_even = jac.connection.integer_separation_connection_matrix(Nc,alpha,beta,A,B);
-C_odd = jac.connection.integer_separation_connection_matrix(Nc-1,alpha+1,beta+1,A,B);
+C_even = connection(Nc,alpha,beta,A,B);
+C_odd = connection(Nc-1,alpha+1,beta+1,A,B);
 
 cmodes = C_even*cmodes;
 smodes = C_odd*smodes;

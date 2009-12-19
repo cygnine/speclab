@@ -11,7 +11,7 @@ function[out] = affine_scaling(interval,varargin)
 persistent input_schema lag
 if isempty(input_schema)
   from labtools import input_schema
-  imp speclab.orthopoly1d.laguerre as lag
+  import speclab.orthopoly1d.laguerre as lag
 end
 
 %lag = from_as('speclab.orthopoly1d', 'laguerre');

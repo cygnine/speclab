@@ -3,12 +3,12 @@ function[F] = jfft_online(f,data)
 %
 %     Uses precomputed data from jfft_overhead to perform the Jacobi FFT.
 
-persistent jac
-if isempty(jac)
-  imp speclab.orthopoly1d.jacobi as jac
+persistent chebfft_online
+if isempty(chebfft_online)
+  from speclab.orthopoly1d.jacobi.fft import chebfft_online
 end
 %global packages;
 %jac = packages.speclab.orthopoly1d.jacobi;
 
-F = jac.fft.chebfft_online(f,data.chebdata);
+F = chebfft_online(f,data.chebdata);
 F = data.C*F;

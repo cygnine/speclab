@@ -120,7 +120,7 @@ function[tf] = derivative_stiffness_validator(data,opt);
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   df = @(x) opt.N/(10*opt.scale)*cos(opt.N/(10*opt.scale)*x);
-  tol = 2*10^(-5+opt.alpha/6+opt.beta/6 + abs(opt.alpha-opt.beta)/6);
+  tol = 9*10^(-5+opt.alpha/6+opt.beta/6 + abs(opt.alpha-opt.beta)/6);
   [x,x_refined,vinv,ps] = deal(data.x,data.x_refined,data.vinv,data.ps);
   modes = vinv*f(x);
 

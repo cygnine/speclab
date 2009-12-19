@@ -5,7 +5,7 @@
 % functions. 
 clear
 from labtools import exloglog typelatex
-imp speclab.orthopoly1d.jacobi as leg
+import speclab.orthopoly1d.jacobi as leg
 %exloglog = packages.labtools.exloglog;
 %typelatex = packages.labtools.typelatex;
 %leg = packages.speclab.orthopoly1d.jacobi;

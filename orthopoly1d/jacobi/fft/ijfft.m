@@ -6,26 +6,23 @@ function[f] = jifft(F,varargin)
 %     IFFT. The locations of the nodes must be a **Chebyshev** fft-compatible
 %     set of points. See chebifft. 
 
-persistent jac la input_schema
+persistent jac triu_sparse_invert input_schema
 if isempty(input_schema)
-  imp speclab.labtools.jacobi as jac
-  imp labtools.linalg as la
+  from labtools.linalg import triu_sparse_invert
+  from speclab.orthopoly1d import jacobi as jac
   from labtools import input_schema
 end
 
-%global packages;
-%jac = packages.speclab.orthopoly1d.jacobi;
-%la = packages.labtools.linalg;
 inputs = {'points', 'alpha', 'beta', 'normalization', 'scale'};
 defaults = {'gq', -1/2, -1/2, 'normal', 1};
 opt = input_schema(inputs, defaults, [], varargin{:});
 
-[tf,A,B] = jac.fft.fftable(opt);
+[tf,A,B] = jac.fft.fftable.handle(opt);
 if not(tf)
   error('Cannot use the FFT when 2*alpha and 2*beta are not odd integers');
 end
 N = size(F,1);
 
-C = jac.connection.integer_separation_connection_matrix(N,-1/2,-1/2,A,B);
-F = la.triu_sparse_invert(C,F,'bandwidth',A+B+1);
-f = jac.fft.chebifft(F,opt);
+C = jac.connection.integer_separation_connection_matrix.handle(N,-1/2,-1/2,A,B);
+F = triu_sparse_invert(C,F,'bandwidth',A+B+1);
+f = jac.fft.chebifft.handle(F,opt);

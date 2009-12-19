@@ -9,7 +9,7 @@
 clear
 % The following two lines extract the 'module' of functions we'll need
 from speclab.orthopoly1d import jacobi as cheb
-imp labtools as common
+import labtools as common
 %cheb = packages.speclab.orthopoly1d.jacobi;
 %common = packages.labtools;
 % We've called 'cheb' the jacobi module. Unless you say otherwise, speclab
