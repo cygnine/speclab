@@ -14,24 +14,29 @@ function[y] = stiffness_operator(x,varargin)
 %         polynomials of class (alpha+1). Then use the sparse integer-separation
 %         connection to invert a tridiagonal upper-diagonal system. 
 
-global packages;
-lag = packages.speclab.orthopoly1d.laguerre;
-opt = lag.defaults(varargin{:});
-linv = packages.labtools.linalg.triu_sparse_invert;
+persistent defaults matinv derivative connection
+if isempty(defaults)
+  from speclab.orthopoly1d.laguerre import defaults
+  from labtools.linalg import triu_sparse_invert as matinv
+  from speclab.orthopoly1d.laguerre.coefficients import derivative
+  from speclab.orthopoly1d.laguerre.connection import integer_separation_connection_matrix as connection
+end
+
+opt = defaults(varargin{:});
 
 % Force column vector
 x = x(:);
 N = length(x);
 
 % Get derivative coefficients
-zetas = lag.coefficients.derivative(0:(N-1),opt.alpha,opt);
+zetas = derivative(0:(N-1),opt.alpha,opt);
 zetas = zetas*opt.scale;  % WTF!?!!?!
 
 % Get connection matrix
-C = lag.connection.integer_separation_connection_matrix(N,opt.alpha,1,opt);
+C = connection(N,opt.alpha,1,opt);
 
 % new coefficients in (alpha+1)
 y = x(2:end).*zetas(2:end);
 y = [y;0];
 
-y = linv(C,y,'bandwidth',3);
+y = matinv(C,y,'bandwidth',3);

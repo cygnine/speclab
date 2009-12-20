@@ -4,8 +4,10 @@ function[F] = wfft_collocation_online(f,data)
 %     Computes the Wiener collocation FFT of the function evaluations f using
 %     the precomputed data stored in the struct data.
 
-global packages;
-fourier = packages.speclab.fourier;
+persistent ffft_online
+if isempty(ffft_online)
+  from speclab.fourier.fft import ffft_online
+end
 
 f = f./data.weight;
-F = fourier.fft.ffft_online(f,data.fourier_data);
+F = ffft_online(f,data.fourier_data);

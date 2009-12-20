@@ -17,11 +17,15 @@ function[opt] = defaults(varargin)
 %     normalization       'normal' -- the L^2 normalized polynomials
 %                         'monic' -- the monic polynomials
 
-global packages;
+persistent input_schema
+if isempty(input_schema)
+  from labtools import input_schema
+end
+
 hnames = {'mu', 'shift', 'scale', 'd', 'x', 'normalization'};
 hdefaults = {0, 0, 1, 0, 0, 'normal'};
 
-opt = packages.labtools.input_schema(hnames, hdefaults, [], varargin{:});
+opt = input_schema(hnames, hdefaults, [], varargin{:});
 
 % Change default x to match shift, scale
 opt.x = opt.x*opt.scale + opt.shift;

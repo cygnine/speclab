@@ -5,19 +5,24 @@ function[v] = vandermonde_matrix(varargin);
 %     input x or the input n is required. If e.g. Gauss-Radau is Lobatto
 %     points are desired for x, form them externally and feed them in.
 
-global packages;
-jac = packages.speclab.orthopoly1d.jacobi;
-opt = jac.defaults(varargin{:});
+persistent defaults make_vandermonde gq
+if isempty(defaults)
+  from speclab.orthopoly1d.jacobi import defaults
+  from speclab.orthopoly1d.jacobi.quad import gauss_quadrature as gq
+  from labtools import make_vandermonde
+end
+
+opt = defaults(varargin{:});
 
 if x ~= false
   x = x(:);
   n = 0:(length(x)-1);
 
 elseif n ~= false
-  [x,w] = jac.quad.gauss_quadrature(n,opt);
+  [x,w] = gq(n,opt);
   n = 0:(n-1);
 else
   error('You must input either a nodal vector x or a size n');
 end
 
-v = packages.labtools.make_vandermonde(x,n,jac.eval.eval_jacobi_poly,opt);
+v = make_vandermonde(x,n,jac.eval.eval_jacobi_poly,opt);

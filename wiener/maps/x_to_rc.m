@@ -5,9 +5,13 @@ function[rc] = x_to_rc(x,varargin)
 %     interval rc=[-1,1] is assumed, and the shift and scale parameters refer to
 %     the scaling of the x interval.
 
-global packages;
-sss = packages.speclab.common.standard_scaleshift_1d;
-opt = packages.labtools.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
+persistent input_schema sss
+if isempty(input_schema)
+  from labtools import input_schema
+  from speclab.common import standard_scaleshift_1d as sss
+end
+
+opt = input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 x = sss(x,opt);
 rc = 2*x./(1+x.^2);

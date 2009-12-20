@@ -10,11 +10,6 @@ if isempty(wiener)
   from speclab.fourier.connection import positive_integer_separation_connection_online as wconnect
 end
 
-%global packages;
-%wiener = packages.speclab.wiener;
-%fourier = packages.speclab.fourier;
-%wconnect = fourier.connection.positive_integer_separation_connection_online;
-
 F = fourier.fft.ffft_online(f,data.fftdata);
 F = wiener.operators.wiener_weight_divide(F,data.opt);
 if data.S>0

@@ -13,19 +13,22 @@ function[Psi] = fseries(theta,k,varargin)
 %     will be L^2-normalized, where L^2 refers to the weighted norm specified by
 %     gamma and delta. See the files in speclab/fourier/weights.
 
-global packages;
-jac = packages.speclab.orthopoly1d.jacobi;
-fourier = packages.speclab.fourier;
-rtheta = packages.speclab.fourier.maps;
-opt = packages.speclab.fourier.defaults(varargin{:});
+persistent eval_jacobi_poly classic_fourier theta_to_r theta_to_rc sss defaults
+if isempty(eval_jacobi_poly)
+  from speclab.orthopoly1d.jacobi.eval import eval_jacobi_poly
+  from speclab.fourier import classic_fourier defaults
+  from speclab.fourier.maps import theta_to_r theta_to_rc
+  from speclab.common import standard_scaleshift_1d as sss
+end
+
+opt = defaults(varargin{:});
 
 theta = theta(:);
 N_theta = length(theta);
 k = k(:);
 N_k = length(k);
 
-if fourier.classic_fourier(opt);
-  sss = packages.speclab.common.standard_scaleshift_1d;
+if classic_fourier(opt);
   Psi = 1/sqrt(2*pi)*exp(i*sss(theta,opt)*k.');
   return;
 end
@@ -38,18 +41,18 @@ N_k_not_0 = N_k - sum(k_is_0);
 alpha = opt.delta - 1/2;
 beta = opt.gamma - 1/2;
 
-r = rtheta.theta_to_r(theta,opt);
-rc = rtheta.theta_to_rc(theta,opt);
+r = theta_to_r(theta,opt);
+rc = theta_to_rc(theta,opt);
 
 Psi = zeros([N_theta, N_k]);
 
-p1 = jac.eval.eval_jacobi_poly(r,abs(k),'alpha', alpha, ...
+p1 = eval_jacobi_poly(r,abs(k),'alpha', alpha, ...
                                         'beta',  beta);
 
 Psi(:,k_is_0) = 1/sqrt(2)*p1(:,k_is_0);
 
 if any(k_not_0)
-  p2 = jac.eval.eval_jacobi_poly(r,abs(k(k_not_0))-1, 'alpha', alpha+1, ...
+  p2 = eval_jacobi_poly(r,abs(k(k_not_0))-1, 'alpha', alpha+1, ...
                                                       'beta',  beta+1);
   p2 = i*spdiags(rc,0,N_theta,N_theta)*p2...
        *spdiags(sign(k(k_not_0)), 0,N_k_not_0, N_k_not_0);

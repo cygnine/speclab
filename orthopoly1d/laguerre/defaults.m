@@ -21,12 +21,16 @@ function[opt] = defaults(varargin)
 %     weight_normalization: ''   Specifies the normalization of the weight function
 %     dim: 1                     Spatial dimension of the tensor-product evaluation
 
-global packages;
+persistent input_schema
+if isempty(input_schema)
+  from labtools import input_schema
+end
+
 lnames = {'alpha', 'shift', 'scale', 'd', 'x', 'normalization', ...
           'weight_normalization', 'dim'};
 ldefaults = {0, 0, 1, 0, 0, 'normal', '', 1};
 
-opt = packages.labtools.input_schema(lnames, ldefaults, [], varargin{:});
+opt = input_schema(lnames, ldefaults, [], varargin{:});
 
 % Change default x to match shift, scale
 opt.x = opt.x*opt.scale + opt.shift;

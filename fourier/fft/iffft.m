@@ -10,16 +10,21 @@ function[nodes,ks] = iffft(modes,varargin);
 %     expansion, and the values shift and scale dictate the affine map from
 %     [-pi,pi] to another interval.
 
-global packages;
-opt = packages.labtools.input_schema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
-conn = packages.speclab.fourier.connection.negative_integer_separation_connection;
+persistent input_schema connection integer_range
+if isempty(input_schema)
+  from labtools import input_schema
+  from speclab.common import integer_range
+  from speclab.fourier.connection import negative_integer_separation_connection as connection
+end
+
+opt = input_schema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
 N = length(modes);
 
 if (opt.gamma+opt.delta)>0
-  modes = conn(modes,opt.gamma,opt.delta,opt.gamma,opt.delta);
+  modes = connection(modes,opt.gamma,opt.delta,opt.gamma,opt.delta);
 end
 
-ks = packages.speclab.common.integer_range(N);
+ks = integer_range(N);
 phase = exp(-i*ks*pi/N);
 phase(ks==0) = 1;
 phase(mod(ks,2)==1) = phase(mod(ks,2)==1)*-1;

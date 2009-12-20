@@ -3,13 +3,18 @@ function[data] = ffft_overhead(N,varargin);
 %
 %     Overhead computation and storage for the forward and inverse Fourier FFT.
 
-global packages;
-opt = packages.labtools.input_schema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
-conn = packages.speclab.fourier.connection.integer_separation_connection_overhead;
+persistent input_schema connection integer_range
+if isempty(integer_range)
+  from labtools import input_schema
+  from speclab.common import integer_range
+  from speclab.fourier.connection import integer_separation_connection_overhead as connection
+end
 
-conndata = conn(N,0,0,opt.gamma,opt.delta);
+opt = input_schema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
 
-ks = packages.speclab.common.integer_range(N);
+conndata = connection(N,0,0,opt.gamma,opt.delta);
+
+ks = integer_range(N);
 phase = exp(-i*ks*pi/N);
 phase(ks==0) = 1;
 phase(mod(ks,2)==1) = phase(mod(ks,2)==1)*-1;

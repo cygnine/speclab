@@ -12,7 +12,6 @@ if isempty(input_schema)
   from labtools import input_schema
 end
 
-%global packages;
 opt = input_schema({'alpha', 'beta'}, {-1/2, -1/2}, [], varargin{:});
 
 tol = 1e-12;

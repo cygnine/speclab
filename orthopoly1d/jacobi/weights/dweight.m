@@ -7,9 +7,13 @@ function[w] = dweight(r,varargin)
 %     so that if scale is not 1, then the polynomials that were once 'normal',
 %     aren't anymore.
 
-global packages;
-opt = packages.speclab.orthopoly1d.jacobi.defaults(varargin{:});
-sss = packages.speclab.common.standard_scaleshift_1d;
+persistent defaults sss
+if isempty(defaults)
+  from speclab.orthopoly1d.jacobi import defaults
+  from speclab.common import standard_scaleshift_1d as sss
+end
+
+opt = defaults(varargin{:});
 r = sss(r,opt);
 
 wa = (1-r).^opt.alpha;

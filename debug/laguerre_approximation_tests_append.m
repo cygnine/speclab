@@ -88,7 +88,7 @@ function[tf] = interpolant_validator(data,opt);
   %lag = packages.speclab.orthopoly1d.laguerre;
 
   f = @(x) exp(-x.^2);
-  tol = 10^(-3.5+opt.alpha/3);
+  tol = 5*10^(-3.5+opt.alpha/3);
   [x,w,ps,x_refined,ps_refined] = deal(data.x,data.w,data.ps, ...
      data.x_refined, data.ps_refined);
 

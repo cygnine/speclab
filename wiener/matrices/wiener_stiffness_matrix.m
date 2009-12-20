@@ -7,18 +7,23 @@ function[S] = wiener_stiffness_matrix(N,varargin)
 %
 %     TODO: this is hardly the most efficient way to construct this....
 
-global packages;
-wiener = packages.speclab.wiener;
-opt = wiener.defaults(varargin{:});
+persistent defaults integer_range modal_derivative
+if isempty(defaults)
+  from speclab.wiener import defaults
+  from speclab.common import integer_range
+  from speclab.wiener.coefficients import modal_derivative
+end
 
-ks = packages.speclab.common.integer_range(N+4);
+opt = defaults(varargin{:});
+
+ks = integer_range(N+4);
 
 if opt.s==1
   S = spalloc(N+4,N+4,3*(N+4));
 else
   S = spalloc(N+4,N+4,6*(N+4));
 end
-inds = wiener.coefficients.modal_derivative(ks,opt);
+inds = modal_derivative(ks,opt);
 inds = inds/opt.scale;
 
 zeroind = find(ks==0);

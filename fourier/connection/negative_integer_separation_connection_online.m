@@ -6,19 +6,19 @@ function[modes] = negative_integer_separation_connection_online(modes,data)
 %     (gamma-G,delta-D) for G,D>0. The values of G, D, gamma, and delta are
 %     already set in the construction of the input data.
 
+persistent sc_expand sc_collapse matinv
+if isempty(sc_expand)
+  from speclab.fourier.connection import sc_expand sc_collapse
+  from labtools.linalg import triu_sparse_invert as matinv
+end
+
 if data.no_connect
   return
 end
 
-global packages;
-fourier = packages.speclab.fourier;
-la = packages.labtools.linalg;
-sc_expand = fourier.connection.sc_expand;
-sc_collapse = fourier.connection.sc_collapse;
-
 [cmodes,smodes] = sc_collapse(modes,data.N);
 
-cmodes = la.triu_sparse_invert(data.C_even,cmodes,'bandwidth',data.GD+1);
-smodes = la.triu_sparse_invert(data.C_odd,smodes,'bandwidth',data.GD+1);
+cmodes = matinv(data.C_even,cmodes,'bandwidth',data.GD+1);
+smodes = matinv(data.C_odd,smodes,'bandwidth',data.GD+1);
 
 modes = sc_expand(cmodes,smodes,data.N);

@@ -12,16 +12,20 @@ function[mu] = one_plus_r_times_p(n,alpha,beta,varargin)
 %     The optional input normalization defines the normalization of the
 %     polynomials P, which affects the values of the parameters mu.
 
-global packages;
-coeffs = packages.speclab.orthopoly1d.jacobi.coefficients;
-opt = packages.labtools.input_schema({'normalization','scale'}, {'normal',1}, [],varargin{:});
+persistent input_schema one_minus_r_times_p
+if isempty(input_schema)
+  from labtools import input_schema
+  from speclab.orthopoly1d.jacobi.coefficients import one_minus_r_times_p
+end
+
+opt = input_schema({'normalization','scale'}, {'normal',1}, [],varargin{:});
 n = n(:);
 N = length(n);
 
 mu = zeros([N,2]);
 
 if strcmpi(opt.normalization,'normal')
-  mu = coeffs.one_minus_r_times_p(n,beta,alpha,opt);
+  mu = one_minus_r_times_p(n,beta,alpha,opt);
   mu(:,2) = -mu(:,2);
 else
   fprintf('Error: normalization %s not supported', opt.normalization);

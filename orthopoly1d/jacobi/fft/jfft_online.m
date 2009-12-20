@@ -7,8 +7,6 @@ persistent chebfft_online
 if isempty(chebfft_online)
   from speclab.orthopoly1d.jacobi.fft import chebfft_online
 end
-%global packages;
-%jac = packages.speclab.orthopoly1d.jacobi;
 
 F = chebfft_online(f,data.chebdata);
 F = data.C*F;

@@ -5,7 +5,11 @@ function[I] = interval(varargin)
 %     Fourier Series given the affine scalings SHIFT and SCALE. The default
 %     interval is [-pi,pi].
 
-global packages;
-opt = packages.speclab.fourier.defaults(varargin{:});
+persistent defaults
+if isempty(defaults)
+  from speclab.fourier import defaults
+end
+
+opt = defaults(varargin{:});
 
 I = [-pi*opt.scale+opt.shift, opt.shift+pi*opt.scale];

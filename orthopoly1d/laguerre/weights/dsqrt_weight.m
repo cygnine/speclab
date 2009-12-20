@@ -7,9 +7,13 @@ function[dw] = dsqrt_weight(x,varargin)
 %     assocaited with the Laguerre polynomials. The weight function incorporates
 %     the affine scale and shift. (Including the affine Jacobian)
 
-global handles;
-opt = handles.speclab.orthopoly1d.laguerre.defaults(varargin{:});
-sss = handles.speclab.common.standard_scaleshift1d;
+persistent defaults sss
+if isempty(defaults)
+  from speclab.orthopoly1d.laguerre import defaults
+  from speclab.common import standard_scaleshift_1d as sss
+end
+
+opt = defaults(varargin{:});
 x = sss(x,opt);
 
 if opt.alpha==0

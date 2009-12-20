@@ -7,8 +7,12 @@ function[data] = chebfft_overhead(N,varargin);
 %     points. If they're located at different locations, make the optional input
 %     points either 'grq' for Gauss-Radau or 'glq' for Gauss-Lobatto.
 
-global packages;
-opt = packages.labtools.input_schema({'normalization','scale', 'points'}, ...
+persistent input_schema
+if isempty(input_schema)
+  from labtools import input_schema
+end
+
+opt = input_schema({'normalization','scale', 'points'}, ...
   {'normal',1, 'gq'},[], varargin{:});
 
 if strcmpi(opt.points, 'gq')

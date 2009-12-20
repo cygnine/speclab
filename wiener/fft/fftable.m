@@ -16,7 +16,7 @@ persistent input_schema
 if isempty(input_schema)
   from labtools import input_schema
 end
-%global packages;
+
 opt = input_schema({'s', 't'}, {1, 0}, [], varargin{:});
 
 tol = 1e-12;

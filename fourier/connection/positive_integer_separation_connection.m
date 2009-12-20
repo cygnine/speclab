@@ -13,12 +13,6 @@ if isempty(connection)
   from speclab import fourier
 end
 
-%global packages;
-%jac = packages.speclab.orthopoly1d.jacobi;
-%fourier = packages.speclab.fourier;
-%sc_expand = fourier.connection.sc_expand;
-%sc_collapse = fourier.connection.sc_collapse;
-
 if (G+D)<=0
   return
 end

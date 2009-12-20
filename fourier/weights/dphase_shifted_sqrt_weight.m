@@ -7,17 +7,20 @@ function[w] = dphase_shifted_sqrt_weight(theta,varargin)
 %     indicate the interval over which to evaluate the weight function. Note
 %     that this weight function depends on scale. 
 
-global packages;
-opt = packages.speclab.fourier.defaults(varargin{:});
-sss = packages.speclab.common.standard_scaleshift_1d;
-fourier = packages.speclab.fourier;
-jac = packages.speclab.orthopoly1d.jacobi;
-tr = packages.speclab.fourier.maps;
+persistent sss weight dweight defaults
+if isempty(weight)
+  from speclab.fourier import defaults
+  from speclab.common import standard_scaleshift_1d as sss
+  from speclab.fourier.weights import weight dweight
+end
+
+opt = defaults(varargin{:});
+%tr = packages.speclab.fourier.maps;
 
 opt.gamma = opt.gamma/2;
 opt.delta = opt.delta/2;
-fw = fourier.weights.weight(theta,opt);
-dfw = fourier.weights.dweight(theta,opt);
+fw = weight(theta,opt);
+dfw = dweight(theta,opt);
 
 theta = sss(theta,opt);
 

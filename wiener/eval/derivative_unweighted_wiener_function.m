@@ -7,16 +7,21 @@ function[dw] = derivative_unweighted_wiener_function(x,k,varargin)
 %     dictate the affine scaling of the functions. The output w has size
 %     length(x) x length(k). 
 
-global packages;
-fourier = packages.speclab.fourier;
-rx = packages.speclab.wiener.maps;
-opt = packages.speclab.wiener.defaults(varargin{:});
+persistent x_to_theta dtheta_dx dfseries defaults
+if isempty(defaults)
+  from speclab.wiener import defaults
+  from speclab.fourier.eval import dfseries
+  from speclab.wiener.maps import x_to_theta
+  from speclab.wiener.maps import dtheta_dx
+end
+
+opt = defaults(varargin{:});
 
 % Force column vector
 x = x(:);
 N = length(x);
-theta = rx.x_to_theta(x,opt);
-dtdx = rx.dtheta_dx(x,opt);
+theta = x_to_theta(x,opt);
+dtdx = dtheta_dx(x,opt);
 
 fopt = struct('gamma',opt.s-1,'delta',opt.t);
-dw = spdiags(dtdx,0,N,N)*fourier.eval.dfseries(theta,k,fopt);
+dw = spdiags(dtdx,0,N,N)*dfseries(theta,k,fopt);

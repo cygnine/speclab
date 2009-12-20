@@ -14,15 +14,18 @@ function[F] = wiener_weight_divide(F,varargin)
 %      TODO: optimize via sliding s-length updater over vector (removes outer
 %      for loop).
 
-global packages;
-wiener = packages.speclab.wiener;
-opt = wiener.defaults(varargin{:});
-linalg = packages.labtools.linalg;
+persistent defaults matinv
+if isempty(defaults)
+  from speclab.wiener import defaults
+  from labtools.linalg import triu_sparse_invert as matinv
+end
+
+opt = defaults(varargin{:});
 
 N = length(F);
 fconnection = spdiags(ones([N,2]), [0,1], N,N);
 for scount = 1:opt.s
-  F = linalg.triu_sparse_invert(fconnection, F, 'bandwidth', 2);
+  F = matinv(fconnection, F, 'bandwidth', 2);
 end
 
 F = F*sqrt(opt.scale)*(sqrt(2)/i)^opt.s;

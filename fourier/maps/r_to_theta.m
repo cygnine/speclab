@@ -5,9 +5,13 @@ function[theta] = r_to_theta(r,varargin)
 %     assumed, and the shift and scale parameters refer to the scaling of the
 %     theta interval.
 
-global packages;
-pss = packages.speclab.common.physical_scaleshift_1d;
-opt = packages.labtools.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
+persistent input_schema pss
+if isempty(input_schema)
+  from labtools import input_schema
+  from speclab.common import physical_scaleshift_1d as pss
+end
+
+opt = input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 theta = acos(r);
 theta = pss(theta,opt);

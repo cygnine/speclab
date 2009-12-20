@@ -10,12 +10,10 @@ function[modes] = piecewise_poly_modes(monomial_coefficients,mesh,N);
 %     of the N modal coefficeints are determined by canonical modal numbering
 %     scheme. See integer_range.
 
-persistent fourier
-if isempty(fourier)
-  from speclab import fourier
+persistent integer_range
+if isempty(integer_range)
+  from speclab.common import integer_range
 end
-%global packages;
-%fourier = packages.speclab.fourier;
 
-ks = fourier.integer_range(N);
+ks = integer_range(N);
 [N,k] = size(monomial_coefficients);

@@ -7,9 +7,13 @@ function[w] = dweight(x,varargin)
 %     Hermite polynomials. The weight function incorporates the affine scale and
 %     shift. (Including the affine Jacobian)
 
-global packages;
-opt = packages.speclab.orthopoly1d.hermite.defaults(varargin{:});
-sss = packages.speclab.common.standard_scaleshift1d;
+persistent defaults sss
+if isempty(defaults)
+  from speclab.orthopoly1d.hermite import defaults
+  from speclab.common import standard_scaleshift_1d as sss
+end
+
+opt = defaults(varargin{:});
 x = sss(x,opt);
 
 if mu==0

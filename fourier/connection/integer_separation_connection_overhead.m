@@ -4,11 +4,10 @@ function[data] = integer_separation_connection_overhead(N,gamma,delta,G,D)
 %     Performs overhead computations for Fourier integer-parameter connections
 %     and stores the information in data.
 
-global packages;
-jac = packages.speclab.orthopoly1d.jacobi;
-fourier = packages.speclab.fourier;
-sc_expand = fourier.connection.sc_expand;
-sc_collapse = fourier.connection.sc_collapse;
+persistent connection
+if isempty(connection)
+  from speclab.orthopoly1d.jacobi.connection import integer_separation_connection_matrix as connection
+end
 
 GD = G+D;
 no_connect = GD==0;
@@ -23,8 +22,8 @@ B = G;
 %[cmodes,smodes] = sc_collapse(modes,N);
 
 Nc = ceil((N+1)/2);
-C_even = jac.connection.integer_separation_connection_matrix(Nc,alpha,beta,A,B);
-C_odd = jac.connection.integer_separation_connection_matrix(Nc-1,alpha+1,beta+1,A,B);
+C_even = connection(Nc,alpha,beta,A,B);
+C_odd = connection(Nc-1,alpha+1,beta+1,A,B);
 
 [data.C_even, data.C_odd, data.N, data.no_connect, data.GD] = ...
   deal(C_even, C_odd,N, no_connect, GD);

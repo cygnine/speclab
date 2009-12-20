@@ -5,9 +5,13 @@ function[d] = dr_dtheta(theta,varargin)
 %     interval r=[-1,1] is assumed, and the shift and scale parameters refer to
 %     the scaling of the theta interval.
 
-global packages;
-sss = packages.speclab.common.standard_scaleshift_1d;
-opt = packages.labtools.input_schema({'shift','scale'}, {0,1}, [],varargin{:});
+persistent sss input_schema
+if isempty(input_schema)
+  from labtools import input_schema
+  from speclab.common import standard_scaleshift_1d as sss
+end
+
+opt = input_schema({'shift','scale'}, {0,1}, [],varargin{:});
 
 theta = sss(theta,opt);
 d = -sin(theta)/opt.scale;

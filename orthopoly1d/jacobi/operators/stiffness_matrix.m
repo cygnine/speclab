@@ -7,19 +7,24 @@ function[S] = stiffness_matrix(N,varargin)
 %
 %     This is the direct method for stiffness_operator.
 
-global packages;
-jac = packages.speclab.orthopoly1d.jacobi;
-opt = jac.defaults(varargin{:});
+persistent defaults derivative connection
+if isempty(defaults)
+  from speclab.orthopoly1d.jacobi import defaults
+  from speclab.orthopoly1d.jacobi.coefficients import derivative
+  from speclab.orthopoly1d.jacobi.connection import integer_separation_connection_matrix as connection
+end
+
+opt = defaults(varargin{:});
 
 % Force column vector
 S = zeros(N);
 
 % Get derivative coefficients
-zetas = jac.coefficients.derivative(0:(N-1),opt.alpha,opt.beta,opt);
+zetas = derivative(0:(N-1),opt.alpha,opt.beta,opt);
 zetas = zetas/opt.scale;  % WTF!?!!?!
 
 % Get connection matrix
-C = jac.connection.integer_separation_connection_matrix(N,opt.alpha,opt.beta,1,1,opt);
+C = connection(N,opt.alpha,opt.beta,1,1,opt);
 
 % new coefficients in (alpha+1,beta+1):
 S = spdiags(zetas,1,N,N);

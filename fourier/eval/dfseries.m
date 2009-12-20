@@ -15,10 +15,14 @@ function[dPsi] = dfseries(theta,k,varargin)
 %     the weighted norm specified by gamma and delta. See the files in
 %     speclab/fourier/weights.
 
-global packages;
-jac = packages.speclab.orthopoly1d.jacobi;
-rtheta = packages.speclab.fourier.maps;
-opt = packages.speclab.fourier.defaults(varargin{:});
+persistent rtheta eval_jacobi_poly defaults
+if isempty(eval_jacobi_poly)
+  from speclab.fourier import maps as rtheta
+  from speclab.orthopoly1d.jacobi.eval import eval_jacobi_poly
+  from speclab.fourier import defaults
+end
+
+opt = defaults(varargin{:});
 
 theta = theta(:);
 N_theta = length(theta);
@@ -41,15 +45,15 @@ drc = rtheta.drc_dtheta(theta,opt);
 dPsi = zeros([N_theta, N_k]);
 
 dPsi = 1/2*spdiags(dr,0,N_theta,N_theta)*...
-       jac.eval.eval_jacobi_poly(r,abs(k),'alpha', alpha, ...
+       eval_jacobi_poly(r,abs(k),'alpha', alpha, ...
                                           'beta',  beta, ...
                                           'd', 1);
 dPsi(:,k_is_0) = dPsi(:,k_is_0)*sqrt(2);
 
 if any(k_not_0)
-  p2 = jac.eval.eval_jacobi_poly(r,abs(k(k_not_0))-1, 'alpha', alpha+1, ...
+  p2 = eval_jacobi_poly(r,abs(k(k_not_0))-1, 'alpha', alpha+1, ...
                                                       'beta',  beta+1);
-  dp2 = jac.eval.eval_jacobi_poly(r,abs(k(k_not_0))-1, 'alpha', alpha+1, ...
+  dp2 = eval_jacobi_poly(r,abs(k(k_not_0))-1, 'alpha', alpha+1, ...
                                                        'beta',  beta+1, ...
                                                        'd', 1);
   odd_term = i*spdiags(drc,0,N_theta,N_theta)*p2 + ...

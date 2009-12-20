@@ -7,9 +7,13 @@ function[w] = weight(x,varargin)
 %     weight function incorporates the affine scale and shift. (Including the
 %     affine Jacobian)
 
-global packages;
-opt = packages.speclab.orthopoly1d.laguerre.defaults(varargin{:});
-sss = packages.speclab.common.standard_scaleshift_1d;
+persistent defaults sss
+if isempty(defaults)
+  from speclab.orthopoly1d.laguerre import defaults
+  from speclab.common import standard_scaleshift_1d as sss
+end
+
+opt = defaults(varargin{:});
 x = sss(x,opt);
 
 w = x.^opt.alpha.*exp(-x);

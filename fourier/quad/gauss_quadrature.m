@@ -8,14 +8,19 @@ function[theta,w] = gauss_quadrature(N,varargin)
 %     quadrature rule is valid. gamma=delta=0 is the canonical Fourier set.
 %     shift and scale are affine scaling parameters. 
 
-global packages;
-opt = packages.speclab.fourier.defaults(varargin{:});
-jac = packages.speclab.orthopoly1d.jacobi;
-pss = packages.speclab.common.physical_scaleshift_1d;
+persistent gq grq pss defaults
+if isempty(pss)
+  from speclab.common import physical_scaleshift_1d as pss
+  from speclab.fourier import defaults
+  from speclab.orthopoly1d.jacobi.quad import gauss_quadrature as gq
+  from speclab.orthopoly1d.jacobi.quad import gauss_radau_quadrature as grq
+end
+
+opt = defaults(varargin{:});
 
 if mod(N,2)==0
 
-  [r,wr] = jac.quad.gauss_quadrature(N/2, 'alpha', opt.delta-1/2,...
+  [r,wr] = gq(N/2, 'alpha', opt.delta-1/2,...
                                         'beta',  opt.gamma-1/2);
   r = flipud(r); wr = flipud(wr);
 
@@ -26,7 +31,7 @@ if mod(N,2)==0
 
 else
   
-  [r,wr] = jac.quad.gauss_radau_quadrature((N+1)/2, 'alpha', opt.delta-1/2, ...
+  [r,wr] = grq((N+1)/2, 'alpha', opt.delta-1/2, ...
                                                   'beta',  opt.gamma-1/2, ...
                                                   'r', 1);
 

@@ -1,18 +1,20 @@
 function[x,w] = gauss_lobatto_quadrature(a,b,N,r1,r2);
-% [X,W] = GAUSS_LOBATTO_QUADRATURE(A,B,N,R1,R2);
+% [x,w] = gauss_lobatto_quadrature(a,b,N,r1,r2);
 %
 %     Returns the N-point Gauss-Lobatto polynomial quadrature for the orthogonal
 %     polynomials corresponding to the recurrence coefficients a and b.
 %     The fixed Lobatto points are r1, r2.
 
-global packages;
-opoly = packages.speclab.orthopoly1d;
-gq = packages.speclab.orthopoly1d.gauss_quadrature;
+persistent gq eval_polynomial
+if isempty(gq)
+  from speclab.orthopoly1d import gauss_quadrature as gq
+  from speclab.orthopoly1d import eval_polynomial
+end
 
 a = a(1:N);
 b = b(1:N);
 
-temp = opoly.eval_polynomial([r1; r2],a,b,[N-1,N-2],'normalization','monic');
+temp = eval_polynomial([r1; r2],a,b,[N-1,N-2],'normalization','monic');
 modif = inv(temp)*[r1*temp(1,1); r2*temp(2,1)];
 
 % Lobatto modification for Jacobi matrix: 1999_gautschi
@@ -23,9 +25,3 @@ a = a(:);
 b = b(:);
 
 [x,w] = gq(a,b,N);
-
-%J = spdiags([sqrt([b(2:end);0]) a sqrt(b)], -1:1, N, N);
-%
-%[v,d] = eig(full(J));
-%x = diag(d);
-%w = b(1)*v(1,:).^2.';

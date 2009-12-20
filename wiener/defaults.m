@@ -11,8 +11,12 @@ function[opt] = defaults(varargin);
 %           x: false                   Placeholder for optional input in vandermonde routines
 %           n: false                   Placeholder for optional input in vandermonde routines
 % 
-global packages;
+
+persistent input_schema
+if isempty(input_schema)
+  from labtools import input_schema
+end
 
 jnames = {'s', 't', 'shift', 'scale','x','n'};
 jdefaults = {1, 0, 0, 1, false, false};
-opt = packages.labtools.input_schema(jnames,jdefaults,[],varargin{:});
+opt = input_schema(jnames,jdefaults,[],varargin{:});

@@ -6,8 +6,12 @@ function[a,b] = recurrence(N,varargin)
 %     polynomials.  
 
 % Sets default parameter values
-global packages;
-opt = packages.speclab.orthopoly1d.hermite.defaults(varargin{:});
+persistent defaults
+if isempty(defaults)
+  from speclab.orthopoly1d.hermite import defaults
+end
+
+opt = defaults(varargin{:});
 
 a = zeros([N 1]);
 b = a;

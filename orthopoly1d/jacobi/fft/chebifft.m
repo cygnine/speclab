@@ -13,7 +13,7 @@ persistent input_schema
 if isempty(input_schema)
   from labtools import input_schema
 end
-%global packages;
+
 opt = input_schema({'normalization','scale', 'points'}, ...
   {'normal',1, 'gq'},[], varargin{:});
 

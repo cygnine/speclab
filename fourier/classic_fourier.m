@@ -4,8 +4,12 @@ function[tf] = classic_fourier(varargin)
 %     Determines whether the parameters gamma and delta are 0, which means that
 %     the corresponding Fourier Series family is the canonical one.
 
-global packages;
-opt = packages.labtools.input_schema({'gamma', 'delta'}, {0,0}, [], varargin{:});
+persistent input_schema
+if isempty(input_schema)
+  from labtools import input_schema
+end
+
+opt = input_schema({'gamma', 'delta'}, {0,0}, [], varargin{:});
 
 tol = 1e-12;
 tf = abs(opt.gamma)<tol & abs(opt.delta)<tol;

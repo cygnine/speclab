@@ -7,10 +7,12 @@ function[F] = wiener_weight_multiply(F,varargin)
 %      Wiener s=1 phase-shifted square root weight factor. See
 %      speclab.wiener.weights.phase_shifted_square_root.
 
-global packages;
-wiener = packages.speclab.wiener;
-opt = wiener.defaults(varargin{:});
-linalg = packages.labtools.linalg;
+persistent defaults 
+if isempty(defaults)
+  from speclab.wiener import defaults
+end
+
+opt = defaults(varargin{:});
 
 N = length(F);
 fconnection = spdiags(ones([N,2]), [0,1], N,N);

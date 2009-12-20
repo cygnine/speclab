@@ -4,9 +4,13 @@ function[a,b] = recurrence(N,varargin)
 %     Returns the recurrence coefficients to generate the first N Jacobi
 %     polynomials defined by (alpha, beta). 
 
+persistent defaults
+if isempty(defaults)
+  from speclab.orthopoly1d.jacobi import defaults
+end
+
 % Sets default values for alpha, beta
-global packages;
-opt = packages.speclab.orthopoly1d.jacobi.defaults(varargin{:});
+opt = defaults(varargin{:});
 [alpha,beta] = deal(opt.alpha,opt.beta);
 
 N = double(N);

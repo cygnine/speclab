@@ -13,11 +13,6 @@ if isempty(wiener)
   from speclab.fourier.connection import negative_integer_separation_connection as wconnect
 end
 
-%global packages;
-%wiener = packages.speclab.wiener;
-%fourier = packages.speclab.fourier;
-%wconnect = fourier.connection.negative_integer_separation_connection;
-
 opt = wiener.defaults(varargin{:});
 
 [fftable,S,T] = wiener.fft.fftable(opt);

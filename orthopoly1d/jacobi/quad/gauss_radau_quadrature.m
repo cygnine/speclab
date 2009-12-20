@@ -5,13 +5,17 @@ function[x,w] = gauss_radau_quadrature(N,varargin)
 %     The weight function is given by speclab.orthopoly1d.jacobi.weights.weight.
 %     The Radau point is located at x=r.
 
-global packages;
-opoly = packages.speclab.orthopoly1d;
-jac = opoly.jacobi;
-pss = packages.speclab.common.physical_scaleshift_1d;
-sss = packages.speclab.common.standard_scaleshift_1d;
+persistent defaults sss pss recurrence grq
+if isempty(defaults)
+  from speclab.common import physical_scaleshift_1d as pss
+  from speclab.common import standard_scaleshift_1d as sss
 
-opt = jac.defaults(varargin{:});
+  from speclab.orthopoly1d import gauss_radau_quadrature as grq
+  from speclab.orthopoly1d.jacobi import defaults
+  from speclab.orthopoly1d.jacobi.coefficients import recurrence
+end
+
+opt = defaults(varargin{:});
 [alpha,beta,scale,shift,r] = ...
   deal(opt.alpha,opt.beta,opt.scale,opt.shift,opt.r);
 r = sss(r,opt);
@@ -28,9 +32,9 @@ if (abs(alpha+1/2)<tol)&&(abs(beta+1/2)<tol)&&(abs(abs(r)-1)<tol);
     w = flipud(w);
   end
 else
-  [a,b] = jac.coefficients.recurrence(N,opt);
+  [a,b] = recurrence(N,opt);
 
-  [x,w] = opoly.gauss_radau_quadrature(a,b,N,r);
+  [x,w] = grq(a,b,N,r);
 end
 
 x = pss(x,opt);

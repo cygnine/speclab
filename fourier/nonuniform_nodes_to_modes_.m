@@ -7,14 +7,16 @@ function[modes] = nonuniform_nodes_to_modes(theta,f);
 %     for L^2 orthonormalized canonical Fourier basis functions. The optional
 %     output ks are the integer indices corresponding to the basis functions. 
 
-global packages;
-fourier = packages.speclab.fourier;
+persistent integer_range
+if isempty(integer_range)
+  from speclab.fourier import integer_range
+end
 
 % Force column vector
 theta = theta(:);
 f = f(:);
 
-ks = fourier.integer_range(length(theta)).';
+ks = integer_range(length(theta)).';
 
 vandermonde = 1/sqrt(2*pi)*exp(i*theta*ks);
 

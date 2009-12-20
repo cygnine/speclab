@@ -6,16 +6,20 @@ function[w] = unweighted_wiener_function(x,k,varargin)
 %     any real number, and shift and scale dictate the affine scaling of the
 %     functions. The output w has size length(x) x length(k). 
 
-global packages;
-fourier = packages.speclab.fourier;
-rx = packages.speclab.wiener.maps;
-opt = packages.speclab.wiener.defaults(varargin{:});
+persistent defaults x_to_theta fseries
+if isempty(defaults)
+  from speclab.wiener import defaults
+  from speclab.fourier.eval import fseries
+  from speclab.wiener.maps import x_to_theta
+end
+
+opt = defaults(varargin{:});
 
 % Force column vector
 x = x(:);
-theta = rx.x_to_theta(x,opt);
+theta = x_to_theta(x,opt);
 
 % The `unweighted' Wiener functions are a direct map of the generalized Fourier
 % series:
 fopt = struct('gamma',opt.s-1,'delta',opt.t);
-w = fourier.eval.fseries(theta,k,fopt);
+w = fseries(theta,k,fopt);

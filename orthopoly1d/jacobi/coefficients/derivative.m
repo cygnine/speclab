@@ -12,9 +12,12 @@ function[eta] = derivative(n,alpha,beta,varargin)
 %     The optional input normalization defines the normalization of the
 %     polynomials P, which affects the values of the parameters eta.
 
-global packages;
-coeffs = packages.speclab.orthopoly1d.jacobi.coefficients;
-opt = packages.labtools.input_schema({'normalization','scale'}, {'normal',1}, [],varargin{:});
+persistent input_schema
+if isempty(input_schema)
+  from labtools import input_schema
+end
+
+opt = input_schema({'normalization','scale'}, {'normal',1}, [],varargin{:});
 n = n(:);
 N = length(n);
 

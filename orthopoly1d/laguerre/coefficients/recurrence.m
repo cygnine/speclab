@@ -5,9 +5,12 @@ function[a,b] = recurrence(N,varargin)
 %     Calculates the first N recurrence coefficients for the generalized
 %     Laguerre polynomials.  
 
-% Sets default parameter values
-global packages;
-opt = packages.speclab.orthopoly1d.laguerre.defaults(varargin{:});
+persistent defaults
+if isempty(defaults)
+  from speclab.orthopoly1d.laguerre import defaults
+end
+
+opt = defaults(varargin{:});
 
 a = zeros([N 1]);
 b = a;

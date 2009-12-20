@@ -7,24 +7,30 @@ function[v] = differentiation_matrix(varargin);
 %     This function uses direct matrix multiplication to form the differentation
 %     matrix. 
 
-global packages;
-jac = packages.speclab.orthopoly1d.jacobi;
-opt = jac.defaults(varargin{:});
+persistent defaults make_vandermonde gq eval_jacobi_poly
+if isempty(defaults)
+  from speclab.orthopoly1d.jacobi import defaults
+  from labtools import make_vandermonde
+  from speclab.orthopoly1d.eval import eval_jacobi_poly
+  from speclab.orthopoly1d.quad import gauss_quadarature as gq
+end
+
+opt = defaults(varargin{:});
 
 if x ~= false
   x = x(:);
   n = 0:(length(x)-1);
 
 elseif n ~= false
-  [x,w] = jac.quad.gauss_quadrature(n,opt);
+  [x,w] = gq(n,opt);
   n = 0:(n-1);
 else
   error('You must input either a nodal vector X or a size N');
 end
 
-v = packages.labtools.make_vandermonde(x,n,jac.eval.eval_jacobi_poly,opt);
+v = make_vandermonde(x,n,eval_jacobi_poly,opt);
 
 opt.d = 1;
-dv = packages.labtools.make_vandermonde(x,n,jac.eval.eval_jacobi_poly,opt);
+dv = make_vandermonde(x,n,eval_jacobi_poly,opt);
 
 v = dv*inv(v);

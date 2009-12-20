@@ -5,8 +5,6 @@ function[ft] = jacobi_gegenfilter(t,modes);
 % Chebyshev expansion given by modes into a Gegenbauer reconstruction of a given
 % order. This expansion is truncated and interpolated at the points t to produce
 % the output ft. It is assumed that the points t are in the interval [-1,1].
-% 
-% 20080903 -- acn
 
 global common;
 prevpath = addpaths(common.bases.d1.fourier);

@@ -6,12 +6,16 @@ function[w] = weight(x,varargin)
 %     consider, and the affine parameters shift and scale determine the affine
 %     map of the functions. This weight function does depend on scale. 
 
-global packages;
-wf = packages.speclab.fourier.weights.weight;
-opt = packages.speclab.wiener.defaults(varargin{:});
-rx = packages.speclab.wiener.maps;
+persistent defaults x_to_theta wf
+if isempty(defaults)
+  from speclab.wiener import defaults
+  from speclab.wiener.maps import x_to_theta
+  from speclab.fourier.weights import weight as wf
+end
 
-theta = rx.x_to_theta(x,opt);
+opt = defaults(varargin{:});
+
+theta = x_to_theta(x,opt);
 % Note: it just so happens that dtheta/dx = (1-cos(theta)). Therefore, we
 % implicitly take default gamma=s-1 to gamma = (s-1)+1 = s.
 fopt = struct('gamma',opt.s,'delta',opt.t);

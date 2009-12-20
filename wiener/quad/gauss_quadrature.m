@@ -5,12 +5,16 @@ function[x,w] = gauss_quadrature(N,varargin)
 %     rational functions. Use pi_gauss_quadrature for the rule for the Wiener
 %     rational functions.
 
-global packages;
-opt = packages.speclab.wiener.defaults(varargin{:});
-rx = packages.speclab.wiener.maps;
-fourier = packages.speclab.fourier;
+persistent defaults gq theta_to_x
+if isempty(defaults)
+  from speclab.wiener import defaults
+  from speclab.wiener.maps import theta_to_x
+  from speclab.fourier.quad import gauss_quadrature as gq
+end
+
+opt = defaults(varargin{:});
 
 fopt = struct('gamma',opt.s-1, 'delta', opt.t);
 % Fourier quadrature rule
-[theta,w] = fourier.quad.gauss_quadrature(N,fopt);
-x = rx.theta_to_x(theta,opt);
+[theta,w] = gq(N,fopt);
+x = theta_to_x(theta,opt);

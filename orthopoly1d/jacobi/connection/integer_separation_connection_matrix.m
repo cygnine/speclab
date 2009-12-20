@@ -15,10 +15,7 @@ if isempty(input_schema)
   from speclab.orthopoly1d.jacobi import coefficients as coeffs
 end
 
-%global packages;
 opt = input_schema({'normalization'}, {'normal'}, [],varargin{:});
-
-%coeffs = packages.speclab.orthopoly1d.jacobi.coefficients;
 
 ab_min = min([A,B]);
 C = spalloc(N,N,(A+B)*N - (A+B)*(A+B+1)/2);

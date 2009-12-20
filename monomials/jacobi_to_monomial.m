@@ -12,9 +12,14 @@ function[c] = jacobi_to_monomial(c, cell_boundaries, varargin)
 %     The length-(K+1) vector cell_boundaries specifies the global vertices of
 %     the cells. This is necessary to provide monomial global coefficients. 
 
-global packages;
-opt = packages.labtools.input_schema({'alpha', 'beta'}, {0,0}, [], varargin{:});
-jac = packages.speclab.orthopoly1d.jacobi;
+persistent input_schema eval_jacobi_poly gq
+if isempty(input_schema)
+  from labtools import input_schema
+  from speclab.orthopoly1d.jacobi.eval import eval_jacobi_poly
+  from speclab.orthopoly1d.jacobi.quad import gauss_quadrature as gq
+end
+
+opt = input_schema({'alpha', 'beta'}, {0,0}, [], varargin{:});
 
 [N,K] = size(c);
 % Rudimentary error checking
@@ -22,8 +27,8 @@ if length(cell_boundaries)~=(K+1)
   error('The cell_boundaries input must have length==(1 + # of columns of c)');
 end
 
-[r,w] = jac.quad.gauss_quadrature(N, opt);
-ps = jac.eval.eval_jacobi_poly(r,0:(N-1),opt);
+[r,w] = gq(N, opt);
+ps = eval_jacobi_poly(r,0:(N-1),opt);
 
 % For each cell: 
 %    - generate local nodes

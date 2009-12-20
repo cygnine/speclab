@@ -8,9 +8,15 @@ function[theta,w] = pi_gauss_quadrature(N,varargin)
 %     quadrature rule is valid. gamma=delta=0 is the canonical Fourier set.
 %     shift and scale are affine scaling parameters. 
 
-global packages;
-opt = packages.speclab.fourier.defaults(varargin{:});
+persistent gq defaults weight
+if isempty(gq)
+  from speclab.fourier import defaults
+  from speclab.fourier.quad import gauss_quadrature as gq
+  from speclab.fourier.weights import weight
+end
 
-[theta,w] = fourier.quad.gauss_quadrature(N,opt);
+opt = defaults(varargin{:});
 
-w = w/fourier.weights.weight(theta,opt);
+[theta,w] = gq(N,opt);
+
+w = w/weight(theta,opt);

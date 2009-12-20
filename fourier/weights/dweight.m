@@ -7,14 +7,18 @@ function[w] = dweight(theta,varargin)
 %     indicate the interval over which to evaluate the weight function. Note
 %     that this weight function depends on scale. 
 
-global packages;
-opt = packages.speclab.fourier.defaults(varargin{:});
-jac = packages.speclab.orthopoly1d.jacobi;
-tr = packages.speclab.fourier.maps;
+persistent dweight dr_dtheta theta_to_r defaults
+if isempty(dweight)
+  from speclab.fourier import defaults
+  from speclab.orthopoly1d.jacobi.weights import dweight
+  from speclab.fourier.maps import dr_dtheta theta_to_r
+end
 
-dtheta = tr.dr_dtheta(theta,opt);
-r = tr.theta_to_r(theta,opt);
+opt = defaults(varargin{:});
 
-w = jac.weights.dweight(r,'alpha',opt.delta, 'beta', opt.gamma);
+dtheta = dr_dtheta(theta,opt);
+r = theta_to_r(theta,opt);
+
+w = dweight(r,'alpha',opt.delta, 'beta', opt.gamma);
 w = dtheta.*w;
 w = w/opt.scale;
