@@ -54,12 +54,22 @@ else
   w = prod(tensorize_vectors(ws{:}), 2);
 end
 
-switch opt.weight_normalization
+switch lower(opt.weight_normalization)
 case 'probability'
   for q = 1:opt.dim
     [a,b] = recurrence(1,'alpha',opt.alpha(q),'beta',opt.beta(q));
     w = w/b;
   end
+case {'lebesgue', 'lebesque'}
+  for q = 1:opt.dim
+    if (opt.alpha(q)==0) & (opt.beta(q)==0)
+      w = opt.scale(q)/2;
+    else
+      error('''Lebesgue'' weight normalization not supported for non-Legendre expansions');
+    end
+  end
+otherwise
+  %error('Unrecognized weight specification');
 end
 
 x = pss(x,opt);
