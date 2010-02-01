@@ -13,7 +13,7 @@ function[modes] = ffft(nodes,varargin);
 
 persistent input_schema connection integer_range
 if isempty(connection)
-  from labtools import input_schema
+  from labtools import input_schema spdiag
   from speclab.fourier.connection import positive_integer_separation_connection as connection
   from speclab.common import integer_range
 end
@@ -25,13 +25,13 @@ N = length(nodes);
 % modes = fftshift(fft(fftshift(nodes)));
 
 modes = fft(nodes);
-modes = fftshift(modes)/N*sqrt(2*pi);
+modes = fftshift(modes,1)/N*sqrt(2*pi);
 
 ks = integer_range(N);
 phase = exp(-i*ks*pi/N);
 phase(ks==0) = 1;
 phase(mod(ks,2)==1) = phase(mod(ks,2)==1)*-1;
-modes = phase.*modes;
+modes = spdiag(phase)*modes;
 
 if (opt.gamma+opt.delta)>0
   modes = connection(modes,0,0,opt.gamma,opt.delta);

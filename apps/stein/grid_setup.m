@@ -25,6 +25,7 @@ temp.shift = pi + opt.interval(1);
 
 % First generate theta grid:
 [grid.theta,grid.theta_w] = fourier_gq(opt.N_theta, temp);
+dtheta = abs(grid.theta(2) - grid.theta(1));
 
 temp.shift = 0; temp.scale = 1; temp.alpha = 0; temp.beta = 0;
 % Now generate the s-grid that will be used on each subinterval between theta
@@ -37,11 +38,11 @@ grid.global_s_nodes = replicate_local_nodes(s, [grid.theta; grid.theta(1) + 2*pi
 grid.global_s_nodes(:,end) = mod(grid.global_s_nodes(:,end), 2*pi);
 % (the last column straddles the interface)
 
-dtheta = abs(grid.theta(2) - grid.theta(1));
 grid.ws = ws/2*dtheta;
 
-tol = 1e-12;
-n_rotations = min(ceil(1/(2*pi*tol^(1/(2*alpha+1)))), 1e5);
+tol = 1e-10;
+max_rotations = 1e5;
+n_rotations = min(ceil(1/(2*pi*tol^(1/(2*alpha+1)))), max_rotations);
 
 weights = repmat(grid.ws, [1, opt.N_theta]);
 temp2 = mod(grid.global_s_nodes - grid.theta(1), 2*pi);

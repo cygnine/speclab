@@ -4,11 +4,13 @@ function[I] = stein_integral_d2_driver(f, grid);
 % I = stein_integral_d2_driver(f, grid)
 
 N = length(grid.theta);
+s_size = size(grid.global_s_nodes);
 contributions = zeros([N 1]);
 
 % Evaluate all values of f:
-fx = f(grid.theta);
-fs = f(grid.global_s_nodes);
+fx = f([grid.theta(:); grid.global_s_nodes(:)]);
+fs = reshape(fx(N+1:end), s_size);
+fx(N+1:end) = [];
 
 % Combine them in funky ways
 for q = 1:N

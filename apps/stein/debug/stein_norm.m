@@ -3,7 +3,7 @@
 clear 
 close all
 
-from speclab.applications import stein
+from speclab.apps import stein
 from speclab.fourier.quad import gauss_quadrature as fourier_gq
 from speclab.fourier.eval import fseries dfseries
 from speclab.common import integer_range
