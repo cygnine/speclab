@@ -11,7 +11,7 @@ function[modes] = ffft(nodes,varargin);
 %     connection problem so that the output is the modes for the (gamma,delta)
 %     generalized Fourier expansion.
 
-persistent input_schema connection integer_range
+persistent input_schema connection integer_range spdiag
 if isempty(connection)
   from labtools import input_schema spdiag
   from speclab.fourier.connection import positive_integer_separation_connection as connection

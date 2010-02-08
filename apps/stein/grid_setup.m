@@ -10,12 +10,13 @@ function[grid] = grid_setup(alpha,varargin)
 %     number of loops based on the value of the Stein weight.
 
 persistent fourier_gq jacobi_gq replicate_local_nodes ...
-           strict_inputs
+           strict_inputs stein_proportionality
 if isempty(strict_inputs)
   from labtools import strict_inputs
   from speclab.orthopoly1d.jacobi.quad import gauss_quadrature as jacobi_gq
   from speclab.fourier.quad import gauss_quadrature as fourier_gq
   from piecewise_interpolation.grid_tools import replicate_local_nodes
+  from speclab.apps.stein import second_difference_sobolev_proportionality as stein_proportionality
 end
 
 opt = strict_inputs({'interval', 'N_theta', 'N_s'}, {[0, 2*pi], 100, 10}, [], varargin{:});
@@ -40,7 +41,7 @@ grid.global_s_nodes(:,end) = mod(grid.global_s_nodes(:,end), 2*pi);
 
 grid.ws = ws/2*dtheta;
 
-tol = 1e-10;
+tol = 1e-8;
 max_rotations = 1e5;
 n_rotations = min(ceil(1/(2*pi*tol^(1/(2*alpha+1)))), max_rotations);
 
@@ -52,18 +53,4 @@ for q = 1:n_rotations
 end
 grid.weights = weights.*temp;
 
-exponent = (2*alpha + 1);
-if abs(exponent-2)<1e-10
-  grid.b = pi/4;
-elseif abs(exponent-3)<1e-10
-  grid.b = log(2);
-elseif abs(exponent-4)<1e-10
-  grid.b = pi/3;
-else
-  % All hail Wolfram Alpha
-  grid.b = 2^(exponent-5)*(2^exponent-8)*sin((pi*exponent)/2)*gamma(1-exponent);
-end
-grid.b = 1./(4*grid.b);
-
-% WTF is this factor about?
-grid.b = 2^(2*alpha-2)*grid.b;
+grid.b = stein_proportionality(alpha);
