@@ -12,6 +12,6 @@ if data.GD>0
   modes = connection(modes,data.conndata);
 end
 
-modes = modes./data.phase;
+modes = data.phase\modes;
 
-nodes = ifft(ifftshift(modes));
+nodes = ifft(ifftshift(modes,1));
