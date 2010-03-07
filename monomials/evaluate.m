@@ -1,5 +1,7 @@
 function[fz] = evaluate(mc,z);
-% [Y] = EVALUATE(MC,Z);
+% evaluate -- Evaluates polynomial from monomial coefficients
+%
+% [y] = evaluate(mc,z);
 %
 %     For given monomial coefficients in the rows of MC, returns the evaluation
 %     of that polynomial at the locations Z. Both MC and Z should be column
