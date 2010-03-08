@@ -11,10 +11,11 @@ function[l,W,p,k_storage,u] = monomial_lu(theta, varargin)
 %     gives the degree polynomial used to eliminate that row of p*theta.
 %
 %     The final output u is the N x N upper-triangular matrix that gives inner
-%     product information about the elements in W (see [1]).
+%     product information about the elements in W (see [1]). It is necessary to
+%     invert u to determine the interpolatory coefficients for multimonomials.
 %
 %     The optional input tol is the tolerance for the norm of a potential pivot
-%     below which it is assumed to vanish.
+%     below which it is assumed to vanish. 
 % 
 % [1]:  Computational Aspects of Polynomial Interpolation in Several Variables,
 %       Carl de Boor and Amos Ron, Mathematics of Computation, 1992.
