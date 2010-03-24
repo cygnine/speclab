@@ -16,16 +16,28 @@ function[opt] = defaults(varargin)
 %     x                   The location of the Gauss-Radau point.
 %     normalization       'normal' -- the L^2 normalized polynomials
 %                         'monic' -- the monic polynomials
+%     dim: 1              Spatial dimension of the tensor-product evaluation
 
 persistent input_schema
 if isempty(input_schema)
   from labtools import input_schema
 end
 
-hnames = {'mu', 'shift', 'scale', 'd', 'x', 'normalization'};
-hdefaults = {0, 0, 1, 0, 0, 'normal'};
+hnames = {'mu', 'shift', 'scale', 'd', 'x', 'normalization','dim'};
+hdefaults = {0, 0, 1, 0, 0, 'normal',1};
 
 opt = input_schema(hnames, hdefaults, [], varargin{:});
 
 % Change default x to match shift, scale
 opt.x = opt.x*opt.scale + opt.shift;
+
+% Change inputs to have correct dimensionality
+if opt.dim>1
+  if length(opt.scale)==1
+    opt.scale = opt.scale*ones([opt.dim 1]);
+    opt.shift = opt.shift*ones([opt.dim 1]);
+  end
+  if length(opt.mu)==1
+    opt.mu = opt.mu*ones([opt.dim 1]);
+  end
+end

@@ -21,7 +21,9 @@ end
 
 opt = defaults(varargin{:});
 
-poly_parameters = struct('alpha', opt.alpha, 'beta', opt.beta);
+for q = 1:opt.dim
+  poly_parameters(q) = struct('alpha', opt.alpha(q), 'beta', opt.beta(q));
+end
 
 p = driver(x,n,opt.d,recurrence,opt.dim,opt.shift,opt.scale,opt.normalization, ...
            opt.weight_normalization, poly_parameters);

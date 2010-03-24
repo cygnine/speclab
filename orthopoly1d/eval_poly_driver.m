@@ -59,7 +59,7 @@ case 'normal'
   factor = 1;
 
   for q = 1:dim
-    [a,b] = recurrence(N+1,poly_parameters);
+    [a,b] = recurrence(N+1,poly_parameters(q));
 
     factor = factor*b(1);
 
