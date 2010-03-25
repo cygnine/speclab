@@ -15,6 +15,7 @@ speclab.newton_polynomials = matlab_import('newton_polynomials');
 speclab.debug = matlab_import('debug');
 speclab.examples = matlab_import('examples');
 speclab.apps = matlab_import('apps');
+speclab.quad = matlab_import('quad');
 speclab.filter = matlab_import('filter');
 
 pwd_addpath('classes');
