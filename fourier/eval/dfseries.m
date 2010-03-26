@@ -18,7 +18,7 @@ function[dPsi] = dfseries(theta,k,varargin)
 persistent rtheta eval_jacobi_poly defaults
 if isempty(eval_jacobi_poly)
   from speclab.fourier import maps as rtheta
-  from speclab.orthopoly1d.jacobi.eval import eval_jacobi_poly
+  from speclab.orthopoly.jacobi.eval import eval_jacobi_poly
   from speclab.fourier import defaults
 end
 

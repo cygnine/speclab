@@ -5,10 +5,10 @@
 % functions. 
 clear
 from labtools import exloglog typelatex
-import speclab.orthopoly1d.jacobi as leg
+import speclab.orthopoly.jacobi as leg
 %exloglog = packages.labtools.exloglog;
 %typelatex = packages.labtools.typelatex;
-%leg = packages.speclab.orthopoly1d.jacobi;
+%leg = packages.speclab.orthopoly.jacobi;
 opt.alpha = 0;
 opt.beta = 0;
 

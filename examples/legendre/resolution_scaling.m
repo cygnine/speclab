@@ -10,8 +10,8 @@
 % interval. 
 
 clear
-import speclab.orthopoly1d.jacobi as leg
-%leg = packages.speclab.orthopoly1d.jacobi;
+import speclab.orthopoly.jacobi as leg
+%leg = packages.speclab.orthopoly.jacobi;
 opt.alpha = 0; 
 opt.beta = 0;
 

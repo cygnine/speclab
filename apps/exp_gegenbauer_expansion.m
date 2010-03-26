@@ -15,7 +15,7 @@ function[coeffs] = exp_gegenbauer_expansion(theta,n,varargin)
 persistent strict_inputs spdiag recurrence
 if isempty(strict_inputs)
   from labtools import strict_inputs spdiag
-  from speclab.orthopoly1d.jacobi.coefficients import recurrence
+  from speclab.orthopoly.jacobi.coefficients import recurrence
 end
 
 opt = strict_inputs({'lambda'}, {0}, [], varargin{:});

@@ -12,8 +12,8 @@ persistent gq grq pss defaults
 if isempty(pss)
   from speclab.common import physical_scaleshift_1d as pss
   from speclab.fourier import defaults
-  from speclab.orthopoly1d.jacobi.quad import gauss_quadrature as gq
-  from speclab.orthopoly1d.jacobi.quad import gauss_radau_quadrature as grq
+  from speclab.orthopoly.jacobi.quad import gauss_quadrature as gq
+  from speclab.orthopoly.jacobi.quad import gauss_radau_quadrature as grq
 end
 
 opt = defaults(varargin{:});

@@ -6,7 +6,7 @@ function[container] = jacobi_tests()
 fprintf('Building Jacobi polynomial validation tests....\n');
 
 global packages;
-jac = packages.speclab.orthopoly1d.jacobi;
+jac = packages.speclab.orthopoly.jacobi;
 jquad_tests = packages.speclab.debug.jacobi_quadrature_tests_append;
 japprox_tests = packages.speclab.debug.jacobi_approximation_tests_append;
 jcoeff_tests = packages.speclab.debug.jacobi_coefficient_tests_append;

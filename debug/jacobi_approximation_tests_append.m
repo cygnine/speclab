@@ -33,7 +33,7 @@ container = container.append(test);
 
 function[data] = mass_data(opt)
   global packages;
-  jac = packages.speclab.orthopoly1d.jacobi;
+  jac = packages.speclab.orthopoly.jacobi;
 
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
   ps = jac.eval.eval_jacobi_poly(x,opt.n,opt);
@@ -41,7 +41,7 @@ function[data] = mass_data(opt)
 
 function[data] = interpolant_data(opt)
   global packages;
-  jac = packages.speclab.orthopoly1d.jacobi;
+  jac = packages.speclab.orthopoly.jacobi;
   jint = jac.interval(opt);
 
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
@@ -54,7 +54,7 @@ function[data] = interpolant_data(opt)
 
 function[data] = derivative_data(opt)
   global packages;
-  jac = packages.speclab.orthopoly1d.jacobi;
+  jac = packages.speclab.orthopoly.jacobi;
   jint = jac.interval(opt);
 
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
@@ -88,7 +88,7 @@ function[tf] = interpolant_validator(data,opt);
 function[tf] = derivative_validator(data,opt);
 
   global packages
-  jac = packages.speclab.orthopoly1d.jacobi;
+  jac = packages.speclab.orthopoly.jacobi;
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   df = @(x) opt.N/(10*opt.scale)*cos(opt.N/(10*opt.scale)*x);
   tol = 2*10^(-4+opt.alpha/6+opt.beta/6 + abs(opt.alpha-opt.beta)/6);
@@ -102,7 +102,7 @@ function[tf] = derivative_validator(data,opt);
 
 function[data] = derivative_stiffness_data(opt);
   global packages;
-  jac = packages.speclab.orthopoly1d.jacobi;
+  jac = packages.speclab.orthopoly.jacobi;
   jint = jac.interval(opt);
 
   [x,w] = jac.quad.gauss_quadrature(opt.N,opt);
@@ -116,7 +116,7 @@ function[data] = derivative_stiffness_data(opt);
 
 function[tf] = derivative_stiffness_validator(data,opt);
   global packages;
-  jac = packages.speclab.orthopoly1d.jacobi;
+  jac = packages.speclab.orthopoly.jacobi;
 
   f = @(x) sin(opt.N/(10*opt.scale)*x);
   df = @(x) opt.N/(10*opt.scale)*cos(opt.N/(10*opt.scale)*x);

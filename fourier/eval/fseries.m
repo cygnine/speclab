@@ -15,7 +15,7 @@ function[Psi] = fseries(theta,k,varargin)
 
 persistent eval_jacobi_poly classic_fourier theta_to_r theta_to_rc sss defaults
 if isempty(eval_jacobi_poly)
-  from speclab.orthopoly1d.jacobi.eval import eval_jacobi_poly
+  from speclab.orthopoly.jacobi.eval import eval_jacobi_poly
   from speclab.fourier import classic_fourier defaults
   from speclab.fourier.maps import theta_to_r theta_to_rc
   from speclab.common import standard_scaleshift_1d as sss

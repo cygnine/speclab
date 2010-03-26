@@ -8,9 +8,9 @@
 
 clear
 % The following two lines extract the 'module' of functions we'll need
-from speclab.orthopoly1d import jacobi as cheb
+from speclab.orthopoly import jacobi as cheb
 import labtools as common
-%cheb = packages.speclab.orthopoly1d.jacobi;
+%cheb = packages.speclab.orthopoly.jacobi;
 %common = packages.labtools;
 % We've called 'cheb' the jacobi module. Unless you say otherwise, speclab
 % assumes the Jacobi polynomial you want to evaluate is the Chebyshev kind. To
@@ -27,7 +27,7 @@ vandermonde = cheb.eval.eval_jacobi_poly(r,0:(N-1)); % The L2-normalized polys
 % the full tree structure of the file you want to know information about. For
 % example, print the helpstring for cheb.quad.gauss_quadrature:
 %fprintf('Helpstring for Jacobi Gauss quadrature routine:\n');
-%packages.helper('speclab','orthopoly1d','jacobi','quad','gauss_quadrature')
+%packages.helper('speclab','orthopoly','jacobi','quad','gauss_quadrature')
 % Alternatively, you can also cd into the appropriate directory and use Matlab's
 % help function, but this latter approach requires more typing.
 

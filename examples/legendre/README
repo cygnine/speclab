@@ -5,7 +5,7 @@ default to Chebyshev instead.
 If you've seen the Chebyshev examples, you can jump right in anywhere.
 
 Legendre examples
-- resolution_scaling: the function speclab/orthopoly1d/jacobi/affine_scaling.m
+- resolution_scaling: the function speclab/orthopoly/jacobi/affine_scaling.m
   calculates affine shift+scale parameters based on a desired interval of
   approximation. It can also put some percentage of the `resolution' for a given
   expansion of order N inside a desired interval. For example, you can put 65%

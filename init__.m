@@ -5,7 +5,7 @@ function[speclab] = init__()
 
 speclab = recurse_files(pwd);
 speclab.common = matlab_import('common');
-speclab.orthopoly1d = matlab_import('orthopoly1d');
+speclab.orthopoly = matlab_import('orthopoly');
 speclab.fourier = matlab_import('fourier');
 speclab.wiener = matlab_import('wiener');
 
@@ -19,3 +19,4 @@ speclab.quad = matlab_import('quad');
 speclab.filter = matlab_import('filter');
 
 pwd_addpath('classes');
+add_to_deprecation_list('speclab.orthopoly');

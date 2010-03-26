@@ -10,7 +10,7 @@ function[w] = dweight(theta,varargin)
 persistent dweight dr_dtheta theta_to_r defaults
 if isempty(dweight)
   from speclab.fourier import defaults
-  from speclab.orthopoly1d.jacobi.weights import dweight
+  from speclab.orthopoly.jacobi.weights import dweight
   from speclab.fourier.maps import dr_dtheta theta_to_r
 end
 

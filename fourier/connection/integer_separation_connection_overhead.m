@@ -6,7 +6,7 @@ function[data] = integer_separation_connection_overhead(N,gamma,delta,G,D)
 
 persistent connection
 if isempty(connection)
-  from speclab.orthopoly1d.jacobi.connection import integer_separation_connection_matrix as connection
+  from speclab.orthopoly.jacobi.connection import integer_separation_connection_matrix as connection
 end
 
 GD = G+D;

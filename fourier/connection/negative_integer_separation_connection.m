@@ -9,7 +9,7 @@ function[modes] = negative_integer_separation_connection(modes,gamma,delta,G,D)
 persistent sc_collapse sc_expand connection matinv
 if isempty(sc_collapse)
   from speclab.fourier.connection import sc_collapse sc_expand
-  from speclab.orthopoly1d.jacobi.connection import integer_separation_connection_matrix as connection
+  from speclab.orthopoly.jacobi.connection import integer_separation_connection_matrix as connection
   from labtools.linalg import triu_sparse_invert as matinv
 end
 

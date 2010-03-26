@@ -13,7 +13,7 @@ persistent fourier_gq jacobi_gq replicate_local_nodes ...
            strict_inputs stein_proportionality
 if isempty(strict_inputs)
   from labtools import strict_inputs
-  from speclab.orthopoly1d.jacobi.quad import gauss_quadrature as jacobi_gq
+  from speclab.orthopoly.jacobi.quad import gauss_quadrature as jacobi_gq
   from speclab.fourier.quad import gauss_quadrature as fourier_gq
   from piecewise_interpolation.grid_tools import replicate_local_nodes
   from speclab.apps.stein import second_difference_sobolev_proportionality as stein_proportionality

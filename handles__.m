@@ -14,39 +14,39 @@ hs.base = fileparts(mfilename('fullpath'));
 
 hs.common.base = fullfile(hs.base,'common');
 
-hs.orthopoly1d.base = fullfile(hs.base,'orthopoly1d');
-  hs.orthopoly1d.jacobi.base = fullfile(hs.orthopoly1d.base, 'jacobi');
-    hs.orthopoly1d.jacobi.quad.base = fullfile(hs.orthopoly1d.jacobi.base, 'quad');
-    hs.orthopoly1d.jacobi.eval.base = fullfile(hs.orthopoly1d.jacobi.base, 'eval');
-    hs.orthopoly1d.jacobi.coefficients.base = ...
-      fullfile(hs.orthopoly1d.jacobi.base, 'coefficients');
-    hs.orthopoly1d.jacobi.connection.base = ...
-      fullfile(hs.orthopoly1d.jacobi.base, 'connection');
-    hs.orthopoly1d.jacobi.weights.base = ...
-      fullfile(hs.orthopoly1d.jacobi.base, 'weights');
-    hs.orthopoly1d.jacobi.operators.base = ...
-      fullfile(hs.orthopoly1d.jacobi.base, 'operators');
-    hs.orthopoly1d.jacobi.fft.base = fullfile(hs.orthopoly1d.jacobi.base, 'fft');
+hs.orthopoly.base = fullfile(hs.base,'orthopoly');
+  hs.orthopoly.jacobi.base = fullfile(hs.orthopoly.base, 'jacobi');
+    hs.orthopoly.jacobi.quad.base = fullfile(hs.orthopoly.jacobi.base, 'quad');
+    hs.orthopoly.jacobi.eval.base = fullfile(hs.orthopoly.jacobi.base, 'eval');
+    hs.orthopoly.jacobi.coefficients.base = ...
+      fullfile(hs.orthopoly.jacobi.base, 'coefficients');
+    hs.orthopoly.jacobi.connection.base = ...
+      fullfile(hs.orthopoly.jacobi.base, 'connection');
+    hs.orthopoly.jacobi.weights.base = ...
+      fullfile(hs.orthopoly.jacobi.base, 'weights');
+    hs.orthopoly.jacobi.operators.base = ...
+      fullfile(hs.orthopoly.jacobi.base, 'operators');
+    hs.orthopoly.jacobi.fft.base = fullfile(hs.orthopoly.jacobi.base, 'fft');
 
-  hs.orthopoly1d.hermite.base = fullfile(hs.orthopoly1d.base, 'hermite');
-    hs.orthopoly1d.hermite.quad.base = fullfile(hs.orthopoly1d.hermite.base, 'quad');
-    hs.orthopoly1d.hermite.eval.base = fullfile(hs.orthopoly1d.hermite.base, 'eval');
-    hs.orthopoly1d.hermite.coefficients.base = ...
-      fullfile(hs.orthopoly1d.hermite.base, 'coefficients');
-    hs.orthopoly1d.hermite.weights.base = ...
-      fullfile(hs.orthopoly1d.hermite.base, 'weights');
+  hs.orthopoly.hermite.base = fullfile(hs.orthopoly.base, 'hermite');
+    hs.orthopoly.hermite.quad.base = fullfile(hs.orthopoly.hermite.base, 'quad');
+    hs.orthopoly.hermite.eval.base = fullfile(hs.orthopoly.hermite.base, 'eval');
+    hs.orthopoly.hermite.coefficients.base = ...
+      fullfile(hs.orthopoly.hermite.base, 'coefficients');
+    hs.orthopoly.hermite.weights.base = ...
+      fullfile(hs.orthopoly.hermite.base, 'weights');
 
-  hs.orthopoly1d.laguerre.base = fullfile(hs.orthopoly1d.base, 'laguerre');
-    hs.orthopoly1d.laguerre.quad.base = fullfile(hs.orthopoly1d.laguerre.base, 'quad');
-    hs.orthopoly1d.laguerre.eval.base = fullfile(hs.orthopoly1d.laguerre.base, 'eval');
-    hs.orthopoly1d.laguerre.coefficients.base = ...
-      fullfile(hs.orthopoly1d.laguerre.base, 'coefficients');
-    hs.orthopoly1d.laguerre.weights.base = ...
-      fullfile(hs.orthopoly1d.laguerre.base, 'weights');
-    hs.orthopoly1d.laguerre.connection.base = ...
-      fullfile(hs.orthopoly1d.laguerre.base, 'connection');
-    hs.orthopoly1d.laguerre.operators.base = ...
-      fullfile(hs.orthopoly1d.laguerre.base, 'operators');
+  hs.orthopoly.laguerre.base = fullfile(hs.orthopoly.base, 'laguerre');
+    hs.orthopoly.laguerre.quad.base = fullfile(hs.orthopoly.laguerre.base, 'quad');
+    hs.orthopoly.laguerre.eval.base = fullfile(hs.orthopoly.laguerre.base, 'eval');
+    hs.orthopoly.laguerre.coefficients.base = ...
+      fullfile(hs.orthopoly.laguerre.base, 'coefficients');
+    hs.orthopoly.laguerre.weights.base = ...
+      fullfile(hs.orthopoly.laguerre.base, 'weights');
+    hs.orthopoly.laguerre.connection.base = ...
+      fullfile(hs.orthopoly.laguerre.base, 'connection');
+    hs.orthopoly.laguerre.operators.base = ...
+      fullfile(hs.orthopoly.laguerre.base, 'operators');
 
 hs.fourier.base = fullfile(hs.base,'fourier');
   hs.fourier.eval.base = fullfile(hs.fourier.base, 'eval');

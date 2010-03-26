@@ -15,8 +15,8 @@ function[c] = jacobi_to_monomial(c, cell_boundaries, varargin)
 persistent input_schema eval_jacobi_poly gq
 if isempty(input_schema)
   from labtools import input_schema
-  from speclab.orthopoly1d.jacobi.eval import eval_jacobi_poly
-  from speclab.orthopoly1d.jacobi.quad import gauss_quadrature as gq
+  from speclab.orthopoly.jacobi.eval import eval_jacobi_poly
+  from speclab.orthopoly.jacobi.quad import gauss_quadrature as gq
 end
 
 opt = input_schema({'alpha', 'beta'}, {0,0}, [], varargin{:});

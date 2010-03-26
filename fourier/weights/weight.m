@@ -11,7 +11,7 @@ persistent sss defaults weight theta_to_r
 if isempty(defaults)
   from speclab.common import standard_scaleshift_1d as sss
   from speclab.fourier import defaults
-  from speclab.orthopoly1d.jacobi.weights import weight
+  from speclab.orthopoly.jacobi.weights import weight
   from speclab.fourier.maps import theta_to_r
 end
 

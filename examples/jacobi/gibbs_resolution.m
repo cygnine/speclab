@@ -10,12 +10,12 @@
 
 clear
 from speclab import fourier
-from speclab.orthopoly1d import jacobi as jac
+from speclab.orthopoly import jacobi as jac
 from labtools import integer_range as irange
 from labtools import typelatex as ltex
 %[irange, ltex] = from_package_import_as('labtools', 'integer_range', 'typelatex')
 %fourier = packages.speclab.fourier;
-%jac = packages.speclab.orthopoly1d.jacobi;
+%jac = packages.speclab.orthopoly.jacobi;
 %irange = packages.speclab.common.integer_range;
 %ltex = packages.labtools.typelatex;
 

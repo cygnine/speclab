@@ -30,10 +30,10 @@
 
 clear;
 import_package('speclab');
-cheb = speclab.orthopoly1d.jacobi;
+cheb = speclab.orthopoly.jacobi;
 common = import_package_as('labtools');
 %speclab = packages.speclab;
-%cheb = speclab.orthopoly1d.jacobi;
+%cheb = speclab.orthopoly.jacobi;
 %common = packages.labtools;
 
 %% Manually set affine scale and shift parameters.

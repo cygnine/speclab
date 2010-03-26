@@ -9,7 +9,7 @@ function[modes] = positive_integer_separation_connection(modes,gamma,delta,G,D)
 persistent connection sc_expand sc_collapse
 if isempty(connection)
   from speclab.fourier.connection import sc_expand sc_collapse
-  from speclab.orthopoly1d.jacobi.connection import integer_separation_connection_matrix as connection
+  from speclab.orthopoly.jacobi.connection import integer_separation_connection_matrix as connection
   from speclab import fourier
 end
 
