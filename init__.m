@@ -19,4 +19,6 @@ speclab.quad = matlab_import('quad');
 speclab.filter = matlab_import('filter');
 
 pwd_addpath('classes');
-add_to_deprecation_list('speclab.orthopoly');
+
+speclab.orthopoly1d = speclab.orthopoly;
+add_to_deprecation_list('speclab.orthopoly1d');
