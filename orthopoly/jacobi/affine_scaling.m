@@ -9,7 +9,7 @@ function[out] = affine_scaling(interval,varargin)
 persistent input_schema gauss_qudarature resolution_scaling
 if isempty(input_schema)
   from labtools import input_schema
-  from speclab.orthopoly.jacobi.quad import gauss_quadrature
+  from speclab.orthopoly.jacobi import gauss_quadrature
   from speclab.common import resolution_scaling
 end
 

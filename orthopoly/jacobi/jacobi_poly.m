@@ -14,7 +14,7 @@ function[p] = jacobi_poly(x,n,varargin)
 
 persistent recurrence defaults driver
 if isempty(recurrence)
-  from speclab.orthopoly.jacobi.coefficients import recurrence
+  from speclab.orthopoly.jacobi import recurrence
   from speclab.orthopoly.jacobi import defaults
   from speclab.orthopoly import eval_poly_driver as driver
 end
