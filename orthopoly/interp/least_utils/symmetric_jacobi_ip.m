@@ -36,6 +36,7 @@ for q= 1:d
 end
 
 C = C(1,1)./C;  % Normalize the ip so C(1) = 1
+%C = C./C(1,1);
 M = diag(monomial_ip(d,k));  % This is already normalized so M(1) = 1
 
 C = C.^2.*M;
