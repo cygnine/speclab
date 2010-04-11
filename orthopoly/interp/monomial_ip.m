@@ -33,4 +33,5 @@ else
   indices = indexing(d0:(d0+Msize-1), 'dim', d);
 end
 
-M = spdiag(factorial(k)./prod(factorial(indices), 2));
+%M = spdiag(factorial(k)./prod(factorial(indices), 2));
+M = spdiag(1./prod(factorial(indices), 2));

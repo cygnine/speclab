@@ -7,13 +7,14 @@ function[x,w] = gauss_lobatto_quadrature(N,varargin)
 %
 %     TODO: Chebyshev case exception
 
-persistent defaults sss pss glq recurrence
+persistent defaults sss pss glq recurrence gq
 if isempty(defaults)
   from speclab.orthopoly.jacobi import defaults
   from speclab.orthopoly.jacobi import recurrence
   from speclab.common import physical_scaleshift_1d as pss
   from speclab.common import standard_scaleshift_1d as sss
   from speclab.orthopoly import gauss_lobatto_quadrature as glq
+  from speclab.orthopoly import gauss_quadrature as gq
 end
 
 opt = defaults(varargin{:});
@@ -28,7 +29,11 @@ r2 = sss(r2,opt);
 [a,b] = recurrence(N,opt);
 
 % Solve eigenvalue problem
-[x,w] = glq(a,b,N,r1,r2);
+if N>1
+  [x,w] = glq(a,b,N,r1,r2);
+else
+  [x,w] = gq(a,b,N);
+end
 
 % Convert back to physical inteval
 x = pss(x,opt);

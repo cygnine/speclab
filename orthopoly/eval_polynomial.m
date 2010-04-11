@@ -65,7 +65,8 @@ end
 % 3D index counter for output p
 Dcount = 1;
 
-if strcmpi(opt.normalization, 'normal')
+switch lower(opt.normalization);
+case 'normal'
   for qq = 0:D
     p1(:,1:qq) = 0;
     p1(:,qq+1) = factorial(qq)/prod(beta(1:(qq+1)));
@@ -85,7 +86,7 @@ if strcmpi(opt.normalization, 'normal')
     p0 = p1;
   end
   
-elseif strcmpi(opt.normalization, 'monic')
+case 'monic'
 
   for qq = 0:D
     p1(:,1:qq) = 0;
@@ -106,6 +107,8 @@ elseif strcmpi(opt.normalization, 'monic')
     p0 = p1;
   end
 
+otherwise
+  error(strcat('Normalization type ''', opt.normalization, ''' not recognized'));
 end
 
 p = squeeze(p);

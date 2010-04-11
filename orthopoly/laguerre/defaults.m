@@ -20,6 +20,7 @@ function[opt] = defaults(varargin)
 %                         'monic' -- the monic polynomials
 %     weight_normalization: ''   Specifies the normalization of the weight function
 %     dim: 1                     Spatial dimension of the tensor-product evaluation
+%     associated_index:   : 0    Specifies the associated polynomial index
 
 persistent input_schema
 if isempty(input_schema)
@@ -27,8 +28,8 @@ if isempty(input_schema)
 end
 
 lnames = {'alpha', 'shift', 'scale', 'd', 'x', 'normalization', ...
-          'weight_normalization', 'dim'};
-ldefaults = {0, 0, 1, 0, 0, 'normal', '', 1};
+          'weight_normalization', 'dim', 'associated_index'};
+ldefaults = {0, 0, 1, 0, 0, 'normal', '', 1, 0};
 
 opt = input_schema(lnames, ldefaults, [], varargin{:});
 

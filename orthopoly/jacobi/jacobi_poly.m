@@ -26,4 +26,4 @@ for q = 1:opt.dim
 end
 
 p = driver(x,n,opt.d,recurrence,opt.dim,opt.shift,opt.scale,opt.normalization, ...
-           opt.weight_normalization, poly_parameters);
+           opt.weight_normalization, poly_parameters,opt.associated_index);

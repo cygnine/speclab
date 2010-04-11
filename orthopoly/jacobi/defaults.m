@@ -17,6 +17,7 @@ function[opt] = defaults(varargin);
 %           n: false                   Placeholder for optional input in vandermonde routines
 %           dim: 1                     Spatial dimension of the tensor-product evaluation
 %           weight_normalization: ''   Specifies the normalization of the weight function
+%           associated_index: 0        Specifies the associated polynomial index
 % 
 
 persistent input_schema
@@ -25,8 +26,8 @@ if isempty(input_schema)
 end
 
 jnames = {'alpha', 'beta', 'shift', ...
-          'scale','d','normalization','r','r1','r2','x','n','dim','weight_normalization'};
-jdefaults = {-1/2, -1/2, 0, 1,0,'normal',1,-1,1,false, false, 1, ''};
+          'scale','d','normalization','r','r1','r2','x','n','dim','weight_normalization','associated_index'};
+jdefaults = {-1/2, -1/2, 0, 1,0,'normal',1,-1,1,false, false, 1, '', 0};
 opt = input_schema(jnames,jdefaults,[],varargin{:});
 
 % Change r, r1, r2 to match scale+shift

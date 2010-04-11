@@ -17,14 +17,15 @@ function[opt] = defaults(varargin)
 %     normalization       'normal' -- the L^2 normalized polynomials
 %                         'monic' -- the monic polynomials
 %     dim: 1              Spatial dimension of the tensor-product evaluation
+%     associated_index: 0 Specifies the associated polynomial index
 
 persistent input_schema
 if isempty(input_schema)
   from labtools import input_schema
 end
 
-hnames = {'mu', 'shift', 'scale', 'd', 'x', 'normalization','dim'};
-hdefaults = {0, 0, 1, 0, 0, 'normal',1};
+hnames = {'mu', 'shift', 'scale', 'd', 'x', 'normalization','dim','associated_index'};
+hdefaults = {0, 0, 1, 0, 0, 'normal',1, 0};
 
 opt = input_schema(hnames, hdefaults, [], varargin{:});
 

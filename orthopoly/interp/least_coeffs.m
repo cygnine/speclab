@@ -1,7 +1,7 @@
 function[c] = least_coeffs(l,u,p,v,k,D,f, varargin)
 % tensor_coeffs -- Computes basis coefficients for interpolation
 %
-% c = tensor_coeffs(l,u,p,v,k,dim,f, [ip=alpha!])
+% c = tensor_coeffs(l,u,p,v,k,dim,f, [ip=alpha!, connection=speye])
 %
 %     Using the 5-tuple (l,u,p,v,k) that is output from de Boor's algorithm
 %     deboor_lu, this function uses the point-evaluations f to compute the
@@ -22,8 +22,9 @@ function[c] = least_coeffs(l,u,p,v,k,D,f, varargin)
 %     f is a collection of column vectors, this function returns a collection of
 %     column vectors containing the basis representation.
 
-persistent invu invl dim subdim ip strict_inputs
+persistent invu invl dim subdim ip strict_inputs spdiag
 if isempty(invu)
+  from labtools import spdiag
   from labtools import strict_inputs
   from labtools.linalg import triu_back_substitute as invu
   from labtools.linalg import tril_forward_substitute as invl
@@ -34,7 +35,7 @@ if isempty(invu)
   from speclab.orthopoly.interp import monomial_ip as ip
 end
 
-opt = strict_inputs({'ip'}, {ip}, [], varargin{:});
+opt = strict_inputs({'ip', 'connection'}, {ip, @speye}, [], varargin{:});
 
 % These are the coefficients for the cardinal interpolants under the de Boor
 % inner product. The remainder of the code translates these coefficients into
@@ -48,6 +49,7 @@ c = zeros([dim(D,k(end)) size(f,2)]);
 row_id = 1;
 v_position = 1;
 v = v.';
+connmat = opt.connection(dim(D,k(end)));
 
 for q = 0:k(end);
   % Determine the columns of W associated with this degree
@@ -60,6 +62,8 @@ for q = 0:k(end);
 
   degree_indices = v_position:(v_position+length(rows)*current_dim-1);
   degree_indices = reshape(degree_indices.', [current_dim, length(rows)]).';
+
+  Cmat = connmat(cols,:);
   
   % First compute inv(u)*v:
   v(degree_indices) = invu(u(rows,rows), v(degree_indices));
@@ -71,6 +75,11 @@ for q = 0:k(end);
   % About to do some crazy stuff
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   M = opt.ip(D,q);
+  %c(cols,:) = (a(rows,:).'*(v(degree_indices)*M)).';
+
+  %M = inv(connmat(cols,cols))*M;
+  %M = spdiag(1./diag(connmat(cols,cols)))*M;
+  %c = c + (a(rows,:).'*(v(degree_indices)*M*Cmat)).';
   c(cols,:) = (a(rows,:).'*(v(degree_indices)*M)).';
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   % I think de Boor pulled a fast one on me: the 'orthodox' computation

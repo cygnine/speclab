@@ -41,6 +41,8 @@ else
 end
 
 M = kn(ns, opt).^2;
+%M = kn(ns, opt);
 M = M.*prod(factorial(indices),2);
-M = M(1,1)./M;
+%M = M(1,1)./M;
+M = 1./M;
 M = spdiag(M);
