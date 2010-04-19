@@ -63,7 +63,7 @@ for q = 0:k(end);
   degree_indices = v_position:(v_position+length(rows)*current_dim-1);
   degree_indices = reshape(degree_indices.', [current_dim, length(rows)]).';
 
-  Cmat = connmat(cols,:);
+  Cmat = connmat(cols,cols);
   
   % First compute inv(u)*v:
   v(degree_indices) = invu(u(rows,rows), v(degree_indices));
@@ -74,7 +74,8 @@ for q = 0:k(end);
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   % About to do some crazy stuff
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  M = opt.ip(D,q);
+  %M = opt.ip(D,q);
+  M = Cmat*opt.ip(D,q);
   %c(cols,:) = (a(rows,:).'*(v(degree_indices)*M)).';
 
   %M = inv(connmat(cols,cols))*M;
