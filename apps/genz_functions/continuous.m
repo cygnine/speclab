@@ -1,7 +1,7 @@
 function[f] = continuous(x,varargin)
 % continuous -- The "continuous" Genz test function
 %
-% f = continuous(x,{w=zeros([dim 1]),dim=size(x,2),c=zeros([dim 1])})
+% f = continuous(x,{w=zeros([dim 1]),dim=size(x,2),c=ones([dim 1])})
 %
 %     Evaluates the "continuous" Genz test function defined as
 %
@@ -17,7 +17,7 @@ end
 
 opt = strict_inputs({'dim', 'w', 'c'}, {size(x,2), [], []}, [], varargin{:});
 if isempty(opt.c)
-  opt.c = zeros([opt.dim 1]);
+  opt.c = ones([opt.dim 1]);
 end
 if isempty(opt.w)
   opt.w = zeros([opt.dim 1]);

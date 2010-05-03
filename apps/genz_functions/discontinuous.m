@@ -1,7 +1,7 @@
 function[f] = discontinuous(x,varargin)
 % discontinuous -- The "discontinuous" Genz test function
 %
-% f = discontinuous(x,{w=zeros([dim 1]),dim=size(x,2),c=zeros([dim 1])})
+% f = discontinuous(x,{w=zeros([dim 1]),dim=size(x,2),c=ones([dim 1])})
 %
 %     Evaluates the "discontinuous" Genz test function defined as
 %
@@ -18,7 +18,7 @@ end
 
 opt = strict_inputs({'dim', 'w', 'c'}, {size(x,2), [], []}, [], varargin{:});
 if isempty(opt.c)
-  opt.c = zeros([opt.dim 1]);
+  opt.c = ones([opt.dim 1]);
 end
 if isempty(opt.w)
   opt.w = zeros([opt.dim 1]);
@@ -26,5 +26,5 @@ end
 
 f = exp(x*opt.c);
 
-flags = x > repmat(opt.w(:).', [size(x,1) 1]);
+flags = any(x > repmat(opt.w(:).', [size(x,1) 1]), 2);
 f(flags) = 0;

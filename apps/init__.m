@@ -5,3 +5,4 @@ function[applications] = init__()
 
 applications = recurse_files(pwd);
 applications.stein = matlab_import('stein');
+applications.genz_functions = matlab_import('genz_functions');

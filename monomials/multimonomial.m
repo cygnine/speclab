@@ -23,9 +23,9 @@ function[fz] = multimonomial(x, n, varargin)
 %       Columns two and three then contain the evaluations of functions 1 and 2
 %       (x and y, respectively) at the same locations.
 
-persistent indexing strict_inputs
+persistent indexing strict_inputs spdiag
 if isempty(strict_inputs)
-  from labtools import strict_inputs
+  from labtools import strict_inputs spdiag
   from speclab.common.tensor import linear_to_array_indexing as indexing
 end
 
@@ -48,5 +48,10 @@ end
 % With potentially random ordering for indices, I have no idea how to do a
 % nested Horner-type algorithm
 for q = 1:opt.dim;
+  %xdiag = spdiag(x(:,q));
+  %for degree = 0:max(indices(:,q));
+  %  flags = indices(:,q)==degree;
+  %  fz(:,flags) = xdiag*fz(:,flags);
+  %end
   fz = fz.*repmat(x(:,q), [1 N]).^repmat(indices(:,q).', [M 1]);
 end

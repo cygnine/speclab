@@ -1,7 +1,7 @@
 function[f] = corner_peak(x,varargin)
 % corner_peak -- The "corner peak" Genz test function
 %
-% f = corner_peak(x,{dim=size(x,2),c=zeros([dim 1])})
+% f = corner_peak(x,{dim=size(x,2),c=ones([dim 1])})
 %
 %     Evaluates the "corner peak" Genz test function defined as
 %
@@ -17,7 +17,7 @@ end
 
 opt = strict_inputs({'dim', 'c'}, {size(x,2), []}, [], varargin{:});
 if isempty(opt.c)
-  opt.c = zeros([opt.dim 1]);
+  opt.c = ones([opt.dim 1]);
 end
 
-f = (1 + sum(x*opt.c)).^(-opt.dim+1);
+f = (1 + x*opt.c).^(-opt.dim-1);

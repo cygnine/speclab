@@ -1,7 +1,7 @@
 function[f] = oscillatory(x,varargin)
 % oscillatory -- The "oscillatory" Genz test function
 %
-% f = oscillatory(x,{w=0,dim=size(x,2),c=zeros([dim 1])})
+% f = oscillatory(x,{w=0,dim=size(x,2),c=ones([dim 1])})
 %
 %     Evaluates the "oscillatory" Genz test function defined as
 %
@@ -17,7 +17,7 @@ end
 
 opt = strict_inputs({'dim', 'w', 'c'}, {size(x,2), 0, []}, [], varargin{:});
 if isempty(opt.c)
-  opt.c = zeros([opt.dim 1]);
+  opt.c = ones([opt.dim 1]);
 end
 
 f = cos(2*pi*opt.w + x*opt.c);

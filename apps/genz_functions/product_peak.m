@@ -1,7 +1,7 @@
 function[f] = product_peak(x,varargin)
 % product_peak -- The "product peak" Genz test function
 %
-% f = product_peak(x,{w=zeros([dim 1]),dim=size(x,2),c=zeros([dim 1])})
+% f = product_peak(x,{w=zeros([dim 1]),dim=size(x,2),c=ones([dim 1])})
 %
 %     Evaluates the "product peak" Genz test function defined as
 %
@@ -19,11 +19,11 @@ end
 
 opt = strict_inputs({'dim', 'w', 'c'}, {size(x,2), [], []}, [], varargin{:});
 if isempty(opt.c)
-  opt.c = zeros([opt.dim 1]);
+  opt.c = ones([opt.dim 1]);
 end
 if isempty(opt.w)
   opt.w = zeros([opt.dim 1]);
 end
 
-f = (x - repmat(opt.w(:).', [size(x,1) 1])).^2 + 1./(repmat(opt.c(:).', [size(x,1) 1])).^2
+f = (x - repmat(opt.w(:).', [size(x,1) 1])).^2 + 1./(repmat(opt.c(:).', [size(x,1) 1])).^2;
 f = prod(1./f, 2);
