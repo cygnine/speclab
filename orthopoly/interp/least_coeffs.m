@@ -1,7 +1,7 @@
 function[c] = least_coeffs(l,u,p,v,k,D,f, varargin)
-% tensor_coeffs -- Computes basis coefficients for interpolation
+% least_coeffs -- Computes basis coefficients for interpolation
 %
-% c = tensor_coeffs(l,u,p,v,k,dim,f, [ip=alpha!, connection=speye])
+% c = least_coeffs(l,u,p,v,k,dim,f, [ip=alpha!, connection=speye])
 %
 %     Using the 5-tuple (l,u,p,v,k) that is output from de Boor's algorithm
 %     deboor_lu, this function uses the point-evaluations f to compute the

@@ -11,5 +11,5 @@ if k==0
 elseif k<0
   D = 0;
 else
-  D = d./k.*nchoosek(d+k-1, d);
+  D = round(d./k.*nchoosek(d+k-1, d));
 end

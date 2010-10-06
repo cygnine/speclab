@@ -31,7 +31,10 @@ ks = integer_range(N);
 phase = exp(-i*ks*pi/N);
 phase(ks==0) = 1;
 phase(mod(ks,2)==1) = phase(mod(ks,2)==1)*-1;
-modes = spdiag(phase)*modes;
+for q = 1:size(modes,2)
+  modes(:,q) = phase.*modes(:,q);
+end
+%modes = spdiag(phase)*modes;
 
 if (opt.gamma+opt.delta)>0
   modes = connection(modes,0,0,opt.gamma,opt.delta);

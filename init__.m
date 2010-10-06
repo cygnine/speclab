@@ -17,6 +17,7 @@ speclab.debug = matlab_import('debug');
 speclab.examples = matlab_import('examples');
 speclab.apps = matlab_import('apps');
 speclab.filter = matlab_import('filter');
+speclab.utils = matlab_import('utils');
 
 pwd_addpath('classes');
 

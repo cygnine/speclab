@@ -12,7 +12,7 @@ function[l,u,p,v,k_storage] = least_lu(theta, varargin)
 %     output vector k has length size(theta,1), and for each theta entry, it
 %     gives the degree polynomial used to eliminate that row of p*theta.
 %
-%     The second input u is the N x N upper-triangular matrix that gives inner
+%     The second output u is the N x N upper-triangular matrix that gives inner
 %     product information about the elements in W (see [1]). It is necessary to
 %     invert u to determine the interpolatory coefficients for multimonomials.
 %     Most of the remainder of the matrix W is not necessary; only `diagonal'
