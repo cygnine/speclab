@@ -6,8 +6,8 @@ from speclab.orthopoly1d.interp import monomial_lu opoly_li_lu
 from speclab.orthopoly1d.interp import monomial_coeffs opoly_li_coeffs 
 from labtools import typelatex as ltex
 
-from speclab.orthopoly1d.jacobi.quad import gauss_quadrature as gq
-from speclab.orthopoly1d.jacobi.eval import eval_jacobi_poly
+from speclab.orthopoly1d.jacobi import gauss_quadrature as gq
+from speclab.orthopoly1d.jacobi import jacobi_poly
 from speclab.monomials import multimonomial
 
 % 2D
@@ -31,7 +31,7 @@ thetaf = linspace(-1,1,101);
 [xf,yf] = meshgrid(thetaf, thetaf);
 thetaf = [xf(:) yf(:)];
 mf = multimonomial(thetaf, 0:size(coeffs,1)-1, 'dim', 2)*coeffs;
-of = eval_jacobi_poly(thetaf, 0:size(coeffso,1)-1, 'alpha', 0, 'beta', 0, 'dim', 2)*coeffso;
+of = jacobi_poly(thetaf, 0:size(coeffso,1)-1, 'alpha', 0, 'beta', 0, 'dim', 2)*coeffso;
 
 tshape = sqrt(size(thetaf,1));
 tshape = [tshape tshape];

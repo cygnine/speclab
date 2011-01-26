@@ -32,5 +32,5 @@ case 'probability'
     w = w/(b*opt.scale(q));
   end
 otherwise
-  w = w/opt.scale;
+  w = w/prod(opt.scale);
 end

@@ -6,21 +6,38 @@ function[x,w] = gauss_quadrature(N,varargin)
 %     Returns the N-point Gaussian quadrature rule for the Hermite polynomials. 
 %     The weight function is given by speclab.orthopoly.hermite.weights.weight.
 
-persistent recurrence gq pss defaults
+persistent recurrence gq pss defaults tensorize tensorize_vectors
 if isempty(recurrence)
   from speclab.orthopoly.hermite import defaults recurrence
   from speclab.orthopoly import gauss_quadrature as gq
-  from speclab.common import physical_scaleshift_1d as pss
+  from speclab.common import physical_scaleshift as pss
+  from speclab.common.tensor import tensorize_vectors tensorize
 end
 
 opt = defaults(varargin{:});
 
-[a,b] = recurrence(N+1,opt);
-[x,w] = gq(a,b,N);
+xs = cell([opt.dim 1]);
+ws = cell([opt.dim 1]);
+
+for q = 1:opt.dim
+  [a,b] = recurrence(N+1, 'mu', opt.mu(q));
+
+  [xs{q}, ws{q}] = gq(a,b,N);
+end
+
+x = tensorize_vectors(xs{:});
+w = prod(tensorize_vectors(ws{:}), 2);
+
+%[a,b] = recurrence(N+1,opt);
+%[x,w] = gq(a,b,N);
 
 switch opt.weight_normalization
 case 'probability'
-  w = w/b(1);
+  for q = 1:opt.dim
+    [a,b] = recurrence(1,'mu',opt.mu(q));
+    w = w/b;
+  end
+  %w = w/b(1);
 end
 
 x = pss(x,opt);

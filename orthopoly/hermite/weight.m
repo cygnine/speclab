@@ -7,21 +7,28 @@ function[w] = weight(x,varargin)
 %     weight function incorporates the affine scale and shift. (Including the
 %     affine Jacobian)
 
-persistent defaults sss recurrence
+persistent defaults sss recurrence npre
 if isempty(defaults)
   from speclab.orthopoly.hermite import defaults recurrence
-  from speclab.common import standard_scaleshift_1d as sss
+  from speclab.common import standard_scaleshift as sss
+  from speclab.common.tensor import node_preprocessing as npre
 end
 
 opt = defaults(varargin{:});
+[x, garbage] = npre(x, opt.dim);
 x = sss(x,opt);
 
-w = (x.^2).^opt.mu.*exp(-x.^2);
+w = ones([size(x, 1) 1]);
+for q = 1:opt.dim
+  w = w.*(x(:,q).^2).^opt.mu(q).*exp(-x(:,q).^2);
+end
 
 switch opt.weight_normalization
 case 'probability'
-  [a,b] = recurrence(1,'mu',opt.mu);
-  w = w/(b*opt.scale);
+  for q = 1:opt.dim
+    [a,b] = recurrence(1,'mu',opt.mu(q));
+    w = w/(b*opt.scale(q));
+  end
 otherwise
-  w = w/opt.scale;
+  w = w/prod(opt.scale);
 end

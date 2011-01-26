@@ -24,7 +24,9 @@ end
 
 opt = defaults(varargin{:});
 
-poly_parameters = struct('mu', opt.mu);
+for q = 1:opt.dim
+  poly_parameters(q) = struct('mu', opt.mu(q));
+end
 
 p = driver(x,n,opt.d,recurrence,opt.dim,opt.shift,opt.scale,opt.normalization, ...
            opt.weight_normalization, poly_parameters, opt.associated_index);

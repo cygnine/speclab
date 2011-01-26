@@ -1,5 +1,5 @@
 function[ints] = monomial_integrate(mc,interval)
-% [INTS] = MONOMIAL_INTEGRATE(MC,INTERVAL)
+% [ints] = monomial_integrate(mc,interval)
 %
 %     Given modal coefficients (MC) for a monomial expansion, integrates this
 %     expansion over the specified interval (INTERVAL). Is vectorized in the

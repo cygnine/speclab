@@ -24,13 +24,14 @@ if isempty(input_schema)
   from labtools import input_schema
 end
 
-hnames = {'mu', 'shift', 'scale', 'd', 'x', 'normalization','dim','associated_index'};
-hdefaults = {0, 0, 1, 0, 0, 'normal',1, 0};
+hnames = {'mu', 'shift', 'scale', 'd', 'x','normalization','dim','associated_index',... 
+          'weight_normalization'};
+hdefaults = {0, 0, 1, 0, 0, 'normal',1, 0, ''};
 
 opt = input_schema(hnames, hdefaults, [], varargin{:});
 
 % Change default x to match shift, scale
-opt.x = opt.x*opt.scale + opt.shift;
+opt.x = opt.x.*opt.scale + opt.shift;
 
 % Change inputs to have correct dimensionality
 if opt.dim>1

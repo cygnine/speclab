@@ -27,7 +27,7 @@ function[l,W,p,k_storage,u] = opoly_li_lu(theta, varargin)
 %       Carl de Boor and Amos Ron, Mathematics of Computation, 1992.
 
 persistent dim subdim indexing find_order
-persistent eval_jacobi_poly eval_hermite_poly
+persistent jacobi_poly hermite_poly
 persistent ip strict_inputs
 if isempty(dim)
   from labtools import strict_inputs
@@ -36,8 +36,8 @@ if isempty(dim)
   from speclab.common.tensor import subspace_dimension as subdim
   from speclab.common.tensor import linear_to_array_indexing as indexing
   from speclab.common.tensor import Npoints_to_poly_order as find_order
-  from speclab.orthopoly.jacobi.eval import eval_jacobi_poly
-  from speclab.orthopoly.hermite.eval import eval_hermite_poly
+  from speclab.orthopoly.jacobi import jacobi_poly
+  from speclab.orthopoly.hermite import  hermite_poly
 
   ip = @(d,k) speye(subdim(d,k)); % L^2 orthonormal polynomials are nice
 end
@@ -47,9 +47,9 @@ opt = strict_inputs({'tol', 'opoly_class', 'opoly_params'}, ...
 
 switch lower(opt.opoly_class)
 case {'jacobi', 'jac'}
-  poly_eval = eval_jacobi_poly;
+  poly_eval = jacobi_poly;
 case {'hermite', 'herm'}
-  poly_eval = eval_hermite_poly;
+  poly_eval = hermite_poly;
 end
 
 [N,D] = size(theta);
