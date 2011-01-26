@@ -7,24 +7,26 @@ function p = scale_functions(self,p,n,normalization)
 %     rescales each column of p to the FunctionNormalization specification
 %     defined by the basis, using the column index ids n.
 
-persistent spdiag
+persistent spdiag probabilist physicist classical
 if isempty(spdiag)
   from labtools import spdiag
+  probabilist = ProbabilistFunctionNormalization.instance();
+  classical = ClassicalFunctionNormalization.instance();
+  physicist = PhysicistFunctionNormalization.instance();
 end
 
 if not(exist('normalization')==1);
   normalization = self.normalization;
 end
 
-if isa(normalization, 'ProbabilistFunctionNormalization');
+if normalization==probabilist
   % For Hermite polynomials, these are monic on the standard interval. For
   % mapped intervals we'll defined them as the maps of the monic functions (no
   % rescaling).
 
   % Copy-paste monic normalization
-  p = self.scale_functions@OrthogonalPolynomialBasis(p, n, MonicNormalization.instance());
-elseif isa(normalization, 'PhysicistFunctionNormalization') | ...
-       isa(normalization, 'ClassicalFunctionNormalization')
+  p = scale_functions@OrthogonalPolynomialBasis(self, p, n, MonicNormalization.instance());
+elseif (normalization==physicist) | (normalization==classical)
   % On the standard interval, these are functions whose leading coefficient is
   % 2^n. I.e. first they're monic, then we scale them by 2^n.
   % On mapped intervals, we just map the functions -- no scaling is done.
@@ -35,4 +37,6 @@ elseif isa(normalization, 'PhysicistFunctionNormalization') | ...
   b = cumprod(b.*A);
   p = p*spdiag(b(n+1));
   p = p*spdiag(2.^(n));
+else
+  p = scale_functions@OrthogonalPolynomialBasis(self, p, n, normalization);
 end

@@ -20,6 +20,7 @@ classdef HermitePolynomialBasis < OrthogonalPolynomialBasis
 
     w = weight(self, x);
     [a,b] = recurrence(self, n);
+    p = scale_functions(self, p, n, normalization);
   end
 
 end

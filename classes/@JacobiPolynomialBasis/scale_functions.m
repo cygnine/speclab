@@ -7,16 +7,17 @@ function p = scale_functions(self,p,n,normalization)
 %     rescales each column of p to the FunctionNormalization specification
 %     defined by the basis, using the column index ids n.
 
-persistent spdiag
+persistent spdiag classical
 if isempty(spdiag)
   from labtools import spdiag
+  classical = ClassicalFunctionNormalization.instance();
 end
 
 if not(exist('normalization')==1);
   normalization = self.normalization;
 end
 
-if isa(normalization, 'ClassicalFunctionNormalization');
+if normalization==classical
   % For Jacobi polynomials, we'll define this normalization to be the one such
   % that p_n(R) = nchoosek(n+alpha, n), where R is the right-hand endpoint,
   % regardless of affine map.
@@ -25,5 +26,5 @@ if isa(normalization, 'ClassicalFunctionNormalization');
   factors = 2^(self.alpha+self.beta+1)./(2*n+self.alpha+self.beta+1).*exp(temp);
   p = p*spdiag(sqrt(factors));
 else
-  p = self.scale_functions@OrthogonalPolynomialBasis(p, n, normalization);
+  p = scale_functions@OrthogonalPolynomialBasis(self, p, n, normalization);
 end
