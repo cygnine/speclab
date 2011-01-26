@@ -21,6 +21,9 @@ speclab.utils = matlab_import('utils');
 speclab.d1_utils = matlab_import('d1_utils');
 
 pwd_addpath('classes');
+pwd_addpath('classes/normalizations');
+pwd_addpath('classes/basis_templates');
+pwd_addpath('classes/misc');
 
 speclab.orthopoly1d = speclab.orthopoly;
 add_to_deprecation_list('speclab.orthopoly1d');
