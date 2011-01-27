@@ -10,8 +10,9 @@ classdef NaturalWeightNormalization < WeightNormalization
 %     map is built into the weight function so that the e.g. "orthonormal"
 %     evaluations are not changed.
 
-  properties(Access=private)
+  properties(SetAccess=private)
     description;
+    ids = {'natural', 'natur', 'nature'};
   end
 
   methods(Access=private)

@@ -7,8 +7,9 @@ classdef MonicNormalization < FunctionNormalization
 %     function evaluations that correspond to a "monic" normalization -- i.e.
 %     the leading term has coefficient 1.
 
-  properties(Access=private)
+  properties(SetAccess=private)
     description;
+    ids = {'monic', 'mon'};
   end
 
   methods(Access=private)

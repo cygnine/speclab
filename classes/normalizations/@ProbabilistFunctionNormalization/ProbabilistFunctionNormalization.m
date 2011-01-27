@@ -7,8 +7,9 @@ classdef ProbabilistFunctionNormalization < FunctionNormalization
 %     function evaluations that correspond to a "probabilist" normalization.
 %     "Claisscal" means the normalization that is prevalent in the literature.
 
-  properties(Access=private)
+  properties(SetAccess=private)
     description;
+    ids = {'probability', 'prob', 'probabilist'};
   end
 
   methods(Access=private)

@@ -1,5 +1,5 @@
 classdef JacobiPolynomialBasis < OrthogonalPolynomialBasis
-  properties
+  properties(SetAccess=protected)
     alpha;
     beta;
   end
@@ -13,17 +13,20 @@ classdef JacobiPolynomialBasis < OrthogonalPolynomialBasis
       if isempty(strict_inputs)
         from labtools import strict_inputs
       end
-      inputs = {'alpha', 'beta'};
-      defaults = {-0.5, -0.5};
+      inputs = {'alpha', 'beta', 'normalization'};
+      defaults = {-0.5, -0.5, 'normal'};
       opt = strict_inputs(inputs, defaults, [], varargin{:});
 
       self = self@OrthogonalPolynomialBasis(varargin{:});
+      self.allowed_function_normalizations{end+1} = ClassicalFunctionNormalization.instance();
+      self.normalization = self.function_normalization_parser(opt.normalization);
 
       [self.alpha, self.beta] = deal(opt.alpha, opt.beta);
       
       if (mod(2*self.alpha,2)==1) && (mod(2*self.beta,2)==1)
         self.fftable = true;
       end
+
     end
 
     [a,b] = recurrence(self, n);

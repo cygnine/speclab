@@ -7,8 +7,9 @@ classdef ProbabilityWeightNormalization < WeightNormalization
 %     function has a "probability" normalization -- meaning that it integrates
 %     to one over Lebesgue measure.
 
-  properties(Access=private)
+  properties(SetAccess=private)
     description;
+    ids = {'probability', 'prob'};
   end
 
   methods(Access=private)

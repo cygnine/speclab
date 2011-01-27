@@ -21,7 +21,19 @@ if not(isa(inp, 'char'))
 end
 
 obj = [];
-switch lower(inp)
-case {'classical', 'class'}
-  obj = ClassicalWeightNormalization.instance();
+bool = false;
+q = 1;
+while not(bool) & (q <= length(self.allowed_weight_normalizations))
+  curr_norm = self.allowed_weight_normalizations{q};
+  [bool, obj] = curr_norm.string_compare(inp);
+  q = q + 1;
 end
+if not(bool)
+  obj = self.default_weight_normalization;
+  %error('Unrecognized normalization character array');
+end
+
+%switch lower(inp)
+%case {'classical', 'class'}
+%  obj = ClassicalWeightNormalization.instance();
+%end

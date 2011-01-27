@@ -1,4 +1,4 @@
-classdef WeightNormalization < Singleton
+classdef WeightNormalization < Normalization
 % WeightNormalization -- A superclass for weight function normalizations 
 %
 % self = WeightNormalization()

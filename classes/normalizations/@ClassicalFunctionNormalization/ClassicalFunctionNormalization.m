@@ -7,8 +7,9 @@ classdef ClassicalFunctionNormalization < FunctionNormalization
 %     function evaluations that correspond to a "classical" normalization.
 %     "Claisscal" means the normalization that is prevalent in the literature.
 
-  properties(Access=private)
+  properties(SetAccess=private)
     description;
+    ids = {'classical', 'class'};
   end
 
   methods(Access=private)

@@ -7,8 +7,9 @@ classdef PhysicistFunctionNormalization < FunctionNormalization
 %     function evaluations that correspond to a "physicist" normalization.
 %     "Claisscal" means the normalization that is prevalent in the literature.
 
-  properties(Access=private)
+  properties(SetAccess=private)
     description;
+    ids = {'physics', 'physicist', 'physic'};
   end
 
   methods(Access=private)

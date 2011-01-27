@@ -21,13 +21,24 @@ if not(isa(inp, 'char'))
 end
 
 obj = [];
-switch lower(inp)
-case {'classical', 'class'}
-  obj = ClassicalFunctionNormalization.instance();
-case {'orthonormal', 'normal'}
-  obj = OrthonormalNormalization.instance();
-case {'monic', 'mon'}
-  obj = MonicNormalization.instance();
-otherwise
-  error('Unrecognized normalization character array');
+bool = false;
+q = 1;
+while not(bool) & (q <= length(self.allowed_function_normalizations))
+  curr_norm = self.allowed_function_normalizations{q};
+  [bool, obj] = curr_norm.string_compare(inp);
+  q = q + 1;
 end
+if not(bool)
+  obj = self.default_function_normalization;
+  %error('Unrecognized normalization character array');
+end
+
+%switch lower(inp)
+%%case {'classical', 'class'}
+%%  obj = ClassicalFunctionNormalization.instance();
+%%case {'orthonormal', 'normal'}
+%%  obj = OrthonormalNormalization.instance();
+%%case {'monic', 'mon'}
+%%  obj = MonicNormalization.instance();
+%otherwise
+%end

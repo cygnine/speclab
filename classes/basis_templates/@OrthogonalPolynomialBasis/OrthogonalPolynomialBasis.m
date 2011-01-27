@@ -27,6 +27,12 @@ classdef OrthogonalPolynomialBasis < WholeBasis
   properties(Access=private)
     recurrence_handle = [];
   end
+  properties(Access=protected)
+    %allowed_function_normalizations;
+    %allowed_weight_normalizations;
+    %default_function_normalization = OrthonormalNormalization.instance();
+    %default_weight_normalization = ClassicalWeightNormalization.instance();
+  end
   methods
     function self = OrthogonalPolynomialBasis(varargin)
 
@@ -44,6 +50,13 @@ classdef OrthogonalPolynomialBasis < WholeBasis
 
       self = self@WholeBasis(varargin{:});
 
+      self.allowed_function_normalizations{end+1} = MonicNormalization.instance(); 
+      self.allowed_function_normalizations{end+1} = OrthonormalNormalization.instance(); 
+      self.allowed_weight_normalizations{end+1} = ClassicalWeightNormalization.instance();
+      self.allowed_weight_normalizations{end+1} = ProbabilityWeightNormalization.instance();
+      self.default_function_normalization = OrthonormalNormalization.instance();
+      self.default_weight_normalization = ClassicalWeightNormalization.instance();
+
       self.recurrence_handle = parsed_inputs.recurrence;
       self.normalization = self.function_normalization_parser(parsed_inputs.normalization);
       self.weight_normalization = self.weight_normalization_parser(parsed_inputs.weight_normalization);
@@ -56,6 +69,7 @@ classdef OrthogonalPolynomialBasis < WholeBasis
       self.map_to_domain = inv(self.map_to_standard_domain);
       
       self.indexing = whole_range;
+
     end
 
     p = evaluate(self,x,n,varargin);
@@ -70,6 +84,7 @@ classdef OrthogonalPolynomialBasis < WholeBasis
     C = monomial_connection(self,N);
     C = inv_monomial_connection(self,N);
     [a,b,c] = mapped_recurrence(self, n);
+
   end
 
   methods(Access=protected)

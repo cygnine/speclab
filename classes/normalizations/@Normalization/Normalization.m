@@ -1,29 +1,15 @@
-classdef PolynomialNormalization < Singleton
-  properties
-    description;
+classdef Normalization < Singleton
+% Normalization -- A superclass for function normalizations 
+%
+% self = Normalization()
+%
+%     A superclass for all singleton classes that are normalization
+%     specifications. There are no public data properties for this class, and
+%     this class has no constructor.
+  properties(SetAccess=private,Abstract=true)
+    ids
   end
-
- methods(Access=private)
-    % Guard the constructor against external invocation.  We only want
-    % to allow a single instance of this class.  See description in
-    % Singleton superclass.
-    function self = PolynomialNormalization()
-       % Initialise your custom properties.
-       self.description = 'polynomial normalization';
-    end
- end
- 
- methods(Static)
-    % Concrete implementation.  See Singleton superclass.
-    function self = instance()
-       persistent PolynomialNormalization_instance
-       if isempty(PolynomialNormalization_instance)
-          self = PolynomialNormalization();
-          PolynomialNormalization_instance= self;
-       else
-          self = PolynomialNormalization_instance;
-       end
-    end
- end
- 
+  methods
+    [bool, instance] = string_compare(self, string)
+  end
 end

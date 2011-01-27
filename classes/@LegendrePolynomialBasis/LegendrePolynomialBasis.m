@@ -9,13 +9,15 @@ classdef LegendrePolynomialBasis < JacobiPolynomialBasis
       if isempty(all_inputs)
         from labtools import all_inputs
       end
-      inputs = {};
-      defaults = {};
+      inputs = {'normalization'};
+      defaults = {'normal'};
       opt = all_inputs(inputs, defaults, [], varargin{:});
       opt.alpha = 0; 
       opt.beta = 0;
 
       self = self@JacobiPolynomialBasis(opt);
+      self.allowed_function_normalizations{end+1} = ClassicalFunctionNormalization.instance();
+      self.normalization = self.function_normalization_parser(opt.normalization);
     end
   end
 

@@ -10,8 +10,9 @@ classdef ClassicalWeightNormalization < WeightNormalization
 %     function evaluates to the value of the mapped coordinate (any resulting
 %     Jacobian is built into the function evaluations).
 
-  properties(Access=private)
+  properties(SetAccess=private)
     description;
+    ids = {'classical', 'class'};
   end
 
   methods(Access=private)

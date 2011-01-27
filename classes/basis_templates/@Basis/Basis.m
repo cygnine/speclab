@@ -12,6 +12,14 @@ classdef Basis
 %    scale = 1;
 %    shift = 0;
   end
+  properties(Access=protected)
+    allowed_function_normalizations = {};
+    allowed_weight_normalizations = {};
+  %end
+  %properties(Access=protected)
+    default_function_normalization
+    default_weight_normalization
+  end
   methods
     function self = Basis(varargin)
       persistent strict_inputs

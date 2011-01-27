@@ -1,4 +1,4 @@
-classdef FunctionNormalization < Singleton
+classdef FunctionNormalization < Normalization
 % FunctionNormalization -- A superclass for function normalizations 
 %
 % self = FunctionNormalization()
@@ -7,7 +7,4 @@ classdef FunctionNormalization < Singleton
 %     specifications. There are no public data properties for this class, and
 %     this class has no constructor.
 
-%  properties(Access=private)
-%    descriptor = 'Function normalization';
-%  end
 end

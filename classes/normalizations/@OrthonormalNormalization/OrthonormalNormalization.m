@@ -8,8 +8,9 @@ classdef OrthonormalNormalization < FunctionNormalization
 %     Here "orthonormal" refers to unit norm under some innate norm (usually an
 %     L^2 inner product) that is defined by the basis set.
 
-  properties(Access=private)
+  properties(SetAccess=private)
     description;
+    ids = {'orthonormal', 'normal'};
   end
 
   methods(Access=private)
