@@ -17,7 +17,11 @@ function[a] = linear_to_array_indexing(n,varargin)
 %                                              3 , 0]
 %
 
-input_schema = from_as('labtools', 'input_schema');
+persistent input_schema
+if isempty(input_schema)
+  from labtools import input_schema
+end
+%input_schema = from_as('labtools', 'input_schema');
 opt = input_schema({'dim'}, {1}, [], varargin{:});
 dim = opt.dim;
 

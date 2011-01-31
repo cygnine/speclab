@@ -87,7 +87,7 @@ W = opt.basis(theta, poly_indices);
 % If during the algorithm we need more columns than Wc, they will be generated
 % at that point.
 
-while lu_row < N+1
+while lu_row <= N
   % The mass matrix defining the inner product for this degree
   M = opt.ip(D, k_counter);
 
@@ -96,7 +96,7 @@ while lu_row < N+1
   cols = cols:(cols+current_dim-1); % A vector to pick out degree-k columns from W
 
   % Force one elimination: in exact arithmetic, one is always needed
-  first_pass = true;
+  %first_pass = true;
   another_pass = true;
 
   % Compute degree-k norms for pivoting
@@ -141,8 +141,11 @@ while lu_row < N+1
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
     % Gauss eliminate:
-    factors = W(lu_row,cols)*M*W(lu_row+1:end,cols).';
-    factors = factors/(W(lu_row,cols)*M*W(lu_row,cols).');
+    %factors = W(lu_row,cols)*M*W(lu_row+1:end,cols).';
+    %factors = factors/(W(lu_row,cols)*M*W(lu_row,cols).');
+    factors = W(lu_row,cols)*M;
+    factors = (factors*W(lu_row+1:end,cols).')/(factors*W(lu_row,cols).');
+
     l(lu_row+1:end,lu_row) = factors.';
     W(lu_row+1:end,cols(1):end) = W(lu_row+1:end,cols(1):end) - factors.'*W(lu_row,cols(1):end);
 
@@ -154,9 +157,10 @@ while lu_row < N+1
 
     norms = sum(abs(W(lu_row:end, cols)).^2*M, 2);
 
-    first_pass = false;
+    %first_pass = false;
 
-    another_pass = first_pass | (any(norms>opt.tol) & (lu_row < N+1));
+    %another_pass = first_pass | (any(norms>opt.tol) & (lu_row < N+1));
+    another_pass = (any(norms>opt.tol) & (lu_row <= N));
   end
 
   k_counter = k_counter + 1;

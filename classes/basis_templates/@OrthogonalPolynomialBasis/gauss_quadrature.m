@@ -26,5 +26,7 @@ end
 [a,b] = self.recurrence(0:(n-1));
 [x,w] = gq(a, b);
 
-x = self.map_to_domain(x);
-w = self.scale_weight(w);
+[x,w] = self.scale_quadrature(x,w);
+
+%x = self.map_to_domain(x);
+%w = self.scale_weight(w);

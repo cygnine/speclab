@@ -14,5 +14,8 @@ else
   other = varargin{1};
 end
 
-m = inv(self.map_to_standard_interval);
-m = m.compose(other.map_to_standard_interval);
+%m = inv(self.map_to_standard_interval);
+%m = m.compose(other.map_to_standard_interval);
+
+m = inv(other.map_to_standard_interval);
+m = m.compose(self.map_to_standard_interval);

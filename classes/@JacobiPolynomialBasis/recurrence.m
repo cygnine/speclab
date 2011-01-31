@@ -1,15 +1,16 @@
-function[a,b] = recurrence(self, n, dim)
+function[a,b] = recurrence(self, n)
 % [a,b] = recurrence(n,d=1);
 %
 %     Returns the recurrence coefficients with indices n for the Jacobi
-%     polynomials defined by (alpha(dim), beta(dim)). 
+%     polynomials defined by (alpha, beta). 
 
-if nargin < 3
-  dim = 1;
-end
+%if nargin < 3
+%  dim = 1;
+%end
 
 N = max(n) + 1;
-[alpha,beta] = deal(self.alpha(dim), self.beta(dim));
+[alpha,beta] = deal(self.alpha, self.beta);
+%[alpha,beta] = deal(self.alpha(dim), self.beta(dim));
 a = (beta^2-alpha^2)*ones(size(n));
 b = ones(size(n));
 

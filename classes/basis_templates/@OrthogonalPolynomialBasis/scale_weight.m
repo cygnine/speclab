@@ -20,10 +20,9 @@ elseif self.weight_normalization==natural
   % We place the Jacobian as part of the weight function
   w = self.map_to_standard_domain.A*w;
 elseif self.weight_normalization==probability
-  % We have to include the Jacobian, plus we need to normalize things to have
-  % unit integral.
-  [a,b] = self.recurrence(1);
-  w = self.map_to_standard_domain.A*w/b(1);
+  % Just divide by the integral on the standard interval
+  [a,b] = self.recurrence(0);
+  w = self.map_to_standard_domain.A*w/b;
 else
   error('This basis does not support the given function normalization type');
 end

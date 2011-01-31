@@ -24,5 +24,6 @@ a(N) = opt.r - b(N)*temp(1)/temp(2);
 %[x,w] = self.gauss_quadrature([], 'a', a, 'b', b);
 [x,w] = gq(a,b);
 
-x = self.map_to_domain(x);
-w = self.scale_weight(w);
+%x = self.map_to_domain(x);
+%w = self.scale_weight(w);
+[x,w] = self.scale_quadrature(x,w);

@@ -7,10 +7,10 @@ classdef Basis
   properties
     description = [];
     fftable = false;
-    domain = [];
-    standard_domain = [];
-%    scale = 1;
-%    shift = 0;
+  end
+  properties(Abstract=true)
+    domain
+    standard_domain
   end
   properties(Access=protected)
     allowed_function_normalizations = {};
@@ -31,17 +31,13 @@ classdef Basis
       defaults = {[], false, Interval1D(),Interval1D()};
       opt = strict_inputs(inputs, defaults, [], varargin{:});
 
-      % wtf, matlab
       self.description = opt.description;
       self.fftable = opt.fftable;
-      self.domain = opt.domain;
-      self.standard_domain = opt.standard_domain;
-      %self.scale = 1;
-      %self.shift = 0;
     end
 
     obj = function_normalization_parser(self, inp);
     obj = weight_normalization_parser(self, inp);
     inds = natural_indexing(self, subs)
+
   end
 end

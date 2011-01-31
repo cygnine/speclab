@@ -23,6 +23,8 @@ classdef OrthogonalPolynomialBasis < WholeBasis
     weight_normalization = [];
     map_to_standard_domain
     map_to_domain
+    domain
+    standard_domain
   end
   properties(Access=private)
     recurrence_handle = [];
@@ -53,6 +55,7 @@ classdef OrthogonalPolynomialBasis < WholeBasis
       self.allowed_function_normalizations{end+1} = MonicNormalization.instance(); 
       self.allowed_function_normalizations{end+1} = OrthonormalNormalization.instance(); 
       self.allowed_weight_normalizations{end+1} = ClassicalWeightNormalization.instance();
+      self.allowed_weight_normalizations{end+1} = NaturalWeightNormalization.instance();
       self.allowed_weight_normalizations{end+1} = ProbabilityWeightNormalization.instance();
       self.default_function_normalization = OrthonormalNormalization.instance();
       self.default_weight_normalization = ClassicalWeightNormalization.instance();
@@ -63,13 +66,8 @@ classdef OrthogonalPolynomialBasis < WholeBasis
 
       % Get domain mapping
       self.standard_domain = parsed_inputs.standard_domain;
-      %self.domain = Orthotope('interval', Interval1D(parsed_inputs.domain));
       self.domain = Interval1D(parsed_inputs.domain);
-      self.map_to_standard_domain = self.domain.compute_affine_map(self.standard_domain);
-      self.map_to_domain = inv(self.map_to_standard_domain);
-      
       self.indexing = whole_range;
-
     end
 
     p = evaluate(self,x,n,varargin);
@@ -85,11 +83,18 @@ classdef OrthogonalPolynomialBasis < WholeBasis
     C = inv_monomial_connection(self,N);
     [a,b,c] = mapped_recurrence(self, n);
 
+    function self = set.domain(self,newdomain)
+      self.domain = newdomain;
+      self.map_to_standard_domain = self.domain.compute_affine_map(self.standard_domain);
+      self.map_to_domain = inv(self.map_to_standard_domain);
+    end
+
   end
 
   methods(Access=protected)
     p = scale_functions(self, p, n, normalization)
     w = scale_weight(self,w);
+    [x,w] = scale_quadrature(self,x,w);
     p = eval_driver(self, x, a, b, n, d);
   end
 
