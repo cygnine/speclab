@@ -24,6 +24,10 @@ if normalization==classical
   temp = gammaln(n+self.alpha+1) + gammaln(n+self.beta+1) - gammaln(n+1) - ...
          gammaln(n+self.alpha+self.beta+1);
   factors = 2^(self.alpha+self.beta+1)./(2*n+self.alpha+self.beta+1).*exp(temp);
+
+  % The following can only be triggered when n==0 ( and alpha+beta+1=0 )
+  factors(abs(n+self.alpha+self.beta+1)<1e-4) = 2^(self.alpha+self.beta+1).*gamma(self.alpha+1).*gamma(self.beta+1);
+
   p = p*spdiag(sqrt(factors));
 else
   p = scale_functions@OrthogonalPolynomialBasis(self, p, n, normalization);

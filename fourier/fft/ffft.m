@@ -19,7 +19,7 @@ if isempty(connection)
 end
 
 opt = input_schema({'gamma','delta','shift','scale'},{0,0,0,1},[],varargin{:});
-N = length(nodes);
+N = size(nodes, 1);
 
 % This commented-out way is the way I *should* be doing it....
 % modes = fftshift(fft(fftshift(nodes)));
@@ -31,10 +31,11 @@ ks = integer_range(N);
 phase = exp(-i*ks*pi/N);
 phase(ks==0) = 1;
 phase(mod(ks,2)==1) = phase(mod(ks,2)==1)*-1;
-for q = 1:size(modes,2)
-  modes(:,q) = phase.*modes(:,q);
-end
-%modes = spdiag(phase)*modes;
+
+%for q = 1:size(modes,2)
+%  modes(:,q) = phase.*modes(:,q);
+%end
+modes = spdiag(phase)*modes;
 
 if (opt.gamma+opt.delta)>0
   modes = connection(modes,0,0,opt.gamma,opt.delta);

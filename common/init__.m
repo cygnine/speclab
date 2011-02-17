@@ -3,5 +3,8 @@ function[common] = init__()
 %
 % [nodes] = init__()
 
-common = recurse_files(pwd);
-common.tensor = matlab_import('tensor');
+module_list = {'tensor'};
+
+common = recurse_files(pwd, module_list);
+%common = add_module(common, module_list);
+%common.tensor = matlab_import('tensor');
