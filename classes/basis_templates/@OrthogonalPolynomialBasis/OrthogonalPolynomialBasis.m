@@ -82,7 +82,8 @@ classdef OrthogonalPolynomialBasis < WholeBasis
     C = monomial_connection(self,N);
     C = inv_monomial_connection(self,N);
     [a,b,c] = mapped_recurrence(self, n);
-    [lmbda] = orthogonal_connection(self,other,N);
+    lmbda = orthogonal_connection(self,other,N);
+    lmbda = self_connection(self,d,N);
 
     function self = set.domain(self,newdomain)
       self.domain = newdomain;
