@@ -17,14 +17,17 @@ classdef OrthogonalPolynomialBasis < WholeBasis
 %     set it to true; in this case, you are responsible for defining the
 %     fft and ifft methods.
   properties
-    indexing = @(n) [];
     dimension = 1;
     normalization = [];
     weight_normalization = [];
     map_to_standard_domain
     map_to_domain
-    domain
     standard_domain
+    domain
+    indexing
+  end
+  properties(Access=protected)
+    default_indexing
   end
   properties(Access=private)
     recurrence_handle = [];
@@ -38,15 +41,15 @@ classdef OrthogonalPolynomialBasis < WholeBasis
   methods
     function self = OrthogonalPolynomialBasis(varargin)
 
-      persistent strict_inputs whole_range
+      persistent strict_inputs indexing_parser
       if isempty(strict_inputs)
         from labtools import strict_inputs
-        from speclab.common import whole_range
+        from speclab.common import indexing_parser
       end
 
-      inputs = {'recurrence', 'standard_domain', ...
+      inputs = {'recurrence', 'standard_domain', 'indexing', ...
                 'normalization', 'weight_normalization', 'dim', 'domain'};
-      defaults = {@(n) [], Interval1D(), 'normal', 'classical', 1, Interval1D()};
+      defaults = {@(n) [], Interval1D(), 0, 'normal', 'classical', 1, Interval1D()};
 
       parsed_inputs = strict_inputs(inputs, defaults, [], varargin{:});
 
@@ -64,10 +67,13 @@ classdef OrthogonalPolynomialBasis < WholeBasis
       self.normalization = self.function_normalization_parser(parsed_inputs.normalization);
       self.weight_normalization = self.weight_normalization_parser(parsed_inputs.weight_normalization);
 
+      % Set up indexing
+      self.default_indexing = ZeroBasedIndexing.instance();
+      self.indexing = indexing_parser(parsed_inputs.indexing);
+
       % Get domain mapping
       self.standard_domain = parsed_inputs.standard_domain;
       self.domain = Interval1D(parsed_inputs.domain);
-      self.indexing = whole_range;
     end
 
     p = evaluate(self,x,n,varargin);
@@ -89,6 +95,14 @@ classdef OrthogonalPolynomialBasis < WholeBasis
       self.domain = newdomain;
       self.map_to_standard_domain = self.domain.compute_affine_map(self.standard_domain);
       self.map_to_domain = inv(self.map_to_standard_domain);
+    end
+    
+    function self = set.indexing(self,newindexing)
+      if isa(newindexing, 'IndexingRule')
+        self.indexing = newindexing;
+      else
+        error('New indexing rule must be object derived from class IndexingRule');
+      end
     end
 
   end

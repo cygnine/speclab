@@ -15,8 +15,8 @@ classdef GegenbauerPolynomialBasis < JacobiPolynomialBasis
       inputs = {'normalization', 'lambda'};
       defaults = {'normal', 0};
       opt = all_inputs(inputs, defaults, [], varargin{:});
-      opt.alpha = 0-1/2; 
-      opt.beta = 0-1/2;
+      opt.alpha = opt.lambda-1/2; 
+      opt.beta = opt.lambda-1/2;
 
       self = self@JacobiPolynomialBasis(opt);
       self.lambda = opt.lambda;

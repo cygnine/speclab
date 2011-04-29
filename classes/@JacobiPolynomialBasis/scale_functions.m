@@ -17,7 +17,8 @@ if not(exist('normalization')==1);
   normalization = self.normalization;
 end
 
-if normalization==classical
+%if normalization==classical
+if isa(normalization, 'ClassicalFunctionNormalization');
   % For Jacobi polynomials, we'll define this normalization to be the one such
   % that p_n(R) = nchoosek(n+alpha, n), where R is the right-hand endpoint,
   % regardless of affine map.

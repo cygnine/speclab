@@ -39,7 +39,8 @@ C = ones(N);
 maxdeg = N-1;
 leading_coeffs = zeros([N 1]);
 
-[a,b] = recurrence{d}(maxdeg+1);
+%[a,b] = recurrence{d}(maxdeg+1);
+[a,b] = self.recurrence(0:(maxdeg+1));
 b = sqrt(b);
 
 leading_coeffs = cumprod(1./b);
@@ -68,9 +69,12 @@ end
 % Now distribute
 %C = C.*D(alphas(:,d)+1,alphas(:,d)+1);
 
-switch opt.normalization
-case OrthonomalNormalization.instance()
-  % do nothing
-case MonicNormalization.instance()
-  C = spdiag(1./leading_coeffs)*C;
-end
+temp = self.scale_functions(ones([1 size(C,2)]), 0:(size(C,2)-1));
+C = spdiag(temp)*C;
+
+%switch self.normalization
+%case OrthonomalNormalization.instance()
+%  % do nothing
+%case MonicNormalization.instance()
+%  C = spdiag(1./leading_coeffs)*C;
+%end

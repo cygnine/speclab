@@ -11,6 +11,10 @@ classdef Basis
   properties(Abstract=true)
     domain
     standard_domain
+    indexing 
+  end
+  properties(Abstract=true,Access=protected)
+    default_indexing
   end
   properties(Access=protected)
     allowed_function_normalizations = {};
@@ -35,9 +39,19 @@ classdef Basis
       self.fftable = opt.fftable;
     end
 
+    function output = range(self,N)
+    % range -- Returns indices for the first N basis elements
+    %
+    % output = range(self,N)
+    %
+    %     Given an integer N, this function returns indices for the first N
+    %     basis elements.
+      output = self.indexing.from_naturals(1:N);
+    end
+
     obj = function_normalization_parser(self, inp);
     obj = weight_normalization_parser(self, inp);
-    inds = natural_indexing(self, subs)
+    %inds = natural_indexing(self, subs)
 
   end
 end

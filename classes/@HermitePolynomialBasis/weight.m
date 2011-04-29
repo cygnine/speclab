@@ -12,5 +12,5 @@ function w = weight(self, x)
 %     self.weight_normalization.
 
 r = self.map_to_standard_domain(x);
-w = abs(r).^(2*mu)*exp(-r.^2);
+w = abs(r).^(2*self.mu).*exp(-r.^2);
 w = self.scale_weight(w);

@@ -23,7 +23,8 @@ if normalization==orthonormal
   % this is already present in the weight rescaling, we don't need to
   % renormalize.
   K = self.scale_weight(1);
-  p = p*sqrt(K/self.map_to_standard_domain.A);
+  %p = p*sqrt(K/self.map_to_standard_domain.A);
+  p = p*sqrt(self.map_to_standard_domain.A/K);
 elseif normalization==monic
   N = max(n);
   [a,b] = self.recurrence(0:N);
