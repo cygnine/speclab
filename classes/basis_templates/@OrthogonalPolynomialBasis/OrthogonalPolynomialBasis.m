@@ -1,4 +1,4 @@
-classdef OrthogonalPolynomialBasis < WholeBasis
+classdef OrthogonalPolynomialBasis < HilbertBasis
 % self = OrthogonalPolynomialBasis({n=0,description='none',
 %             fftable=false,domain=Interval1D(),recurrence=@(n) [],
 %             normalization='normal', weight_normalization='classical',
@@ -17,26 +17,20 @@ classdef OrthogonalPolynomialBasis < WholeBasis
 %     set it to true; in this case, you are responsible for defining the
 %     fft and ifft methods.
   properties
-    dimension = 1;
-    normalization = [];
-    weight_normalization = [];
+    dim = 1;
     map_to_standard_domain
     map_to_domain
     standard_domain
     domain
-    indexing
   end
   properties(Access=protected)
-    default_indexing
+    default_function_normalization = OrthonormalNormalization.instance();
+  end
+  properties(SetAccess=protected)
+    internal_indexing = ZeroBasedIndexing.instance();
   end
   properties(Access=private)
     recurrence_handle = [];
-  end
-  properties(Access=protected)
-    %allowed_function_normalizations;
-    %allowed_weight_normalizations;
-    %default_function_normalization = OrthonormalNormalization.instance();
-    %default_weight_normalization = ClassicalWeightNormalization.instance();
   end
   methods
     function self = OrthogonalPolynomialBasis(varargin)
@@ -47,29 +41,49 @@ classdef OrthogonalPolynomialBasis < WholeBasis
         from speclab.common import indexing_parser
       end
 
-      inputs = {'recurrence', 'standard_domain', 'indexing', ...
-                'normalization', 'weight_normalization', 'dim', 'domain'};
-      defaults = {@(n) [], Interval1D(), 0, 'normal', 'classical', 1, Interval1D()};
+      %self.default_function_normalization = OrthonormalNormalization.instance();
+      %self.default_weight_normalization = ClassicalWeightNormalization.instance();
+
+      inputs = {'recurrence', ...
+                'standard_domain', ...
+                'indexing', ...
+                'normalization', ...
+                'weight_normalization', ...
+                'dim', ...
+                'domain'};
+      defaults = {@(n) [], ...
+                  Interval1D(), ...
+                  ZeroBasedIndexing.instance(), ...
+                  'normal', ...
+                  'classical', ...
+                  1, ...
+                  Interval1D()};
 
       parsed_inputs = strict_inputs(inputs, defaults, [], varargin{:});
 
-      self = self@WholeBasis(varargin{:});
+      self = self@HilbertBasis(varargin{:});
 
+      % Add allowed normalizations
       self.allowed_function_normalizations{end+1} = MonicNormalization.instance(); 
       self.allowed_function_normalizations{end+1} = OrthonormalNormalization.instance(); 
       self.allowed_weight_normalizations{end+1} = ClassicalWeightNormalization.instance();
       self.allowed_weight_normalizations{end+1} = NaturalWeightNormalization.instance();
       self.allowed_weight_normalizations{end+1} = ProbabilityWeightNormalization.instance();
+
       self.default_function_normalization = OrthonormalNormalization.instance();
       self.default_weight_normalization = ClassicalWeightNormalization.instance();
 
       self.recurrence_handle = parsed_inputs.recurrence;
-      self.normalization = self.function_normalization_parser(parsed_inputs.normalization);
-      self.weight_normalization = self.weight_normalization_parser(parsed_inputs.weight_normalization);
+
+      % Set normalizations
+      self.normalization = parsed_inputs.normalization;
+      self.weight_normalization = parsed_inputs.weight_normalization;
 
       % Set up indexing
-      self.default_indexing = ZeroBasedIndexing.instance();
-      self.indexing = indexing_parser(parsed_inputs.indexing);
+      self.user_indexing = indexing_parser(parsed_inputs.indexing);
+      if isempty(parsed_inputs.internal_indexing)
+        self.internal_indexing = indexing_parser(parsed_inputs.indexing);
+      end
 
       % Get domain mapping
       self.standard_domain = parsed_inputs.standard_domain;
@@ -84,7 +98,7 @@ classdef OrthogonalPolynomialBasis < WholeBasis
     J = jacobi_matrix(self,N);
     w = weight(self,x);
     k = leading_coefficient(self,n);
-    h = l2_norm(self,n);
+    %h = l2_norm(self,n);
     C = monomial_connection(self,N);
     C = inv_monomial_connection(self,N);
     [a,b,c] = mapped_recurrence(self, n);
@@ -96,15 +110,16 @@ classdef OrthogonalPolynomialBasis < WholeBasis
       self.map_to_standard_domain = self.domain.compute_affine_map(self.standard_domain);
       self.map_to_domain = inv(self.map_to_standard_domain);
     end
-    
-    function self = set.indexing(self,newindexing)
+
+    function self = set.user_indexing(self,newindexing)
       if isa(newindexing, 'IndexingRule')
-        self.indexing = newindexing;
+        self.user_indexing = newindexing;
       else
         error('New indexing rule must be object derived from class IndexingRule');
       end
     end
 
+    [n_array, nsize, numeln] = indexing(self,n)
   end
 
   methods(Access=protected)

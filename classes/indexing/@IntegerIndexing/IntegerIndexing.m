@@ -10,7 +10,8 @@ classdef IntegerIndexing < IndexingRule
   %     Most useful in cases like Fourier expansions.
   properties(SetAccess=private)
     descriptive_adjective
-    ids = {'integer'};
+    ids = {'integer', 'int'};
+    image
   end
   methods(Static)
     function self = instance()
@@ -22,8 +23,9 @@ classdef IntegerIndexing < IndexingRule
     end
   end
   methods(Access=private)
-    function self = IntegerIndexing()
+    function self = IntegerIndexing(varargin)
       self.descriptive_adjective = 'Integer';
+      self.image = IntegerNumbers.instance();
     end
   end
   methods

@@ -11,15 +11,30 @@ persistent rule_list
 if isempty(rule_list)
   rule_list = {ZeroBasedIndexing.instance(), ...
                OneBasedIndexing.instance(), ...
-               IntegerIndexing.instance()};
+               IntegerIndexing.instance(), ...
+               TotalGLexIndexing.instance(), ...
+               TotalGRevLexIndexing.instance(), ...
+               MarginalGLexIndexing.instance(), ...
+               MarginalGRevLexIndexing.instance()};
                %MultinomialIndexing.instance() };
 end
 
+% If we're given an IndexingRule instance, just return it
+if isa(inp, 'IndexingRule')
+  I = inp;
+  return
+end
+
+% Otherwise search string id's
 for q = 1:length(rule_list)
   I = rule_list{q};
   tf = I.id_compare(inp);
   if tf
-    I = rule_list{q};
     break;
   end
+  I = [];
+end
+
+if isempty(I)
+  error('String input is not an ID for an indexing rule');
 end

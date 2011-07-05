@@ -1,9 +1,9 @@
-function[h] = l2_norm(self,n)
-% l2_norm -- Weighted l2 norm of polynomials
+function[h] = norm(self,n)
+% norm -- (native) Hilbert norm of polynomials
 %
-% h = l2_norm(self,n)
+% h = norm(self,n)
 %
-%     Returns the weighted L^2 norm of the polynomials of degree n. This is a
+%     Returns the weighted L^2 norm of the polynomials of index n. This is a
 %     function both of the weight normalization and function normalization of
 %     the class instance.
 

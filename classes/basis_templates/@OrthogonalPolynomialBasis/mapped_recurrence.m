@@ -4,21 +4,20 @@ function[A,B,C] = mapped_recurrence(self, n)
 % [A,B,C] = mapped_recurrence(self, n)
 %
 %     For the particular normalization of the instance, returns the vector of
-%     coefficients a,b,c such that 
+%     coefficients A,B,C such that 
 %
 %      p_0 = B_0, A_0 = C_0 = 0
 %      x p_1 = A_1 p_1 + B_1 p_0,  C_0 = 0
 %      x p_{n+1} = A_{n+1} p_{n+1} + B_{n+1} p_n + C_{n+1} p_{n-1},   (n > 0)
 %
-%     This fucntion returns the coefficients {A_n, B_n, C_n} in arrays for each
-%     integer in the input array n.
+%     This function returns the coefficients {A_n, B_n, C_n} in arrays for each
+%     index in the input array n.
 
 %      a_{n+1} p_{n+1} = (x + b_{n+1}) p_n + c_{n+1} p_{n-1}.
 %      a_0 p_0 = 1
 %      p_{-1} = 0
 
-nsize = size(n);
-n = n(:);
+[n, nsize, numeln] = self.indexing(n);
 N = max(n);
 ns = (0:N).';
 

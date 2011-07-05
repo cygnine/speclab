@@ -7,6 +7,7 @@ classdef OneBasedIndexing < IndexingRule
   properties(SetAccess=private)
     descriptive_adjective
     ids = {'1', 'one', 'ones'};
+    image
   end
   methods(Static)
     function self = instance()
@@ -20,6 +21,7 @@ classdef OneBasedIndexing < IndexingRule
   methods(Access=private)
     function self = OneBasedIndexing()
       self.descriptive_adjective = 'One-based';
+      self.image = NaturalNumbers.instance();
     end
   end
   methods

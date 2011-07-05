@@ -5,18 +5,21 @@ classdef IndexingRule < Singleton
 %
 %     A superclass for all singleton classes that are indexing rules. In
 %     general, an indexing rule is a map from the natural numbers (1,2, ...) to
-%     some prescribed index set. This map is an isomorphism.
+%     some prescribed index set. This map is an isomorphism. In other words,
+%     this class endows sets corresponding to subclasses of IndexSet with a
+%     total ordering.
 %
 %     All subclasses must define methods 'to_natural' and 'from_natural' that
 %     implement the isomorphism to the natural numbers.
 %
 %     Generally speaking, the `forward' map is from the naturals to whatever the
-%     custom range is. The 'backward' or 'inverse' maps takes the custom range
+%     custom range is. The 'backward' or 'inverse' maps takes the customized range
 %     back to the naturals.
   properties(SetAccess=private,Abstract=true)
     % e.g. 'one-based'
     descriptive_adjective
     ids % A cell array of strings that identify the rule.
+    image % The IndexSet that is the range of this map
   end
   methods(Abstract=true)
     to_naturals
@@ -59,14 +62,19 @@ classdef IndexingRule < Singleton
       %     Syntactic sugar for output = self.to_naturals(inp).
       output = self.to_naturals(inp);
     end
-    function tf = id_compare(self, inp)
+    function [tf, instance] = id_compare(self, inp)
     % id_compare -- Determines whether or not an input string ids this rule
     %
-    % tf = id_compare(self, inp)
+    % [tf, instance] = id_compare(self, inp)
     %
     %     Compares the string input 'inp' to all id strings in self.ids and
     %     returns true or false based on comparison.
       tf = any(strcmpi(num2str(inp), self.ids));
+      if tf
+        instance = self;
+      else
+        instance = [];
+      end
     end
   end
 end

@@ -7,6 +7,7 @@ classdef ZeroBasedIndexing < IndexingRule
   properties(SetAccess=private)
     descriptive_adjective
     ids = {'0', 'zero', 'zeroes', 'zeros'};
+    image
   end
   methods(Static)
     function self = instance()
@@ -20,6 +21,7 @@ classdef ZeroBasedIndexing < IndexingRule
   methods(Access=private)
     function self = ZeroBasedIndexing()
       self.descriptive_adjective = 'Zero-based';
+      self.image = WholeNumbers.instance();
     end
   end
   methods

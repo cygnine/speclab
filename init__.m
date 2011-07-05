@@ -14,6 +14,7 @@ pwd_addpath('classes');
 pwd_addpath('classes/normalizations');
 pwd_addpath('classes/basis_templates');
 pwd_addpath('classes/indexing');
+pwd_addpath('classes/indexsets');
 pwd_addpath('classes/misc');
 
 speclab.orthopoly1d = speclab.orthopoly;

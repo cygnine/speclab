@@ -7,22 +7,25 @@ classdef Basis
   properties
     description = [];
     fftable = false;
+    normalization = [];
   end
   properties(Abstract=true)
     domain
     standard_domain
-    indexing 
+  %end
+  %properties(Abstract=true,SetAccess=protected)
+    user_indexing
   end
-  properties(Abstract=true,Access=protected)
-    default_indexing
+  properties(SetAccess=protected)
+    internal_indexing 
+    internal_indexset
   end
   properties(Access=protected)
     allowed_function_normalizations = {};
-    allowed_weight_normalizations = {};
-  %end
-  %properties(Access=protected)
     default_function_normalization
-    default_weight_normalization
+  end
+  methods(Abstract=true)
+    indexing
   end
   methods
     function self = Basis(varargin)
@@ -33,10 +36,17 @@ classdef Basis
 
       inputs = {'description','fftable','domain','standard_domain'};
       defaults = {[], false, Interval1D(),Interval1D()};
-      opt = strict_inputs(inputs, defaults, [], varargin{:});
+      parsed_inputs = strict_inputs(inputs, defaults, [], varargin{:});
 
-      self.description = opt.description;
-      self.fftable = opt.fftable;
+      self.description = parsed_inputs.description;
+      self.fftable = parsed_inputs.fftable;
+    end
+    function[self] = set.internal_indexing(self,inp)
+      self.internal_indexset = inp.image;
+      self.internal_indexing = inp;
+    end
+    function[self] = set.normalization(self, inp)
+      self.normalization = self.function_normalization_parser(inp);
     end
 
     function output = range(self,N)
@@ -49,9 +59,11 @@ classdef Basis
       output = self.indexing.from_naturals(1:N);
     end
 
-    obj = function_normalization_parser(self, inp);
-    obj = weight_normalization_parser(self, inp);
     %inds = natural_indexing(self, subs)
 
+  end
+  methods(Access=protected)
+    obj = function_normalization_parser(self, inp);
+    obj = indexing_parser(self, inp);
   end
 end

@@ -6,10 +6,14 @@ function[D] = subspace_dimension(d,k)
 %     Returns the dimension of the space of d-variate polynomials of total
 %     degree equal to k.
 
-if k==0
-  D = 1;
-elseif k<0
-  D = 0;
-else
-  D = round(d./k.*nchoosek(d+k-1, d));
+D = zeros(size(k));
+
+for q = 1:numel(k)
+  if k(q)==0
+    D(q) = 1;
+  elseif k(q)<0
+    D(q) = 0;
+  else
+    D(q) = round(d./k(q).*nchoosek(d+k(q)-1, d));
+  end
 end
