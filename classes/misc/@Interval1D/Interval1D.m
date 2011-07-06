@@ -98,5 +98,6 @@ classdef Interval1D
       self.map_to_standard_interval = AffineMap(1/self.scale, -1/self.scale*self.centroid);
     end
 
+    x = linspace(self, N);
   end
 end

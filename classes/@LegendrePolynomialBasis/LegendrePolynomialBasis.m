@@ -26,7 +26,6 @@ classdef LegendrePolynomialBasis < JacobiPolynomialBasis
       opt.beta = 0;
 
       self = self@JacobiPolynomialBasis(opt);
-      self.normalization = opt.normalization;
     end
   end
 
