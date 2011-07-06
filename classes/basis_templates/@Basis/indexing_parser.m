@@ -17,12 +17,17 @@ if isempty(rules)
 end
 
 if not(isa(inp, 'char'))
-  if isa(inp, 'FunctionNormalization')
+  if isa(inp, 'IndexingRule')
     obj = inp;
+    return
+  elseif isempty(inp)
+    obj = self.default_indexing_rule;
+    return
+  elseif isa(inp, 'numeric')
+    inp = num2str(inp);
   else
-    error('I don''t know what to do with this non-character function normalization');
+    error('I don''t know what to do with this non-character indexing rule');
   end
-  return
 end
 
 obj = [];

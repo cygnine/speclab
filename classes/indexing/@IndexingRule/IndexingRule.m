@@ -25,6 +25,9 @@ classdef IndexingRule < Singleton
     to_naturals
     from_naturals
   end
+  properties(SetAccess=private)
+    preimage = NaturalNumbers.instance(); % Always the naturals
+  end
   methods
     function disp(self)
       fprintf('%s indexing\n', self.descriptive_adjective);

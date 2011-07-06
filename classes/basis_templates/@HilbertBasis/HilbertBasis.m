@@ -7,7 +7,7 @@ classdef HilbertBasis < Basis
 %     instances correspond to complete bases of a Hilbert space whose elements 
 %     are orthogonal with respect to the inner product defined on the Hilbert
 %     space.
-  properties(Access=protected)
+  properties(SetAccess=protected)
     allowed_weight_normalizations = {};
     default_weight_normalization
   end
@@ -17,6 +17,7 @@ classdef HilbertBasis < Basis
   methods
     function self = HilbertBasis(varargin)
       self = self@Basis(varargin{:});
+      self.default_function_normalization = OrthonormalNormalization.instance();
     end
     function self = set.weight_normalization(self, inp)
       self.weight_normalization = self.weight_normalization_parser(inp);

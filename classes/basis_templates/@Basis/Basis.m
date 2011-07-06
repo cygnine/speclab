@@ -8,24 +8,20 @@ classdef Basis
     description = [];
     fftable = false;
     normalization = [];
+    user_indexing
+    domain
   end
   properties(Abstract=true)
-    domain
     standard_domain
-  %end
-  %properties(Abstract=true,SetAccess=protected)
-    user_indexing
+    map_to_domain
+    map_to_standard_domain
   end
   properties(SetAccess=protected)
     internal_indexing 
     internal_indexset
-  end
-  properties(Access=protected)
-    allowed_function_normalizations = {};
+    allowed_function_normalizations
     default_function_normalization
-  end
-  methods(Abstract=true)
-    indexing
+    default_indexing_rule
   end
   methods
     function self = Basis(varargin)
@@ -42,8 +38,11 @@ classdef Basis
       self.fftable = parsed_inputs.fftable;
     end
     function[self] = set.internal_indexing(self,inp)
-      self.internal_indexset = inp.image;
-      self.internal_indexing = inp;
+      self.internal_indexing = self.indexing_parser(inp);
+      self.internal_indexset = self.internal_indexing.image;
+    end
+    function self = set.user_indexing(self,newindexing)
+      self.user_indexing = self.indexing_parser(newindexing);
     end
     function[self] = set.normalization(self, inp)
       self.normalization = self.function_normalization_parser(inp);
@@ -56,10 +55,16 @@ classdef Basis
     %
     %     Given an integer N, this function returns indices for the first N
     %     basis elements.
-      output = self.indexing.from_naturals(1:N);
+      output = self.user_indexing(1:N);
     end
 
-    %inds = natural_indexing(self, subs)
+    function self = set.domain(self,newdomain)
+      self.domain = newdomain;
+      self.map_to_standard_domain = self.domain.compute_affine_map(self.standard_domain);
+      self.map_to_domain = inv(self.map_to_standard_domain);
+    end
+
+    [n_array, nsize, numeln] = indexing(self,n);
 
   end
   methods(Access=protected)

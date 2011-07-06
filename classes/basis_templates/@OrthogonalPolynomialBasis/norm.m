@@ -7,6 +7,8 @@ function[h] = norm(self,n)
 %     function both of the weight normalization and function normalization of
 %     the class instance.
 
+[n, nsize, numeln] = self.indexing(n);
+
 % First get weight scaling:
 K = self.map_to_domain.A*self.scale_weight(1);
 
@@ -14,3 +16,5 @@ K = self.map_to_domain.A*self.scale_weight(1);
 h = self.scale_functions(ones(size(n)), n);
 
 h = h.*sqrt(K);
+
+h = reshape(h, nsize);
