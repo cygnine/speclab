@@ -8,6 +8,7 @@ classdef ZeroBasedIndexing < IndexingRule
     descriptive_adjective
     ids = {'0', 'zero', 'zeroes', 'zeros'};
     image
+    dim = 1;
   end
   methods(Static)
     function self = instance()

@@ -23,6 +23,9 @@ classdef Basis
     default_function_normalization
     default_indexing_rule
   end
+  properties(Access=protected)
+    indexing_rules = IndexingRuleList.instance();
+  end
   methods
     function self = Basis(varargin)
       persistent strict_inputs
@@ -38,11 +41,13 @@ classdef Basis
       self.fftable = parsed_inputs.fftable;
     end
     function[self] = set.internal_indexing(self,inp)
-      self.internal_indexing = self.indexing_parser(inp);
+      %self.internal_indexing = self.indexing_parser(inp);
+      self.internal_indexing = self.indexing_rules.parser(inp, self.default_indexing_rule);
       self.internal_indexset = self.internal_indexing.image;
     end
     function self = set.user_indexing(self,newindexing)
-      self.user_indexing = self.indexing_parser(newindexing);
+      %self.user_indexing = self.indexing_parser(newindexing);
+      self.user_indexing = self.indexing_rules.parser(newindexing, self.default_indexing_rule);
     end
     function[self] = set.normalization(self, inp)
       self.normalization = self.function_normalization_parser(inp);
@@ -53,8 +58,8 @@ classdef Basis
     %
     % output = range(self,N)
     %
-    %     Given an integer N, this function returns indices for the first N
-    %     basis elements.
+    %     Given an integer N, this function returns (user-end) indices for the
+    %     first N basis elements.
       output = self.user_indexing(1:N);
     end
 
@@ -69,6 +74,6 @@ classdef Basis
   end
   methods(Access=protected)
     obj = function_normalization_parser(self, inp);
-    obj = indexing_parser(self, inp);
+    %obj = indexing_parser(self, inp);
   end
 end

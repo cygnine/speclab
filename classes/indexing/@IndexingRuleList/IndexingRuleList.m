@@ -30,15 +30,20 @@ classdef IndexingRuleList < Singleton
       temp = what(location);
       temp = temp.classes;
 
-      % Weed out IndexingRule, IndexingRuleList
+      % Weed out IndexingRule, IndexingRuleList, DirectSumIndexingRule
       tf = strcmp('IndexingRule', temp);
       temp(tf) = [];
       tf = strcmp('IndexingRuleList', temp);
+      temp(tf) = [];
+      tf = strcmp('DirectSumIndexingRule', temp);
       temp(tf) = [];
 
       for q = 1:length(temp)
         self.rules{q} = eval([temp{q} '.instance()']);
       end
     end
+  end
+  methods
+    rule = parser(self, id, default)
   end
 end

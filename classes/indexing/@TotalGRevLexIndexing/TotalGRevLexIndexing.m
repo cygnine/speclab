@@ -1,12 +1,12 @@
 classdef TotalGRevLexIndexing < IndexingRule
-% TotalGRevLexIndexing -- Total-degree-wise reverse lexicographic indexing on R^N
+% TotalGRevLexIndexing -- Total-norm-wise reverse lexicographic indexing on R^N
 %
 % self = TotalGRevLexIndexing(dim)
 %
-%     The total ordering of N_0^dim corresponding to total-degree ordering, with
-%     intra-degree ordering done via reverse lexicographic ordering.
+%     The total ordering of N^dim corresponding to l^1-norm ('total') ordering, with
+%     intra-norm-value ordering done via reverse lexicographic ordering.
 %
-%     The set N_0 is the naturals with 0: {0, 1, 2, ... }
+%     The set N is the natural numbers.
 
   properties(SetAccess=private)
     descriptive_adjective
@@ -36,8 +36,8 @@ classdef TotalGRevLexIndexing < IndexingRule
   end
   methods(Access=private)
     function self = TotalGRevLexIndexing(dim)
-      self.descriptive_adjective = 'Total-degree-wise graded reverse lexicographic';
-      self.image = WholeMultiIndices.instance(dim);
+      self.descriptive_adjective = 'l^1-norm-wise (''total'') graded reverse lexicographic';
+      self.image = NaturalMultiIndices.instance(dim);
       self.dim = dim;
     end
   end

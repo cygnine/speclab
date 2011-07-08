@@ -1,12 +1,13 @@
 classdef MarginalGRevLexIndexing < IndexingRule
-  % MarginalGRevLexIndexing -- Marginal-degree-wise reverse lexicographic indexing on R^N
+  % MarginalGRevLexIndexing -- Marginal-dimension-wise reverse lexicographic indexing on R^N
   %
   % self = MarginalGRevLexIndexing(dim)
   %
-  %     The total ordering of N_0^dim corresponding to total-degree ordering, with
-  %     intra-degree ordering done via reverse lexicographic ordering.
+  %     The marginal ordering of N^dim corresponding to l^\inf norm ('marginal')
+  %     ordering, with intra-norm-value ordering done via reverse lexicographic
+  %     ordering.
   %
-  %     The set N_0 is the naturals with 0: {0, 1, 2, ... }
+  %     The set N is the natural numbers.
 
   properties(SetAccess=private)
     descriptive_adjective
@@ -36,8 +37,8 @@ classdef MarginalGRevLexIndexing < IndexingRule
   end
   methods(Access=private)
     function self = MarginalGRevLexIndexing(dim)
-      self.descriptive_adjective = 'Marginal-degree-wise graded reverse lexicographic';
-      self.image = WholeMultiIndices.instance(dim);
+      self.descriptive_adjective = 'Marginal-dimension-wise graded reverse lexicographic';
+      self.image = NaturalMultiIndices.instance(dim);
       self.dim = dim;
     end
   end

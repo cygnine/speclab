@@ -13,11 +13,12 @@ if isempty(subdim)
   from speclab.common.tensor import space_dimension as spdim
 end
 
-if size(a,1) ~= self.dim
-  error('The input must have row size equal to self.dim');
+if size(a,2) ~= self.dim
+  error('The input must have column size equal to self.dim');
 end
 
-a = a.';
+%a = a.';
+a = a - 1;
 tempsum = fliplr(cumsum(fliplr(a),2));
 
 % Copy-paste from TotalReverseLexicographicIndexing

@@ -3,10 +3,10 @@ classdef TotalGLexIndexing < IndexingRule
   %
   % self = TotalGLexIndexing(dim)
   %
-  %     The total ordering of N_0^dim corresponding to total-degree ordering, with
-  %     intra-degree ordering done via (standard) lexicographic ordering.
+  %     The total ordering of N_0^dim corresponding to l^1 ('total') ordering, with
+  %     intra-norm-value ordering done via lexicographic ordering.
   %
-  %     The set N_0 is the naturals with 0: {0, 1, 2, ... }
+  %     The set N is the natural numbers.
 
   properties(SetAccess=private)
     descriptive_adjective
@@ -36,8 +36,8 @@ classdef TotalGLexIndexing < IndexingRule
   end
   methods(Access=private)
     function self = TotalGLexIndexing(dim)
-      self.descriptive_adjective = 'Total-degree-wise graded lexicographic';
-      self.image = WholeMultiIndices.instance(dim);
+      self.descriptive_adjective = 'l^1-norm-wise (''total'') graded lexicographic';
+      self.image = NaturalMultiIndices.instance(dim);
       self.dim = dim;
     end
   end

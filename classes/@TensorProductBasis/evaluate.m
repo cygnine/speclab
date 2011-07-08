@@ -9,18 +9,22 @@ function[V] = evaluate(self,x,n)
 %     each column represents the appropriate basis function n evaluated at all
 %     locations x.
 
-n = n(:);
+%n = n(:);
 if size(x,2) ~= self.dim
   error('Input points must have the same dimension (columns) as self.dim');
 end
-if any(n<1)
-  error('Tensor-product bases have linear indexing that is one-based');
-end
+%if any(n<1)
+%  error('Tensor-product bases have linear indexing that is one-based');
+%end
 
-inds = self.indexing(n-1, 'dim', self.dim);
+[n_array, nsize, numeln] = self.indexing(n);
 
-V = ones(size(x,1), length(n));
+V = ones(size(x,1), numeln);
 
 for q = 1:self.dim
-  V = V.*self.bases{q}(x(:,q), inds(:,q));
+  V = V.*self.bases{q}(x(:,q), n_array(:,q));
+end
+
+if size(x,1)==1
+  V = reshape(V, nsize);
 end

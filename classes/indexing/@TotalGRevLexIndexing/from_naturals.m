@@ -74,4 +74,5 @@ for q = 1:length(degree_inds) - 1;
 end
 
 a = a(order,:);
-a = a.';
+%a = a.';
+a = a + 1;

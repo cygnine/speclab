@@ -1,5 +1,5 @@
 function validate(self, inp)
-% validate -- Input validate method for WholeMultiIndices
+% validate -- Input validate method for NaturalMultiIndices
 %
 % validate(self, inp)
 %
@@ -7,4 +7,4 @@ function validate(self, inp)
 %     performed.) 
 
 assert(size(inp,2)==self.dim, ['Input does not have ' num2str(self.dim) ' columns']);
-assert(all(inp(:)>=0), 'Input array does not contain whole numbers')
+assert(all(inp(:)=0), 'Input array does not contain natural numbers')

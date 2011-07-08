@@ -1,29 +1,23 @@
-
-% "Reverse" the intra-degree ordering
-%n = nds + (subdim(self.dim, tempsum(:,1)) + 1 - (n - nds));
-% The above is the same as:
-n = 1 + 2*nds - n + subdim(self.dim, tempsum(:,1));
-
 function[n] = to_naturals(self, a)
 % to_naturals -- transforms array indexing to linear indexing
 %
 % [n] = to_naturals(self, a)
 %
 %      Computes one-based indexing for lexicographic ordering on
-%      the self.dim-dimensional Cartesian product of N_0, where N_0 is the
-%      naturals unioned with 0.
+%      the self.dim-dimensional Cartesian product of N, where N is the
+%      natural numbers.
 
 persistent spdim subdim
 if isempty(spdim)
-  %from speclab.common.tensor import space_dimension as spdim
   from speclab.common.tensor import marginalpoly_space_dim as spdim
   from speclab.common.tensor import marginalpoly_subspace_dim as subdim
 end
 
-if size(a,1) ~= self.dim
-  error('The input must have row size equal to self.dim');
+if size(a,2) ~= self.dim
+  error('The input must have column size equal to self.dim');
 end
-a = a.';
+%a = a.';
+a = a - 1;
 
 % Copy+paste from MarginalGRevLexIndexing.to_naturals
 

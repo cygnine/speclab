@@ -13,10 +13,11 @@ if isempty(spdim)
   from speclab.common.tensor import totalpoly_space_dim as spdim
 end
 
-if size(a,1) ~= self.dim
-  error('The input must have row size equal to self.dim');
+if size(a,2) ~= self.dim
+  error('The input must have column size equal to self.dim');
 end
-a = a.';
+%a = a.';
+a = a - 1;
 
 tempsum = fliplr(cumsum(fliplr(a),2));
 

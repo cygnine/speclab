@@ -8,6 +8,7 @@ classdef OneBasedIndexing < IndexingRule
     descriptive_adjective
     ids = {'1', 'one', 'ones'};
     image
+    dim = 1;
   end
   methods(Static)
     function self = instance()

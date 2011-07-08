@@ -36,8 +36,8 @@ classdef MarginalGLexIndexing < IndexingRule
   end
   methods(Access=private)
     function self = MarginalGLexIndexing(dim)
-      self.descriptive_adjective = 'Marginal-degree-wise graded lexicographic';
-      self.image = WholeMultiIndices.instance(dim);
+      self.descriptive_adjective = 'Marginal-dimension-wise graded lexicographic';
+      self.image = NaturalMultiIndices.instance(dim);
       self.dim = dim;
     end
   end

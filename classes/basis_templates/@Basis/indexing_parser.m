@@ -10,6 +10,8 @@ function[obj] = indexing_parser(self,inp)
 %     If the input type is not recognized, an error is NOT thrown -- instead, 
 %     the class instance's 'default_indexing_rule' property is returned.
 
+warning('Using deprecated ''indexing_parser'' method of Basis');
+
 persistent rules
 if isempty(rules)
   rules = IndexingRuleList.instance();
