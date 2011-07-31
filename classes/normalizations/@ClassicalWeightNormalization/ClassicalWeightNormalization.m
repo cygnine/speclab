@@ -9,6 +9,11 @@ classdef ClassicalWeightNormalization < WeightNormalization
 %     as a default normalization. When an affine map is present, the weight
 %     function evaluates to the value of the mapped coordinate (any resulting
 %     Jacobian is built into the function evaluations).
+%
+% Normalization Properties:
+%   ids - strings and/or scalars that identify this normalization: 'classical', 'class'
+% Normalization Methods:
+%   string_compare - A method that tests if an input matches this normalization's ids
 
   properties(SetAccess=private)
     description;

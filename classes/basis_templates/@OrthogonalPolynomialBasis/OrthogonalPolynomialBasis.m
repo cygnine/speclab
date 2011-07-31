@@ -16,11 +16,34 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
 %     By default, the input fftable is false, but you may wish to explicitly
 %     set it to true; in this case, you are responsible for defining the
 %     fft and ifft methods.
+%
+% OrthogonalPolynomialBasis Properties:
+%   user_indexing - IndexingRule-derived object specifying a map from user-end indexing to the natural numbers 1, 2, ...
+%   normalization - Normalization-derived object specifying the function normalizations
+%   domain - User-end domain after affine map from standard_domain
+%   standard_domain - Standard (internal use) univariate domain
+%   map_to_domain - The affine map from standard_domain to domain
+%   map_to_standard_domain - The affine map from domain to standard_domain
+%
+% OrthogonalPolynomialBasis Methods:
+%   evaluate - Evaluates polynomials
+%   gauss_quadrature - Gauss quadrature rule
+%   gauss_radau_quadrature - Gauss-Radau quadrature rule
+%   gauss_lobatto_quadrature - Gauss-Lobatto quadrature rule
+%   recurrence - Recurrence coefficients
+%   jacobi_matrix - Jacobi matrix
+%   weight - Evaluates the weight function 
+%   norm - Evaluates the l^2 norm of the polynomials
+%   leading_coefficient - Returns leading coefficients for polynomials
+%   monomial_connection - Returns the connection matrix between this family and the monomials
+%   inv_monomial_connection - Returns the connection matrix between the monomials and this family
+%   mapped_recurrence - Recurrence coefficients for the polynomials after mapping to self.domain
+%   orthogonal_connection - Returns the connection matrix between this family and another OrthogonalPolynomialBasis family
   properties
-    dim = 1;
-    map_to_standard_domain
-    map_to_domain
-    standard_domain
+    dim = 1; % Make this hidden
+    map_to_standard_domain % A map from domain to standard_domain derived from domain and standard_domain
+    map_to_domain % A map from standard_domain to domain derived from domain and standard_domain
+    standard_domain % { Interval1D([-1, 1]) } | Other_Interval1D_object - Standard univariate interval for basis
   end
   properties(Access=private)
     recurrence_handle = [];
@@ -28,30 +51,23 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
   methods
     function self = OrthogonalPolynomialBasis(varargin)
 
-      persistent strict_inputs indexing_parser
+      persistent strict_inputs inparse
       if isempty(strict_inputs)
         from labtools import strict_inputs
-        from speclab.common import indexing_parser
+        %from speclab.common import 
+
+        inparse = inputParser();
+        inparse.KeepUnmatched = true;
+
+        inparse.addParamValue('recurrence', @(n) []);
+        inparse.addParamValue('standard_domain', Interval1D());
+        inparse.addParamValue('user_indexing', ZeroBasedIndexing.instance());
+        inparse.addParamValue('internal_indexing', []);
+        inparse.addParamValue('normalization', 'normal');
+        inparse.addParamValue('weight_normalization', 'classical');
+        inparse.addParamValue('dim', 1);
+        inparse.addParamValue('domain', Interval1D());
       end
-
-      inputs = {'recurrence', ...
-                'standard_domain', ...
-                'indexing', ...
-                'internal_indexing', ...
-                'normalization', ...
-                'weight_normalization', ...
-                'dim', ...
-                'domain'};
-      defaults = {@(n) [], ...
-                  Interval1D(), ...
-                  ZeroBasedIndexing.instance(), ...
-                  [], ...
-                  'normal', ...
-                  'classical', ...
-                  1, ...
-                  Interval1D()};
-
-      parsed_inputs = strict_inputs(inputs, defaults, [], varargin{:});
 
       self = self@HilbertBasis(varargin{:});
 
@@ -60,13 +76,19 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
       self.default_indexing_rule = ZeroBasedIndexing.instance();
       self.default_weight_normalization = ClassicalWeightNormalization.instance();
 
-      % Add allowed normalizations
+      % Prescribe allowed normalizations
       self.allowed_function_normalizations{end+1} = MonicNormalization.instance(); 
       self.allowed_function_normalizations{end+1} = OrthonormalNormalization.instance(); 
       self.allowed_weight_normalizations{end+1} = ClassicalWeightNormalization.instance();
       self.allowed_weight_normalizations{end+1} = NaturalWeightNormalization.instance();
       self.allowed_weight_normalizations{end+1} = ProbabilityWeightNormalization.instance();
 
+      % Parse inputs
+      %parsed_inputs = strict_inputs(inputs, defaults, [], varargin{:});
+      inparse.parse(varargin{:});
+      parsed_inputs = inparse.Results;
+
+      % Deal with given inputs
       self.recurrence_handle = parsed_inputs.recurrence;
 
       % Set normalizations
@@ -74,12 +96,11 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
       self.weight_normalization = parsed_inputs.weight_normalization;
 
       % Set up indexing
-      %self.user_indexing = indexing_parser(parsed_inputs.indexing);
-      self.user_indexing = parsed_inputs.indexing;
+      self.user_indexing = parsed_inputs.user_indexing;
       self.internal_indexing = parsed_inputs.internal_indexing;
 
       % Get domain mapping
-      self.standard_domain = parsed_inputs.standard_domain;
+      self.standard_domain = Interval1D(parsed_inputs.standard_domain);
       self.domain = Interval1D(parsed_inputs.domain);
     end
 

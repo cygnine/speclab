@@ -9,6 +9,11 @@ classdef NaturalWeightNormalization < WeightNormalization
 %     an affine map results in a non-standard domain, the Jacobian of the affine
 %     map is built into the weight function so that the e.g. "orthonormal"
 %     evaluations are not changed.
+%
+% Normalization Properties:
+%   ids - strings and/or scalars that identify this normalization: 'natural', 'natur', 'nature'
+% Normalization Methods:
+%   string_compare - A method that tests if an input matches this normalization's ids
 
   properties(SetAccess=private)
     description;

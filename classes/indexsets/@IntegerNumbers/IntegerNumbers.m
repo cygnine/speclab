@@ -1,5 +1,14 @@
 classdef IntegerNumbers < IndexSet
-
+% IntegerNumbers -- The set of integers
+%
+% self = IntegerNumbers()
+%
+%     An IndexSet singleon subclass corresponding to the integers.
+%
+% IntegerNumbers Properties:
+%   descriptor - A human-readable description: 'Integer numbers'
+% IntegerNumbers Methods:
+%   validate - Determines is an input is from the index set
   properties(SetAccess=private)
     descriptor
   end

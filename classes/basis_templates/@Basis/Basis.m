@@ -4,12 +4,17 @@ classdef Basis
 %     The generic basis class for all spectral expansions. This is a parent
 %     class used by other classes. It is not meant to be useful as a
 %     stand-alone class.
+%
+% Basis Properties:
+%   domain - User-end domain after affine map from standard_domain
+%   user_indexing - IndexingRule-derived object specifying a map from user-end indexing to the natural numbers 1, 2, ...
+%   normalization - Normalization-derived object specifying the function normalizations
   properties
     description = [];
     fftable = false;
-    normalization = [];
-    user_indexing
-    domain
+    normalization = []; % Normalization-derived object specifying the function normalizations
+    user_indexing % IndexingRule-derived object specifying a map from user-end indexing to the natural numbers 1, 2, ...
+    domain % { Interval1D([-1 1]) } | Other_Interval1D_object - Post-mapped univariate interval
   end
   properties(Abstract=true)
     standard_domain

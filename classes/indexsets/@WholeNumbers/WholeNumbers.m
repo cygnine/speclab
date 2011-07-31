@@ -1,5 +1,14 @@
 classdef WholeNumbers < IndexSet
-
+% WholeNumbers -- The set of natural numbers
+%
+% self = WholeNumbers()
+%
+%     An IndexSet singleon subclass corresponding to the natural numbers.
+%
+% WholeNumbers Properties:
+%   descriptor - A human-readable description: 'Whole numbers'
+% WholeNumbers Methods:
+%   validate - Determines is an input is from the index set
   properties(SetAccess=private)
     descriptor
   end

@@ -9,7 +9,11 @@ classdef NaturalMultiIndices < IndexSet
 %
 %     An element of this set is a column vector with dim entries. An array
 %     is a collection of these elements if it has dim rows.
-
+%
+% NaturalMultiIndices Properties:
+%   descriptor - A human-readable description: 'Natural-number-valued dim-dimenaional multi-indices'
+% NaturalMultiIndices Methods:
+%   validate - Determines is an input is from the index set
   properties(SetAccess=private)
     descriptor
     dim

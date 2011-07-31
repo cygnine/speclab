@@ -6,6 +6,11 @@ classdef PhysicistFunctionNormalization < FunctionNormalization
 %     A singleton class serving as a fingerprint indicating that a basis set has
 %     function evaluations that correspond to a "physicist" normalization.
 %     "Claisscal" means the normalization that is prevalent in the literature.
+%
+% Normalization Properties:
+%   ids - strings and/or scalars that identify this normalization: 'physics', 'physicists', 'physic'
+% Normalization Methods:
+%   string_compare - A method that tests if an input matches this normalization's ids
 
   properties(SetAccess=private)
     description;

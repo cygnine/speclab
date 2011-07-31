@@ -15,6 +15,19 @@ classdef IndexingRule < Singleton
 %     Generally speaking, the `forward' map is from the naturals to whatever the
 %     custom range is. The 'backward' or 'inverse' maps takes the customized range
 %     back to the naturals.
+%
+% IndexingRule Properties:
+%   descriptive_adjective - Human-readable description of the indexing
+%   ids - string and/or scalar identification for the indexing rule
+%   image - An IndexSet that this rule maps to
+%
+% IndexingRule Methods:
+%   range - Returns the first few indices
+%   reindex - Maps indices from this rule into indices from another rule
+%   to_naturals - Performs the map: from naturals to indices
+%   from_naturals - Performs the inverse map: from indices to naturals
+%   inv - Performs the inverse map: from indices to naturals
+%   id_compare - Uses input id to identify if it identifies this class
   properties(SetAccess=private,Abstract=true)
     % e.g. 'one-based'
     descriptive_adjective
@@ -39,6 +52,12 @@ classdef IndexingRule < Singleton
       fprintf('...\n');
     end
     function output = range(self, N)
+    % range -- Returns the first N indices of the rule
+    %
+    % inds = range(self,N)
+    % 
+    %     When N is a natural number, this returns the first N indices of the
+    %     indexing rule.
       output = self.from_naturals((1:N).');
     end
     function output = reindex(self, inp, other)

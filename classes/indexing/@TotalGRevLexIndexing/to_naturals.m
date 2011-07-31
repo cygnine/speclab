@@ -17,7 +17,7 @@ if size(a,2) ~= self.dim
   error('The input must have column size equal to self.dim');
 end
 %a = a.';
-a = a - 1;
+%a = a - 1;
 
 tempsum = fliplr(cumsum(fliplr(a),2));
 

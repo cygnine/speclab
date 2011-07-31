@@ -1,5 +1,14 @@
 classdef NaturalNumbers < IndexSet
-
+% NaturalNumbers -- The set of natural numbers
+%
+% self = NaturalNumbers()
+%
+%     An IndexSet singleon subclass corresponding to the natural numbers.
+%
+% NaturalNumbers Properties:
+%   descriptor - A human-readable description: 'Natural numbers'
+% NaturalNumbers Methods:
+%   validate - Determines is an input is from the index set
   properties(SetAccess=private)
     descriptor
   end

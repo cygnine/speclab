@@ -6,6 +6,11 @@ classdef ProbabilityWeightNormalization < WeightNormalization
 %     A singleton class serving as a fingerprint indicating that a weight
 %     function has a "probability" normalization -- meaning that it integrates
 %     to one over Lebesgue measure.
+%
+% Normalization Properties:
+%   ids - strings and/or scalars that identify this normalization: 'probability', 'prob'
+% Normalization Methods:
+%   string_compare - A method that tests if an input matches this normalization's ids
 
   properties(SetAccess=private)
     description;

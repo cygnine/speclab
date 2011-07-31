@@ -7,6 +7,11 @@ classdef OrthonormalNormalization < FunctionNormalization
 %     function evaluations that correspond to an "orthonormal" normalization.
 %     Here "orthonormal" refers to unit norm under some innate norm (usually an
 %     L^2 inner product) that is defined by the basis set.
+%
+% Normalization Properties:
+%   ids - strings and/or scalars that identify this normalization: 'orthonormal', 'normal'
+% Normalization Methods:
+%   string_compare - A method that tests if an input matches this normalization's ids
 
   properties(SetAccess=private)
     description;
