@@ -8,8 +8,6 @@ persistent gq
 if isempty(gq)
   from speclab.d1_utils import gauss_quadrature as gq
 end
-%opt = strict_inputs({'a', 'b'}, {[], []}, [], varargin{:});
-
 %if isempty(opt.a)
 %  J = self.jacobi_matrix(n);
 %else

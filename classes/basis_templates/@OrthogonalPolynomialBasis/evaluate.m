@@ -1,5 +1,5 @@
 function[p] = evaluate(self,x,n,varargin)
-% p = evaluate(x,n,{d=0, normalization=[]})
+% p = evaluate(x,n,{d=0, normalization=self.normalization})
 %
 %     Evaluates the d-th derivative of the orthogonal polynomial basis at the
 %     locations x. Each polynomial of linear index n is evaluated. p is a
@@ -9,13 +9,19 @@ function[p] = evaluate(self,x,n,varargin)
 %
 %     If self.dim > 1, p is a size(x,1) x length(n(:)) array.
 
-persistent strict_inputs opoly_evaluate
-if isempty(strict_inputs)
-  from labtools import strict_inputs
+persistent inparse opoly_evaluate
+if isempty(inparse)
   from speclab.d1_utils import opoly_evaluate
+
+  inparse = inputParser();
+  inparse.KeepUnmatched = true;
+
+  inparse.addParamValue('d', 0);
+  inparse.addParamValue('normalization', self.normalization);
 end
 
-opt = strict_inputs({'d', 'normalization'}, {0, self.normalization}, [], varargin{:});
+inparse.parse(varargin{:});
+opt = inparse.Results;
 
 [n_array, nsize, numeln] = self.indexing(n);
 N = max(n_array)+2;

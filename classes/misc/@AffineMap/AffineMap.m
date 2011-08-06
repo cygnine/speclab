@@ -59,7 +59,6 @@ classdef AffineMap
         inparse.addParamValue('range', []);
       end
 
-      %opt = strict_inputs({'domain', 'range'}, {[], []}, [], varargin{:});
       inparse.parse(varargin{:});
       opt = inparse.Results;
       A = opt.A; b = opt.b;

@@ -19,8 +19,6 @@ if isempty(spdiag)
   from labtools import spdiag
 end
 
-%opt = strict_inputs({'dim', 'normalization', 'weight_normalization'}, {1, 'normal', ''}, [], varargin{:});
-
 C = ones(N);
 %if opt.dim>1
 %  alphas = indexing(0:(N-1), 'dim', opt.dim);

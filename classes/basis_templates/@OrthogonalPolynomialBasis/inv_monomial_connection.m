@@ -14,17 +14,10 @@ function[C] = inv_monomial_connection(self, N);
 %
 %     TODO: this doesn't do anything with scaling/shifting of domains
 
-%persistent strict_inputs spdiag indexing
-%if isempty(strict_inputs)
-%  from labtools import strict_inputs spdiag
-%  from speclab.common.tensor import linear_to_array_indexing as indexing
-%end
 persistent spdiag 
 if isempty(spdiag)
   from labtools import spdiag
 end
-
-%opt = strict_inputs({'dim', 'normalization', 'weight_normalization'}, {1, 'normal', ''}, [], varargin{:});
 
 C = ones(N);
 %if opt.dim>1

@@ -33,14 +33,23 @@ classdef Basis
   end
   methods
     function self = Basis(varargin)
-      persistent strict_inputs
-      if isempty(strict_inputs)
-        from labtools import strict_inputs
+      
+      persistent inparse
+      if isempty(inparse)
+        inparse = inputParser();
+        inparse.KeepUnmatched = true;
+
+        inparse.addParamValue('description', []);
+        inparse.addParamValue('fftable', false);
+        inparse.addParamValue('domain', Interval1D());
+        inparse.addParamValue('standard_domain', Interval1D());
       end
 
-      inputs = {'description','fftable','domain','standard_domain'};
-      defaults = {[], false, Interval1D(),Interval1D()};
-      parsed_inputs = strict_inputs(inputs, defaults, [], varargin{:});
+      inparse.parse(varargin{:});
+      parsed_inputs = inparse.Results;
+
+      %inputs = {'description','fftable','domain','standard_domain'};
+      %defaults = {[], false, Interval1D(),Interval1D()};
 
       self.description = parsed_inputs.description;
       self.fftable = parsed_inputs.fftable;

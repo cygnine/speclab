@@ -51,11 +51,8 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
   methods
     function self = OrthogonalPolynomialBasis(varargin)
 
-      persistent strict_inputs inparse
-      if isempty(strict_inputs)
-        from labtools import strict_inputs
-        %from speclab.common import 
-
+      persistent inparse
+      if isempty(inparse)
         inparse = inputParser();
         inparse.KeepUnmatched = true;
 
@@ -84,7 +81,6 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
       self.allowed_weight_normalizations{end+1} = ProbabilityWeightNormalization.instance();
 
       % Parse inputs
-      %parsed_inputs = strict_inputs(inputs, defaults, [], varargin{:});
       inparse.parse(varargin{:});
       parsed_inputs = inparse.Results;
 

@@ -10,20 +10,29 @@ properties
   map_to_standard_domain
 end
 methods 
-  function[self] = TensorProductBasis(bases, varargin)
+  function[self] = TensorProductBasis(varargin)
 
     %persistent indexing
     %if isempty(indexing)
     %  from speclab.common.tensor import linear_to_array_indexing as indexing
     %end
-    persistent strict_inputs
-    if isempty(strict_inputs)
-      from labtools import strict_inputs
+
+    persistent inparse
+    if isempty(inparse)
+      inparse = inputParser();
+      inparse.KeepUnmatched = true;
+
+      inparse.addRequired('bases', @(x) isa(x, 'cell'));
+      inparse.addParamValue('indexing', []);
+      inparse.addParamValue('internal_indexing', []);
     end
 
-    inputs = {'indexing', 'internal_indexing'};
-    defaults = {[], []};
-    parsed_inputs = strict_inputs(inputs, defaults, [], varargin{:});
+    inparse.parse(varargin{:});
+    parsed_inputs = inparse.Results;
+    bases = parsed_inputs.bases;
+
+    %inputs = {'indexing', 'internal_indexing'};
+    %defaults = {[], []};
 
     self = self@Basis(varargin{:});
 

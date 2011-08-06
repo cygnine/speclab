@@ -6,13 +6,18 @@ function[x,w] = gauss_radau_quadrature(self,N,varargin)
 %     location of the fixed point is given, it is assumed to be the right-hand
 %     endpoint of the domain.
 
-persistent strict_inputs gq
-if isempty(strict_inputs)
-  from labtools import strict_inputs
+persistent inparse gq
+if isempty(inparse)
+  inparse = inputParser();
+  inparse.KeepUnmatched = false;
+
+  inparse.addParamValue('r', self.domain.slices{1}.interval(2));
+
   from speclab.d1_utils import gauss_quadrature as gq
 end
 
-opt = strict_inputs({'r'}, {self.domain.slices{1}.interval(2)}, [], varargin{:});
+inparse.parse(varargin{:});
+opt = inparse.Results;
 
 [a,b] = self.recurrence(0:(N-1));
 a = a(:); b = b(:);

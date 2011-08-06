@@ -34,17 +34,30 @@ classdef MultivariateOrthogonalPolynomialBasis < WholeBasis
   methods
     function self = OrthogonalPolynomialBasis(varargin)
 
-      persistent strict_inputs whole_range
-      if isempty(strict_inputs)
-        from labtools import strict_inputs
+      persistent whole_range
+      if isempty(whole_range)
         from speclab.common import whole_range
       end
 
-      inputs = {'recurrence', 'standard_domain', ...
-                'normalization', 'weight_normalization', 'dim', 'domain'};
-      defaults = {@(n) [], Interval1D(), 'normal', 'classical', 1, Interval1D()};
+      persistent inparse
+      if isempty(inparse)
+        inparse = inputParser();
+        inparse.KeepUnmatched = true;
+        
+        inparse.addParamValue('recurrence', @(n) []);
+        inparse.addParamValue('standard_domain', Interval1D());
+        inparse.addParamValue('normalization', 'normal');
+        inparse.addParamValue('weight_recurrence', 'classical');
+        inparse.addParamValue('dim', 1); 
+        inparse.addParamValue('domain', Interval1D());
+      end
 
-      parsed_inputs = strict_inputs(inputs, defaults, [], varargin{:});
+      inparse.parse(varargin{:});
+      parsed_inputs = inparse.Results;
+
+      %inputs = {'recurrence', 'standard_domain', ...
+      %          'normalization', 'weight_normalization', 'dim', 'domain'};
+      %defaults = {@(n) [], Interval1D(), 'normal', 'classical', 1, Interval1D()};
 
       self = self@WholeBasis(varargin{:});
 

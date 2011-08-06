@@ -7,14 +7,19 @@ function[x,w] = gauss_lobatto_quadrature(self,N,varargin)
 %     specifying the location of the fixed points are given, they are assumed to
 %     be the endpoints of the domain.
 
-persistent strict_inputs gq opoly_evaluate
-if isempty(gq)
-  from labtools import strict_inputs
+persistent inparse gq opoly_evaluate
+if isempty(inparse)
+  inparse = inputParser();
+  inparse.KeepUmatched = false;
+
+  inparse.addParamValue('r1', self.standard_domain.interval(1));
+  inparse.addParamValue('r2', self.standard_domain.interval(2));
+
   from speclab.d1_utils import gauss_quadrature as gq
   from speclab.d1_utils import opoly_evaluate
 end
-opt = strict_inputs({'r1', 'r2'}, {self.standard_domain.interval(1), ...
-                                   self.standard_domain.interval(2)}, [], varargin{:});
+inparse.parse(varargin{:});
+opt = inparse.Results;
 
 [a,b] = self.recurrence(0:(N-1));
 a = a(1:N);

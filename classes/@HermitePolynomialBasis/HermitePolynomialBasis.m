@@ -8,13 +8,19 @@ classdef HermitePolynomialBasis < OrthogonalPolynomialBasis
     %
     %     Creates an instance of a Hermite Polynomial spectral basis.
 
-      persistent strict_inputs
-      if isempty(strict_inputs)
-        from labtools import strict_inputs
+      persistent inparse
+      if isempty(inparse)
+        inparse = inputParser();
+        inparse.KeepUnmatched=true;
+
+        inparse.addParamValue('mu', 0);
+        inparse.addParamValue('normalization', 'normal');
       end
-      inputs = {'mu', 'normalization'};
-      defaults = {0, 'normal'};
-      opt = strict_inputs(inputs, defaults, [], varargin{:});
+      %inputs = {'mu', 'normalization'};
+      %defaults = {0, 'normal'};
+
+      inparse.parse(varargin{:});
+      opt = inparse.Results;
 
       self = self@OrthogonalPolynomialBasis(varargin{:});
 

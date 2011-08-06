@@ -39,7 +39,6 @@ classdef Orthotope
 
       %inputs = {'boundaries', 'dimension', 'interval'};
       %defaults = {{}, 1, self.default_interval};;
-      %temp = strict_inputs(inputs, defaults, [], varargin{:});
 
       inparse.parse(varargin{:});
       temp = inparse.Results;
