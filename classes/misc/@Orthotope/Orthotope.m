@@ -27,7 +27,7 @@ classdef Orthotope
   end
   methods
     function self = Orthotope(varargin)
-      persistent strict_inputs inparse
+      persistent inparse
       if isempty(inparse)
         inparse = inputParser();
         inparse.KeepUnmatched = false;
