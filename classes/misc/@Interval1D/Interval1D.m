@@ -1,5 +1,5 @@
 classdef Interval1D
-% Interval1D(interval {centroid=[], scale=1})
+% Interval1D(interval {property-key-value-pairs})
 % 
 %     A one-dimensional interval object. Mainly used for computing affine maps.
 %     Is not classified as either open, closed, or half-open. 
@@ -20,9 +20,20 @@ classdef Interval1D
 %              represents the whole real line, where x=3 is considered the
 %              origin, and [2.5, 3.5] is considered the image of [-1,1] under an
 %              affine map.
+%
+% Interval1D Properties:
+%   interval - (assignable) 
+%   centroid - (assignable) The interval 'center' (default: 0)
+%   scale - (assignable) The distance from the image of 0 to the image of 1 under an affine map that defines the interval
+%   length - The length of the interval
+%   map_to_standard_interval - An affine map between the standard interval [-1,1] and this interval
+%
+% Interval1D Methods:
+%   linspace - equispaced points on the interval
+%   compute_affine_mape - Computes affine map between this interval and another
 
   properties(SetAccess=private)
-    centroid = 0;
+    centroid = 0; 
     scale = 1;
     length = 0;
     interval = [0, 0];
@@ -32,9 +43,13 @@ classdef Interval1D
   end
   methods
     function self = Interval1D(interval, varargin)
-      persistent strict_inputs
-      if isempty(strict_inputs)
-        from labtools import strict_inputs
+      persistent inparse 
+      if isempty(inparse)
+        inparse = inputParser();
+        inparse.KeepUnmatched = false;
+
+        inparse.addParamValue('centroid', []);
+        inparse.addParamValue('scale',1);
       end
 
       % Gives default value of 'interval' in case constructor is called with no
@@ -49,9 +64,8 @@ classdef Interval1D
         return
       end
 
-      inputs = {'centroid', 'scale'};
-      defaults = {[], 1};
-      temp = strict_inputs(inputs, defaults, [], varargin{:});
+      inparse.parse(varargin{:});
+      temp = inparse.Results;
 
       self.interval = interval(:).';
       self.centroid = temp.centroid;
@@ -99,5 +113,6 @@ classdef Interval1D
     end
 
     x = linspace(self, N);
+    m = compute_affine_map(self, varargin)
   end
 end

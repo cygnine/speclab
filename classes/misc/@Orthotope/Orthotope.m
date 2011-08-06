@@ -10,22 +10,39 @@ classdef Orthotope
 %
 %     If boundaries is empty: creates a hypercube in 'dimension'-dimensional
 %     space using the input 'interval' as the template.
+%
+% Orthotope Properties:
+%   dimension - (defining) The dimension of the orthotope
+%   slices - (defining) Cell array containing Interval1D objects
+% 
+% Orthotope Methods:
+%   compute_affine_map - Computes affine map between this orthoope and another
 
   properties
     dimension = 1;
     slices = [];
   end
+  properties(Access=private)
+    default_interval = Interval1D([-1,1]);
+  end
   methods
     function self = Orthotope(varargin)
-      persistent strict_inputs default_interval
-      if isempty(strict_inputs)
-        from labtools import strict_inputs
-        default_interval = Interval1D([-1, 1]);
+      persistent strict_inputs inparse
+      if isempty(inparse)
+        inparse = inputParser();
+        inparse.KeepUnmatched = false;
+
+        inparse.addParamValue('boundaries', {});
+        inparse.addParamValue('dimension',1);
+        inparse.addParamValue('interval', self.default_interval);
       end
 
-      inputs = {'boundaries', 'dimension', 'interval'};
-      defaults = {{}, 1, default_interval};
-      temp = strict_inputs(inputs, defaults, [], varargin{:});
+      %inputs = {'boundaries', 'dimension', 'interval'};
+      %defaults = {{}, 1, self.default_interval};;
+      %temp = strict_inputs(inputs, defaults, [], varargin{:});
+
+      inparse.parse(varargin{:});
+      temp = inparse.Results;
 
       if isempty(temp.boundaries)
         % This just tensor-product one-dimensional interval
