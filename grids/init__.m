@@ -4,7 +4,8 @@ function[grids] = init()
 % grids = init__()
 
 module_list = {'qmc', 'tensor'};
+%grids = recurse_files(pwd, module_list);
 
-grids = recurse_files(pwd, module_list);
-%grids.qmc = matlab_import('qmc');
-%grids.tensor = matlab_import('tensor');
+grids.module_list = module_list;
+grids.recurse_files = true;
+grids.addpaths = {};

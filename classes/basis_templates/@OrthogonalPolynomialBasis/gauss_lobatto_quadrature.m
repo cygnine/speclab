@@ -10,7 +10,7 @@ function[x,w] = gauss_lobatto_quadrature(self,N,varargin)
 persistent inparse gq opoly_evaluate
 if isempty(inparse)
   inparse = inputParser();
-  inparse.KeepUmatched = false;
+  inparse.KeepUnmatched = false;
 
   inparse.addParamValue('r1', self.standard_domain.interval(1));
   inparse.addParamValue('r2', self.standard_domain.interval(2));

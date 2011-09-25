@@ -22,6 +22,7 @@ end
 if isempty(opt.w)
   opt.w = zeros([opt.dim 1]);
 end
+%disp([opt.w(:) opt.c(:)]);
 
-f = (x - repmat(opt.w(:).', [size(x,1) 1])).^2*opt.c.^2;
+f = (x - repmat(opt.w(:).', [size(x,1) 1])).^2*(opt.c(:).^2);
 f = exp(-f);

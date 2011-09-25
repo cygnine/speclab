@@ -19,10 +19,12 @@ end
 
 [n_array, nsize, numeln] = self.indexing(n);
 
+Vsize = [size(x,1), numeln];
 V = ones(size(x,1), numeln);
 
 for q = 1:self.dim
-  V = V.*self.bases{q}(x(:,q), n_array(:,q));
+  %V = V.*self.bases{q}(x(:,q), n_array(:,q));
+  V = V.*reshape(self.bases{q}(x(:,q), n_array(:,q)), Vsize);
 end
 
 if size(x,1)==1

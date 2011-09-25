@@ -4,10 +4,8 @@ function[orthopoly] = init__()
 % [nodes] = init__()
 
 module_list = {'jacobi', 'interp', 'hermite', 'laguerre'};
+%orthopoly = recurse_files(pwd, module_list);
 
-orthopoly = recurse_files(pwd, module_list);
-
-%orthopoly.jacobi = matlab_import('jacobi');
-%orthopoly.interp = matlab_import('interp');
-%orthopoly.hermite = matlab_import('hermite');
-%orthopoly.laguerre = matlab_import('laguerre');
+orthopoly.module_list = module_list;
+orthopoly.recurse_files = true;
+orthopoly.addpaths = {};

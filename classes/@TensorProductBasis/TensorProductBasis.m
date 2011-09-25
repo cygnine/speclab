@@ -34,7 +34,7 @@ methods
     %inputs = {'indexing', 'internal_indexing'};
     %defaults = {[], []};
 
-    self = self@Basis(varargin{:});
+    self = self@Basis(varargin{2:end});
 
     self.bases = {};
     internal_rules = {};

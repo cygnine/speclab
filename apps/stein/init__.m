@@ -3,4 +3,8 @@ function[stein] = init__()
 %
 % [nodes] = init__()
 
-stein = recurse_files(pwd);
+%stein = recurse_files(pwd);
+
+stein.module_list = {};
+stein.recurse_files = true;
+stein.addpaths = {};

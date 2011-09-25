@@ -36,7 +36,7 @@ leading_coeffs = zeros([N 1]);
 [a,b] = self.recurrence(0:(maxdeg+1));
 b = sqrt(b);
 
-leading_coeffs = cumprod(1./b);
+leading_coeffs = cumprod(1./b(1:end-1));
 %leading_coeffs = leading_coeffs.*local_leading_coeffs(alphas(:,d)+1);
 
 % Build the connection matrix for this dimension and then distribute it

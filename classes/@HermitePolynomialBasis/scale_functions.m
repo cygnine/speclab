@@ -36,7 +36,7 @@ elseif (normalization==physicist) | (normalization==classical)
   A = [1; repmat(self.map_to_domain.A, [max([N, 0]) 1])];
   b = cumprod(b.*A);
   p = p*spdiag(b(n+1));
-  p = p*spdiag(2.^(n));
+  p = full(p*spdiag(2.^n));
 else
   p = scale_functions@OrthogonalPolynomialBasis(self, p, n, normalization);
 end

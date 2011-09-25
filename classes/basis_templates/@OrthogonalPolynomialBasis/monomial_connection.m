@@ -32,10 +32,11 @@ C = ones(N);
 ns = (0:(N-1)).';
 maxdeg = N-1;
 
-[a,b] = self.recurrence(maxdeg+1);
+%[a,b] = self.recurrence(maxdeg+1);
+[a,b] = self.recurrence(0:N);
 b = sqrt(b);
 
-leading_coeffs = cumprod(1./b);
+leading_coeffs = cumprod(1./b(1:end-1));
 %leading_coeffs = leading_coeffs.*local_leading_coeffs(alphas(:,d)+1);
 
 % Build the connection matrix for this dimension and then distribute it
@@ -45,7 +46,8 @@ C = diag(1./leading_coeffs);
 
 a = a(:).';
 b = b(:).';
-for row = 2:(maxdeg+1);
+%for row = 2:(maxdeg+1);
+for row = 2:(N)
   % "side" conditions (i.e. those w/o left/right boundary points)
   C(row,1) = a(1)*C(row-1,1) + b(2)*C(row-1,2);
 

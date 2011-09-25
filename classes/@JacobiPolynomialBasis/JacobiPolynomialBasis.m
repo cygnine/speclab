@@ -19,7 +19,7 @@ classdef JacobiPolynomialBasis < OrthogonalPolynomialBasis
         inparse.addParamValue('normalization', 'normal');
       end
 
-      inparse.pasre(varargin{:});
+      inparse.parse(varargin{:});
       opt = inparse.Results;
 
       %inputs = {'alpha', 'beta', 'normalization'};

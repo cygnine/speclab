@@ -3,6 +3,8 @@ function[d1_utils] = init()
 %
 % d1_utils = init__()
 
-module_list = {};
+%d1_utils = recurse_files(pwd, module_list);
 
-d1_utils = recurse_files(pwd, module_list);
+d1_utils.module_list = {};
+d1_utils.recurse_files = true;
+d1_utils.addpaths = {};

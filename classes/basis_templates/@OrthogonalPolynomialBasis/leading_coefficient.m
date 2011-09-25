@@ -14,7 +14,8 @@ b = cumprod(sqrt(b));
 k = 1./b(n+1);
 
 % The above are the leading coefficients for the unmapped normalized polynomials
-k = k.*self.scale_functions(ones(size(n)), n);
-k = k.*(self.map_to_domain.A).^n;
+%k = k.*self.scale_functions(ones(size(n)), n);
+k = k.*self.scale_functions(ones(size(n.')), n);
+k = k.*(self.map_to_domain.A).^(n.');
 
 k = reshape(k, nsize);

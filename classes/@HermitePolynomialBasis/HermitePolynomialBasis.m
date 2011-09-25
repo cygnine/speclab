@@ -15,6 +15,7 @@ classdef HermitePolynomialBasis < OrthogonalPolynomialBasis
 
         inparse.addParamValue('mu', 0);
         inparse.addParamValue('normalization', 'normal');
+        inparse.addParamValue('domain', Interval1D([-Inf, Inf]));
       end
       %inputs = {'mu', 'normalization'};
       %defaults = {0, 'normal'};
@@ -22,7 +23,10 @@ classdef HermitePolynomialBasis < OrthogonalPolynomialBasis
       inparse.parse(varargin{:});
       opt = inparse.Results;
 
-      self = self@OrthogonalPolynomialBasis(varargin{:});
+      opt.standard_domain = Interval1D([-Inf, Inf]);
+
+      self = self@OrthogonalPolynomialBasis(opt);
+      %self = self@OrthogonalPolynomialBasis(varargin{:});
 
       self.allowed_function_normalizations{end+1} = ProbabilistFunctionNormalization.instance();
       self.allowed_function_normalizations{end+1} = PhysicistFunctionNormalization.instance();

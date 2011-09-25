@@ -3,6 +3,9 @@ function[interp] = init__()
 %
 % [nodes] = init__()
 
-interp = recurse_files(pwd);
+%interp = recurse_files(pwd);
+%interp.least_utils = matlab_import('least_utils');
 
-interp.least_utils = matlab_import('least_utils');
+interp.module_list = {'least_utils'};
+interp.recurse_files = true;
+interp.addpaths = {};

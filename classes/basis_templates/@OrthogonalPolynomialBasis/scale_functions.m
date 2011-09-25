@@ -32,6 +32,7 @@ elseif normalization==monic
   A = [1; repmat(self.map_to_domain.A, [max([N, 0]) 1])];
   b = cumprod(b.*A);
   p = p*spdiag(b(n+1));
+  %p = p*spdiag(n+1);
 else
   error('This basis does not support the given function normalization type');
 end
