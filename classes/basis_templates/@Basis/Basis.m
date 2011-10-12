@@ -84,6 +84,7 @@ classdef Basis
     end
 
     [n_array, nsize, numeln] = indexing(self,n);
+    [n] = inv_indexing(self,n_array);
 
   end
   methods(Access=protected)

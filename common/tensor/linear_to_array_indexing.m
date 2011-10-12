@@ -21,8 +21,14 @@ persistent input_schema
 if isempty(input_schema)
   from labtools import input_schema
 end
-%input_schema = from_as('labtools', 'input_schema');
-opt = input_schema({'dim'}, {1}, [], varargin{:});
+persistent input_parser parser
+if isempty(parser)
+  from labtools import input_parser
+  [opt, parser] = input_parser({'dim'}, {1}, [], varargin{:});
+else
+  parser.parse(varargin{:});
+  opt = parser.Results;
+end
 dim = opt.dim;
 
 n = n(:);

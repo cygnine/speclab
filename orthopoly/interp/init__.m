@@ -6,6 +6,6 @@ function[interp] = init__()
 %interp = recurse_files(pwd);
 %interp.least_utils = matlab_import('least_utils');
 
-interp.module_list = {'least_utils'};
+interp.module_list = {};
 interp.recurse_files = true;
 interp.addpaths = {};

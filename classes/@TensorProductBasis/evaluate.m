@@ -1,4 +1,4 @@
-function[V] = evaluate(self,x,n)
+function[V] = evaluate(self,x,n, varargin)
 % evaluate -- Evaluates tensor-product basis
 %
 % V = evaluate(self, x, n)
@@ -9,22 +9,40 @@ function[V] = evaluate(self,x,n)
 %     each column represents the appropriate basis function n evaluated at all
 %     locations x.
 
-%n = n(:);
+persistent input_parser parser
+if isempty(parser)
+  from labtools import input_parser
+  [opt, parser] = input_parser({'d', 'normalization'}, ...
+                               {[], self.normalization}, ...
+                               [], ...
+                               varargin{:});
+else
+  parser.parse(varargin{:});
+  opt = parser.Results;
+end
+
 if size(x,2) ~= self.dim
   error('Input points must have the same dimension (columns) as self.dim');
 end
-%if any(n<1)
-%  error('Tensor-product bases have linear indexing that is one-based');
-%end
+if not(isempty(opt.d)) && size(opt.d,2) ~= self.dim
+  error('Specification of partial derivatives must have the same dimension (columns) as self.dim');
+end
 
 [n_array, nsize, numeln] = self.indexing(n);
 
-Vsize = [size(x,1), numeln];
-V = ones(size(x,1), numeln);
+if isempty(opt.d)
+  Vsize = [size(x,1), numeln];
+else
+  Vsize = [size(x, 1), numeln, size(opt.d,1)];
+end
+V = ones(Vsize);
 
 for q = 1:self.dim
-  %V = V.*self.bases{q}(x(:,q), n_array(:,q));
-  V = V.*reshape(self.bases{q}(x(:,q), n_array(:,q)), Vsize);
+  if isempty(opt.d)
+    V = V.*reshape(self.bases{q}(x(:,q), n_array(:,q)), Vsize);
+  else
+    V = V.*reshape(self.bases{q}(x(:,q), n_array(:,q), 'd', opt.d(:,q)), Vsize);
+  end
 end
 
 if size(x,1)==1

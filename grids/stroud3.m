@@ -47,4 +47,4 @@ end
 w(:) = 2^opt.dim/(2*opt.dim);
 
 theta = affine_transformation(theta, opt.scale, opt.shift);
-w = w*prod(opt.scale);
+w = w*prod(opt.scale)^opt.dim;

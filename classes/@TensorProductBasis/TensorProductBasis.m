@@ -11,11 +11,13 @@ properties
 end
 methods 
   function[self] = TensorProductBasis(varargin)
-
-    %persistent indexing
-    %if isempty(indexing)
-    %  from speclab.common.tensor import linear_to_array_indexing as indexing
-    %end
+  % TensorProductBasis -- Tensor-product basis formed from univariate bases
+  %
+  % self = TensorProductBasis({Basis1, Basis2, Basis3, ...}, { key-value optional_inputs })
+  %
+  %     Given a cell array of univariate bases {Basis1, Basis2, ...}, this
+  %     creates a basis with a tensor-product structure. The optional inputs
+  %     indicate e.g. the structure of the user-end indexing.
 
     persistent inparse
     if isempty(inparse)
@@ -30,9 +32,6 @@ methods
     inparse.parse(varargin{:});
     parsed_inputs = inparse.Results;
     bases = parsed_inputs.bases;
-
-    %inputs = {'indexing', 'internal_indexing'};
-    %defaults = {[], []};
 
     self = self@Basis(varargin{2:end});
 
@@ -83,7 +82,7 @@ methods
     %self.map_to_domain = inv(self.map_to_standard_domain);
   end
 
-  V = evaluate(self,x,n)
+  V = evaluate(self,x,n,varargin)
 end
 
 end
