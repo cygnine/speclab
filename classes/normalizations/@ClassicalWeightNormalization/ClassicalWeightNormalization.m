@@ -10,13 +10,9 @@ classdef ClassicalWeightNormalization < WeightNormalization
 %     function evaluates to the value of the mapped coordinate (any resulting
 %     Jacobian is built into the function evaluations).
 %
-% Normalization Properties:
-%   ids - strings and/or scalars that identify this normalization: 'classical', 'class'
-% Normalization Methods:
-%   string_compare - A method that tests if an input matches this normalization's ids
+%     Use the syntax classname.instance() to instantiate this method.
 
-  properties(SetAccess=private)
-    description;
+  properties(SetAccess=protected)
     ids = {'classical', 'class'};
   end
 
@@ -38,9 +34,4 @@ classdef ClassicalWeightNormalization < WeightNormalization
     end
   end
 
-  methods
-    function disp(self)
-      fprintf('%s\n', self.description);
-    end
-  end
 end

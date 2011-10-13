@@ -7,13 +7,9 @@ classdef ProbabilistFunctionNormalization < FunctionNormalization
 %     function evaluations that correspond to a "probabilist" normalization.
 %     "Claisscal" means the normalization that is prevalent in the literature.
 %
-% Normalization Properties:
-%   ids - strings and/or scalars that identify this normalization: 'probability', 'prob', 'probabilist'
-% Normalization Methods:
-%   string_compare - A method that tests if an input matches this normalization's ids
+%     Use the syntax classname.instance() to instantiate this class.
 
-  properties(SetAccess=private)
-    description;
+  properties(SetAccess=protected)
     ids = {'probability', 'prob', 'probabilist'};
   end
 
@@ -32,12 +28,6 @@ classdef ProbabilistFunctionNormalization < FunctionNormalization
       else
         obj = self;
       end
-    end
-  end
-
-  methods
-    function disp(self)
-      fprintf('%s\n', self.description);
     end
   end
 end

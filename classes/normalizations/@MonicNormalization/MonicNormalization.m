@@ -7,13 +7,9 @@ classdef MonicNormalization < FunctionNormalization
 %     function evaluations that correspond to a "monic" normalization -- i.e.
 %     the leading term has coefficient 1.
 %
-% Normalization Properties:
-%   ids - strings and/or scalars that identify this normalization: 'monic', 'mon'
-% Normalization Methods:
-%   string_compare - A method that tests if an input matches this normalization's ids
+%     Use the syntax classname.instance() to instantiate this class.
 
-  properties(SetAccess=private)
-    description;
+  properties(SetAccess=protected)
     ids = {'monic', 'mon'};
   end
 
@@ -32,12 +28,6 @@ classdef MonicNormalization < FunctionNormalization
       else
         obj = self;
       end
-    end
-  end
-
-  methods
-    function disp(self)
-      fprintf('%s\n', self.description);
     end
   end
 end

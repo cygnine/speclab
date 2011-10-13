@@ -11,10 +11,15 @@ classdef Normalization < Singleton
 %   ids - A set of strings and/or scalars that identify this normalization
 % Normalization Methods:
 %   string_compare - A method that tests if an input matches this normalization's ids
-  properties(SetAccess=private,Abstract=true)
+  properties(SetAccess=protected,Abstract=true)
     ids
+  end
+  properties(SetAccess=protected)
+    description;
   end
   methods
     [bool, instance] = string_compare(self, string)
+    bool = eq(self,other)
+    disp(self)
   end
 end

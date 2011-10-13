@@ -4,10 +4,10 @@ function[x,w] = gauss_quadrature(self,n)
 %     Computes the n-point Gauss quadrature rule associated with the system of
 %     orthogonal polynomials. 
 
-persistent gq
-if isempty(gq)
-  from speclab.d1_utils import gauss_quadrature as gq
-end
+%persistent gq
+%if isempty(gq)
+%  from speclab.d1_utils import gauss_quadrature as gq
+%end
 %if isempty(opt.a)
 %  J = self.jacobi_matrix(n);
 %else
@@ -20,11 +20,14 @@ end
 %w = 1./sum(self.evaluate(x, 0:(n-1), 'normalization', ...
 %                          OrthonormalNormalization.instance()).^2,2);
 %
+%[x,w] = gq(a, b);
 
 [a,b] = self.recurrence(0:(n-1));
-[x,w] = gq(a, b);
+a = a(:); b = b(:);
+
+% Form Jacobi matrix
+J = spdiags([sqrt([b(2:end);0]) a sqrt(b)], -1:1, n, n);
+x = eig(J);
+w = 1./sum(self.evaluate(x, 0:(n-1), 'normalization', 'normal').^2, 2);
 
 [x,w] = self.scale_quadrature(x,w);
-
-%x = self.map_to_domain(x);
-%w = self.scale_weight(w);

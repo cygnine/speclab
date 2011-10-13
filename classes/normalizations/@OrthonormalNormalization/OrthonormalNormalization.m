@@ -8,13 +8,9 @@ classdef OrthonormalNormalization < FunctionNormalization
 %     Here "orthonormal" refers to unit norm under some innate norm (usually an
 %     L^2 inner product) that is defined by the basis set.
 %
-% Normalization Properties:
-%   ids - strings and/or scalars that identify this normalization: 'orthonormal', 'normal'
-% Normalization Methods:
-%   string_compare - A method that tests if an input matches this normalization's ids
+%     Use the syntax classname.instance() to instantiate this class.
 
-  properties(SetAccess=private)
-    description;
+  properties(SetAccess=protected)
     ids = {'orthonormal', 'normal'};
   end
 
@@ -36,9 +32,4 @@ classdef OrthonormalNormalization < FunctionNormalization
     end
   end
 
-  methods
-    function disp(self)
-      fprintf('%s\n', self.description);
-    end
-  end
 end

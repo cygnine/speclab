@@ -7,13 +7,9 @@ classdef PhysicistFunctionNormalization < FunctionNormalization
 %     function evaluations that correspond to a "physicist" normalization.
 %     "Claisscal" means the normalization that is prevalent in the literature.
 %
-% Normalization Properties:
-%   ids - strings and/or scalars that identify this normalization: 'physics', 'physicists', 'physic'
-% Normalization Methods:
-%   string_compare - A method that tests if an input matches this normalization's ids
+%     Use the syntax classname.instance() to instantiate this method.
 
-  properties(SetAccess=private)
-    description;
+  properties(SetAccess=protected)
     ids = {'physics', 'physicist', 'physic'};
   end
 
@@ -35,9 +31,4 @@ classdef PhysicistFunctionNormalization < FunctionNormalization
     end
   end
 
-  methods
-    function disp(self)
-      fprintf('%s\n', self.description);
-    end
-  end
 end

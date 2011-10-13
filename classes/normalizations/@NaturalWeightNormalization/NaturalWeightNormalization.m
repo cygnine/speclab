@@ -10,13 +10,9 @@ classdef NaturalWeightNormalization < WeightNormalization
 %     map is built into the weight function so that the e.g. "orthonormal"
 %     evaluations are not changed.
 %
-% Normalization Properties:
-%   ids - strings and/or scalars that identify this normalization: 'natural', 'natur', 'nature'
-% Normalization Methods:
-%   string_compare - A method that tests if an input matches this normalization's ids
+%     Use the syntax classname.instance() to instantiate this method.
 
-  properties(SetAccess=private)
-    description;
+  properties(SetAccess=protected)
     ids = {'natural', 'natur', 'nature'};
   end
 
@@ -38,9 +34,4 @@ classdef NaturalWeightNormalization < WeightNormalization
     end
   end
 
-  methods
-    function disp(self)
-      fprintf('%s\n', self.description);
-    end
-  end
 end
