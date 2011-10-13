@@ -1,5 +1,7 @@
-function[p] = eval_driver(self,x,alpha,beta,n,d);
-% p = eval_driver(x,alpha,beta,n,d);
+function[p] = evaluate_driver(x,alpha,beta,n,d);
+% evaluate_driver -- Evaluates orthogonal polynomials
+%
+% p = evaluate_driver(x,alpha,beta,n,d);
 %
 %     Evaluates the normalized orthogonal polynomials defined by the recurrence
 %     coefficients alpha and beta. Assumes alpha and beta are long enough as
@@ -15,8 +17,9 @@ function[p] = eval_driver(self,x,alpha,beta,n,d);
 %     This function returns evaluations of the L^2-orthonormal polynomials, and
 %     assumes that the inputs x are located on the standard domain of the
 %     orthogonal polynomial family.
-
-warning('OrthogonalPolynomialBasis.eval_driver should be deprecated');
+%
+%     This is a static method and can be invoked without instantiating its
+%     class.
 
 % Pre-processing:
 x = x(:);

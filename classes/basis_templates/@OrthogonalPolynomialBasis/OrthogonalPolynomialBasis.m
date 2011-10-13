@@ -121,7 +121,12 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
     p = scale_functions(self, p, n, normalization)
     w = scale_weight(self,w);
     [x,w] = scale_quadrature(self,x,w);
-    p = eval_driver(self, x, a, b, n, d);
+    %p = eval_driver(self, x, a, b, n, d);
+  end
+
+  methods(Static)
+    [x,w] = gauss_quadrature_driver(a,b)
+    p = evaluate_driver(x, alpha, beta, n, d)
   end
 
 end

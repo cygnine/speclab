@@ -1,34 +1,30 @@
 function[x,w] = gauss_radau_quadrature(self,N,varargin)
-% [x,w] = gauss_radau_quadrature(self,N, {r=self.domain.slices{1}.interval(2)})
+% [x,w] = gauss_radau_quadrature(self,N, {r=self.domain.interval(2)})
 %
 %     Computes the n-point Gauss-Radau quadrature rule associated with the
 %     system of orthogonal polynomials. If no optional input 'r' specifying the
 %     location of the fixed point is given, it is assumed to be the right-hand
 %     endpoint of the domain.
 
-persistent inparse gq
-if isempty(inparse)
-  inparse = inputParser();
-  inparse.KeepUnmatched = false;
-
-  inparse.addParamValue('r', self.domain.slices{1}.interval(2));
-
-  from speclab.d1_utils import gauss_quadrature as gq
+persistent parser input_parser
+if isempty(parser)
+  from labtools import input_parser
+  [opt, parser] = input_parser({'r'}, ...
+                        {self.map_to_standard_domain(self.domain.interval(2))}, ...
+                        [],...
+                        varargin{:});
+else
+  parser.parse(varargin{:});
+  opt = parser.Results;
 end
 
-inparse.parse(varargin{:});
-opt = inparse.Results;
-
 [a,b] = self.recurrence(0:(N-1));
-a = a(:); b = b(:);
 
-temp = self.evaluate(opt.r, [N-2 N-1], 'normalization', MonicNormalization.instance());
-%temp = eval_polynomial(r,a,b,[N-2,N-1], 'normalization','monic');
+domain_storage = self.domain;
+self.domain = self.standard_domain;
+temp = self.evaluate(opt.r, [N-2 N-1], 'normalization', 'monic');
 a(N) = opt.r - b(N)*temp(1)/temp(2);
+self.domain = domain_storage;
 
-%[x,w] = self.gauss_quadrature([], 'a', a, 'b', b);
-[x,w] = gq(a,b);
-
-%x = self.map_to_domain(x);
-%w = self.scale_weight(w);
+[x,w] = OrthogonalPolynomialBasis.gauss_quadrature_driver(a,b);
 [x,w] = self.scale_quadrature(x,w);
