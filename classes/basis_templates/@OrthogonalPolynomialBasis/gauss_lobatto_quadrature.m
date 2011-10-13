@@ -27,7 +27,8 @@ b = b(1:N);
 
 domain_storage = self.domain;
 self.domain = self.standard_domain;
-temp = self.evaluate([opt.r1; opt.r2], [N-1, N-2], 'normalization', 'monic');
+inds = self.range(N); inds = inds([end end-1]);
+temp = self.evaluate([opt.r1; opt.r2], inds, 'normalization', 'monic');
 self.domain = domain_storage;
 
 modif = inv(temp)*[opt.r1*temp(1,1); opt.r2*temp(2,1)];
