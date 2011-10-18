@@ -35,7 +35,9 @@ p = opoly_evaluate(x(:),a,b,n_array(:), opt.d(:));
 
 % self.scale_functions also calls the recurrence formula -- any way to remove
 % this waste of computation?
-p = self.scale_functions(p,n_array,opt.normalization);
+for q = 1:length(opt.d(:))
+  p(:,:,q) = self.scale_functions(p(:,:,q),n_array,opt.normalization);
+end
 
 if numeln == 1
   p = reshape(p, xsize);

@@ -7,25 +7,23 @@ function p = scale_functions(self,p,n,normalization)
 %     rescales each column of p to the FunctionNormalization specification
 %     defined by the basis, using the column index ids n.
 
-persistent spdiag orthonormal monic 
+persistent spdiag 
 if isempty(spdiag)
   from labtools import spdiag
-  orthonormal = OrthonormalNormalization.instance();
-  monic = MonicNormalization.instance();
 end
 
 if not(exist('normalization')==1)
   normalization = self.normalization;
 end
 
-if normalization==orthonormal
+if normalization=='orthonormal'
   % The idea: the affine map induces a Jacobian of map_to_standard_domain.A. If
   % this is already present in the weight rescaling, we don't need to
   % renormalize.
   K = self.scale_weight(1);
   %p = p*sqrt(K/self.map_to_standard_domain.A);
   p = p*sqrt(self.map_to_standard_domain.A/K);
-elseif normalization==monic
+elseif normalization=='monic'
   N = max(n);
   [a,b] = self.recurrence(0:N);
   b = sqrt(b(:));

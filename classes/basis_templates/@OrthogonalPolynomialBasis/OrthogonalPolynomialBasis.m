@@ -39,6 +39,7 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
 %   inv_monomial_connection - Returns the connection matrix between the monomials and this family
 %   mapped_recurrence - Recurrence coefficients for the polynomials after mapping to self.domain
 %   orthogonal_connection - Returns the connection matrix between this family and another OrthogonalPolynomialBasis family
+%   derivative_expansion - expansion coefficients of polynomial derivatives
   properties
     dim = 1; % Make this hidden
     map_to_standard_domain % A map from domain to standard_domain derived from domain and standard_domain
@@ -114,7 +115,7 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
     [a,b,c] = mapped_recurrence(self, n);
     lmbda = orthogonal_connection(self,other,N);
     lmbda = self_connection(self,d,N);
-
+    lmbda = derivative_expansion(self, N, d);
   end
 
   methods(Access=protected)

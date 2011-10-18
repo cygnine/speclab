@@ -9,8 +9,8 @@ function[n] = to_naturals(self, a)
 
 persistent subdim spdim
 if isempty(subdim)
-  from speclab.common.tensor import subspace_dimension as subdim
-  from speclab.common.tensor import space_dimension as spdim
+  from speclab.common.tensor import polynomial_subspace_dimension as subdim
+  from speclab.common.tensor import polynomial_space_dimension as spdim
 end
 
 if size(a,2) ~= self.dim

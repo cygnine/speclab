@@ -6,6 +6,8 @@ function[D] = subspace_dimension(d,k)
 %     Returns the dimension of the space of d-variate polynomials of total
 %     degree equal to k.
 
+warning('Use speclab.common.tensor.polynomial_subspace_dimension');
+
 D = zeros(size(k));
 
 for q = 1:numel(k)
