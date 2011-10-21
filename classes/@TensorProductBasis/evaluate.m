@@ -45,6 +45,6 @@ for q = 1:self.dim
   end
 end
 
-if size(x,1)==1
+if (size(V,3)==1) && (size(x,1)==1)
   V = reshape(V, nsize);
 end

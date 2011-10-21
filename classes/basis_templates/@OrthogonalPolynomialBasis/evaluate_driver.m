@@ -54,12 +54,19 @@ for qq = 0:D
                              qq*p0(:,q));
   end
 
-  if any(qq==d)
-    p(:,:,Dcount) = p1(:,n+1);
+  flags = find(d==qq);
+  for qqq =1:length(flags)
+    p(:,:,flags(qqq)) = p1(:,n+1);
     Dcount = Dcount + 1;
   end
+  %if any(qq==d)
+  %  p(:,:,Dcount) = p1(:,n+1);
+  %  Dcount = Dcount + 1;
+  %end
 
   p0 = p1;
 end
 
-p = squeeze(p);
+if size(p,3)==1
+  p = squeeze(p);
+end

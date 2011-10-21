@@ -31,7 +31,8 @@ x = x(:);
 
 x = self.map_to_standard_domain(x.').';
 [a,b] = self.recurrence(0:N);
-p = opoly_evaluate(x(:),a,b,n_array(:), opt.d(:));
+%p = opoly_evaluate(x(:),a,b,n_array(:), opt.d(:));
+p = self.evaluate_driver(x(:),a,b,n_array(:), opt.d(:));
 
 % self.scale_functions also calls the recurrence formula -- any way to remove
 % this waste of computation?
@@ -39,8 +40,10 @@ for q = 1:length(opt.d(:))
   p(:,:,q) = self.scale_functions(p(:,:,q),n_array,opt.normalization);
 end
 
-if numeln == 1
-  p = reshape(p, xsize);
-elseif numel(x) == 1
-  p = reshape(p, nsize);
+if size(p,3)==1
+  if numeln == 1
+    p = reshape(p, xsize);
+  elseif numel(x) == 1
+    p = reshape(p, nsize);
+  end
 end

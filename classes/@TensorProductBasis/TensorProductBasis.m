@@ -83,6 +83,7 @@ methods
   end
 
   V = evaluate(self,x,n,varargin)
+  lmbda = derivative_expansion(self, n, d);
 end
 
 end

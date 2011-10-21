@@ -26,6 +26,9 @@ if isempty(spdiag)
   from labtools import spdiag
 end
 
+% Any coefficients below this abs will be discarded
+tol = 1e-10;
+
 % First change indices to ZeroBasedIndexing:
 [n, nsize, numeln] = self.indexing(n);
 N = max(n);
@@ -33,7 +36,7 @@ N = max(n);
 d = d(:);
 maxd = max(d);
 
-M = N-1;
+M = N;
 % First let's code for length(d)==1
 %lmbda = zeros([length(n) N+1-d]);
 lmbdaout = zeros([N+1 M+1 length(d)]);
@@ -42,7 +45,7 @@ prevlmbda = speye([N+1 M+1]);
 % Need trivial output?
 inds  = find(d==0);
 for q = 1:length(inds)
-  lmbdaout(:,:,q) = prevlmbda;
+  lmbdaout(:,:,inds(q)) = prevlmbda;
 end
 
 [a,b] = self.recurrence(0:N);
@@ -73,6 +76,8 @@ for D = 1:maxd
     % lmbda^{(D)}_{ns,m}
     lmbda(ns+1,:) = lmbda(ns+1,:)/b(ns+1);
   end
+  % Let's not propagate floating-point error, mkay?
+  lmbda(abs(lmbda)<tol) = 0;
   prevlmbda = lmbda;
 
   % Need any output?
@@ -86,7 +91,8 @@ d = min(d);
 lmbdaout = lmbdaout(n+1,1:(N+1-d),:);
 
 % And now scale functions:
-colscale = spdiag(1./self.scale_functions(ones([1 M+1]), 0:M));
+%colscale = spdiag(1./self.scale_functions(ones([1 M+1]), 0:M));
+colscale = spdiag(1./self.scale_functions(ones([1 size(lmbdaout,2)]), 0:size(lmbdaout,2-1)));
 rowscale = spdiag(self.scale_functions(ones([1 length(n)]), n));
 for D = 1:size(lmbdaout,3)
   lmbdaout(:,:,D) = rowscale*lmbdaout(:,:,D)*colscale;
