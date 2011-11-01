@@ -13,8 +13,10 @@ function[indices] = smolyak_indices(d, k)
 persistent indexing subdim dim
 if isempty(indexing)
   from speclab.common.tensor import linear_to_array_indexing as indexing
-  from speclab.common.tensor import space_dimension as dim
-  from speclab.common.tensor import subspace_dimension as subdim
+  %from speclab.common.tensor import space_dimension as dim
+  from speclab.common.tensor import polynomial_space_dimension as dim
+  %from speclab.common.tensor import subspace_dimension as subdim
+  from speclab.common.tensor import polynomial_subspace_dimension as subdim
 end
 
 if k<d

@@ -23,8 +23,10 @@ function[x,w] = smolyak_isotropic(quadrule, q, d)
 persistent smolyak_indices dim subdim
 if isempty(dim)
   from speclab.grids import smolyak_indices
-  from speclab.common.tensor import space_dimension as dim
-  from speclab.common.tensor import subspace_dimension as subdim
+  %from speclab.common.tensor import space_dimension as dim
+  from speclab.common.tensor import polynomial_space_dimension as dim
+  %from speclab.common.tensor import subspace_dimension as subdim
+  from speclab.common.tensor import polynomial_subspace_dimension as subdim
 end
 
 if q<d
