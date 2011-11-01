@@ -30,8 +30,10 @@ if isempty(invu)
   from labtools.linalg import triu_back_substitute as invu
   from labtools.linalg import tril_forward_substitute as invl
 
-  from speclab.common.tensor import space_dimension as dim
-  from speclab.common.tensor import subspace_dimension as subdim
+  %from speclab.common.tensor import space_dimension as dim
+  from speclab.common.tensor import polynomial_space_dimension as dim
+  %from speclab.common.tensor import subspace_dimension as subdim
+  from speclab.common.tensor import polynomial_subspace_dimension as subdim
 
   %from speclab.orthopoly.interp import monomial_ip as ip
   from speclab.orthopoly.interp import opoly_ip as ip
