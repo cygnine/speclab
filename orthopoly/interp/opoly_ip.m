@@ -13,7 +13,8 @@ function[M] = opoly_ip(d, k)
 
 persistent subdim
 if isempty(subdim)
-  from speclab.common.tensor import subspace_dimension as subdim
+  %from speclab.common.tensor import subspace_dimension as subdim
+  from speclab.common.tensor import polynomial_subspace_dimension as subdim
 end
 
 M = speye(subdim(d,k));

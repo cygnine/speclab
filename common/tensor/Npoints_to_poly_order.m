@@ -8,7 +8,7 @@ function[k] = Npoints_to_poly_order(d, N)
 
 persistent dim
 if isempty(dim)
-  from speclab.common.tensor import space_dimension as dim
+  from speclab.common.tensor import polynomial_space_dimension as dim
 end
 
 k = 0;
