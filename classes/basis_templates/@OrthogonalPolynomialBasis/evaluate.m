@@ -9,10 +9,8 @@ function[p] = evaluate(self,x,n,varargin)
 %
 %     If self.dim > 1, p is a size(x,1) x length(n(:)) array.
 
-persistent inparse opoly_evaluate
+persistent inparse 
 if isempty(inparse)
-  from speclab.d1_utils import opoly_evaluate
-
   inparse = inputParser();
   inparse.KeepUnmatched = true;
 
@@ -31,7 +29,6 @@ x = x(:);
 
 x = self.map_to_standard_domain(x.').';
 [a,b] = self.recurrence(0:N);
-%p = opoly_evaluate(x(:),a,b,n_array(:), opt.d(:));
 p = self.evaluate_driver(x(:),a,b,n_array(:), opt.d(:));
 
 % self.scale_functions also calls the recurrence formula -- any way to remove

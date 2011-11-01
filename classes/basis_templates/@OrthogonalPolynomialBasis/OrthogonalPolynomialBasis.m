@@ -18,7 +18,7 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
 %     fft and ifft methods.
 %
 % OrthogonalPolynomialBasis Properties:
-%   user_indexing - IndexingRule-derived object specifying a map from user-end indexing to the natural numbers 1, 2, ...
+%   indexing - IndexingRule-derived object specifying a map from user-end indexing to the natural numbers 1, 2, ...
 %   normalization - Normalization-derived object specifying the function normalizations
 %   domain - User-end domain after affine map from standard_domain
 %   standard_domain - Standard (internal use) univariate domain
@@ -59,7 +59,7 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
 
         inparse.addParamValue('recurrence', @(n) []);
         inparse.addParamValue('standard_domain', Interval1D());
-        inparse.addParamValue('user_indexing', ZeroBasedIndexing.instance());
+        inparse.addParamValue('indexing', ZeroBasedIndexing.instance());
         inparse.addParamValue('internal_indexing', []);
         inparse.addParamValue('normalization', 'normal');
         inparse.addParamValue('weight_normalization', 'classical');
@@ -93,7 +93,7 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
       self.weight_normalization = parsed_inputs.weight_normalization;
 
       % Set up indexing
-      self.user_indexing = parsed_inputs.user_indexing;
+      self.user_indexing = parsed_inputs.indexing;
       self.internal_indexing = parsed_inputs.internal_indexing;
 
       % Get domain mapping

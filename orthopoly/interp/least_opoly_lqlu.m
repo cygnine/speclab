@@ -1,4 +1,4 @@
-function[l,u,p,v,k] = least_opoly_lqlu(theta, varargin)
+function[l,u,p,v,k,H] = least_opoly_lqlu(theta, varargin)
 % tensor_lu -- Computes de Boor's LU factorization with LQ factorizations
 %
 % [l,u,v,p,k] = least_opoly_lqlu(theta, [tol=1e-10, ip=eye(),  basis='legendre'])
@@ -47,8 +47,10 @@ persistent parser multimonomial ip
 if isempty(dim)
   from labtools import input_parser
 
-  from speclab.common.tensor import space_dimension as dim
-  from speclab.common.tensor import subspace_dimension as subdim
+  %from speclab.common.tensor import space_dimension as dim
+  from speclab.common.tensor import polynomial_space_dimension as dim
+  %from speclab.common.tensor import subspace_dimension as subdim
+  from speclab.common.tensor import polynomial_subspace_dimension as subdim
   from speclab.common.tensor import linear_to_array_indexing as indexing
   from speclab.common.tensor import Npoints_to_poly_order as find_order
 
@@ -149,3 +151,18 @@ end
 
 % Chop off parts of unnecessarily allocated vector v
 v(v_index:end) = [];
+
+% Make matrix H:
+H = spalloc(N,k_counter-1,length(v));
+v_counter = 1;
+for q = 1:N;
+  current_size = subdim(d, k(q));
+  v_inds = v_counter:(v_counter+current_size-1);
+  
+  previous_dimension = dim(d, k(q)-1);
+  H_cols = (previous_dimension+1):(previous_dimension+current_size);
+
+  H(q,H_cols) = v(v_inds);
+
+  v_counter = v_counter + current_size;
+end
