@@ -9,17 +9,24 @@ function[p] = evaluate(self,x,n,varargin)
 %
 %     If self.dim > 1, p is a size(x,1) x length(n(:)) array.
 
-persistent inparse 
-if isempty(inparse)
-  inparse = inputParser();
-  inparse.KeepUnmatched = true;
+persistent input_parser 
+if isempty(input_parser)
+  from labtools import input_parser
 
-  inparse.addParamValue('d', 0);
-  inparse.addParamValue('normalization', self.normalization);
 end
 
-inparse.parse(varargin{:});
-opt = inparse.Results;
+params = {'d', 'normalization'};
+defaults = {0, self.normalization};
+
+opt = input_parser(params, defaults, [], varargin{:});
+%inparse = inputParser();
+%inparse.KeepUnmatched = true;
+%
+%inparse.addParamValue('d', 0);
+%inparse.addParamValue('normalization', self.normalization);
+%
+%inparse.parse(varargin{:});
+%opt = inparse.Results;
 
 [n_array, nsize, numeln] = self.indexing(n);
 N = max(n_array)+2;

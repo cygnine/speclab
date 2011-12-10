@@ -30,7 +30,7 @@ persistent least_opoly_lu least_opoly_coeffs myip_full myip space_dim subspace_d
 if isempty(least_opoly_lu)
   from labtools import input_parser
   from speclab.orthopoly.interp import least_opoly_lqlu least_opoly_lqcoeffs
-  from speclab.common.tensor import subspace_dimension as subspace_dim
+  from speclab.common.tensor import polynomial_subspace_dimension as subspace_dim
 
   myip = @(d,k) speye(subspace_dim(d,k));
 
@@ -70,13 +70,14 @@ else
   dim = opt.basis.dim;
 end
 
-[l,u,p,v,k_storage] = least_opoly_lqlu(theta, 'basis', evalbasis, 'ip', myip);
-c = least_opoly_lqcoeffs(l,u,p,v,k_storage,dim,f, 'ip', myip);
+[l,u,p,v,k_storage,H] = least_opoly_lqlu(theta, 'basis', evalbasis, 'ip', myip);
+%c = least_opoly_lqcoeffs(l,u,p,v,k_storage,dim,f, 'ip', myip);
+c = H'*inv(l*u)*p*f;
 
 maxN = opt.maxN;
 
 Nz = size(z, 1);
-fz = zeros([Nz 1]);
+fz = zeros([Nz size(f,2)]);
 for q = 1:ceil(Nz/maxN)
   i1 = (q-1)*maxN + 1;
   i2 = q*maxN;
@@ -85,5 +86,5 @@ for q = 1:ceil(Nz/maxN)
   end
 
   V = evalbasis(z(i1:i2,:), 1:length(c));
-  fz(i1:i2) = V*c;
+  fz(i1:i2,:) = V*c;
 end

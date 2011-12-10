@@ -12,12 +12,18 @@ function[f] = product_peak(x,varargin)
 %     usually restricted in the values (0, \infty), but no checking is performing in
 %     this code to ensure that.
 
-persistent strict_inputs
-if isempty(strict_inputs)
-  from labtools import strict_inputs
+persistent input_parser parser
+if isempty(input_parser)
+  from labtools import input_parser
 end
+[opt, parser] = input_parser({'dim', 'w', 'c'}, ...
+                             {size(x,2), [], []}, ...
+                             [], ...
+                             varargin{:});
+parser.parse(varargin{:});
+opt = parser.Results;
 
-opt = strict_inputs({'dim', 'w', 'c'}, {size(x,2), [], []}, [], varargin{:});
+%opt = strict_inputs({'dim', 'w', 'c'}, {size(x,2), [], []}, [], varargin{:});
 if isempty(opt.c)
   opt.c = ones([opt.dim 1]);
 end
