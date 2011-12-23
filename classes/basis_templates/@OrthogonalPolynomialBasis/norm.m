@@ -13,7 +13,7 @@ function[h] = norm(self,n)
 K = self.map_to_domain.A*self.scale_weight(1);
 
 % Now get function scalings:
-h = self.scale_functions(ones(size(n)), n);
+h = self.scale_functions(ones(size(n)).', n).';
 
 h = h.*sqrt(K);
 

@@ -10,8 +10,8 @@ function[ek] = triple_product(self, N, K)
 %     for all 1 <= n,m <= N, and 0 <= k <= K.
 %
 %     The output ek is cell array of length K+1, where ek{p} is a sparse 2D
-%     array containing the coefficients for k = p-1. (It is symmetric, but this
-%     potential savings is not exploited.)
+%     array containing the coefficients for k = p-1. (Each array is symmetric,
+%     but this potential savings is not exploited.)
 
 persistent spdiag
 if isempty(spdiag)

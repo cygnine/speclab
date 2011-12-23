@@ -74,7 +74,7 @@ classdef Basis
     %
     %     Given an integer N, this function returns (user-end) indices for the
     %     first N basis elements.
-      output = self.user_indexing(1:N);
+      output = self.user_indexing((1:N).');
     end
 
     function self = set.domain(self,newdomain)
