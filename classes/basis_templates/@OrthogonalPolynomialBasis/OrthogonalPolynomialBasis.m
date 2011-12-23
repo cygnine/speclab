@@ -41,6 +41,8 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
 %   orthogonal_connection - Returns the connection matrix between this family and another OrthogonalPolynomialBasis family
 %   derivative_expansion - expansion coefficients of polynomial derivatives
 %   triple_product - weighted integral of triple product of polynomials
+%   convolution - Discrete convolution of spectral expansions
+%   composition - Composes two spectral expansions
   properties
     dim = 1; % Make this hidden
     map_to_standard_domain % A map from domain to standard_domain derived from domain and standard_domain
@@ -118,6 +120,8 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
     lmbda = self_connection(self,d,N);
     lmbda = derivative_expansion(self, N, d);
     ek = triple_product(self, N, k)
+    w = convolution(self, u, v, other)
+    w = composition(self, u, v)
   end
 
   methods(Access=protected)
