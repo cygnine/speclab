@@ -30,6 +30,7 @@ while not(bool) & (q <= length(self.allowed_function_normalizations))
 end
 if not(bool)
   obj = self.default_function_normalization;
+  warning(['I don''t know the normalization ID "' inp '", but I''m ignoring it']);
   %error('Unrecognized normalization character array');
 end
 

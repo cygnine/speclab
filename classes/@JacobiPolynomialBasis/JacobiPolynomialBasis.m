@@ -22,9 +22,6 @@ classdef JacobiPolynomialBasis < OrthogonalPolynomialBasis
       inparse.parse(varargin{:});
       opt = inparse.Results;
 
-      %inputs = {'alpha', 'beta', 'normalization'};
-      %defaults = {-0.5, -0.5, 'normal'};
-
       self = self@OrthogonalPolynomialBasis(varargin{:});
       self.allowed_function_normalizations{end+1} = ClassicalFunctionNormalization.instance();
       self.normalization = opt.normalization;
@@ -37,7 +34,7 @@ classdef JacobiPolynomialBasis < OrthogonalPolynomialBasis
 
     end
 
-    [a,b] = recurrence(self, n);
+    [a,b] = standard_recurrence(self, n);
     w = weight(self, x);
   end
   methods(Access=protected)

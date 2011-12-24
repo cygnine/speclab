@@ -60,7 +60,7 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
         inparse = inputParser();
         inparse.KeepUnmatched = true;
 
-        inparse.addParamValue('recurrence', @(n) []);
+        inparse.addParamValue('recurrence', []);
         inparse.addParamValue('standard_domain', Interval1D());
         inparse.addParamValue('indexing', ZeroBasedIndexing.instance());
         inparse.addParamValue('internal_indexing', []);
@@ -115,6 +115,7 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
     k = leading_coefficient(self,n);
     C = monomial_connection(self,N);
     C = inv_monomial_connection(self,N);
+    [a,b] = standard_recurrence(self, n);
     [a,b,c] = mapped_recurrence(self, n);
     lmbda = orthogonal_connection(self,other,N);
     lmbda = self_connection(self,d,N);

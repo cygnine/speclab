@@ -7,7 +7,7 @@ function[A,B,C] = mapped_recurrence(self, n)
 %     coefficients A,B,C such that 
 %
 %      p_0 = B_0, A_0 = C_0 = 0
-%      x p_1 = A_1 p_1 + B_1 p_0,  C_0 = 0
+%      x p_1 = A_1 p_1 + B_1 p_0,  C_1 = 0
 %      x p_{n+1} = A_{n+1} p_{n+1} + B_{n+1} p_n + C_{n+1} p_{n-1},   (n > 0)
 %
 %     This function returns the coefficients {A_n, B_n, C_n} in arrays for each

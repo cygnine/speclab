@@ -30,6 +30,7 @@ while not(bool) & (q <= length(self.allowed_weight_normalizations))
 end
 if not(bool)
   obj = self.default_weight_normalization;
+  warning(['I don''t know the weight normalization ID "' inp '", but I''m ignoring it']);
   %error('Unrecognized normalization character array');
 end
 
