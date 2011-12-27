@@ -69,25 +69,28 @@ classdef AffineMap
           if isempty(opt.domain)
             opt.domain = Orthotope();
           else
-            opt.domain = Orthotope(opt.domain);
+            opt.domain = Orthotope('interval', opt.domain);
           end
         end
         if not(isa(opt.range, 'Orthotope'))
           if isempty(opt.range)
             opt.range = Orthotope();
           else
-            opt.range = Orthotope(opt.range);
+            opt.range = Orthotope('interval', opt.range);
           end
         end
         if opt.domain.dimension ~= opt.range.dimension
           error('Affine map cannot be specified with domain and range of different dimensions');
         end
+        self.domain = opt.domain;
+        self.range = opt.range;
         self.m = self.domain.dimension;
         self.n = self.range.dimension;
         self.A = eye(self.m);
         self.b = zeros([self.n 1]);
         for q = 1:self.n
           self.b(q) = opt.range.slices{q}.centroid - opt.domain.slices{q}.centroid;
+          self.A(q,q) = opt.range.slices{q}.length/opt.domain.slices{q}.length;
         end
       else
         % Pretty straightforward
