@@ -22,13 +22,18 @@ function[f] = newton_derivative_evaluate(x,c,varargin)
 %     In either case, the optional argument d determines how many derivatives to
 %     take.
 
-persistent input_schema newton_to_monomial monomial_derivative evaluate
-if isempty(input_schema)
-  from labtools import input_schema;
+persistent newton_to_monomial monomial_derivative evaluate parser input_parser
+if isempty(parser)
+  from labtools import input_parser
   from speclab.newton_polynomials import newton_to_monomial;
   from speclab.monomials import monomial_derivative evaluate
+
+  [opt, parser] = input_parser({'z', 'd'}, {NaN, 1}, [], varargin{:});
+else
+  parser.parse(varargin{:});
+  opt = parser.Results;
 end
-opt = input_schema({'z', 'd'}, {NaN, 1}, [], varargin{:});
+%opt = input_schema({'z', 'd'}, {NaN, 1}, [], varargin{:});
 
 [n,C] = size(c);
 if and(n==1,C>1)  % I don't think you're calling this for derivatives of
