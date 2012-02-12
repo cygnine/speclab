@@ -43,6 +43,7 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
 %   triple_product - weighted integral of triple product of polynomials
 %   convolution - Discrete convolution of spectral expansions
 %   composition - Composes two spectral expansions
+%   regression - Computes polynomial approximation to data via regression
   properties
     dim = 1; % Make this hidden
     map_to_standard_domain % A map from domain to standard_domain derived from domain and standard_domain
@@ -123,6 +124,7 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
     ek = triple_product(self, N, k)
     w = convolution(self, u, v, other)
     w = composition(self, u, v)
+    c = regression(self, x, fx, k)
   end
 
   methods(Access=protected)

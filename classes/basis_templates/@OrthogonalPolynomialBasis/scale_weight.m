@@ -21,7 +21,7 @@ elseif self.weight_normalization==natural
   w = self.map_to_standard_domain.A*w;
 elseif self.weight_normalization==probability
   % Just divide by the integral on the standard interval
-  [a,b] = self.recurrence(0);
+  [a,b] = self.standard_recurrence(0);
   w = self.map_to_standard_domain.A*w/b;
 else
   error('This basis does not support the given function normalization type');

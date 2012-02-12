@@ -20,7 +20,9 @@ n = n(:);
 
 % Build in weight normalization + affine mapping factor
 K = self.scale_weight(1);
-b(n==0) = 1/sqrt(K)*b(n==0);
+%b(n==0) = 1/sqrt(K)*b(n==0);
+%b(n==0) = 1/K*b(n==0);
+b(n==0) = K*b(n==0);
 
 a = reshape(a, nsize);
 b = reshape(b, nsize);

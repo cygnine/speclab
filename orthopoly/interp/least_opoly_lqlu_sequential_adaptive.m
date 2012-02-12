@@ -10,23 +10,35 @@ function[l,u,p,v,k,inds] = least_opoly_lqlu_sequential_adaptive(theta, f, N, var
 %     initial_inds determines this.
 
 persistent dim subdim indexing find_order spdiag
-persistent strict_inputs multimonomial ip invu
+persistent multimonomial ip invu
+persistent parser
 if isempty(dim)
   from labtools import strict_inputs
   from labtools import spdiag
 
-  from speclab.common.tensor import space_dimension as dim
-  from speclab.common.tensor import subspace_dimension as subdim
+  %from speclab.common.tensor import space_dimension as dim
+  from speclab.common.tensor import polynomial_space_dimension as dim
+  %from speclab.common.tensor import subspace_dimension as subdim
+  from speclab.common.tensor import polynomial_subspace_dimension as subdim
   from speclab.common.tensor import linear_to_array_indexing as indexing
   from speclab.common.tensor import Npoints_to_poly_order as find_order
   from labtools.linalg import triu_back_substitute as invu
+  from labtools import input_parser
 
   % For default ip, basis:
   from speclab.monomials import multimonomial
   ip = @(d,k) speye(subdim(d,k));
+
+  [opt,parser] = input_parser({'tol', 'basis', 'ip', 'initial_inds'}, ...
+                              {1e-10, [], [], 1}, ...
+                              [], ...
+                              varargin{:});
+else
+  parser.parse(varargin{:});
+  opt = parser.Results;
 end
 
-opt = strict_inputs({'tol', 'basis', 'ip', 'initial_inds'}, {1e-10, [], [], 1}, [], varargin{:});
+%opt = strict_inputs({'tol', 'basis', 'ip', 'initial_inds'}, {1e-10, [], [], 1}, [], varargin{:});
 if isempty(opt.basis)
   bases = cell([size(theta,2) 1]);
   for d = 1:length(bases)
@@ -111,6 +123,13 @@ while lu_row < N+1
     % Then it's easy:
     next_ind = opt.initial_inds(lu_row) - lu_row + 1;
   else % Need to do some work
+    % What is current polynomial evaluated at remainder of points?
+    temp_inds = p(lu_row:end,:)*(1:Nt)';
+    p_candidates = opt.basis(theta(temp_inds,:), 1:length(cprev))*cprev;
+
+    diff_weight = exp(-0.1*(p_candidates - f(lu_row:Nt)).^2);    
+    diff_weight = 1;
+
     % Now for each points lu_row ..... Nt, we want to (a) compute the next
     % forward-substitution coefficient, and (b) choose the one with the smallest
     % forward-substitution coefficient.
@@ -137,10 +156,20 @@ while lu_row < N+1
     %ftemp = uinv*ftemp;
     ftemp = invu(u(1:lu_row-1,1:lu_row-1), ftemp);
 
+    % Contribution from previous levels
+    %candidate_norms = abs(sum(ftemp.^2,1).' + candidate_coeffs.^2 - sum(cprev.^2));
     candidate_norms = ftemp - repmat(cprev, [1 size(temp,2)]);
     %candidate_norms = ftemp;
-    candidate_norms = sum(candidate_norms.^2,1).' + candidate_coeffs.^2;
+    %candidate_norms = 0;
+
+    % Added to contribution from current levels:
+    candidate_norms = (sum(candidate_norms.^2,1).' + candidate_coeffs.^2)/norm(cprev).^2;
     %candidate_norms = sum(abs(candidate_norms),1).' + abs(candidate_coeffs);
+
+    % Add diff_weight characterization
+    candidate_norms = diff_weight.*(1 + candidate_norms);
+
+    %candidate_norms = candidate_coeffs.^2;
 
     % Now instead we're going to minimize the coefficient difference.
     %[garbage, next_ind] = min(abs(candidate_coeffs));
