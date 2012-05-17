@@ -56,19 +56,33 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
   methods
     function self = OrthogonalPolynomialBasis(varargin)
 
-      persistent inparse
-      if isempty(inparse)
-        inparse = inputParser();
-        inparse.KeepUnmatched = true;
+      persistent parser input_parser
+      if isempty(parser)
+        from labtools import input_parser
 
-        inparse.addParamValue('recurrence', []);
-        inparse.addParamValue('standard_domain', Interval1D());
-        inparse.addParamValue('indexing', ZeroBasedIndexing.instance());
-        inparse.addParamValue('internal_indexing', []);
-        inparse.addParamValue('normalization', 'normal');
-        inparse.addParamValue('weight_normalization', 'classical');
-        inparse.addParamValue('dim', 1);
-        inparse.addParamValue('domain', Interval1D());
+        inputs = {'recurrence', ...
+                  'standard_domain', ...
+                  'indexing', ...
+                  'internal_indexing', ...
+                  'normalization', ...
+                  'weight_normalization', ...
+                  'dim', ...
+                  'domain'};
+        defaults = {[], ...
+                    Interval1D(), ...
+                    ZeroBasedIndexing.instance(), ...
+                    [], ...
+                    'normal', ...
+                    'classical', ...
+                    1, ...
+                    Interval1D()};
+
+        [parsed_inputs, parser] = input_parser(inputs, defaults, [], varargin{:});
+
+      else
+        % Parse inputs
+        parser.parse(varargin{:});
+        parsed_inputs = parser.Results;
       end
 
       self = self@HilbertBasis(varargin{:});
@@ -84,10 +98,6 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
       self.allowed_weight_normalizations{end+1} = ClassicalWeightNormalization.instance();
       self.allowed_weight_normalizations{end+1} = NaturalWeightNormalization.instance();
       self.allowed_weight_normalizations{end+1} = ProbabilityWeightNormalization.instance();
-
-      % Parse inputs
-      inparse.parse(varargin{:});
-      parsed_inputs = inparse.Results;
 
       % Deal with given inputs
       self.recurrence_handle = parsed_inputs.recurrence;

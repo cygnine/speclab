@@ -1,5 +1,5 @@
 classdef TotalGRevLexIndexing < IndexingRule
-% TotalGRevLexIndexing -- Total-norm-wise reverse lexicographic indexing on R^N
+% TotalGRevLexIndexing -- Total-norm-wise reverse lexicographic indexing on N^dim
 %
 % self = TotalGRevLexIndexing(dim)
 %

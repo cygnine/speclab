@@ -14,18 +14,7 @@ classdef LegendrePolynomialBasis < JacobiPolynomialBasis
     %
     %     Creates an instance of a Legendre Polynomial spectral basis.
 
-      persistent all_inputs
-      if isempty(all_inputs)
-        from labtools import all_inputs
-      end
-      inputs = {'normalization'};
-      defaults = {'normal'};
-      opt = all_inputs(inputs, defaults, [], varargin{:});
-
-      opt.alpha = 0; 
-      opt.beta = 0;
-
-      self = self@JacobiPolynomialBasis(opt);
+      self = self@JacobiPolynomialBasis('alpha', 0, 'beta', 0);
     end
   end
 

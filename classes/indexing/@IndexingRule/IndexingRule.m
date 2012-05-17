@@ -5,9 +5,9 @@ classdef IndexingRule < Singleton
 %
 %     A superclass for all singleton classes that are indexing rules. In
 %     general, an indexing rule is a map from the natural numbers (1,2, ...) to
-%     some prescribed index set. This map is an isomorphism. In other words,
-%     this class endows sets corresponding to subclasses of IndexSet with a
-%     total ordering.
+%     some prescribed index set. This map is (generally) an isomorphism. In
+%     other words, this class endows sets corresponding to subclasses of
+%     IndexSet with a total ordering.
 %
 %     All subclasses must define methods 'to_natural' and 'from_natural' that
 %     implement the isomorphism to the natural numbers.

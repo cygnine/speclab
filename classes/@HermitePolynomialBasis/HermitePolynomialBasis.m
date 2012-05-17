@@ -8,30 +8,26 @@ classdef HermitePolynomialBasis < OrthogonalPolynomialBasis
     %
     %     Creates an instance of a Hermite Polynomial spectral basis.
 
-      persistent inparse
-      if isempty(inparse)
-        inparse = inputParser();
-        inparse.KeepUnmatched=true;
+      persistent parser input_parser
+      if isempty(parser)
+        from labtools import input_parser
 
-        inparse.addParamValue('mu', 0);
-        inparse.addParamValue('normalization', 'normal');
-        inparse.addParamValue('domain', Interval1D([-Inf, Inf]));
+        inputs = {'mu', 'domain'};
+        defaults = {0, Interval1D([-Inf, Inf])};
+
+        [opt, parser] = input_parser(inputs, defaults, [], varargin{:});
+      else
+        parser.parse(varargin{:});
+        opt = parser.Results;
       end
-      %inputs = {'mu', 'normalization'};
-      %defaults = {0, 'normal'};
-
-      inparse.parse(varargin{:});
-      opt = inparse.Results;
 
       opt.standard_domain = Interval1D([-Inf, Inf]);
 
-      %self = self@OrthogonalPolynomialBasis(opt);
-      self = self@OrthogonalPolynomialBasis(varargin{:});
+      self = self@OrthogonalPolynomialBasis(opt);
 
       self.allowed_function_normalizations{end+1} = ProbabilistFunctionNormalization.instance();
       self.allowed_function_normalizations{end+1} = PhysicistFunctionNormalization.instance();
       self.allowed_function_normalizations{end+1} = ClassicalFunctionNormalization.instance();
-      self.normalization = self.function_normalization_parser(opt.normalization);
 
       self.mu = opt.mu;
     end

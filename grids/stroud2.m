@@ -18,13 +18,21 @@ function[theta,w] = stroud2(varargin)
 %  [1]: "Remarks on the disposition of points in numerical integration
 %       formulas", A.H. Stroud
 
-persistent strict_inputs affine_transformation
-if isempty(strict_inputs)
-  from labtools import strict_inputs
+persistent input_parser affine_transformation parser
+if isempty(input_parser)
+  from labtools import input_parser
   from speclab.common import affine_transformation
+
+  [opt, parser] = input_parser({'dim', 'scale', 'shift'}, ...
+                               {1, 1, 0}, ...
+                               [], ...
+                               varargin{:});
+else
+  parser.parse(varargin{:});
+  opt = parser.Results;
 end
 
-opt = strict_inputs({'dim', 'scale', 'shift'}, {1, 1, 0}, [], varargin{:});
+%opt = strict_inputs({'dim', 'scale', 'shift'}, {1, 1, 0}, [], varargin{:});
 
 theta = zeros([opt.dim+1 opt.dim]);
 w = zeros([opt.dim+1 1]);
