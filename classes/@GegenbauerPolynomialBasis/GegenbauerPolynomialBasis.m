@@ -8,17 +8,19 @@ classdef GegenbauerPolynomialBasis < JacobiPolynomialBasis
     %
     %     Creates an instance of a Gegenbauer Polynomial spectral basis.
 
-      persistent all_inputs
-      if isempty(all_inputs)
-        from labtools import all_inputs
-      end
-      inputs = {'normalization', 'lambda'};
-      defaults = {'normal', 0};
-      opt = all_inputs(inputs, defaults, [], varargin{:});
-      opt.alpha = opt.lambda-1/2; 
-      opt.beta = opt.lambda-1/2;
+      persistent parser input_parser
+      if isempty(parser)
+        from labtools import input_parser
 
-      self = self@JacobiPolynomialBasis(opt);
+        inputs = {'normalization', 'lambda'};
+        defaults = {'classical', 0};
+        [results, parser] = input_parser(inputs, defaults, [], varargin{:});
+      else
+        parser.parse(varargin{:});
+        opt = parser.Results;
+      end
+
+      self = self@JacobiPolynomialBasis('alpha', opt.lambda - 1/2, 'beta', opt.lambda - 1/2);
       self.lambda = opt.lambda;
       self.allowed_function_normalizations{end+1} = ClassicalFunctionNormalization.instance();
       self.normalization = self.function_normalization_parser(opt.normalization);

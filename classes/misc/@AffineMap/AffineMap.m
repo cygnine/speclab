@@ -61,7 +61,7 @@ classdef AffineMap
 
       inparse.parse(varargin{:});
       opt = inparse.Results;
-      A = opt.A; b = opt.b;
+      A = opt.A; b = opt.b(:);
 
       if isempty(A)
         % Then construct affine map using given orthotopes.
