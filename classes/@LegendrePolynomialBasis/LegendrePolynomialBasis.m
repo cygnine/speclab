@@ -14,7 +14,7 @@ classdef LegendrePolynomialBasis < JacobiPolynomialBasis
     %
     %     Creates an instance of a Legendre Polynomial spectral basis.
 
-      self = self@JacobiPolynomialBasis('alpha', 0, 'beta', 0);
+      self = self@JacobiPolynomialBasis('alpha', 0, 'beta', 0, varargin{:});
     end
   end
 

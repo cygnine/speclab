@@ -1,4 +1,4 @@
-classdef MultivariateOrthogonalPolynomialBasis < WholeBasis
+classdef MultivariateOrthogonalPolynomialBasis < HilbertBasis
 % self = MultivariateOrthogonalPolynomialBasis({n=0,description='none',
 %             domain=Interval1D(),
 %             normalization='normal', weight_normalization='classical',
@@ -13,13 +13,9 @@ classdef MultivariateOrthogonalPolynomialBasis < WholeBasis
 %     other regions.
 
   properties
-    indexing = @(n) [];
-    dimension = 1;
-    normalization = [];
-    weight_normalization = [];
+    dim = 2;
     map_to_standard_domain
     map_to_domain
-    domain
     standard_domain
   end
   properties(Access=private)
@@ -32,34 +28,37 @@ classdef MultivariateOrthogonalPolynomialBasis < WholeBasis
     %default_weight_normalization = ClassicalWeightNormalization.instance();
   end
   methods
-    function self = OrthogonalPolynomialBasis(varargin)
+    function self = MultivariateOrthogonalPolynomialBasis(varargin)
 
-      persistent whole_range
-      if isempty(whole_range)
-        from speclab.common import whole_range
+      persistent parser input_parser
+      if isempty(parser)
+        from labtools import input_parser
+        inputs = {'recurrence', ...
+                  'standard_domain', ...
+                  'normalization', ...
+                  'weight_normalization', ...
+                  'domain', ...
+                  'indexing', ...
+                  'internal_indexing'};
+        defaults = {@(n) [], ...
+                    Interval1D(), ...
+                    'classical', ...
+                    'classical', ...
+                    Interval1D(),...
+                    [], ...
+                    []};
+        [parsed_inputs, parser] = input_parser(inputs, defaults, [], varargin{:});
+      else
+        parser.parse(varargin{:});
+        parsed_inputs = parser.Results;
       end
 
-      persistent inparse
-      if isempty(inparse)
-        inparse = inputParser();
-        inparse.KeepUnmatched = true;
-        
-        inparse.addParamValue('recurrence', @(n) []);
-        inparse.addParamValue('standard_domain', Interval1D());
-        inparse.addParamValue('normalization', 'normal');
-        inparse.addParamValue('weight_recurrence', 'classical');
-        inparse.addParamValue('dim', 1); 
-        inparse.addParamValue('domain', Interval1D());
-      end
+      %self = self@Basis(varargin{:});
+      self = self@HilbertBasis(varargin{:});
 
-      inparse.parse(varargin{:});
-      parsed_inputs = inparse.Results;
-
-      %inputs = {'recurrence', 'standard_domain', ...
-      %          'normalization', 'weight_normalization', 'dim', 'domain'};
-      %defaults = {@(n) [], Interval1D(), 'normal', 'classical', 1, Interval1D()};
-
-      self = self@WholeBasis(varargin{:});
+      % Get domain mapping
+      self.standard_domain = Interval1D(parsed_inputs.standard_domain);
+      self.domain = Interval1D(parsed_inputs.domain);
 
       self.allowed_function_normalizations{end+1} = ClassicalFunctionNormalization.instance(); 
       self.allowed_weight_normalizations{end+1} = ClassicalWeightNormalization.instance();
@@ -71,16 +70,17 @@ classdef MultivariateOrthogonalPolynomialBasis < WholeBasis
       self.normalization = self.function_normalization_parser(parsed_inputs.normalization);
       self.weight_normalization = self.weight_normalization_parser(parsed_inputs.weight_normalization);
 
-      % Get domain mapping
-      %self.standard_domain = parsed_inputs.standard_domain;
-      %self.domain = Interval1D(parsed_inputs.domain);
-      self.indexing = whole_range;
+      % Set up indexing
+      self.default_indexing_rule = TotalGRevLexIndexing.instance(2);
+
+      self.user_indexing = parsed_inputs.indexing;
+      self.internal_indexing = parsed_inputs.internal_indexing;
+
     end
 
     p = evaluate(self,x,n,varargin);
     w = weight(self,x);
     h = l2_norm(self,n);
-
   end
 
   methods(Access=protected)
