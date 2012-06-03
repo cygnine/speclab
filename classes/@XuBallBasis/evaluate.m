@@ -21,9 +21,9 @@ Vsize = [size(x,1), numeln];
 V = ones(Vsize);
 
 % First generate x contributions: we have to do this degree-by-degree
-K = max(n_array(:,1));
+K = max(n_array(:,2));
 for k = 0:K
-  kflags = find(n_array(:,1)==k);
+  kflags = find(n_array(:,2)==k);
   if not(isempty(kflags))
     V(:,kflags) = V(:,kflags).*self.univariate_bases{1}{k+1}(x(:,1), n_array(kflags,1));
   end

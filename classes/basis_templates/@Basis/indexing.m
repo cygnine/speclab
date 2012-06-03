@@ -22,6 +22,11 @@ nsize = size(n_array);
 n_array = n_array(:);
 
 % Just double-check
-assert(all(n_array) > 0, 'Given indices do not match instance indexing rule');
+%assert(all(n_array) > 0, 'Given indices do not match instance indexing rule');
+assert(all(n_array > 0), 'Given indices do not match instance indexing rule');
 
 n_array = self.internal_indexing(n_array(:));
+
+if isprop(self, 'N'); % Then this is a univariate basis and we need to test if there's a limit on indexing
+  assert(all(n_array <= self.N-1), ['The indexing limit on this class is ' num2str(self.N)] );
+end

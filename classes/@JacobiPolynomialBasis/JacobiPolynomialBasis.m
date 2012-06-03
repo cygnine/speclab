@@ -9,22 +9,32 @@ classdef JacobiPolynomialBasis < OrthogonalPolynomialBasis
     %
     %     Creates an instance of a Jacobi Polynomial spectral basis.
 
-      persistent inparse
-      if isempty(inparse)
-        inparse = inputParser();
-        inparse.KeepUnmatched = true;
+      persistent input_parser parser
+      if isempty(parser)
+        from labtools import input_parser
 
-        inparse.addParamValue('alpha', -0.5);
-        inparse.addParamValue('beta', -0.5);
-        inparse.addParamValue('normalization', 'normal');
+        inputs = {'alpha', ...
+                  'beta', ...
+                  'normalization'};
+        defaults = {-0.5, ...
+                    -0.5, ...
+                    'normal'};
+
+        [opt, parser] = input_parser(inputs, defaults, {}, varargin{:});
+
+        %inparse = inputParser();
+        %inparse.KeepUnmatched = true;
+
+        %inparse.addParamValue('alpha', -0.5);
+        %inparse.addParamValue('beta', -0.5);
+        %inparse.addParamValue('normalization', 'normal');
+      else
+        parser.parse(varargin{:});
+        opt = parser.Results;
       end
-
-      inparse.parse(varargin{:});
-      opt = inparse.Results;
 
       self = self@OrthogonalPolynomialBasis(varargin{:});
       self.allowed_function_normalizations{end+1} = ClassicalFunctionNormalization.instance();
-      self.normalization = opt.normalization;
 
       [self.alpha, self.beta] = deal(opt.alpha, opt.beta);
       

@@ -16,7 +16,8 @@ if not(exist('normalization')==1);
   normalization = self.normalization;
 end
 
-if isa(normalization, 'ClassicalFunctionNormalization');
+%if isa(normalization, 'ClassicalFunctionNormalization');
+if normalization=='classical'
   % For Gegenbauer polynomials, we use the following analytic expression for the
   % L^2 norms.
   factors = 2^(1 - 2*self.lambda)*pi./(n+self.lambda);

@@ -6,20 +6,13 @@ function w = scale_weight(self,w)
 %     family). This function then rescales w to match the custom weight given by
 %     self.weight_normalization.
 
-persistent classical natural probability
-if isempty(classical)
-  classical = ClassicalWeightNormalization.instance();
-  natural = NaturalWeightNormalization.instance();
-  probability = ProbabilityWeightNormalization.instance();
-end
-
-if self.weight_normalization==classical
+if self.weight_normalization=='classical'
   % Nothing happens
   return
-elseif self.weight_normalization==natural
+elseif self.weight_normalization=='natural'
   % We place the Jacobian as part of the weight function
   w = self.map_to_standard_domain.A*w;
-elseif self.weight_normalization==probability
+elseif self.weight_normalization=='probability'
   % Just divide by the integral on the standard interval
   [a,b] = self.standard_recurrence(0);
   w = self.map_to_standard_domain.A*w/b;

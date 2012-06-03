@@ -17,16 +17,15 @@ if not(exist('normalization')==1);
 end
 
 if normalization=='classical'
-%if isa(normalization, 'ClassicalFunctionNormalization');
-  % For Jacobi polynomials, we'll define this normalization to be the one such
-  % that p_n(R) = nchoosek(n+alpha, n), where R is the right-hand endpoint,
+  % For Discrete Chebyshev polynomials, we'll define this normalization to be the one such
+  % that they are normalized on the standard interval with the classical weight
+  % to have norm-squared equal to (self.N + n)!/(2*n+1)/(self.N - n - 1)!
   % regardless of affine map.
+  temp = gammaln(self.N+n+1) - gammaln(2*n+2) - gammaln(self.N - n);
+
   temp = gammaln(n+self.alpha+1) + gammaln(n+self.beta+1) - gammaln(n+1) - ...
          gammaln(n+self.alpha+self.beta+1);
-  factors = 2^(self.alpha+self.beta+1)./(2*n+self.alpha+self.beta+1).*exp(temp);
-
-  % The following can only be triggered when n==0 ( and alpha+beta+1=0 )
-  factors(abs(n+self.alpha+self.beta+1)<1e-4) = 2^(self.alpha+self.beta+1).*gamma(self.alpha+1).*gamma(self.beta+1);
+  factors = exp(temp);
 
   p = p*spdiag(sqrt(factors));
 else

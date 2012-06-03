@@ -7,7 +7,7 @@ function p = scale_functions(self,p,n,normalization)
 %     rescales each column of p to the FunctionNormalization specification
 %     defined by the basis, using the column index ids n.
 
-persistent spdiag
+persistent spdiag 
 if isempty(spdiag)
   from labtools import spdiag
 end
@@ -17,18 +17,11 @@ if not(exist('normalization')==1);
 end
 
 if normalization=='classical'
-%if isa(normalization, 'ClassicalFunctionNormalization');
-  % For Jacobi polynomials, we'll define this normalization to be the one such
-  % that p_n(R) = nchoosek(n+alpha, n), where R is the right-hand endpoint,
-  % regardless of affine map.
-  temp = gammaln(n+self.alpha+1) + gammaln(n+self.beta+1) - gammaln(n+1) - ...
-         gammaln(n+self.alpha+self.beta+1);
-  factors = 2^(self.alpha+self.beta+1)./(2*n+self.alpha+self.beta+1).*exp(temp);
+  % For Laguerre polynomials, these are normalized so that their squared L^2
+  % norm is equal to gamma(n+alpha+1)/gamma(n+1).
 
-  % The following can only be triggered when n==0 ( and alpha+beta+1=0 )
-  factors(abs(n+self.alpha+self.beta+1)<1e-4) = 2^(self.alpha+self.beta+1).*gamma(self.alpha+1).*gamma(self.beta+1);
-
-  p = p*spdiag(sqrt(factors));
+  factors = exp(gammaln(n + self.alpha + 1) - gammaln(n + 1));
+  p = full(p*spdiag(sqrt(factors)));
 else
   p = scale_functions@OrthogonalPolynomialBasis(self, p, n, normalization);
 end

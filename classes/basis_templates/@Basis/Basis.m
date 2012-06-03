@@ -14,7 +14,7 @@ classdef Basis
     fftable = false;
     normalization = []; % Normalization-derived object specifying the function normalizations
     user_indexing % IndexingRule-derived object specifying a map from user-end indexing to the natural numbers 1, 2, ...
-    domain % { Interval1D([-1 1]) } | Other_Interval1D_object - Post-mapped univariate interval
+    domain=[]; % { Interval1D([-1 1]) } | Other_Interval1D_object - Post-mapped univariate interval
   end
   properties(Abstract=true)
     standard_domain
@@ -82,6 +82,7 @@ classdef Basis
       self.map_to_standard_domain = self.domain.compute_affine_map(self.standard_domain);
       self.map_to_domain = inv(self.map_to_standard_domain);
     end
+
 
     [n_array, nsize, numeln] = indexing(self,n);
     [n] = inv_indexing(self,n_array);

@@ -29,7 +29,8 @@ opt = input_parser(params, defaults, [], varargin{:});
 %opt = inparse.Results;
 
 [n_array, nsize, numeln] = self.indexing(n);
-N = max(n_array)+2;
+%N = max(n_array)+2;
+N = max(n_array);
 
 xsize = size(x);  % reshape at end
 x = x(:);

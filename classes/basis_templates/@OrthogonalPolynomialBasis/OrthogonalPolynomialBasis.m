@@ -1,5 +1,5 @@
 classdef OrthogonalPolynomialBasis < HilbertBasis
-% self = OrthogonalPolynomialBasis({n=0,description='none',
+% self = OrthogonalPolynomialBasis({N=Inf,description='none',
 %             fftable=false,domain=Interval1D(),recurrence=@(n) [],
 %             normalization='normal', weight_normalization='classical',
 %             dim=1, standard_domain=[-1,1]})
@@ -7,11 +7,16 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
 %     The constructor for an orthogonal polynomial basis set. Is defined
 %     almost entirely by the recurrence coefficients. Some custom
 %     normalization is possible via optional inputs normalization,
-%     weight_normalization, and interval.
+%     weight_normalization, and domain.
 %
 %     The input "domain" is meant as a user-end input, but the input
 %     "standard_domain" is meant to be used in subclassing particular orthogonal
 %     polynomial families.
+%
+%     Note that these polynomials are assumed to be orthogonal with respect to
+%     a weight function that is absolutely continuous with respect to Lebesgue
+%     measure. If they are discrete orthogonal polynomials, the input variable
+%     N should be set to some finite number (maximum polynomial degree).
 %
 %     By default, the input fftable is false, but you may wish to explicitly
 %     set it to true; in this case, you are responsible for defining the
@@ -50,6 +55,9 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
     map_to_domain % A map from standard_domain to domain derived from domain and standard_domain
     standard_domain % { Interval1D([-1, 1]) } | Other_Interval1D_object - Standard univariate interval for basis
   end
+  properties(SetAccess=protected)
+    N = Inf; % Maximum degree allowed -- should be changed only for discrete orthogonal polynomials
+  end
   properties(Access=private)
     recurrence_handle = [];
   end
@@ -67,7 +75,8 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
                   'normalization', ...
                   'weight_normalization', ...
                   'dim', ...
-                  'domain'};
+                  'domain', ...
+                  'N'};
         defaults = {[], ...
                     Interval1D(), ...
                     ZeroBasedIndexing.instance(), ...
@@ -75,7 +84,8 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
                     'normal', ...
                     'classical', ...
                     1, ...
-                    Interval1D()};
+                    Interval1D(), ...
+                    Inf};
 
         [parsed_inputs, parser] = input_parser(inputs, defaults, [], varargin{:});
 
@@ -113,6 +123,14 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
       % Get domain mapping
       self.standard_domain = Interval1D(parsed_inputs.standard_domain);
       self.domain = Interval1D(parsed_inputs.domain);
+    end
+
+    function self = set.standard_domain(self, newdomain)
+      self.standard_domain = newdomain;
+      if not(isempty(self.domain))
+        self.map_to_standard_domain = self.domain.compute_affine_map(self.standard_domain);
+        self.map_to_domain = inv(self.map_to_standard_domain);
+      end
     end
 
     p = evaluate(self,x,n,varargin);
