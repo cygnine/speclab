@@ -89,8 +89,9 @@ classdef AffineMap
         self.A = eye(self.m);
         self.b = zeros([self.n 1]);
         for q = 1:self.n
-          self.b(q) = opt.range.slices{q}.centroid - opt.domain.slices{q}.centroid;
+          %self.b(q) = opt.range.slices{q}.centroid - opt.domain.slices{q}.centroid;
           self.A(q,q) = opt.range.slices{q}.length/opt.domain.slices{q}.length;
+          self.b(q) = opt.range.slices{q}.centroid - self.A(q,q)*opt.domain.slices{q}.centroid;
         end
       else
         % Pretty straightforward

@@ -1,4 +1,4 @@
-classdef GegenbauerPolynomialBasis < OrthogonalPolynomialBasis
+classdef GeneralizedGegenbauerPolynomialBasis < OrthogonalPolynomialBasis
   properties
     lambda
     mu
@@ -15,31 +15,34 @@ classdef GegenbauerPolynomialBasis < OrthogonalPolynomialBasis
     %     basis, which as weight function that is a product of classical weight
     %     functions.
 
-      persistent all_inputs
-      if isempty(all_inputs)
-        from labtools import all_inputs
-      end
-      inputs = {'normalization', 'lambda', 'mu'};
-      defaults = {'normal', 0, 0};
-      opt = all_inputs(inputs, defaults, [], varargin{:});
+      persistent input_parser parser
+      if isempty(parser)
+        from labtools import input_parser
 
-      opt.alpha = 0-1/2; 
-      opt.beta = 0-1/2;
+        inputs = {'lambda', ...
+                  'mu', ...
+                  'normalization'};
+        defaults = {0, ...
+                    0, ...
+                    'normal'};
+
+        [opt, parser] = input_parser(inputs, defaults, {}, varargin{:});
+
+      else
+        parser.parse(varargin{:});
+        opt = parser.Results;
+      end
 
       self = self@OrthogonalPolynomialBasis(opt);
       self.lambda = opt.lambda;
       self.mu = opt.mu;
-
-      self.evenbasis = JacobiPolynomialBasis('alpha', self.lambda-1/2, 'beta', self.mu-1/2, 'normalization', 'classical');
-      self.oddbasis = JacobiPolynomialBasis('alpha', self.lambda-1/2, 'beta', self.mu+1/2, 'normalization', 'classical');
-
-      %self.allowed_function_normalizations{end+1} = ClassicalFunctionNormalization.instance();
-      self.normalization = self.function_normalization_parser(opt.normalization);
     end
+
+    [a,b] = standard_recurrence(self, n);
+    w = weight(self, x);
   end
 
   methods(Access=protected)
-    c = constant_cn(self,n,lambda,mu);
     p = scale_functions(self, p, n, normalization);
   end
 end

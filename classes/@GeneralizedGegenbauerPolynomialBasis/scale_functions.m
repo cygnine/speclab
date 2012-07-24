@@ -16,6 +16,9 @@ if not(exist('normalization')==1);
   normalization = self.normalization;
 end
 
+% I've only seen two definitions for these functions: monic, and orthonormal.
+% Therefore, I'm leaving the classical definition vacant.
+
 %if isa(normalization, 'ClassicalFunctionNormalization');
 %  % For Gegenbauer polynomials, we use the following analytic expression for the
 %  % L^2 norms.
