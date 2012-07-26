@@ -1,58 +1,70 @@
-function[l,u,p,v,k,H] = least_opoly_lqlu(theta, varargin)
+function[varargout] = least_opoly_lqlu(theta, varargin)
+%function[l,u,p,v,k,H] = least_opoly_lqlu(theta, varargin)
 % tensor_lu -- Computes de Boor's LU factorization with LQ factorizations
 %
-% [l,u,v,p,k] = least_opoly_lqlu(theta, [tol=1e-10, ip=eye(),  basis='legendre'])
+% [L,U,P,H] = least_opoly_lqlu(theta, [tol=1e-10, ip=eye(),  basis='legendre'])
+% [L,U,P,H,v,k] = least_opoly_lqlu(theta, [tol=1e-10, ip=eye(),  basis='legendre'])
 %
-%     Performs the LU factorization as given in [1]. The input theta  is
-%     an N x D matrix, where there are assumed to be N points, each of which is
-%     in D-dimensional space. The result is a factorization such that p*V =
-%     l*W, where V is the Vandermonde matrix generated from the basis functions
-%     (optional input "basis").  Orthogonalization is performed degree-by-degree
-%     using the given inner product (optional input "ip") and a QR
-%     factorization. The output vector k has length size(theta,1), and for each
-%     theta entry, it gives the degree polynomial used to eliminate that row of
-%     p*theta.
+%     Performs the LUH factorization for the least orthogonal interpolant as
+%     given in [1]. The input theta is an N x D matrix, where there are assumed
+%     to be N points, each of which is in D-dimensional space. Given an input
+%     polynomial basis, this makes use of a Vandermonde-like matrix V with
+%     entries 
 %
-%     The final output u is the N x N upper-triangular matrix that gives inner
-%     product information about the elements in W (see [1]). It is necessary to
-%     invert u to determine the interpolatory coefficients for multimonomials.
+%               V(n,m) = basis_m(theta(n,:)) 
 %
-%     The optional input tol is the tolerance for the norm of a potential pivot
-%     below which it is assumed to vanish. 
+%     where basis_m means the m'th basis coefficients. The least orthogonal
+%     space is formed by a tensor-product Legendre basis, where the univariate
+%     basis in dimension d is formed by the smallest enclosing interval for
+%     theta(:,d).
 %
-%     The input "basis" should be a function handle with the following syntax:
+%     OUTPUTS: 
+%     The output of this function is a matrix factorization of V:
 %
-%       vandermonde_matrix = basis(theta, 1:M)
+%               P*V ~= L*U*H,
 %
-%     which generates a size(theta,1) x M matrix where column m is the
-%     evaluation of basis function m at the multidimensional locations theta.
+%     where P is an N x N permutation matrix, L is an N x N lower-triangular
+%     matrix, U is an N x N upper triangular matrix, and H is an N x R matrix,
+%     where R is the number of columns of V, which is not known a priori. The
+%     matrices L, U, and P are the same as in a row-pivoting L U
+%     factorization.  The matrix factorization is not exact because irrelevant
+%     entries in H are discarded resulting in a block-diagonal matrix. 
 %
-%     The input "ip" should be a function handle with the following syntax:
+%     The matrix H is effectively a basis defining the least orthgonal space.
+%     If the least orthogonal space is a full-degree polynomial space, then the
+%     matrix factorization is an equality. 
 %
-%       M = ip(d, k)
+%     The output v is simply a linear vector containing entries of H, and the
+%     output k is a vector of length N, with entry n indicating the polynomial
+%     degree associated with input point n. k has non-decreasing entries.
 %
-%     which generates a square matrix M defining the inner product between two
-%     vectors representing the coefficients of the basis functions in d-variate
-%     polynomial space of total degree equal to k. The size of M should be
-%     dictated by the size of this space.
+%     The least orthogonal pseudoinverse action of V, which maps data f to
+%     input basis coefficients c is given by
 %
-%     The default values of "basis" and "ip" generate the "least" polynomial of
-%     de Boor and Ron.
-% 
-% [1]:  Computational Aspects of Polynomial Interpolation in Several Variables,
-%       Carl de Boor and Amos Ron, Mathematics of Computation, 1992.
+%               c = H'*inv(L*U)*P*f
+%
+%     OPTIONAL INPUTS:
+%     ip is a function handle with syntax ip(k), which returns the Gram matrix
+%     for degree k. (For orthonormal polynomials, this is the identity matrix.)
+%
+%     tol is a scalar tolerance for 2-norms below which entries are treated as
+%     0.
+%
+%     basis can be given to change the least orthogonal space (by providing
+%     e.g. tensor-product Hermite polynomials). It is either a
+%     TensorProductBasis instance, or a function handle supporting the calling
+%     syntax basis(theta,m), which for N x D matrix theta, and length-M vector
+%     m, produces an N x M Vandermonde-like matrix V. The (j,k) entry of V
+%     should be the k'th basis function evaluated at theta(j,:). (The basis
+%     should be total-degree ordered and 1-indexed, k >= 1.)
 
-persistent dim subdim indexing find_order
-persistent parser multimonomial ip
+persistent dim subdim 
+persistent parser ip
 if isempty(dim)
   from labtools import input_parser
 
-  %from speclab.common.tensor import space_dimension as dim
   from speclab.common.tensor import polynomial_space_dimension as dim
-  %from speclab.common.tensor import subspace_dimension as subdim
   from speclab.common.tensor import polynomial_subspace_dimension as subdim
-  from speclab.common.tensor import linear_to_array_indexing as indexing
-  from speclab.common.tensor import Npoints_to_poly_order as find_order
 
   [opt, parser] = input_parser({'tol', 'basis', 'ip'}, ...
                                {1e-10, [], []}, ...
@@ -60,7 +72,6 @@ if isempty(dim)
                                varargin{:});
 
   % For default ip, basis:
-  from speclab.monomials import multimonomial
   ip = @(d,k) speye(subdim(d,k));
 else
   parser.parse(varargin{:});
@@ -68,14 +79,13 @@ else
 end
 
 if isempty(opt.basis)
-  %opt.basis = @(x,n) multimonomial(x,n,'dim',size(theta,2));
   bases = cell([size(theta,2) 1]);
   for d = 1:length(bases)
     interval = [min(theta(:,d)) max(theta(:,d))];
     bases{d} = LegendrePolynomialBasis('domain', interval);
-    %bases{d} = LegendrePolynomialBasis();
   end
-  TL = TensorProductBasis(bases, 'indexing', 1);
+  %TL = TensorProductBasis(bases, 'indexing', 1);
+  TL = TensorProductBasis(bases);
   opt.basis = @(x,n) TL.evaluate(x,n);
 end
 if isempty(opt.ip)
@@ -99,11 +109,19 @@ k = zeros([N 1]);  % k(q) gives the degree used to eliminate the q'th point
 % The current LU row to factor out:
 lu_row = 1;
 
+% Current degree is k_counter, and we iterate on this
 while lu_row < N+1
   % We're going to generate the appropriate columns of W -- these are polynomial
   % indices for degree k of the basis.
   current_dim = subdim(d,k_counter);  % The current size of k-vectors
-  poly_indices = dim(d,k_counter-1) + (1:current_dim);
+
+  if isa(opt.basis, 'TensorProductBasis')
+    poly_indices = opt.basis.range(dim(d,k_counter-1) + current_dim);
+    poly_indices = poly_indices((end-current_dim+1):end, :);
+  else
+    % Assume 1-based indexing
+    poly_indices = dim(d,k_counter-1) + (1:current_dim);
+  end
   W = p*opt.basis(theta, poly_indices);
 
   % Row-reduce W according to previous elimination steps
@@ -143,8 +161,8 @@ while lu_row < N+1
   v(v_index:v_index+(current_dim*rnk)-1) = reshape(q(:,1:rnk), [rnk*current_dim 1]);
   v_index = v_index+(current_dim*rnk);
 
+  % Update degree markers, and node and degree count
   k(lu_row:(lu_row+rnk-1)) = k_counter;
-
   lu_row = lu_row + rnk;
   k_counter = k_counter + 1;
 end
@@ -165,4 +183,19 @@ for q = 1:N;
   H(q,H_cols) = v(v_inds);
 
   v_counter = v_counter + current_size;
+end
+
+switch nargout
+case 4
+  varargout{1} = l;
+  varargout{2} = u;
+  varargout{3} = p;
+  varargout{4} = H;
+case 6
+  varargout{1} = l;
+  varargout{2} = u;
+  varargout{3} = p;
+  varargout{4} = H;
+  varargout{5} = v;
+  varargout{6} = k;
 end
