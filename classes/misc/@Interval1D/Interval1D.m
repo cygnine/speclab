@@ -42,7 +42,7 @@ classdef Interval1D
     map_to_standard_interval = AffineMap(1, 0);
   end
   methods
-    function self = Interval1D(interval, varargin)
+    function self = Interval1D(varargin)
       persistent inparse 
       if isempty(inparse)
         inparse = inputParser();
@@ -54,8 +54,12 @@ classdef Interval1D
 
       % Gives default value of 'interval' in case constructor is called with no
       % inputs
-      if not(exist('interval'))
+      %if not(exist('interval'))
+      if nargin < 1
         interval = [-1, 1];
+      else
+        interval = varargin{1};
+        varargin(1) = [];
       end
 
       % If an Interval1D instance is given as input, just throw it back.

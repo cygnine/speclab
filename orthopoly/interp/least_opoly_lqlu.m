@@ -58,10 +58,10 @@ function[varargout] = least_opoly_lqlu(theta, varargin)
 %     should be the k'th basis function evaluated at theta(j,:). (The basis
 %     should be total-degree ordered and 1-indexed, k >= 1.)
 
-persistent dim subdim 
+persistent dim subdim spdiag
 persistent parser ip
 if isempty(dim)
-  from labtools import input_parser
+  from labtools import input_parser spdiag
 
   from speclab.common.tensor import polynomial_space_dimension as dim
   from speclab.common.tensor import polynomial_subspace_dimension as subdim
@@ -118,11 +118,13 @@ while lu_row < N+1
   if isa(opt.basis, 'TensorProductBasis')
     poly_indices = opt.basis.range(dim(d,k_counter-1) + current_dim);
     poly_indices = poly_indices((end-current_dim+1):end, :);
+    %%%%%%%%% PRECONDITIONING %%%%%%%%%%%
+    W = p*full(spdiag(sqrt(opt.basis.weight(theta)))*opt.basis(theta, poly_indices));
   else
     % Assume 1-based indexing
     poly_indices = dim(d,k_counter-1) + (1:current_dim);
+    W = p*opt.basis(theta, poly_indices);
   end
-  W = p*opt.basis(theta, poly_indices);
 
   % Row-reduce W according to previous elimination steps
   for q = 1:lu_row-1

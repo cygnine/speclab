@@ -73,6 +73,9 @@ end
 
 %[l,u,p,v,k_storage,H] = least_opoly_lqlu(theta, 'basis', evalbasis, 'ip', myip);
 [l,u,p,H,v,k_storage] = least_opoly_lqlu(theta, 'basis', opt.basis, 'ip', opt.ip);
+if isa(opt.basis, 'TensorProductBasis')
+  f = f.*sqrt(opt.basis.weight(theta));
+end
 c = H'*inv(l*u)*p*f;
 
 maxN = opt.maxN;
