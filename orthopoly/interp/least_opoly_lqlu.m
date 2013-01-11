@@ -118,8 +118,9 @@ while lu_row < N+1
   if isa(opt.basis, 'TensorProductBasis')
     poly_indices = opt.basis.range(dim(d,k_counter-1) + current_dim);
     poly_indices = poly_indices((end-current_dim+1):end, :);
+    W = p*opt.basis(theta, poly_indices);
     %%%%%%%%% PRECONDITIONING %%%%%%%%%%%
-    W = p*full(spdiag(sqrt(opt.basis.weight(theta)))*opt.basis(theta, poly_indices));
+    %W = p*full(spdiag(sqrt(opt.basis.weight(theta)))*opt.basis(theta, poly_indices));
   else
     % Assume 1-based indexing
     poly_indices = dim(d,k_counter-1) + (1:current_dim);

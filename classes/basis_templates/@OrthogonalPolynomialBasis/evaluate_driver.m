@@ -44,9 +44,15 @@ end
 Dcount = 1;
 
 for qq = 0:D
+  % Initial conditions
   p1(:,1:qq) = 0;
-  p1(:,qq+1) = factorial(qq)/prod(beta(1:(qq+1)));
-  p1(:,qq+2) = 1/beta(qq+2)*((x-alpha(qq+1)).*p1(:,qq+1) + qq*p0(:,qq+1));
+  % If certain derivatives are trivial, don't compute them
+  if N >= qq
+    p1(:,qq+1) = factorial(qq)/prod(beta(1:(qq+1)));
+    if N > qq
+      p1(:,qq+2) = 1/beta(qq+2)*((x-alpha(qq+1)).*p1(:,qq+1) + qq*p0(:,qq+1));
+    end
+  end
 
   for q = (qq+2):N
     p1(:,q+1) = 1/beta(q+1)*((x-alpha(q)).*p1(:,q) - ...

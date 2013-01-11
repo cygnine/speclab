@@ -1,5 +1,5 @@
 classdef HermitePolynomialBasis < OrthogonalPolynomialBasis
-  properties
+  properties(SetAccess=protected)
     mu
   end
   methods
@@ -23,7 +23,7 @@ classdef HermitePolynomialBasis < OrthogonalPolynomialBasis
 
       opt.standard_domain = Interval1D([-Inf, Inf]);
 
-      self = self@OrthogonalPolynomialBasis(opt);
+      self = self@OrthogonalPolynomialBasis(varargin{:});
 
       self.allowed_function_normalizations{end+1} = ProbabilistFunctionNormalization.instance();
       self.allowed_function_normalizations{end+1} = PhysicistFunctionNormalization.instance();
