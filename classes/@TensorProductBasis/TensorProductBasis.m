@@ -69,11 +69,17 @@ methods
 
     self.default_indexing_rule = TotalGRevLexIndexing.instance(self.dim);
     self.internal_indexing = parsed_inputs.internal_indexing;
+
     self.user_indexing = parsed_inputs.indexing;
 
     self.internal_indexing = DirectSumIndexingRule(self.internal_indexing, internal_rules{:});
     if isempty(parsed_inputs.indexing)
       self.user_indexing = DirectSumIndexingRule(self.user_indexing, user_rules{:});
+    else
+      %%%%%%%%%%%%%%%%% For special cases that needs fixing: 
+      if isa(self.user_indexing, 'DegreeIndexing');
+        self.user_indexing = DegreeIndexing.instance(self.dim);
+      end
     end
 
     self.standard_domain = Orthotope('boundaries', standard_domains);

@@ -3,13 +3,25 @@ classdef DegreeIndexing < IndexingRule
 %
 % self = DegreeIndexing(dim)
 %
-%     The total ordering of N_0^dim corresponding to l^1-norm ('total') ordering
-%     -- thus this maps the naturals to the quotient space of N_0^dim formed by
-%     defining all elements with an equivalent l^1 norm as an equivalence
-%     class.
+%     Maps the naturals to the set of whole numbers (naturals plus 0). The
+%     degree of a dim-dimensional multi-index (on N_0^dim) is defined as its
+%     l^1 norm. There is 1 multi-index with degree 0. There are dim
+%     multi-indices with degree 1, etc. This mapping effects the connection
+%     between a degree-based ordering of the basis and the polynomial degree.
 %
-%     If one considers the non-quotient space N_0^dim, then this map is not an
-%     isomorphism.
+%     Thus, for degree 2:
+%
+%        natural ordering         degree 
+%            1       <--------->     0
+%            2       <--------->     1
+%            3       <--------->     1
+%            4       <--------->     2
+%            5       <--------->     2
+%            6       <--------->     2
+%
+%     This map is not an isomorphism, except when dim = 1. When mapping *to*
+%     naturals, this mapping is one-to-many. When mapping *from* naturals, it's
+%     many-to-one.
 %
 % DegreeIndexing Properties:
 %   descriptive_adjective - Human-readable description of the indexing (here, 'l^1-norm-wise (''total'') degree indexing'')
@@ -26,7 +38,7 @@ classdef DegreeIndexing < IndexingRule
 
   properties(SetAccess=private)
     descriptive_adjective
-    ids = {'degree'};
+    ids = {'deg', 'degree'};
     dim
     image
   end
@@ -52,7 +64,7 @@ classdef DegreeIndexing < IndexingRule
   end
   methods(Access=private)
     function self = DegreeIndexing(dim)
-      self.descriptive_adjective = 'l^1-norm-wise (''total'') degree indexing';
+      self.descriptive_adjective = 'degree indexing based on N_0^dim ordering';
       self.image = WholeMultiIndices.instance(dim);
       self.dim = dim;
     end

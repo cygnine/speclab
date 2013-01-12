@@ -1,22 +1,29 @@
 function[n] = to_naturals(self, a)
-% to_naturals -- transforms array indexing to linear indexing
+% to_naturals -- transforms degree indexing to linear indexing
 %
 % [n] = to_naturals(self, a)
 %
-%      Computes one-based indexing for lexicographic ordering on
-%      the self.dim-dimensional Cartesian product of N_0, where N_0 is the
-%      naturals unioned with 0.
+%      Computes one-based indexing for degree-based ordering on the whole numbers.
 
-persistent spdim
-if isempty(spdim)
-  %from speclab.common.tensor import space_dimension as spdim
-  from speclab.common.tensor import totalpoly_space_dim as spdim
+if all(size(a) ~= 1)
+  warning('Input should be a vector. Flattening array to vector');
+  a = a(:);
+end
+if any(a < 0)
+  error('Input must be a non-negative integer');
 end
 
-if size(a,2) ~= self.dim
-  error('The input must have column size equal to self.dim');
-end
-%a = a.';
-%a = a - 1;
+N = max(a);
 
-n = 1 + sum(a, 2);
+n = [];
+sizes_minus1 = self.total_polynomial_space_dimension(self.dim, a-1);
+sizes = self.total_polynomial_space_dimension(self.dim, a);
+for q = 1:length(a)
+  current_contribution = (sizes_minus1(q)+1):sizes(q);
+  n = [n; current_contribution(:)];
+end
+
+% Take care of case where a is a row vector
+if size(a,2) > 1
+  n = n.';
+end

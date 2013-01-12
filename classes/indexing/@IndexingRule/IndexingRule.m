@@ -98,5 +98,24 @@ classdef IndexingRule < Singleton
         instance = [];
       end
     end
+    function N = total_polynomial_space_dimension(self,d,k)
+    % total_polynomial_space_dimension -- Returns the linear dimension of a polynomial space
+    %
+    % N = total_polynomial_space_dimension(d,k)
+    %
+    %     Returns the dimension of the space of d-variate polynomials of total
+    %     degree not more than k. Is vectorized in the input k.
+
+      N = zeros(size(k));
+
+      for q = 1:numel(k);
+        if k(q)<0
+          N(q) = 0;
+        else
+          N(q) = nchoosek(d+k(q),d);
+        end
+      end
+    end
+
   end
 end
