@@ -45,7 +45,7 @@ classdef JacobiPolynomialBasis < OrthogonalPolynomialBasis
     end
 
     [a,b] = standard_recurrence(self, n);
-    w = weight(self, x);
+    w = weight(self, x, d);
   end
   methods(Access=protected)
     p = scale_functions(self, p, n, normalization);

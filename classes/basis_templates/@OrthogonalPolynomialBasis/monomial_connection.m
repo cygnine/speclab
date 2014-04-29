@@ -60,11 +60,10 @@ end
 % Now distribute
 %C = C.*D(alphas(:,d)+1,alphas(:,d)+1);
 
-switch self.normalization
-case OrthonormalNormalization.instance()
+if self.normalization == 'orthonormal'
   % do nothing
-case MonicNormalization.instance()
+elseif self.normalization == 'monic'
   C = C*spdiag(1./leading_coeffs);
-otherwise
+else
   error('Normalization not yet supported');
 end

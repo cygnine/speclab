@@ -139,7 +139,7 @@ classdef OrthogonalPolynomialBasis < HilbertBasis
     [x,w] = gauss_lobatto_quadrature(self,n,varargin);
     [a,b] = recurrence(self, n);
     J = jacobi_matrix(self,N);
-    w = weight(self,x);
+    w = weight(self,x,varargin);
     h = norm(self,n)
     k = leading_coefficient(self,n);
     C = monomial_connection(self,N);

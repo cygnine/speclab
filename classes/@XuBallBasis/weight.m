@@ -11,6 +11,7 @@ function[w] = weight(self, x)
 
 assert(size(x,2)==2, 'Input x must have two columns');
 
-r = self.map_to_standard_domain(x);
-w = (1 - r(:,1)^.2 - r(:,2).^2).^(self.mu-1/2);
+%r = self.map_to_standard_domain(x);
+r = x;
+w = (1 - r(:,1).^2 - r(:,2).^2).^(self.mu-1/2);
 w = self.scale_weight(w);

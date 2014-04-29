@@ -32,7 +32,7 @@ classdef HermitePolynomialBasis < OrthogonalPolynomialBasis
       self.mu = opt.mu;
     end
 
-    w = weight(self, x);
+    w = weight(self, x, d);
     [a,b] = recurrence(self, n);
   end
   methods(Access=protected)

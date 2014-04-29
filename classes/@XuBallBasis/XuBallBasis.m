@@ -29,9 +29,13 @@ classdef XuBallBasis < MultivariateOrthogonalPolynomialBasis
         from labtools import input_parser
 
         inputs = {'mu', ...
+                  'indexing', ...
+                  'internal_indexing', ...
                   'normalization', ...
                   'weight_normalization'};
         defaults = {1/2, ...
+                    [], ...
+                    [], ...
                     'normal', ...
                     'classical'};
         [opt, parser] = input_parser(inputs, defaults, [], varargin{:});
@@ -56,6 +60,19 @@ classdef XuBallBasis < MultivariateOrthogonalPolynomialBasis
 
       self.normalization = self.function_normalization_parser(opt.normalization);
       self.weight_normalization = self.weight_normalization_parser(opt.weight_normalization);
+
+      self.user_indexing = opt.indexing;
+      if isempty(opt.indexing)
+        user_rules = {};
+        user_rules = cell([self.dim 1]);
+        user_rules(:) = {ZeroBasedIndexing.instance()};
+        self.user_indexing = DirectSumIndexingRule(self.user_indexing, user_rules{:});
+      else
+        %%%%%%%%%%%%%%%%% For special cases that needs fixing: 
+        if isa(self.user_indexing, 'DegreeIndexing');
+          self.user_indexing = DegreeIndexing.instance(self.dim);
+        end
+      end
     end
 
     p = evaluate(self,x,n);

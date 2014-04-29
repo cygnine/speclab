@@ -89,7 +89,7 @@ methods
   end
 
   V = evaluate(self,x,n,varargin)
-  w = weight(self, x);
+  w = weight(self, x, d);
   lmbda = derivative_expansion(self, n, d);
 end
 

@@ -34,7 +34,15 @@ xflags = (abs(x(:,1)) ~= 1);
 xweight = repmat(1-x(xflags,1).^2, [1 numeln]);
 xweight = xweight.^repmat(n_array(:,2).'/2, [sum(xflags) 1]);
 V(xflags,:) = V(xflags,:).*xweight;
-V(xflags,:) = V(xflags,:).*self.univariate_bases{2}(x(xflags,2)./sqrt(1 - x(xflags,1).^2), n_array(:,2));
+
+%%% Really stoopid exception
+%V(xflags,:) = V(xflags,:).*self.univariate_bases{2}(x(xflags,2)./sqrt(1 - x(xflags,1).^2), n_array(:,2));
+temp = self.univariate_bases{2}(x(xflags,2)./sqrt(1 - x(xflags,1).^2), n_array(:,2));
+if size(n_array,1)~=1 && size(temp,2)==1
+  V(xflags,:) = V(xflags,:).*temp.';
+else
+  V(xflags,:) = V(xflags,:).*temp;
+end
 
 xflags = ~xflags;
 % At boundaries, just multiply by leading coefficient contribution of the y-Gegenbauer contribution 
@@ -47,3 +55,5 @@ V = self.scale_functions(V,n_array);
 if (size(V,3)==1) && (size(x,1)==1)
   V = reshape(V, nsize);
 end
+
+V = V*sqrt(pi);

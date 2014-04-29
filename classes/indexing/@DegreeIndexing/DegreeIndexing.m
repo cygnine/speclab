@@ -65,7 +65,7 @@ classdef DegreeIndexing < IndexingRule
   methods(Access=private)
     function self = DegreeIndexing(dim)
       self.descriptive_adjective = 'degree indexing based on N_0^dim ordering';
-      self.image = WholeMultiIndices.instance(dim);
+      self.image = WholeNumbers.instance();
       self.dim = dim;
     end
   end
