@@ -37,6 +37,8 @@ classdef IndexingRuleList < Singleton
       temp(tf) = [];
       tf = strcmp('DirectSumIndexingRule', temp);
       temp(tf) = [];
+      tf = strcmp('HyperbolicCrossIndexing', temp);
+      temp(tf) = [];
 
       for q = 1:length(temp)
         self.rules{q} = eval([temp{q} '.instance()']);

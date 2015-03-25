@@ -39,7 +39,7 @@ classdef TotalGRevLexIndexing < IndexingRule
         selfs{dim} = self;
       else
         if isempty(selfs{dim})
-          self = TotalGRevlexIndexing(dim);
+          self = TotalGRevLexIndexing(dim);
           selfs{dim} = self;
         else
           self = selfs{dim};
