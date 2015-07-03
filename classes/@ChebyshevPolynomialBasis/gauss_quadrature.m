@@ -2,8 +2,14 @@ function[x,w] = gauss_quadrature(self,n)
 % [x,w] = gauss_quadrature(self,n)
 %
 %     Computes the n-point Gauss quadrature rule associated with the system of
-%     orthogonal polynomials. 
+%     Chebyshev polynomials.
 
-[a,b] = self.standard_recurrence(0:(n-1));
-[x,w] = OrthogonalPolynomialBasis.gauss_quadrature_driver(a,b);
+assert(n > 0);
+assert(numel(n) == 1, 'Input n must be scalar');
+
+k = (0:(n-1)).';
+
+x = flipud(cos(pi*(2*k+1)/(2*n)));
+w = pi/n*ones(size(x));
+
 [x,w] = self.scale_quadrature(x,w);

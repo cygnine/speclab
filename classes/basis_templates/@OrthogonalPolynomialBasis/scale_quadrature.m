@@ -24,7 +24,7 @@ elseif self.weight_normalization==natural
   % do nothing
 elseif self.weight_normalization==probability
   % Just divide by the integral on the standard interval
-  [a,b] = self.recurrence(0);
+  [a,b] = self.standard_recurrence(0);
   %w = self.map_to_standard_domain.A*w/b;
   w = w/b;
 else
