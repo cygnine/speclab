@@ -43,6 +43,9 @@ p = self.evaluate_driver(x(:),a,b,n_array(:), opt.d(:));
 % this waste of computation?
 for q = 1:length(opt.d(:))
   p(:,:,q) = self.scale_functions(p(:,:,q),n_array,opt.normalization);
+
+  % For derivatives, also need to scale by 1/scale^d
+  p(:,:,q) = p(:,:,q)/(self.domain.scale^opt.d(q));
 end
 
 if size(p,3)==1
